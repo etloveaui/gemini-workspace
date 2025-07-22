@@ -56,3 +56,20 @@
 
 ## 결과
 새로운 test_file.txt 파일을 생성하고 내용을 추가했습니다. 파일 삭제 시도 과정에서 발생한 오류들을 기록했습니다.
+
+## 2025-07-22
+
+### [Analysis & Strategy Update] - TerminalX 날짜 및 타이틀 입력 필드 자동화 개선 방안
+
+- **Source Files:** `scratchpad/terminalx분석/idea.txt`, `scratchpad/terminalx분석/날짜입력.txt`
+- **Key Findings:**
+    - **Report Title:** React 컨트롤드 컴포넌트의 특성상 `value` 주입만으로는 불안정하며, `send_keys()`를 통한 실제 키 입력 시뮬레이션 후 `Keys.TAB`으로 `blur` 이벤트를 트리거하는 것이 안정적임. (현재 `main_generator.py`의 `Ctrl+V` 방식 개선 필요)
+    - **Report Reference Date:**
+        - `div[contenteditable="true"]`로 구성된 날짜 세그먼트에 대한 직접 입력 방식 (`.click()` 후 `.send_keys()` 또는 `.type()`)이 필요함.
+        - 캘린더 다이얼로그를 열어 날짜 셀을 직접 클릭하는 방식이 가장 안전하고 내부 상태를 올바르게 변경함.
+        - `main_generator.py`의 현재 `pyperclip` 및 `ActionChains`를 이용한 `Ctrl+V` 방식은 `contenteditable` 필드에 적합하지 않을 수 있음.
+- **Proposed Action for `main_generator.py` (`generate_report_html` function):**
+    1.  **Report Title:** `pyperclip.copy()` 및 `ActionChains` 대신 `report_title_input.send_keys(report_title)` 후 `report_title_input.send_keys(Keys.TAB)` 방식으로 변경.
+    2.  **Report Reference Date:**
+        *   **우선:** 캘린더 다이얼로그를 열어 날짜 셀을 직접 클릭하는 방식으로 구현을 시도.
+        *   **대안:** `div[contenteditable="true"]` 각 세그먼트에 대해 `.click()` 후 `.send_keys()`로 값을 입력하고 `Keys.TAB`으로 `blur` 이벤트를 트리거하는 방식으로 구현.
