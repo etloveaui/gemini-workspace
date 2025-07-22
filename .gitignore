@@ -10,3 +10,6 @@
 
 # 사용자 개인 민감 데이터 파일 (Git 추적 제외)
 secrets/my_sensitive_data.md
+
+# OneSignal Keys 파일 (Git 추적 제외)
+projects/100xFenok/onesignal/keys.txt
