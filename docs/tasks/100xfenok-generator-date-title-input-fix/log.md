@@ -73,3 +73,18 @@
     2.  **Report Reference Date:**
         *   **우선:** 캘린더 다이얼로그를 열어 날짜 셀을 직접 클릭하는 방식으로 구현을 시도.
         *   **대안:** `div[contenteditable="true"]` 각 세그먼트에 대해 `.click()` 후 `.send_keys()`로 값을 입력하고 `Keys.TAB`으로 `blur` 이벤트를 트리거하는 방식으로 구현.
+
+## 2025-07-22
+
+### [File Management] - `scratchpad/inputdata` 및 `scratchpad/terminalx분석` 폴더 처리
+
+- **Context:** `100xFenok-generator Project`의 입력 데이터 및 분석 자료가 `scratchpad` 폴더에 임시로 존재하여 프로젝트 관리의 일관성을 저해.
+- **Actions Taken:**
+    1.  `scratchpad/inputdata` 폴더 내의 모든 파일 (`.pdf`, `.md` 프롬프트 파일)을 `projects/100xFenok-generator/input_data` 폴더로 이동.
+    2.  `main_generator.py` 파일 내 `self.input_data_dir` 경로를 `os.path.join(self.project_dir, 'input_data')`로 업데이트.
+    3.  `scratchpad/terminalx분석` 폴더 (날짜/타이틀 입력 분석 자료 포함) 삭제.
+    4.  `scratchpad/inputdata` 폴더 삭제.
+- **Outcome:**
+    - `100xFenok-generator Project`의 입력 데이터가 프로젝트 내부로 통합되어 관리 효율성 증대.
+    - `scratchpad` 폴더 정리.
+    - **Note:** `scratchpad/terminalx분석` 폴더 삭제 시 PowerShell 명령어(`Remove-Item`) 및 `rmdir` 명령어의 `bash -c` 환경에서의 실행 문제 발생. 최종적으로 사용자님의 수동 삭제로 해결됨. 이는 향후 CLI 환경에서 파일/폴더 관리 시 고려해야 할 중요한 시행착오로 기록됨.
