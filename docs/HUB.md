@@ -18,6 +18,9 @@
     - [Project] - TerminalX UI 요소 분석 (Completed)
       - **Goal:** TerminalX 웹 페이지의 주요 UI 요소 식별 및 기록.
       - **Log:** `docs/tasks/terminalx-ui-analysis/log.md`
+    - [Project] - 100xFenok-generator 프로젝트 자료 정리 (Completed)
+      - **Goal:** 100xFenok-generator 프로젝트 관련 임시 자료(inputdata, terminalx분석 등) 정리 및 통합.
+      - **Log:** `docs/tasks/100xfenok-generator-data-cleanup/log.md`
 
 ## Active Tasks
 
