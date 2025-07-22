@@ -7,3 +7,6 @@
 # 민감한 정보가 포함될 수 있으므로 Git 추적에서 제외
 .env
 .gemini/
+
+# 사용자 개인 민감 데이터 파일 (Git 추적 제외)
+secrets/my_sensitive_data.md
