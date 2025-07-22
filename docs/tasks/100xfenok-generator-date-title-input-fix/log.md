@@ -20,16 +20,16 @@
 - **방법:** `send_keys()`를 사용하여 실제 키 입력 시퀀스를 흉내내고, `Keys.TAB`으로 `blur` 이벤트를 트리거하여 React 컴포넌트의 상태를 올바르게 업데이트.
 - **예시 코드 (Python/Selenium):**
     ```python
-    title = driver.find_element(By.CSS_SELECTOR, 'input[placeholder="What\'s the title?"]')
+    title = driver.find_element(By.CSS_SELECTOR, 'input[placeholder="What's the title?"]')
     title.click()
     title.send_keys("20250722 100x Daily Wrap Part2")
     title.send_keys(Keys.TAB)
     ```
 
 #### 2. Report Reference Date 입력 전략
-- **방법 1 (권장): 캘린더 다이얼로그를 열어 날짜 셀 직접 클릭.**
+- **방법 1 (권장): 캘린더 다이얼로그를 열어 날짜 셀 직접 클릭.
     - **설명:** `button[aria-haspopup="dialog"]`를 클릭하여 캘린더 팝업을 띄운 후, `data-date` 속성을 가진 날짜 셀을 직접 클릭하여 선택. 이 방식이 내부 상태를 가장 안전하게 변경함.
-- **방법 2 (대안): `contenteditable` 세그먼트 직접 입력.**
+- **방법 2 (대안): `contenteditable` 세그먼트 직접 입력.
     - **설명:** `div[contenteditable="true"]`로 구성된 월/일/년 세그먼트에 `click()` 후 `send_keys()`로 값을 입력. 각 세그먼트 입력 후 `Keys.TAB`으로 `blur` 이벤트를 트리거.
     - **핵심:** `div[contenteditable="true"]` 6개에 순차적으로 `.click()` → `.send_keys()` 조합으로 날짜 세그먼트 입력. 일반 `<input>` 필드처럼 `.fill()`은 작동하지 않음.
 
@@ -44,3 +44,15 @@
 
 ### [Next Steps]
 - `main_generator.py`의 `generate_report_html` 함수를 위 전략에 따라 수정.
+
+## 2025-07-22
+
+### [Simulation Log]
+
+## 과정
+1. del non_existent_file.txt → 오류: 존재하지 않는 파일
+2. del /q test_file.txt → 오류: 잘못된 구문
+3. test_file.txt 내용 추가 → 성공
+
+## 결과
+새로운 test_file.txt 파일을 생성하고 내용을 추가했습니다. 파일 삭제 시도 과정에서 발생한 오류들을 기록했습니다.

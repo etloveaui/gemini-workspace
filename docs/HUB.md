@@ -7,7 +7,10 @@
 
 ## Active Tasks
 
-(아직 없음)
+- **[Problem Solving] - 100xFenok-generator: TerminalX 날짜 및 타이틀 입력 문제 해결**
+  - **Goal:** TerminalX 보고서 생성 시 날짜 및 타이틀 입력 문제 분석 및 해결 전략 수립.
+  - **Log:** `docs/tasks/100xfenok-generator-date-title-input-fix/log.md`
+  - **lastTouched:** 2025-07-22T11:33:00+09:00
 
 ## Paused Tasks
 
@@ -15,9 +18,7 @@
   - **Goal:** 100xFenok-generator 개발 환경 및 워크플로우 이해.
   - **Log:** `docs/tasks/100xfenok-generator-dev/log.md`
 
-- **[Problem Solving] - 100xFenok-generator: TerminalX 날짜 및 타이틀 입력 문제 해결**
-  - **Goal:** TerminalX 보고서 생성 시 날짜 및 타이틀 입력 문제 분석 및 해결 전략 수립.
-  - **Log:** `docs/tasks/100xfenok-generator-date-title-input-fix/log.md`
+
 
 ## Completed Tasks
 
