@@ -28,6 +28,18 @@
 
 ## Paused Tasks
 
+- **[Problem Solving] - TerminalX 날짜 및 타이틀 입력 문제 해결 (Paused)**
+      - **Goal:** TerminalX 보고서 생성 시 날짜 및 타이틀 입력 문제 분석 및 해결 전략 수립.
+      - **Log:** `docs/tasks/100xfenok-generator-date-title-input-fix/log.md`
+
+- **[Feature] - 리포트 선택적 추가 생성 기능 구현**
+  - **Goal:** 기본 리포트(2개) 생성 후, 결과물을 평가하여 만족스럽지 않을 경우 추가 생성을 지원하는 선택적 재실행 기능 구현.
+  - **Log:** (향후 생성 예정)
+
+- **[Feature] - 멀티탭 병렬 리포트 생성 기능 구현**
+  - **Goal:** TerminalX에서 여러 탭을 활용하여 Part1, Part2 리포트 생성을 병렬로 진행하는 기능 구현.
+  - **Log:** (향후 생성 예정)
+
 - **[Problem Solving] - Visual Studio Code를 통한 원격 빌드 통합 문제**
   - **Goal:** VS Code 원격 빌드 실패 원인 분석 및 해결책 제시.
   - **Log:** `docs/tasks/vscode-integration-problem/log.md`
