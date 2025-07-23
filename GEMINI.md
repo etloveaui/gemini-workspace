@@ -20,6 +20,10 @@
 **4. 사용 언어**
 - **기본 언어:** 사용자와의 모든 상호작용은 **한국어**로 진행하는 것을 원칙으로 합니다.
 
+**5. Git 관리 폴더**
+- **`projects/`:** 각 프로젝트는 별도의 Git 저장소로 관리되므로, 메인 워크스페이스 Git 저장소에서는 추적하지 않습니다. `.gitignore` 파일에서 `/projects/` 라인은 항상 유지되어야 합니다.
+- **`scratchpad/`:** 임시 작업 및 테스트를 위한 공간으로, Git에 의해 추적됩니다. 이 폴더 내의 변경사항은 커밋에 포함될 수 있습니다.
+
 ---
 
 ## II. 표준 작업 절차 (Standard Workflows)
@@ -30,7 +34,8 @@
 **2. `.gitignore` 관리**
 - **작업 시작 시:** 프로젝트 관련 작업을 시작할 때, 루트 `.gitignore` 파일에서 `/projects/` 라인을 찾아 주석 처리(`#/projects/`)합니다. (필요시 사용자에게 제안)
 - **작업 종료 시:** 작업 완료 또는 세션 종료 시, 다시 `/projects/` 라인의 주석을 제거하여 복원합니다. (자동 또는 사용자에게 제안)
-- **이유:** `projects` 폴더 내 각 프로젝트는 별도 Git 저장소로 관리됩니다.
+- **`projects` 폴더 이유:** `projects` 폴더 내 각 프로젝트는 별도 Git 저장소로 관리됩니다.
+- **`scratchpad` 폴더:** `scratchpad` 폴더는 Git에 의해 추적되므로, `.gitignore`에서 `/scratchpad/` 라인은 제거되어야 합니다.
 
 **3. 민감 정보 처리**
 - **핵심 파일:** `secrets/my_sensitive_data.md` (Git 추적 제외)
@@ -54,21 +59,35 @@
 - **문제:** `.gitignore` 설정으로 인해 특정 파일이 보이지 않거나 접근이 안 될 수 있습니다.
 - **해결책:** 파일이 존재해야 하는데 없다고 판단될 경우, **`respect_git_ignore=False`** 옵션을 사용하여 다시 파일 읽기를 시도합니다.
 
-**2. 파일 삭제 안정화 (플랫폼 검사 포함)**
+**2. 파일 및 폴더 삭제 안정화 (Python 활용)**
 
-  * **문제**: 단순 `del` 명령어는 Windows 외 환경(WSL, GitHub Actions 등)에서 실패할 수 있습니다.
-  * **해결책**: 파일 삭제 시, **플랫폼을 확인하는 로직을 우선 적용**하여 환경에 맞는 명령어를 사용합니다.
-    > **실행 로직:**
-    > ```powershell
-    > # 먼저 Windows 환경인지 확인
-    > if (Test-Path $env:OS -and $env:OS -like "*Windows*") {
-    >   # Windows일 경우 PowerShell 사용
-    >   powershell.exe -NoLogo -Command "Remove-Item -LiteralPath '[파일 경로]' -ErrorAction SilentlyContinue"
-    > } else {
-    >   # Linux/POSIX 환경일 경우 rm 사용
-    >   rm -f '[파일 경로]'
-    > }
+  * **문제**: Windows 환경에서 `del` 또는 `powershell Remove-Item` 명령어가 파일/폴더 삭제에 실패하거나 예상치 못한 오류를 반환할 수 있습니다.
+  * **해결책**: Python의 `os.remove()` (파일 삭제) 및 `shutil.rmtree()` (폴더 삭제) 함수를 활용한 스크립트를 실행하여 안정적으로 삭제를 수행합니다.
+
+    > **파일 삭제 실행 로직 (Python):**
+    > ```python
+    > import os
+    > file_to_delete = r'[파일 경로]' # raw string으로 경로 지정
+    > try:
+    >     os.remove(file_to_delete)
+    >     print(f"Successfully deleted: {file_to_delete}")
+    > except OSError as e:
+    >     print(f"Error deleting file {file_to_delete}: {e}")
     > ```
+    >
+    > **폴더 삭제 실행 로직 (Python):**
+    > ```python
+    > import os
+    > import shutil
+    > dir_to_delete = r'[폴더 경로]' # raw string으로 경로 지정
+    > try:
+    >     shutil.rmtree(dir_to_delete) # 비어있지 않은 폴더도 삭제
+    >     print(f"Successfully deleted directory: {dir_to_delete}")
+    > except OSError as e:
+    >     print(f"Error deleting directory {dir_to_delete}: {e}")
+    > ```
+    >
+    > **실행 방법:** 위 Python 코드를 임시 `.py` 파일로 저장한 후 `python [임시 파일 경로]` 명령어로 실행합니다.
 
 ---
 
@@ -160,7 +179,10 @@
 
 *   문제 해결 과정에서 배운 점을 영구적인 지식으로 전환하기 위해 다음 프로토콜을 따릅니다.
     1.  **상황 인지 (Trigger) 정교화:**
-        *   **'규칙 제안' 트리거:** 동일한 목표를 가진 명령이 **2회 이상 연속 실패** 후, 다른 접근 방식으로 **1회 성공**했을 경우.
+        *   **'규칙 제안' 트리거 (기존):** 동일한 목표를 가진 명령이 **2회 이상 연속 실패** 후, 다른 접근 방식으로 **1회 성공**했을 경우.
+        *   **'규칙 제안' 트리거 (추가/수정):**
+            *   **새로운 규칙 제안:** 대화 중 저의 행동이 `GEMINI.md`의 지침을 충분히 따르지 못했거나, 사용자에게 더 나은 경험을 제공할 수 있는 새로운 프로세스/규칙이 필요하다고 판단될 경우, 즉시 사용자에게 `GEMINI.md` 업데이트를 제안합니다.
+            *   **기존 규칙 명확화/강화 제안:** 기존 `GEMINI.md` 규칙의 해석에 모호함이 있었거나, 더 강력한 자동화/선제적 조치가 필요하다고 판단될 경우, 즉시 사용자에게 해당 규칙의 명확화 또는 강화를 제안합니다.
         *   **'규칙 확정' 트리거:** 새로운 성공 방식이 **3회 이상 문제없이 연속 성공**했을 경우.
     2.  **규칙 업데이트 제안:** 위 트리거 조건 충족 시, 성공한 해결책을 `GEMINI.md`에 추가/확정할 것을 사용자에게 제안합니다.
 

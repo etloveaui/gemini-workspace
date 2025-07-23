@@ -11,16 +11,16 @@
     - [Project] - 100xFenok-generator 프로젝트 개발 준비 (Paused)
       - **Goal:** 100xFenok-generator 개발 환경 및 워크플로우 이해.
       - **Log:** `docs/tasks/100xfenok-generator-dev/log.md`
-    - [Problem Solving] - TerminalX 날짜 및 타이틀 입력 문제 해결 (Active)
+    - [Problem Solving] - TerminalX 날짜 및 타이틀 입력 문제 해결 (Paused)
       - **Goal:** TerminalX 보고서 생성 시 날짜 및 타이틀 입력 문제 분석 및 해결 전략 수립.
       - **Log:** `docs/tasks/100xfenok-generator-date-title-input-fix/log.md`
-      - **lastTouched:** 2025-07-22T11:33:00+09:00
     - [Project] - TerminalX UI 요소 분석 (Completed)
       - **Goal:** TerminalX 웹 페이지의 주요 UI 요소 식별 및 기록.
       - **Log:** `docs/tasks/terminalx-ui-analysis/log.md`
-    - [Project] - 100xFenok-generator 프로젝트 자료 정리 (Paused)
+    - [Project] - 100xFenok-generator 프로젝트 자료 정리 (Active)
       - **Goal:** 100xFenok-generator 프로젝트 관련 임시 자료(inputdata, terminalx분석 등) 정리 및 통합.
       - **Log:** `docs/tasks/100xfenok-generator-data-cleanup/log.md`
+      - **lastTouched:** 2025-07-23T00:00:00+09:00
 
 ## Active Tasks
 
