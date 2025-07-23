@@ -26,3 +26,22 @@
     6.  `C:\Users\etlov\gemini-workspace\scratchpad\inputdata` 폴더를 삭제합니다.
 
 - **Status:** Plan Documented. Execution Pending.
+
+## 2025-07-23
+
+### [Execution & Refinement] - `scratchpad` 폴더 정리 및 `main_generator.py` 업데이트
+
+- **`scratchpad/inputdata` 정리:**
+    - `C:\Users\eunta\gemini-workspace\projects\100xFenok-generator\input_data` 폴더로 파일 이동 완료.
+    - 오래된 파일 3개 (`10_100x_Daily_Wrap_My_Sources_1_20250709.pdf`, `21_100x_Daily_Wrap_Prompt_1_20250708.md`, `21_100x_Daily_Wrap_Prompt_1_20250708.pdf`) 삭제 완료.
+- **`main_generator.py` 업데이트:**
+    - `generate_report_html` 함수 내 `prompt_file`, `source_pdf_file`, `prompt_pdf_file` 경로의 날짜를 동적으로 처리하도록 수정 완료.
+    - `self.integrated_json_instruction_file` 경로를 `projects\100xFenok-generator\docs\Instruction_Json.md`로 업데이트 완료.
+- **`Instruction_Json.md` 이동:**
+    - `C:\Users\eunta\gemini-workspace\scratchpad\통합JSON\Instruction_Json.md` 파일을 `C:\Users\eunta\gemini-workspace\projects\100xFenok-generator\docs\Instruction_Json.md`로 이동 완료.
+- **`scratchpad/통합JSON` 폴더 삭제:** 삭제 완료.
+- **`scratchpad/Lexi_Convert` 폴더 삭제:** 사용자님께서 수동으로 삭제 완료.
+- **UI 참조 파일 이동:**
+    - `C:\Users\eunta\gemini-workspace\scratchpad\Generate_Button.txt` 파일을 `C:\Users\eunta\gemini-workspace\projects\100xFenok-generator\docs\ui_references\Generate_Button.txt`로 이동 완료.
+    - `C:\Users\eunta\gemini-workspace\scratchpad\Generate_Waiting_Msg.txt` 파일을 `C:\Users\eunta\gemini-workspace\projects\100xFenok-generator\docs\ui_references\Generate_Waiting_Msg.txt`로 이동 완료.
+- **Status:** `scratchpad` 폴더의 주요 정리 작업 완료. 추가적인 일관성 유지 방안 고려 중.
