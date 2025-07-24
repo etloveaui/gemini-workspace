@@ -69,3 +69,14 @@
 - **[System] - 기존 `docs_backup` 파일 검토 및 정리**
   - **Goal:** 백업된 기존 문서들을 새로운 시스템에 맞게 분류하고 정리.
   - **Log:** (이 작업은 로그 파일이 별도로 생성되지 않고, 기존 파일들을 분류하여 다른 로그에 통합되었으므로, 여기에 별도 로그 경로는 없습니다.)
+
+---
+__lastSession__:
+  active_task_id: 100xfenok-generator-date-title-input-fix
+  changed_files:
+    - .gitignore
+    - docs/HUB.md
+    - docs/tasks/100xfenok-generator-date-title-input-fix/log.md
+    - projects/100xFenok-generator/main_generator.py
+    - projects/100xFenok-generator/report_manager.py
+  timestamp: 2025-07-24T18:30:00+09:00
