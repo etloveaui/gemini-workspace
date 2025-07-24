@@ -46,6 +46,10 @@
 
 ## Completed Tasks
 
+- **[System] - venv 환경 정비 및 재구축**
+  - **Goal:** Git 추적 `venv` 폴더 정리 및 `.gitignore` 표준화.
+  - **Log:** `docs/tasks/venv-cleanup-and-rebuild/log.md`
+
 - **[System] - 지능형 작업 기록 시스템 구축**
   - **Goal:** Gemini가 작업 맥락을 스스로 파악하고 능동적으로 기록을 관리하는 시스템 구축.
   - **Log:** `docs/tasks/system-docs-revamp/log.md`
