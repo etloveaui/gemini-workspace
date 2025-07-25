@@ -2,81 +2,977 @@
 
 *Last Updated: 2025-07-22*
 
----
-
 ## Projects
 - **100xFenok-generator Project**
-  - **Goal:** 100xFenok-generator의 개발 및 TerminalX 통합 완료.
+  - **Goal:** 100xFenok-generator占쎌벥 揶쏆뮆而� 獄쏉옙 TerminalX 占쎈꽰占쎈�� 占쎌끏�뙴占�.
   - **Sub-tasks:**
-    - [Project] - 100xFenok-generator 프로젝트 개발 준비 (Paused)
-      - **Goal:** 100xFenok-generator 개발 환경 및 워크플로우 이해.
+    - [Project] - 100xFenok-generator 占쎈늄嚥≪뮇�젰占쎈뱜 揶쏆뮆而� 餓ο옙�뜮占� (Paused)
+      - **Goal:** 100xFenok-generator 揶쏆뮆而� 占쎌넎野껓옙 獄쏉옙 占쎌뜖占쎄쾿占쎈탣嚥≪뮇�뒭 占쎌뵠占쎈퉸.
       - **Log:** `docs/tasks/100xfenok-generator-dev/log.md`
-    - [Problem Solving] - TerminalX 날짜 및 타이틀 입력 문제 해결 (Paused)
-      - **Goal:** TerminalX 보고서 생성 시 날짜 및 타이틀 입력 문제 분석 및 해결 전략 수립.
+    - [Problem Solving] - TerminalX 占쎄텊筌욑옙 獄쏉옙 占쏙옙占쏙옙�뵠占쏙옙占� 占쎌뿯占쎌젾 �눧紐꾩젫 占쎈퉸野껓옙 (Paused)
+      - **Goal:** TerminalX 癰귣떯��э옙苑� 占쎄문占쎄쉐 占쎈뻻 占쎄텊筌욑옙 獄쏉옙 占쏙옙占쏙옙�뵠占쏙옙占� 占쎌뿯占쎌젾 �눧紐꾩젫 �겫袁⑷퐤 獄쏉옙 占쎈퉸野껓옙 占쎌읈占쎌셽 占쎈땾�뵳占�.
       - **Log:** `docs/tasks/100xfenok-generator-date-title-input-fix/log.md`
-    - [Project] - TerminalX UI 요소 분석 (Completed)
-      - **Goal:** TerminalX 웹 페이지의 주요 UI 요소 식별 및 기록.
+    - [Project] - TerminalX UI 占쎌뒄占쎈꺖 �겫袁⑷퐤 (Completed)
+      - **Goal:** TerminalX 占쎌럲 占쎈읂占쎌뵠筌욑옙占쎌벥 雅뚯눘�뒄 UI 占쎌뒄占쎈꺖 占쎈뻼癰귨옙 獄쏉옙 疫꿸퀡以�.
       - **Log:** `docs/tasks/terminalx-ui-analysis/log.md`
-    - [Project] - 100xFenok-generator 프로젝트 자료 정리 (Completed)
-      - **Goal:** 100xFenok-generator 프로젝트 관련 임시 자료(inputdata, terminalx분석 등) 정리 및 통합.
+    - [Project] - 100xFenok-generator 占쎈늄嚥≪뮇�젰占쎈뱜 占쎌쁽�뙴占� 占쎌젟�뵳占� (Completed)
+      - **Goal:** 100xFenok-generator 占쎈늄嚥≪뮇�젰占쎈뱜 �꽴占쏙옙�졃 占쎌뿫占쎈뻻 占쎌쁽�뙴占�(inputdata, terminalx�겫袁⑷퐤 占쏙옙占�) 占쎌젟�뵳占� 獄쏉옙 占쎈꽰占쎈��.
       - **Log:** `docs/tasks/100xfenok-generator-data-cleanup/log.md`
       - **lastTouched:** 2025-07-23T00:00:00+09:00
 
 ## Active Tasks
 
-(아직 없음)
+(占쎈툡筌욑옙 占쎈씨占쎌벉)
 
 ## Paused Tasks
 
-- **[Problem Solving] - TerminalX 날짜 및 타이틀 입력 문제 해결 (Paused)**
-      - **Goal:** TerminalX 보고서 생성 시 날짜 및 타이틀 입력 문제 분석 및 해결 전략 수립.
+- **[Problem Solving] - TerminalX 占쎄텊筌욑옙 獄쏉옙 占쏙옙占쏙옙�뵠占쏙옙占� 占쎌뿯占쎌젾 �눧紐꾩젫 占쎈퉸野껓옙 (Paused)**
+      - **Goal:** TerminalX 癰귣떯��э옙苑� 占쎄문占쎄쉐 占쎈뻻 占쎄텊筌욑옙 獄쏉옙 占쏙옙占쏙옙�뵠占쏙옙占� 占쎌뿯占쎌젾 �눧紐꾩젫 �겫袁⑷퐤 獄쏉옙 占쎈퉸野껓옙 占쎌읈占쎌셽 占쎈땾�뵳占�.
       - **Log:** `docs/tasks/100xfenok-generator-date-title-input-fix/log.md`
 
-- **[Feature] - 리포트 선택적 추가 생성 기능 구현**
-  - **Goal:** 기본 리포트(2개) 생성 후, 결과물을 평가하여 만족스럽지 않을 경우 추가 생성을 지원하는 선택적 재실행 기능 구현.
-  - **Log:** (향후 생성 예정)
+- **[Feature] - �뵳�뗫７占쎈뱜 占쎄퐨占쎄문占쎌읅 �빊遺쏙옙占� 占쎄문占쎄쉐 疫꿸퀡�뮟 �뤃�뗭겱**
+  - **Goal:** 疫꿸퀡�궚 �뵳�뗫７占쎈뱜(2揶쏉옙) 占쎄문占쎄쉐 占쎌뜎, 野껉퀗�궢�눧�눘�뱽 占쎈즸揶쏉옙占쎈릭占쎈연 筌띾슣��앾옙�뮞占쎌쓦筌욑옙 占쎈륫占쎌뱽 野껋럩�뒭 �빊遺쏙옙占� 占쎄문占쎄쉐占쎌뱽 筌욑옙占쎌뜚占쎈릭占쎈뮉 占쎄퐨占쎄문占쎌읅 占쎌삺占쎈뼄占쎈뻬 疫꿸퀡�뮟 �뤃�뗭겱.
+  - **Log:** (占쎈샨占쎌뜎 占쎄문占쎄쉐 占쎌굙占쎌젟)
 
-- **[Feature] - 멀티탭 병렬 리포트 생성 기능 구현**
-  - **Goal:** TerminalX에서 여러 탭을 활용하여 Part1, Part2 리포트 생성을 병렬로 진행하는 기능 구현.
-  - **Log:** (향후 생성 예정)
+- **[Feature] - 筌롳옙占쎈뼒占쎄틙 癰귣쵎�졊 �뵳�뗫７占쎈뱜 占쎄문占쎄쉐 疫꿸퀡�뮟 �뤃�뗭겱**
+  - **Goal:** TerminalX占쎈퓠占쎄퐣 占쎈연占쎌쑎 占쎄틙占쎌뱽 占쎌넞占쎌뒠占쎈릭占쎈연 Part1, Part2 �뵳�뗫７占쎈뱜 占쎄문占쎄쉐占쎌뱽 癰귣쵎�졊嚥∽옙 筌욊쑵六억옙釉�占쎈뮉 疫꿸퀡�뮟 �뤃�뗭겱.
+  - **Log:** (占쎈샨占쎌뜎 占쎄문占쎄쉐 占쎌굙占쎌젟)
 
-- **[Problem Solving] - Visual Studio Code를 통한 원격 빌드 통합 문제**
-  - **Goal:** VS Code 원격 빌드 실패 원인 분석 및 해결책 제시.
+- **[Problem Solving] - Visual Studio Code�몴占� 占쎈꽰占쎈립 占쎌뜚野껓옙 �뜮�슢諭� 占쎈꽰占쎈�� �눧紐꾩젫**
+  - **Goal:** VS Code 占쎌뜚野껓옙 �뜮�슢諭� 占쎈뼄占쎈솭 占쎌뜚占쎌뵥 �겫袁⑷퐤 獄쏉옙 占쎈퉸野껉퀣肄� 占쎌젫占쎈뻻.
   - **Log:** `docs/tasks/vscode-integration-problem/log.md`
 
 ## Completed Tasks
 
-- **[System] - venv 환경 정비 및 재구축**
-  - **Goal:** Git 추적 `venv` 폴더 정리 및 `.gitignore` 표준화.
+- **[System] - venv 占쎌넎野껓옙 占쎌젟�뜮占� 獄쏉옙 占쎌삺�뤃�딇뀧**
+  - **Goal:** Git �빊遺우읅 `venv` 占쎈쨨占쎈쐭 占쎌젟�뵳占� 獄쏉옙 `.gitignore` 占쎈ご餓ο옙占쎌넅.
   - **Log:** `docs/tasks/venv-cleanup-and-rebuild/log.md`
 
-- **[System] - 지능형 작업 기록 시스템 구축**
-  - **Goal:** Gemini가 작업 맥락을 스스로 파악하고 능동적으로 기록을 관리하는 시스템 구축.
+- **[System] - 筌욑옙占쎈뮟占쎌굨 占쎌삂占쎈씜 疫꿸퀡以� 占쎈뻻占쎈뮞占쎈�� �뤃�딇뀧**
+  - **Goal:** Gemini揶쏉옙 占쎌삂占쎈씜 筌띘살뵭占쎌뱽 占쎈뮞占쎈뮞嚥∽옙 占쎈솁占쎈툢占쎈릭��⑨옙 占쎈뮟占쎈짗占쎌읅占쎌몵嚥∽옙 疫꿸퀡以됵옙�뱽 �꽴占썹뵳�뗫릭占쎈뮉 占쎈뻻占쎈뮞占쎈�� �뤃�딇뀧.
   - **Log:** `docs/tasks/system-docs-revamp/log.md`
 
-- **[System] - 작업 공간 마이그레이션 및 Git 설정**
-  - **Goal:** 초기 작업 환경 설정 및 Git 구성.
+- **[System] - 占쎌삂占쎈씜 ��⑤벀而� 筌띾뜆�뵠域밸챶�쟿占쎌뵠占쎈�� 獄쏉옙 Git 占쎄퐬占쎌젟**
+  - **Goal:** �룯�뜃由� 占쎌삂占쎈씜 占쎌넎野껓옙 占쎄퐬占쎌젟 獄쏉옙 Git �뤃�딄쉐.
   - **Log:** `docs/tasks/workspace-setup/log.md`
 
-- **[System] - 비밀 정보 관리 체계 수립**
-  - **Goal:** 민감 정보의 안전한 관리 시스템 구축.
+- **[System] - �뜮袁⑨옙占� 占쎌젟癰귨옙 �꽴占썹뵳占� 筌ｋ떯��� 占쎈땾�뵳占�**
+  - **Goal:** 沃섏눊而� 占쎌젟癰귣똻�벥 占쎈툧占쎌읈占쎈립 �꽴占썹뵳占� 占쎈뻻占쎈뮞占쎈�� �뤃�딇뀧.
   - **Log:** `docs/tasks/secret-management-setup/log.md`
 
-- **[System] - Gemini CLI 환경 설정 안내**
-  - **Goal:** 새로운 PC에서 Gemini CLI 환경 설정.
+- **[System] - Gemini CLI 占쎌넎野껓옙 占쎄퐬占쎌젟 占쎈툧占쎄땀**
+  - **Goal:** 占쎄퉱嚥≪뮇�뒲 PC占쎈퓠占쎄퐣 Gemini CLI 占쎌넎野껓옙 占쎄퐬占쎌젟.
   - **Log:** `docs/tasks/gemini-cli-setup/log.md`
 
-- **[System] - 기존 `docs_backup` 파일 검토 및 정리**
-  - **Goal:** 백업된 기존 문서들을 새로운 시스템에 맞게 분류하고 정리.
-  - **Log:** (이 작업은 로그 파일이 별도로 생성되지 않고, 기존 파일들을 분류하여 다른 로그에 통합되었으므로, 여기에 별도 로그 경로는 없습니다.)
+- **[System] - 疫꿸퀣��� `docs_backup` 占쎈솁占쎌뵬 野껓옙占쎈꽅 獄쏉옙 占쎌젟�뵳占�**
+  - **Goal:** 獄쏄퉮毓쏙옙留� 疫꿸퀣��� �눧紐꾧퐣占쎈굶占쎌뱽 占쎄퉱嚥≪뮇�뒲 占쎈뻻占쎈뮞占쎈�ο옙肉� 筌띿쉳苡� �겫袁⑥첒占쎈릭��⑨옙 占쎌젟�뵳占�.
+  - **Log:** (占쎌뵠 占쎌삂占쎈씜占쏙옙占� 嚥≪뮄�젃 占쎈솁占쎌뵬占쎌뵠 癰귢쑬猷꾣에占� 占쎄문占쎄쉐占쎈┷筌욑옙 占쎈륫��⑨옙, 疫꿸퀣��� 占쎈솁占쎌뵬占쎈굶占쎌뱽 �겫袁⑥첒占쎈릭占쎈연 占쎈뼄�몴占� 嚥≪뮄�젃占쎈퓠 占쎈꽰占쎈��占쎈┷占쎈��占쎌몵沃섓옙嚥∽옙, 占쎈연疫꿸퀣肉� 癰귢쑬猷� 嚥≪뮄�젃 野껋럥以덌옙�뮉 占쎈씨占쎈뮸占쎈빍占쎈뼄.)
 
 ---
-__lastSession__:
-  active_task_id: 100xfenok-generator-date-title-input-fix
+__lastSession__: 
+  active_task_id: general
   changed_files:
+    - .githooks/prepare-commit-msg.disabled
+    - .githooks/prepare-commit-msg.py.disabled
     - .gitignore
+    - README.md
     - docs/HUB.md
     - docs/tasks/100xfenok-generator-date-title-input-fix/log.md
-    - projects/100xFenok-generator/main_generator.py
-    - projects/100xFenok-generator/report_manager.py
-  timestamp: 2025-07-24T18:30:00+09:00
+    - docs/tasks/gemini-self-upgrade/log.md
+    - docs/tasks/gemini-self-upgrade/plan.md
+    - docs/tasks/venv-cleanup-and-rebuild/log.md
+    - scratchpad/Advance_Plan/7.1 11 GICS Sector Table.md
+    - scratchpad/Advance_Plan/8.1 12 Key Tickers Table.md
+    - scratchpad/Advance_Plan/Universal Prompt Generation Manual.md
+    - scratchpad/Advance_Plan/part1_01.html
+    - scratchpad/Advance_Plan/part2_01.html
+    - scratchpad/Advance_Plan/plan_change.txt
+    - scratchpad/Gemini-Self-Upgrade/[P0]Debug_1.md
+    - scratchpad/Gemini-Self-Upgrade/[P0]Debug_2.md
+    - scratchpad/Gemini-Self-Upgrade/[P0]Debug_3.md
+    - scratchpad/Gemini-Self-Upgrade/[P0]Foundational Enhancements.md
+    - scratchpad/Gemini_Upgrade/ChatGPT 4.1.md
+    - scratchpad/Gemini_Upgrade/ChatGPT O3.md
+    - scratchpad/Gemini_Upgrade/Claude 4.0 Sonnet Thinking.md
+    - scratchpad/Gemini_Upgrade/Gemini 2.5 Pro.md
+    - scratchpad/Gemini_Upgrade/Grok4.md
+    - scratchpad/Gemini_Upgrade/Qwen3-Coder.md
+    - scratchpad/LLM_Answer/20250723/Codex_01.md
+    - scratchpad/LLM_Answer/20250723/Gem_01.md
+    - scratchpad/LLM_Answer/20250723/Gem_02.md
+    - scratchpad/LLM_Answer/20250723/Gem_03.md
+    - scratchpad/LLM_Answer/20250723/O3_01.md
+    - scratchpad/LLM_Answer/20250723/O3_02.md
+    - scratchpad/LLM_Answer/20250723/O3_03.md
+    - scratchpad/LLM_Answer/20250724/Clo_01.md
+    - scratchpad/LLM_Answer/20250724/Gem_01.md
+    - scratchpad/LLM_Answer/20250724/Grok_01.md
+    - scratchpad/LLM_Answer/20250724/O3_01.md
+    - scripts/git-wip.ps1
+    - scripts/log_usage.ps1
+    - scripts/toggle_gitignore.ps1
+    - tasks.py
+    - venv/Lib/site-packages/pip-25.1.1.dist-info/INSTALLER
+    - venv/Lib/site-packages/pip-25.1.1.dist-info/METADATA
+    - venv/Lib/site-packages/pip-25.1.1.dist-info/RECORD
+    - venv/Lib/site-packages/pip-25.1.1.dist-info/REQUESTED
+    - venv/Lib/site-packages/pip-25.1.1.dist-info/WHEEL
+    - venv/Lib/site-packages/pip-25.1.1.dist-info/entry_points.txt
+    - venv/Lib/site-packages/pip-25.1.1.dist-info/licenses/AUTHORS.txt
+    - venv/Lib/site-packages/pip-25.1.1.dist-info/licenses/LICENSE.txt
+    - venv/Lib/site-packages/pip-25.1.1.dist-info/top_level.txt
+    - venv/Lib/site-packages/pip/__init__.py
+    - venv/Lib/site-packages/pip/__main__.py
+    - venv/Lib/site-packages/pip/__pip-runner__.py
+    - venv/Lib/site-packages/pip/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/__pycache__/__main__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/__pycache__/__pip-runner__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/__init__.py
+    - venv/Lib/site-packages/pip/_internal/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/__pycache__/build_env.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/__pycache__/cache.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/__pycache__/configuration.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/__pycache__/exceptions.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/__pycache__/main.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/__pycache__/pyproject.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/__pycache__/self_outdated_check.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/__pycache__/wheel_builder.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/build_env.py
+    - venv/Lib/site-packages/pip/_internal/cache.py
+    - venv/Lib/site-packages/pip/_internal/cli/__init__.py
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/autocompletion.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/base_command.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/cmdoptions.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/command_context.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/index_command.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/main.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/main_parser.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/parser.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/progress_bars.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/req_command.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/spinners.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/__pycache__/status_codes.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/cli/autocompletion.py
+    - venv/Lib/site-packages/pip/_internal/cli/base_command.py
+    - venv/Lib/site-packages/pip/_internal/cli/cmdoptions.py
+    - venv/Lib/site-packages/pip/_internal/cli/command_context.py
+    - venv/Lib/site-packages/pip/_internal/cli/index_command.py
+    - venv/Lib/site-packages/pip/_internal/cli/main.py
+    - venv/Lib/site-packages/pip/_internal/cli/main_parser.py
+    - venv/Lib/site-packages/pip/_internal/cli/parser.py
+    - venv/Lib/site-packages/pip/_internal/cli/progress_bars.py
+    - venv/Lib/site-packages/pip/_internal/cli/req_command.py
+    - venv/Lib/site-packages/pip/_internal/cli/spinners.py
+    - venv/Lib/site-packages/pip/_internal/cli/status_codes.py
+    - venv/Lib/site-packages/pip/_internal/commands/__init__.py
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/cache.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/check.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/completion.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/configuration.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/debug.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/download.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/freeze.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/hash.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/help.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/index.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/inspect.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/install.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/list.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/lock.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/search.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/show.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/uninstall.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/__pycache__/wheel.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/commands/cache.py
+    - venv/Lib/site-packages/pip/_internal/commands/check.py
+    - venv/Lib/site-packages/pip/_internal/commands/completion.py
+    - venv/Lib/site-packages/pip/_internal/commands/configuration.py
+    - venv/Lib/site-packages/pip/_internal/commands/debug.py
+    - venv/Lib/site-packages/pip/_internal/commands/download.py
+    - venv/Lib/site-packages/pip/_internal/commands/freeze.py
+    - venv/Lib/site-packages/pip/_internal/commands/hash.py
+    - venv/Lib/site-packages/pip/_internal/commands/help.py
+    - venv/Lib/site-packages/pip/_internal/commands/index.py
+    - venv/Lib/site-packages/pip/_internal/commands/inspect.py
+    - venv/Lib/site-packages/pip/_internal/commands/install.py
+    - venv/Lib/site-packages/pip/_internal/commands/list.py
+    - venv/Lib/site-packages/pip/_internal/commands/lock.py
+    - venv/Lib/site-packages/pip/_internal/commands/search.py
+    - venv/Lib/site-packages/pip/_internal/commands/show.py
+    - venv/Lib/site-packages/pip/_internal/commands/uninstall.py
+    - venv/Lib/site-packages/pip/_internal/commands/wheel.py
+    - venv/Lib/site-packages/pip/_internal/configuration.py
+    - venv/Lib/site-packages/pip/_internal/distributions/__init__.py
+    - venv/Lib/site-packages/pip/_internal/distributions/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/distributions/__pycache__/base.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/distributions/__pycache__/installed.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/distributions/__pycache__/sdist.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/distributions/__pycache__/wheel.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/distributions/base.py
+    - venv/Lib/site-packages/pip/_internal/distributions/installed.py
+    - venv/Lib/site-packages/pip/_internal/distributions/sdist.py
+    - venv/Lib/site-packages/pip/_internal/distributions/wheel.py
+    - venv/Lib/site-packages/pip/_internal/exceptions.py
+    - venv/Lib/site-packages/pip/_internal/index/__init__.py
+    - venv/Lib/site-packages/pip/_internal/index/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/index/__pycache__/collector.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/index/__pycache__/package_finder.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/index/__pycache__/sources.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/index/collector.py
+    - venv/Lib/site-packages/pip/_internal/index/package_finder.py
+    - venv/Lib/site-packages/pip/_internal/index/sources.py
+    - venv/Lib/site-packages/pip/_internal/locations/__init__.py
+    - venv/Lib/site-packages/pip/_internal/locations/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/locations/__pycache__/_distutils.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/locations/__pycache__/_sysconfig.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/locations/__pycache__/base.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/locations/_distutils.py
+    - venv/Lib/site-packages/pip/_internal/locations/_sysconfig.py
+    - venv/Lib/site-packages/pip/_internal/locations/base.py
+    - venv/Lib/site-packages/pip/_internal/main.py
+    - venv/Lib/site-packages/pip/_internal/metadata/__init__.py
+    - venv/Lib/site-packages/pip/_internal/metadata/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/metadata/__pycache__/_json.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/metadata/__pycache__/base.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/metadata/__pycache__/pkg_resources.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/metadata/_json.py
+    - venv/Lib/site-packages/pip/_internal/metadata/base.py
+    - venv/Lib/site-packages/pip/_internal/metadata/importlib/__init__.py
+    - venv/Lib/site-packages/pip/_internal/metadata/importlib/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/metadata/importlib/__pycache__/_compat.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/metadata/importlib/__pycache__/_dists.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/metadata/importlib/__pycache__/_envs.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/metadata/importlib/_compat.py
+    - venv/Lib/site-packages/pip/_internal/metadata/importlib/_dists.py
+    - venv/Lib/site-packages/pip/_internal/metadata/importlib/_envs.py
+    - venv/Lib/site-packages/pip/_internal/metadata/pkg_resources.py
+    - venv/Lib/site-packages/pip/_internal/models/__init__.py
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/candidate.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/direct_url.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/format_control.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/index.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/installation_report.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/link.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/pylock.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/scheme.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/search_scope.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/selection_prefs.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/target_python.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/__pycache__/wheel.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/models/candidate.py
+    - venv/Lib/site-packages/pip/_internal/models/direct_url.py
+    - venv/Lib/site-packages/pip/_internal/models/format_control.py
+    - venv/Lib/site-packages/pip/_internal/models/index.py
+    - venv/Lib/site-packages/pip/_internal/models/installation_report.py
+    - venv/Lib/site-packages/pip/_internal/models/link.py
+    - venv/Lib/site-packages/pip/_internal/models/pylock.py
+    - venv/Lib/site-packages/pip/_internal/models/scheme.py
+    - venv/Lib/site-packages/pip/_internal/models/search_scope.py
+    - venv/Lib/site-packages/pip/_internal/models/selection_prefs.py
+    - venv/Lib/site-packages/pip/_internal/models/target_python.py
+    - venv/Lib/site-packages/pip/_internal/models/wheel.py
+    - venv/Lib/site-packages/pip/_internal/network/__init__.py
+    - venv/Lib/site-packages/pip/_internal/network/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/network/__pycache__/auth.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/network/__pycache__/cache.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/network/__pycache__/download.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/network/__pycache__/lazy_wheel.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/network/__pycache__/session.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/network/__pycache__/utils.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/network/__pycache__/xmlrpc.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/network/auth.py
+    - venv/Lib/site-packages/pip/_internal/network/cache.py
+    - venv/Lib/site-packages/pip/_internal/network/download.py
+    - venv/Lib/site-packages/pip/_internal/network/lazy_wheel.py
+    - venv/Lib/site-packages/pip/_internal/network/session.py
+    - venv/Lib/site-packages/pip/_internal/network/utils.py
+    - venv/Lib/site-packages/pip/_internal/network/xmlrpc.py
+    - venv/Lib/site-packages/pip/_internal/operations/__init__.py
+    - venv/Lib/site-packages/pip/_internal/operations/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/__pycache__/check.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/__pycache__/freeze.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/__pycache__/prepare.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/build/__init__.py
+    - venv/Lib/site-packages/pip/_internal/operations/build/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/build/__pycache__/build_tracker.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/build/__pycache__/metadata.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/build/__pycache__/metadata_editable.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/build/__pycache__/metadata_legacy.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/build/__pycache__/wheel.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/build/__pycache__/wheel_editable.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/build/__pycache__/wheel_legacy.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/build/build_tracker.py
+    - venv/Lib/site-packages/pip/_internal/operations/build/metadata.py
+    - venv/Lib/site-packages/pip/_internal/operations/build/metadata_editable.py
+    - venv/Lib/site-packages/pip/_internal/operations/build/metadata_legacy.py
+    - venv/Lib/site-packages/pip/_internal/operations/build/wheel.py
+    - venv/Lib/site-packages/pip/_internal/operations/build/wheel_editable.py
+    - venv/Lib/site-packages/pip/_internal/operations/build/wheel_legacy.py
+    - venv/Lib/site-packages/pip/_internal/operations/check.py
+    - venv/Lib/site-packages/pip/_internal/operations/freeze.py
+    - venv/Lib/site-packages/pip/_internal/operations/install/__init__.py
+    - venv/Lib/site-packages/pip/_internal/operations/install/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/install/__pycache__/editable_legacy.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/install/__pycache__/wheel.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/operations/install/editable_legacy.py
+    - venv/Lib/site-packages/pip/_internal/operations/install/wheel.py
+    - venv/Lib/site-packages/pip/_internal/operations/prepare.py
+    - venv/Lib/site-packages/pip/_internal/pyproject.py
+    - venv/Lib/site-packages/pip/_internal/req/__init__.py
+    - venv/Lib/site-packages/pip/_internal/req/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/req/__pycache__/constructors.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/req/__pycache__/req_dependency_group.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/req/__pycache__/req_file.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/req/__pycache__/req_install.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/req/__pycache__/req_set.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/req/__pycache__/req_uninstall.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/req/constructors.py
+    - venv/Lib/site-packages/pip/_internal/req/req_dependency_group.py
+    - venv/Lib/site-packages/pip/_internal/req/req_file.py
+    - venv/Lib/site-packages/pip/_internal/req/req_install.py
+    - venv/Lib/site-packages/pip/_internal/req/req_set.py
+    - venv/Lib/site-packages/pip/_internal/req/req_uninstall.py
+    - venv/Lib/site-packages/pip/_internal/resolution/__init__.py
+    - venv/Lib/site-packages/pip/_internal/resolution/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/__pycache__/base.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/base.py
+    - venv/Lib/site-packages/pip/_internal/resolution/legacy/__init__.py
+    - venv/Lib/site-packages/pip/_internal/resolution/legacy/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/legacy/__pycache__/resolver.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/legacy/resolver.py
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__init__.py
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__/base.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__/candidates.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__/factory.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__/found_candidates.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__/provider.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__/reporter.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__/requirements.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/__pycache__/resolver.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/base.py
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/candidates.py
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/factory.py
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/found_candidates.py
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/provider.py
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/reporter.py
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/requirements.py
+    - venv/Lib/site-packages/pip/_internal/resolution/resolvelib/resolver.py
+    - venv/Lib/site-packages/pip/_internal/self_outdated_check.py
+    - venv/Lib/site-packages/pip/_internal/utils/__init__.py
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/_jaraco_text.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/_log.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/appdirs.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/compat.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/compatibility_tags.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/datetime.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/deprecation.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/direct_url_helpers.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/egg_link.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/entrypoints.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/filesystem.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/filetypes.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/glibc.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/hashes.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/logging.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/misc.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/packaging.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/retry.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/setuptools_build.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/subprocess.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/temp_dir.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/unpacking.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/urls.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/virtualenv.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/__pycache__/wheel.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/utils/_jaraco_text.py
+    - venv/Lib/site-packages/pip/_internal/utils/_log.py
+    - venv/Lib/site-packages/pip/_internal/utils/appdirs.py
+    - venv/Lib/site-packages/pip/_internal/utils/compat.py
+    - venv/Lib/site-packages/pip/_internal/utils/compatibility_tags.py
+    - venv/Lib/site-packages/pip/_internal/utils/datetime.py
+    - venv/Lib/site-packages/pip/_internal/utils/deprecation.py
+    - venv/Lib/site-packages/pip/_internal/utils/direct_url_helpers.py
+    - venv/Lib/site-packages/pip/_internal/utils/egg_link.py
+    - venv/Lib/site-packages/pip/_internal/utils/entrypoints.py
+    - venv/Lib/site-packages/pip/_internal/utils/filesystem.py
+    - venv/Lib/site-packages/pip/_internal/utils/filetypes.py
+    - venv/Lib/site-packages/pip/_internal/utils/glibc.py
+    - venv/Lib/site-packages/pip/_internal/utils/hashes.py
+    - venv/Lib/site-packages/pip/_internal/utils/logging.py
+    - venv/Lib/site-packages/pip/_internal/utils/misc.py
+    - venv/Lib/site-packages/pip/_internal/utils/packaging.py
+    - venv/Lib/site-packages/pip/_internal/utils/retry.py
+    - venv/Lib/site-packages/pip/_internal/utils/setuptools_build.py
+    - venv/Lib/site-packages/pip/_internal/utils/subprocess.py
+    - venv/Lib/site-packages/pip/_internal/utils/temp_dir.py
+    - venv/Lib/site-packages/pip/_internal/utils/unpacking.py
+    - venv/Lib/site-packages/pip/_internal/utils/urls.py
+    - venv/Lib/site-packages/pip/_internal/utils/virtualenv.py
+    - venv/Lib/site-packages/pip/_internal/utils/wheel.py
+    - venv/Lib/site-packages/pip/_internal/vcs/__init__.py
+    - venv/Lib/site-packages/pip/_internal/vcs/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/vcs/__pycache__/bazaar.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/vcs/__pycache__/git.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/vcs/__pycache__/mercurial.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/vcs/__pycache__/subversion.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/vcs/__pycache__/versioncontrol.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_internal/vcs/bazaar.py
+    - venv/Lib/site-packages/pip/_internal/vcs/git.py
+    - venv/Lib/site-packages/pip/_internal/vcs/mercurial.py
+    - venv/Lib/site-packages/pip/_internal/vcs/subversion.py
+    - venv/Lib/site-packages/pip/_internal/vcs/versioncontrol.py
+    - venv/Lib/site-packages/pip/_internal/wheel_builder.py
+    - venv/Lib/site-packages/pip/_vendor/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/__pycache__/typing_extensions.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__/_cmd.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__/adapter.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__/cache.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__/controller.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__/filewrapper.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__/heuristics.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__/serialize.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/__pycache__/wrapper.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/_cmd.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/adapter.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/cache.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/caches/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/caches/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/caches/__pycache__/file_cache.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/caches/__pycache__/redis_cache.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/caches/redis_cache.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/controller.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/filewrapper.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/heuristics.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/py.typed
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/serialize.py
+    - venv/Lib/site-packages/pip/_vendor/cachecontrol/wrapper.py
+    - venv/Lib/site-packages/pip/_vendor/certifi/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/certifi/__main__.py
+    - venv/Lib/site-packages/pip/_vendor/certifi/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/certifi/__pycache__/__main__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/certifi/__pycache__/core.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/certifi/cacert.pem
+    - venv/Lib/site-packages/pip/_vendor/certifi/core.py
+    - venv/Lib/site-packages/pip/_vendor/certifi/py.typed
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/__main__.py
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/__pycache__/__main__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/__pycache__/_implementation.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/__pycache__/_lint_dependency_groups.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/__pycache__/_pip_wrapper.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/__pycache__/_toml_compat.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/_implementation.py
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/_lint_dependency_groups.py
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/_pip_wrapper.py
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/_toml_compat.py
+    - venv/Lib/site-packages/pip/_vendor/dependency_groups/py.typed
+    - venv/Lib/site-packages/pip/_vendor/distlib/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/compat.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/database.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/index.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/locators.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/manifest.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/markers.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/metadata.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/resources.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/scripts.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/util.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/version.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/__pycache__/wheel.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distlib/compat.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/database.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/index.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/locators.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/manifest.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/markers.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/metadata.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/resources.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/scripts.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/t32.exe
+    - venv/Lib/site-packages/pip/_vendor/distlib/t64-arm.exe
+    - venv/Lib/site-packages/pip/_vendor/distlib/t64.exe
+    - venv/Lib/site-packages/pip/_vendor/distlib/util.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/version.py
+    - venv/Lib/site-packages/pip/_vendor/distlib/w32.exe
+    - venv/Lib/site-packages/pip/_vendor/distlib/w64-arm.exe
+    - venv/Lib/site-packages/pip/_vendor/distlib/w64.exe
+    - venv/Lib/site-packages/pip/_vendor/distlib/wheel.py
+    - venv/Lib/site-packages/pip/_vendor/distro/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/distro/__main__.py
+    - venv/Lib/site-packages/pip/_vendor/distro/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distro/__pycache__/__main__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distro/__pycache__/distro.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/distro/distro.py
+    - venv/Lib/site-packages/pip/_vendor/distro/py.typed
+    - venv/Lib/site-packages/pip/_vendor/idna/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/idna/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/idna/__pycache__/codec.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/idna/__pycache__/compat.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/idna/__pycache__/core.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/idna/__pycache__/idnadata.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/idna/__pycache__/intranges.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/idna/__pycache__/package_data.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/idna/__pycache__/uts46data.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/idna/codec.py
+    - venv/Lib/site-packages/pip/_vendor/idna/compat.py
+    - venv/Lib/site-packages/pip/_vendor/idna/core.py
+    - venv/Lib/site-packages/pip/_vendor/idna/idnadata.py
+    - venv/Lib/site-packages/pip/_vendor/idna/intranges.py
+    - venv/Lib/site-packages/pip/_vendor/idna/package_data.py
+    - venv/Lib/site-packages/pip/_vendor/idna/py.typed
+    - venv/Lib/site-packages/pip/_vendor/idna/uts46data.py
+    - venv/Lib/site-packages/pip/_vendor/msgpack/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/msgpack/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/msgpack/__pycache__/exceptions.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/msgpack/__pycache__/ext.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/msgpack/__pycache__/fallback.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/msgpack/exceptions.py
+    - venv/Lib/site-packages/pip/_vendor/msgpack/ext.py
+    - venv/Lib/site-packages/pip/_vendor/msgpack/fallback.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/_elffile.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/_manylinux.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/_musllinux.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/_parser.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/_structures.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/_tokenizer.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/markers.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/metadata.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/requirements.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/specifiers.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/tags.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/utils.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/__pycache__/version.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/_elffile.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/_manylinux.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/_musllinux.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/_parser.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/_structures.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/_tokenizer.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/licenses/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/licenses/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/licenses/__pycache__/_spdx.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/packaging/licenses/_spdx.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/markers.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/metadata.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/py.typed
+    - venv/Lib/site-packages/pip/_vendor/packaging/requirements.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/specifiers.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/tags.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/utils.py
+    - venv/Lib/site-packages/pip/_vendor/packaging/version.py
+    - venv/Lib/site-packages/pip/_vendor/pkg_resources/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/pkg_resources/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__main__.py
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__pycache__/__main__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__pycache__/android.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__pycache__/api.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__pycache__/macos.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__pycache__/unix.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__pycache__/version.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/__pycache__/windows.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/android.py
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/api.py
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/macos.py
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/py.typed
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/unix.py
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/version.py
+    - venv/Lib/site-packages/pip/_vendor/platformdirs/windows.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/__main__.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/__main__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/console.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/filter.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/formatter.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/lexer.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/modeline.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/plugin.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/regexopt.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/scanner.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/sphinxext.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/style.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/token.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/unistring.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/__pycache__/util.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/console.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/filter.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/filters/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/filters/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/formatter.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/formatters/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/formatters/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/formatters/__pycache__/_mapping.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/formatters/_mapping.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/lexer.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/lexers/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/lexers/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/lexers/__pycache__/_mapping.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/lexers/__pycache__/python.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/lexers/_mapping.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/lexers/python.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/modeline.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/plugin.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/regexopt.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/scanner.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/sphinxext.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/style.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/styles/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/styles/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/styles/__pycache__/_mapping.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pygments/styles/_mapping.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/token.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/unistring.py
+    - venv/Lib/site-packages/pip/_vendor/pygments/util.py
+    - venv/Lib/site-packages/pip/_vendor/pyproject_hooks/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/pyproject_hooks/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pyproject_hooks/__pycache__/_impl.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_impl.py
+    - venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/__pycache__/_in_process.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py
+    - venv/Lib/site-packages/pip/_vendor/pyproject_hooks/py.typed
+    - venv/Lib/site-packages/pip/_vendor/requests/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/__version__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/_internal_utils.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/adapters.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/api.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/auth.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/certs.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/compat.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/cookies.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/exceptions.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/help.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/hooks.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/models.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/packages.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/sessions.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/status_codes.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/structures.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__pycache__/utils.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/requests/__version__.py
+    - venv/Lib/site-packages/pip/_vendor/requests/_internal_utils.py
+    - venv/Lib/site-packages/pip/_vendor/requests/adapters.py
+    - venv/Lib/site-packages/pip/_vendor/requests/api.py
+    - venv/Lib/site-packages/pip/_vendor/requests/auth.py
+    - venv/Lib/site-packages/pip/_vendor/requests/certs.py
+    - venv/Lib/site-packages/pip/_vendor/requests/compat.py
+    - venv/Lib/site-packages/pip/_vendor/requests/cookies.py
+    - venv/Lib/site-packages/pip/_vendor/requests/exceptions.py
+    - venv/Lib/site-packages/pip/_vendor/requests/help.py
+    - venv/Lib/site-packages/pip/_vendor/requests/hooks.py
+    - venv/Lib/site-packages/pip/_vendor/requests/models.py
+    - venv/Lib/site-packages/pip/_vendor/requests/packages.py
+    - venv/Lib/site-packages/pip/_vendor/requests/sessions.py
+    - venv/Lib/site-packages/pip/_vendor/requests/status_codes.py
+    - venv/Lib/site-packages/pip/_vendor/requests/structures.py
+    - venv/Lib/site-packages/pip/_vendor/requests/utils.py
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/__pycache__/providers.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/__pycache__/reporters.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/__pycache__/structs.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/providers.py
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/py.typed
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/reporters.py
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/__pycache__/abstract.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/__pycache__/criterion.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/__pycache__/exceptions.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/__pycache__/resolution.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/abstract.py
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/criterion.py
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/exceptions.py
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/resolvers/resolution.py
+    - venv/Lib/site-packages/pip/_vendor/resolvelib/structs.py
+    - venv/Lib/site-packages/pip/_vendor/rich/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/rich/__main__.py
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/__main__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_cell_widths.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_emoji_codes.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_emoji_replace.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_export_format.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_extension.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_fileno.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_inspect.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_log_render.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_loop.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_null_file.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_palettes.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_pick.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_ratio.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_spinners.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_stack.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_timer.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_win32_console.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_windows.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_windows_renderer.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/_wrap.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/abc.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/align.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/ansi.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/bar.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/box.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/cells.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/color.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/color_triplet.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/columns.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/console.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/constrain.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/containers.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/control.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/default_styles.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/diagnose.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/emoji.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/errors.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/file_proxy.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/filesize.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/highlighter.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/json.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/jupyter.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/layout.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/live.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/live_render.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/logging.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/markup.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/measure.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/padding.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/pager.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/palette.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/panel.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/pretty.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/progress.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/progress_bar.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/prompt.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/protocol.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/region.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/repr.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/rule.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/scope.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/screen.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/segment.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/spinner.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/status.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/style.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/styled.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/syntax.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/table.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/terminal_theme.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/text.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/theme.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/themes.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/traceback.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/__pycache__/tree.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/rich/_cell_widths.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_emoji_codes.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_emoji_replace.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_export_format.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_extension.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_fileno.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_inspect.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_log_render.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_loop.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_null_file.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_palettes.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_pick.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_ratio.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_spinners.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_stack.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_timer.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_win32_console.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_windows.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_windows_renderer.py
+    - venv/Lib/site-packages/pip/_vendor/rich/_wrap.py
+    - venv/Lib/site-packages/pip/_vendor/rich/abc.py
+    - venv/Lib/site-packages/pip/_vendor/rich/align.py
+    - venv/Lib/site-packages/pip/_vendor/rich/ansi.py
+    - venv/Lib/site-packages/pip/_vendor/rich/bar.py
+    - venv/Lib/site-packages/pip/_vendor/rich/box.py
+    - venv/Lib/site-packages/pip/_vendor/rich/cells.py
+    - venv/Lib/site-packages/pip/_vendor/rich/color.py
+    - venv/Lib/site-packages/pip/_vendor/rich/color_triplet.py
+    - venv/Lib/site-packages/pip/_vendor/rich/columns.py
+    - venv/Lib/site-packages/pip/_vendor/rich/console.py
+    - venv/Lib/site-packages/pip/_vendor/rich/constrain.py
+    - venv/Lib/site-packages/pip/_vendor/rich/containers.py
+    - venv/Lib/site-packages/pip/_vendor/rich/control.py
+    - venv/Lib/site-packages/pip/_vendor/rich/default_styles.py
+    - venv/Lib/site-packages/pip/_vendor/rich/diagnose.py
+    - venv/Lib/site-packages/pip/_vendor/rich/emoji.py
+    - venv/Lib/site-packages/pip/_vendor/rich/errors.py
+    - venv/Lib/site-packages/pip/_vendor/rich/file_proxy.py
+    - venv/Lib/site-packages/pip/_vendor/rich/filesize.py
+    - venv/Lib/site-packages/pip/_vendor/rich/highlighter.py
+    - venv/Lib/site-packages/pip/_vendor/rich/json.py
+    - venv/Lib/site-packages/pip/_vendor/rich/jupyter.py
+    - venv/Lib/site-packages/pip/_vendor/rich/layout.py
+    - venv/Lib/site-packages/pip/_vendor/rich/live.py
+    - venv/Lib/site-packages/pip/_vendor/rich/live_render.py
+    - venv/Lib/site-packages/pip/_vendor/rich/logging.py
+    - venv/Lib/site-packages/pip/_vendor/rich/markup.py
+    - venv/Lib/site-packages/pip/_vendor/rich/measure.py
+    - venv/Lib/site-packages/pip/_vendor/rich/padding.py
+    - venv/Lib/site-packages/pip/_vendor/rich/pager.py
+    - venv/Lib/site-packages/pip/_vendor/rich/palette.py
+    - venv/Lib/site-packages/pip/_vendor/rich/panel.py
+    - venv/Lib/site-packages/pip/_vendor/rich/pretty.py
+    - venv/Lib/site-packages/pip/_vendor/rich/progress.py
+    - venv/Lib/site-packages/pip/_vendor/rich/progress_bar.py
+    - venv/Lib/site-packages/pip/_vendor/rich/prompt.py
+    - venv/Lib/site-packages/pip/_vendor/rich/protocol.py
+    - venv/Lib/site-packages/pip/_vendor/rich/py.typed
+    - venv/Lib/site-packages/pip/_vendor/rich/region.py
+    - venv/Lib/site-packages/pip/_vendor/rich/repr.py
+    - venv/Lib/site-packages/pip/_vendor/rich/rule.py
+    - venv/Lib/site-packages/pip/_vendor/rich/scope.py
+    - venv/Lib/site-packages/pip/_vendor/rich/screen.py
+    - venv/Lib/site-packages/pip/_vendor/rich/segment.py
+    - venv/Lib/site-packages/pip/_vendor/rich/spinner.py
+    - venv/Lib/site-packages/pip/_vendor/rich/status.py
+    - venv/Lib/site-packages/pip/_vendor/rich/style.py
+    - venv/Lib/site-packages/pip/_vendor/rich/styled.py
+    - venv/Lib/site-packages/pip/_vendor/rich/syntax.py
+    - venv/Lib/site-packages/pip/_vendor/rich/table.py
+    - venv/Lib/site-packages/pip/_vendor/rich/terminal_theme.py
+    - venv/Lib/site-packages/pip/_vendor/rich/text.py
+    - venv/Lib/site-packages/pip/_vendor/rich/theme.py
+    - venv/Lib/site-packages/pip/_vendor/rich/themes.py
+    - venv/Lib/site-packages/pip/_vendor/rich/traceback.py
+    - venv/Lib/site-packages/pip/_vendor/rich/tree.py
+    - venv/Lib/site-packages/pip/_vendor/tomli/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/tomli/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/tomli/__pycache__/_parser.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/tomli/__pycache__/_re.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/tomli/__pycache__/_types.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/tomli/_parser.py
+    - venv/Lib/site-packages/pip/_vendor/tomli/_re.py
+    - venv/Lib/site-packages/pip/_vendor/tomli/_types.py
+    - venv/Lib/site-packages/pip/_vendor/tomli/py.typed
+    - venv/Lib/site-packages/pip/_vendor/tomli_w/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/tomli_w/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/tomli_w/__pycache__/_writer.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/tomli_w/_writer.py
+    - venv/Lib/site-packages/pip/_vendor/tomli_w/py.typed
+    - venv/Lib/site-packages/pip/_vendor/truststore/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/truststore/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/truststore/__pycache__/_api.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/truststore/__pycache__/_macos.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/truststore/__pycache__/_openssl.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/truststore/__pycache__/_ssl_constants.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/truststore/__pycache__/_windows.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/truststore/_api.py
+    - venv/Lib/site-packages/pip/_vendor/truststore/_macos.py
+    - venv/Lib/site-packages/pip/_vendor/truststore/_openssl.py
+    - venv/Lib/site-packages/pip/_vendor/truststore/_ssl_constants.py
+    - venv/Lib/site-packages/pip/_vendor/truststore/_windows.py
+    - venv/Lib/site-packages/pip/_vendor/truststore/py.typed
+    - venv/Lib/site-packages/pip/_vendor/typing_extensions.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/_collections.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/_version.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/connection.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/connectionpool.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/exceptions.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/fields.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/filepost.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/poolmanager.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/request.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/__pycache__/response.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/_collections.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/_version.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/connection.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/connectionpool.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/__pycache__/_appengine_environ.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/__pycache__/appengine.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/__pycache__/ntlmpool.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/__pycache__/pyopenssl.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/__pycache__/securetransport.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/__pycache__/socks.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/_appengine_environ.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/_securetransport/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/_securetransport/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/_securetransport/__pycache__/bindings.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/_securetransport/__pycache__/low_level.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/_securetransport/bindings.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/_securetransport/low_level.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/appengine.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/ntlmpool.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/pyopenssl.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/securetransport.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/contrib/socks.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/exceptions.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/fields.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/filepost.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/__pycache__/six.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/backports/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/backports/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/backports/__pycache__/makefile.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/backports/__pycache__/weakref_finalize.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/backports/makefile.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/backports/weakref_finalize.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/packages/six.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/poolmanager.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/request.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/response.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__init__.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/__init__.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/connection.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/proxy.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/queue.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/request.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/response.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/retry.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/ssl_.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/ssl_match_hostname.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/ssltransport.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/timeout.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/url.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/__pycache__/wait.cpython-312.pyc
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/connection.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/proxy.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/queue.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/request.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/response.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/retry.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/ssl_.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/ssl_match_hostname.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/ssltransport.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/timeout.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/url.py
+    - venv/Lib/site-packages/pip/_vendor/urllib3/util/wait.py
+    - venv/Lib/site-packages/pip/_vendor/vendor.txt
+    - venv/Lib/site-packages/pip/py.typed
+    - venv/Scripts/Activate.ps1
+    - venv/Scripts/activate
+    - venv/Scripts/activate.bat
+    - venv/Scripts/deactivate.bat
+    - venv/Scripts/pip.exe
+    - venv/Scripts/pip3.12.exe
+    - venv/Scripts/pip3.exe
+    - venv/Scripts/python.exe
+    - venv/Scripts/pythonw.exe
+    - venv/pyvenv.cfg
+  timestamp: 2025-07-26T02:40:40+09:00
