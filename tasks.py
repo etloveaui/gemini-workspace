@@ -123,11 +123,11 @@ def end(c, task_id="general"):
 
     # 3. .gitignore 복원 (/projects/ 주석 제거)
     print("  - Restoring /projects/ line in .gitignore...")
-    c.run("powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\toggle_gitignore.ps1 -Restore")
+    c.run("powershell.exe -ExecutionPolicy Bypass -File .\scripts\toggle_gitignore.ps1 -Restore")
 
     # 4. 세션 사용량 요약 (추후 구현 예정)
     # print("  - Summarizing session usage...\n")
-    # c.run(f"powershell.exe -ExecutionPolicy Bypass -File .\\scripts\\log_usage.ps1 -TaskId {task_id}")
+    # c.run(f"powershell.exe -ExecutionPolicy Bypass -File .\scripts\log_usage.ps1 -TaskId {task_id}")
 
     # 5. __lastSession__ 블록 생성
     print("  - Generating __lastSession__ block in HUB.md...")
