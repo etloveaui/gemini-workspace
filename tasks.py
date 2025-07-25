@@ -168,6 +168,7 @@ __lastSession__:
     final_hub_md_content = "\n".join(new_hub_md_content_lines).strip() + "\n" + last_session_block
     with open("C:/Users/etlov/gemini-workspace/docs/HUB.md", "w", encoding="utf-8") as f:
         f.write(final_hub_md_content)
+    c.run("git add docs/HUB.md") # HUB.md 변경 사항 스테이징
 
     print("Session ended successfully. All records saved and environment cleaned.")
 
