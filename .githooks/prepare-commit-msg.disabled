@@ -1,0 +1,5 @@
+#!/bin/bash
+# .githooks/prepare-commit-msg
+# 시스템에 설치된 python3 또는 python을 찾아 실행
+python3 "$(dirname "$0")"/prepare-commit-msg.py "$@" || python "$(dirname "$0")"/prepare-commit-msg.py "$@"
+exit $?

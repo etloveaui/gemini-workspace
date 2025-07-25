@@ -1,0 +1,66 @@
+# .githooks/prepare-commit-msg.py
+import sys
+import os
+import subprocess
+from datetime import datetime
+
+# Git으로부터 인자 받기
+commit_msg_filepath = sys.argv[1]
+commit_source = sys.argv[2] if len(sys.argv) > 2 else None
+
+print(f"[DEBUG] commit_msg_filepath: {commit_msg_filepath}")
+print(f"[DEBUG] commit_source: {commit_source}")
+
+# 사용자가 메시지를 직접 입력했거나 병합/스쿼시 커밋일 경우 스크립트 종료
+if commit_source in ['message', 'template', 'merge', 'squash']:
+    print("[DEBUG] Exiting due to commit_source.")
+    sys.exit(0)
+
+# 커밋 메시지 파일 읽기
+try:
+    with open(commit_msg_filepath, 'r', encoding='utf-8') as f:
+        current_msg = f.read()
+except FileNotFoundError:
+    current_msg = ""
+
+print(f"[DEBUG] current_msg (raw): '{current_msg}'")
+print(f"[DEBUG] current_msg.strip(): '{current_msg.strip()}'")
+
+# 메시지가 비어있을 때만 WIP 메시지 생성
+if not current_msg.strip():
+    print("[DEBUG] current_msg is empty or whitespace. Attempting to generate WIP message.")
+    try:
+        # git diff --cached --shortstat 실행
+        stats_process = subprocess.run(
+            ['git', 'diff', '--cached', '--shortstat'],
+            capture_output=True, text=True, encoding='utf-8'
+        )
+        stats = stats_process.stdout.strip()
+        print(f"[DEBUG] stats: {stats}")
+
+        if stats:
+            # 새 WIP 메시지 생성
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M')
+            new_message = f"WIP: {timestamp}\n\n{stats}"
+            print(f"[DEBUG] new_message: {new_message}")
+
+            # 새 메시지를 파일에 쓰기
+            with open(commit_msg_filepath, 'w', encoding='utf-8') as f:
+                f.write(new_message)
+            print(f"[HOOK] Python hook generated WIP commit message.")
+
+        else:
+            print("[DEBUG] No stats from git diff --cached --shortstat.")
+
+    except Exception as e:
+        print(f"[ERROR] Hook failed: {e}")
+        # 오류 발생 시, 원래 커밋 프로세스에 영향을 주지 않도록 파일에 오류 메시지 기록
+        with open(commit_msg_filepath, 'a', encoding='utf-8') as f:
+            f.write(f"\n# Hook failed: {e}")
+        sys.exit(0)
+
+else:
+    print("[DEBUG] current_msg is NOT empty or whitespace. Skipping WIP message generation.")
+
+sys.exit(0)
+
