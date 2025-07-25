@@ -1,6 +1,6 @@
 # 이 워크스페이스의 Git 저장소에서 projects 폴더 전체를 무시합니다.
 # projects 폴더 내의 각 프로젝트는 별도의 Git 저장소로 관리됩니다.
-#/projects/
+/projects/
 
 # Python common ignores
 venv/
