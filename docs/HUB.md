@@ -66,7 +66,8 @@
 
 ---
 __lastSession__:
-  active_task_id: general
+  task: general
+  timestamp: 2025-07-26T17:07:05.068191+00:00  active_task_id: general
   changed_files:
     - GEMINI.md
     - docs/HUB.md
