@@ -2,20 +2,16 @@
 param([string]$Message = "")
 
 if (-not (git diff --cached --quiet)) {
-    $stats = git diff --cached --shortstat
+    $stats = git diff --cached --shortstat | ForEach-Object { $_.Trim() } # 통계를 한 줄로 만듦
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
     
     if ([string]::IsNullOrEmpty($Message)) {
-        $commitMsg = "WIP: $timestamp`n`n$stats"
+        $commitMsg = "WIP: $timestamp - $stats" # 한 줄로 요약
     } else {
-        $commitMsg = "$Message`n`n$stats"
+        $commitMsg = "$Message - $stats" # 한 줄로 요약
     }
     
-    $tempFile = [System.IO.Path]::GetTempFileName()
-    $commitMsg | Out-File -FilePath $tempFile -Encoding UTF8
-    
-    git commit -F $tempFile
-    Remove-Item $tempFile
+    git commit -m "$commitMsg" # -F 대신 -m 사용
 } else {
     Write-Host "No staged changes to commit"
 }

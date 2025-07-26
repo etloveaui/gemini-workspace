@@ -34,7 +34,7 @@ def build_prompt_context(policy_name: str) -> str:
             for doc in retrieved_docs:
                 content = doc['content']
                 content_tokens = len(content.split())
-                
+
                 if total_tokens + content_tokens > max_tokens:
                     # 토큰이 넘치면 요약을 시도
                     summary = summarize_text(content)
@@ -42,8 +42,8 @@ def build_prompt_context(policy_name: str) -> str:
                     if total_tokens + summary_tokens <= max_tokens:
                         final_context_parts.append(f"## Content from: {doc['path']}\n{summary}\n")
                         total_tokens += summary_tokens
-                    continue # 요약해도 넘치면 그냥 건너뜜
-                
+                    continue # 요약해도 넘치면 그냥 건너뜀
+
                 final_context_parts.append(f"## Content from: {doc['path']}\n{content}\n")
                 total_tokens += content_tokens
 
