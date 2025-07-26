@@ -1,0 +1,127 @@
+{
+  "updated_at_utc": "2025-07-26T03:24:27.010280+00:00",
+  "docs": [
+    {
+      "path": "docs\\HUB.md",
+      "lines": 79,
+      "sha1": "7a3e4ea079e97619993eec5389e6b8f3e3f45471",
+      "tags": [
+        "Project",
+        "Problem Solving",
+        "Project",
+        "Project",
+        "Problem Solving",
+        "Feature",
+        "Feature",
+        "Problem Solving",
+        "System",
+        "System",
+        "System",
+        "System",
+        "System",
+        "System"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\100xfenok-generator-data-cleanup\\log.md",
+      "lines": 47,
+      "sha1": "f8744e4ec3f0558f8e0430ea38f9d9472da9545b",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\100xfenok-generator-date-title-input-fix\\log.md",
+      "lines": 51,
+      "sha1": "9bb4f21f2d5d2b32a97f56a76b79287114f953fe",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\100xfenok-generator-dev\\log.md",
+      "lines": 59,
+      "sha1": "7188ed21d5d7c126bd36967948b758a6b4233a97",
+      "tags": [
+        "Project",
+        "Initial Setup",
+        "Project Plan",
+        "Code Analysis"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\gemini-cli-setup\\log.md",
+      "lines": 21,
+      "sha1": "8f58478e5c03fd525e8725fb8ead7a8d27935a1e",
+      "tags": [
+        "System",
+        "Setup Guide"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\gemini-self-upgrade\\log.md",
+      "lines": 270,
+      "sha1": "1a300e9f6f6f6412075972047e321fbab3236af5",
+      "tags": [
+        "string",
+        "Project",
+        "System",
+        "Intelligent Session Start",
+        "Active Tasks from HUB",
+        "Workspace Status"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\secret-management-setup\\log.md",
+      "lines": 14,
+      "sha1": "bbbf0a5aa7195103b0b742f436683f36f897b02a",
+      "tags": [
+        "System",
+        "Initial Setup"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\system-docs-revamp\\log.md",
+      "lines": 14,
+      "sha1": "2b76d84f35d2683a7bf51a0a12b8d45e2e5b7f6d",
+      "tags": [
+        "System",
+        "Initial Setup"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\terminalx-ui-analysis\\log.md",
+      "lines": 29,
+      "sha1": "7d1ace10eb61d6f8440d3fdd3d3af58e249c5f32",
+      "tags": [
+        "Project",
+        "UI Analysis"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\venv-cleanup-and-rebuild\\log.md",
+      "lines": 35,
+      "sha1": "e9f36c9f40f8153872cc5bf0e527ba1f4e9933a0",
+      "tags": [
+        "System"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\vscode-integration-problem\\log.md",
+      "lines": 47,
+      "sha1": "3a8380f1cf56df03cbc50eecae8715980d7c630e",
+      "tags": [
+        "Problem Solving",
+        "Problem Analysis",
+        "User Request"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\workspace-setup\\log.md",
+      "lines": 11,
+      "sha1": "9253cfeb871a95c7dc18374881de9ddd84937ac5",
+      "tags": [
+        "System",
+        "Initial Setup"
+      ]
+    }
+  ]
+}
