@@ -5,6 +5,7 @@ import json
 import re
 import time
 import hashlib
+import datetime
 
 # 워크스페이스 루트 경로를 동적으로 찾음
 ROOT = Path(__file__).parent.parent
@@ -41,5 +42,4 @@ def build_index():
     print(f"Context index successfully built at: {output_file}")
 
 if __name__ == "__main__":
-    import datetime
     build_index()

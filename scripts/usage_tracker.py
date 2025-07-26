@@ -1,58 +1,33 @@
-# /scripts/usage_tracker.py
 import sqlite3
-import datetime
 from pathlib import Path
+import datetime
 
-DB_PATH = Path(__file__).parent.parent / "usage.db"
+ROOT = Path(__file__).resolve().parent.parent
+DB_PATH = ROOT / "usage.db"
 
-def init_db():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS usage_logs (
+def setup_database():
+    """데이터베이스와 테이블을 생성합니다."""
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS usage (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             timestamp TEXT NOT NULL,
-            task_id TEXT NOT NULL,
-            event_type TEXT NOT NULL,
-            tokens INTEGER,
-            cost REAL,
-            description TEXT
+            task_name TEXT NOT NULL,
+            event_type TEXT NOT NULL, -- e.g., 'start', 'end', 'error'
+            details TEXT
         )
-    """)
-    conn.commit()
-    conn.close()
+        """)
+        conn.commit()
 
-def log_usage(task_id: str, event_type: str, tokens: int = 0, cost: float = 0.0, description: str = ""):
-    init_db()
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    timestamp = datetime.datetime.now().isoformat()
-    cursor.execute("INSERT INTO usage_logs (timestamp, task_id, event_type, tokens, cost, description) VALUES (?, ?, ?, ?, ?, ?)",
-                   (timestamp, task_id, event_type, tokens, cost, description))
-    conn.commit()
-    conn.close()
-
-def get_session_summary(task_id: str = None):
-    init_db()
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    
-    query = "SELECT SUM(tokens), SUM(cost) FROM usage_logs"
-    params = []
-    if task_id:
-        query += " WHERE task_id = ?"
-        params.append(task_id)
-
-    cursor.execute(query, params)
-    tokens, cost = cursor.fetchone()
-    conn.close()
-    return {"total_tokens": tokens if tokens else 0, "total_cost": cost if cost else 0.0}
-
-if __name__ == "__main__":
-    # 테스트용
-    init_db()
-    log_usage("test_task", "start", description="Test session start")
-    log_usage("test_task", "tool_call", tokens=100, cost=0.001, description="Tool call example")
-    log_usage("test_task", "end", description="Test session end")
-    summary = get_session_summary("test_task")
-    print(f"Test Task Summary: {summary}")
+def log_usage(task_name: str, event_type: str, details: str = None):
+    """태스크 사용 로그를 기록합니다."""
+    setup_database()
+    timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        INSERT INTO usage (timestamp, task_name, event_type, details)
+        VALUES (?, ?, ?, ?)
+        """, (timestamp, task_name, event_type, details))
+        conn.commit()

@@ -236,7 +236,7 @@
             index_data = json.loads(index_path.read_text(encoding="utf-8"))
             
             # 정책 로딩은 추후 yaml 라이브러리 추가 후 구현 (지금은 하드코딩)
-            active_tasks = [doc['path'] for doc in index_data.get('docs', []) if "HUB.md" in doc['path']] # 예시 로직
+            active_tasks = [doc["path"] for doc in index_data.get("docs", []) if "HUB.md" in doc["path"]] # 예시 로직
 
             git_status_output = c.run("git status --porcelain", hide=True).stdout
             workspace_status = "Uncommitted changes detected." if git_status_output.strip() else "No uncommitted changes."
@@ -268,3 +268,25 @@
 3.  `invoke start` 실행 시, 터미널에 **인덱스 업데이트 과정**이 표시되고, **새로운 형식의 브리핑**이 출력되면 임무는 완료된다.
 
 **지금 바로 위 3단계에 걸친 프레임워크 구축 임무를 시작하라.**
+
+## 2025-07-27: 메타인지 프로토콜 및 시스템 아키텍처 재설계 완료
+
+### 목표
+- `[P0]final_metacog_architecture.md`에 명시된 '메타인지 프로토콜' 도입 및 시스템 아키텍처 재설계 지시를 모두 이행하여, 반복적 실패의 근본적 해결 및 행동 원칙 재확립을 달성한다.
+
+### 과정
+1.  `scripts/runner.py` 파일 생성 및 `subprocess` 기반의 새로운 명령어 실행 표준 도입.
+2.  `GEMINI.md` 파일에 '메타인지 프로토콜' 섹션 추가 및 행동 원칙 최우선 적용.
+3.  `tasks.py` 파일 재설계: 기존 `logged_run`을 제거하고 `runner.run_command`를 사용하도록 모든 태스크 수정.
+4.  `tasks.py` 내 `log_usage` 호출 시 `description` 인자를 `details`로 수정하여 `TypeError` 해결.
+5.  `tasks.py` 내 `run_command` 호출 시 `hide=True`, `warn=True` 인자를 제거하여 `TypeError` 해결.
+6.  `scripts/context_store.py`에 `ContextStore` 클래스 및 `retrieve` 메서드 추가.
+7.  `scripts/summarizer.py` 파일 존재 확인 및 `pyyaml` 라이브러리 설치 확인.
+8.  `invoke context.build` 및 `invoke start` 명령 성공적으로 실행 확인.
+
+### 현재 상태
+- '메타인지 프로토콜'이 시스템에 성공적으로 도입되었으며, `runner.py` 기반의 안정적인 명령어 실행 환경이 구축됨.
+- `tasks.py`의 주요 태스크들이 새로운 아키텍처에 맞춰 재설계되었고, `invoke start`를 통해 지능형 세션 시작이 정상 작동함을 확인.
+
+### 다음 단계
+- 다음 우선순위 작업을 진행하거나, 추가적인 시스템 개선 작업을 수행합니다.
