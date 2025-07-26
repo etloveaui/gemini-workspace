@@ -15,7 +15,7 @@ class ContextStore:
         with open(INDEX_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def retrieve(self, query: str):
+    def retrieve(self, query: dict):
         """쿼리에 해당하는 문서를 검색합니다. 현재는 태그 또는 경로를 지원합니다."""
         matching_docs = []
         for doc in self.index.get("docs", []):
@@ -26,7 +26,7 @@ class ContextStore:
             elif "file_path" in query and re.search(query["file_path"], doc.get("path", "")):
                 matching_docs.append(doc)
             # 기타 쿼리 (예: 전체 문서)
-            elif query == "all":
+            elif query.get("all"): # query가 {"all": True}일 경우
                 matching_docs.append(doc)
         return matching_docs
 

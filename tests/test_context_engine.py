@@ -72,7 +72,7 @@ def test_retrieval_accuracy(temp_context_dir, monkeypatch):
     monkeypatch.setattr('context_store.ROOT', temp_context_dir)
     
     store = ContextStore()
-    results = store.retrieve("active tasks")
+    results = store.retrieve({"doc_tag": "Active Tasks"})
     assert len(results) > 0
     assert any("HUB.md" in doc['path'] for doc in results)
     assert results[0]['path'] == "docs/HUB.md" # HUB.md가 최우선으로 와야 함
@@ -124,12 +124,12 @@ def test_prompt_assembly(temp_context_dir, monkeypatch):
 
     # ContextStore 클래스 자체를 mock
     class MockContextStore:
-        def retrieve(self, query):
-            if query == "active tasks":
-                return [{"path": "docs/HUB.md", "content": "This is the HUB.md content with Active Tasks and Paused Tasks."}]
-            elif query == "paused tasks":
-                return [{"path": "docs/tasks/100xfenok-generator-date-title-input-fix/log.md", "content": "This is a system log with some important information."}]
-            return []
+            def retrieve(self, query):
+                if query.get("doc_tag") == "Active Tasks":
+                    return [{"path": "docs/HUB.md", "content": "This is the HUB.md content with Active Tasks and Paused Tasks."}]
+                elif query.get("doc_tag") == "Paused Tasks":
+                    return [{"path": "docs/tasks/100xfenok-generator-date-title-input-fix/log.md", "content": "This is a log for a paused task."}]
+                return []
 
     monkeypatch.setattr(prompt_builder, 'ContextStore', MockContextStore)
 
@@ -141,4 +141,4 @@ def test_prompt_assembly(temp_context_dir, monkeypatch):
 
     # 추가적인 assert 문: final_context_parts에 내용이 제대로 추가되었는지 확인
     assert "## Content from: docs/HUB.md\nThis is the HUB.md content with Active Tasks and Paused Tasks.\n" in prompt_context
-    assert "## Content from: docs/tasks/100xfenok-generator-date-title-input-fix/log.md\nThis is a system log with some important information.\n" in prompt_context
+    assert "## Content from: docs/tasks/100xfenok-generator-date-title-input-fix/log.md\nThis is a log for a paused task.\n" in prompt_context

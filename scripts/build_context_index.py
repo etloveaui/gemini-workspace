@@ -39,7 +39,7 @@ def build_index():
     output_file = output_dir / "index.json"
     
     output_file.write_text(json.dumps(index_data, indent=2), encoding="utf-8")
-    print(f"Context index successfully built at: {output_file}")
+    print("Context index built successfully.")
 
 if __name__ == "__main__":
     build_index()

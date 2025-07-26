@@ -28,8 +28,8 @@ def build_prompt_context(policy_name: str) -> str:
 
     for source in target_policy.get("sources", []):
         if "doc_tag" in source:
-            query = source["doc_tag"]
-            retrieved_docs = store.retrieve(query)
+            query_dict = {"doc_tag": source["doc_tag"]}
+            retrieved_docs = store.retrieve(query_dict)
             
             for doc in retrieved_docs:
                 content = doc['content']

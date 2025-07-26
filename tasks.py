@@ -5,6 +5,7 @@ import subprocess
 from scripts.usage_tracker import log_usage
 from scripts.runner import run_command # logged_run 대신 run_command 임포트
 import datetime # datetime 모듈 임포트
+import tempfile # tempfile 모듈 임포트
 
 # --- 핵심 태스크 (Core Tasks) ---
 @task
@@ -26,6 +27,9 @@ def start(c):
     print(briefing)
     print("-" * 50)
 
+    print("  - Handling previous session state...")
+    run_command('start', ["python", "scripts/hub_manager.py", "handle_session"]) # hub_manager.py에 handle_session 기능 추가 필요
+    
     print("  - Activating project tracking in .gitignore...")
     run_command('start', ["powershell.exe", "-ExecutionPolicy", "Bypass", "-File", ".\\scripts\\toggle_gitignore.ps1"]) # run_command 사용
     
@@ -34,14 +38,14 @@ def start(c):
 
 @task
 def wip(c, message=""):
-    """WIP 커밋을 생성합니다."""
+    """WIP 커밋을 GEMINI.md 규칙에 따라 임시 파일을 사용하여 생성합니다."""
     log_usage('wip', "task_start", details="WIP commit process started")
     
-    # 1. 스테이징
-    run_command(c.name, ["git", "add", "."])
+    # 1. 변경사항 스테이징
+    run_command('wip', ["git", "add", "."])
 
     # 2. 커밋 메시지 생성
-    stats_result = run_command(c.name, ["git", "diff", "--cached", "--shortstat"])
+    stats_result = run_command('wip', ["git", "diff", "--cached", "--shortstat"], hide=True)
     stats = stats_result.stdout.strip()
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     
@@ -51,9 +55,20 @@ def wip(c, message=""):
     else:
         final_message = f"{message}\n\n{stats}"
 
-    # 3. 리스트 인자 방식으로 커밋 실행 (가장 중요)
-    run_command(c.name, ["git", "commit", "-m", final_message])
-    print("WIP commit created successfully.")
+    # 3. 임시 파일에 메시지 작성 (GEMINI.md 규칙 준수)
+    import tempfile
+    import os
+    tmp_file_path = os.path.join(tempfile.gettempdir(), "COMMIT_MSG.tmp")
+    with open(tmp_file_path, 'w', encoding='utf-8') as f:
+        f.write(final_message)
+
+    # 4. -F 옵션으로 커밋하고 임시 파일 삭제
+    try:
+        run_command('wip', ["git", "commit", "-F", tmp_file_path])
+    finally:
+        os.remove(tmp_file_path)
+
+    print("WIP commit created successfully using the temporary file method.")
     log_usage('wip', "task_end", details=f"WIP commit created: {final_message}")
 
 
@@ -103,7 +118,11 @@ def test(c):
     """/tests 폴더의 모든 pytest 케이스를 실행하여 시스템 신뢰도를 검증합니다."""
     log_usage('test', "task_start", details="Autonomous Test Harness started")
     print("Running Autonomous Test Harness...")
-    run_command('test', ["pytest", "-v"]) # run_command 사용
+    result = run_command('test', ["pytest", "-v"], check=False) # run_command 사용
+    print("Pytest Stdout:")
+    print(result.stdout.encode('cp949', errors='replace').decode('cp949'))
+    print("Pytest Stderr:")
+    print(result.stderr.encode('cp949', errors='replace').decode('cp949'))
     log_usage('test', "task_end", details="Autonomous Test Harness finished")
 
 # --- 네임스페이스 및 프로그램 정의 ---
