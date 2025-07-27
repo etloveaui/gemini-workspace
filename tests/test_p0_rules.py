@@ -146,6 +146,7 @@ def test_runner_error_logging(test_env):
         run_command("test_runner", ["python", "-c", "import sys; sys.exit(1)"])
 
     # Check the database for the error log
+    time.sleep(0.1) # Give some time for DB write to complete
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM usage WHERE event_type = 'command_error' AND task_name = 'test_runner'")

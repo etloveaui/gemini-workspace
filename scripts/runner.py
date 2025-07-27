@@ -1,3 +1,4 @@
+import json
 import subprocess
 import sqlite3
 from pathlib import Path
@@ -31,7 +32,7 @@ def _log(task_name, event_type, command, returncode=None, stdout="", stderr=""):
     ts = datetime.now(timezone.utc).isoformat()
     cur.execute(
         "INSERT INTO usage (timestamp, task_name, event_type, command, returncode, stdout, stderr) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        (ts, task_name, event_type, " ".join(command) if isinstance(command, (list, tuple)) else str(command),
+        (ts, task_name, event_type, json.dumps(command) if isinstance(command, (list, tuple)) else str(command),
          returncode if returncode is not None else None, stdout, stderr)
     )
     conn.commit()
