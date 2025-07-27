@@ -143,7 +143,27 @@ def test_runner_error_logging(test_env, clean_usage_db, monkeypatch):
     # Monkeypatch DB_PATH to use a temporary file for this test
     temp_db_path = Path(clean_usage_db) # clean_usage_db fixture returns the path to the temporary db
     monkeypatch.setattr("scripts.runner.DB_PATH", temp_db_path)
-    _ensure_db() # Ensure the database table exists for the monkeypatched path
+
+    # Monkeypatch _ensure_db to use the temporary DB_PATH
+    def mock_ensure_db():
+        conn = sqlite3.connect(temp_db_path)
+        cur = conn.cursor()
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS usage (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp TEXT NOT NULL,
+                task_name TEXT NOT NULL,
+                event_type TEXT NOT NULL,
+                command TEXT,
+                returncode INTEGER,
+                stdout TEXT,
+                stderr TEXT
+            )
+        """
+        )
+        conn.commit()
+        conn.close()
+    monkeypatch.setattr("scripts.runner._ensure_db", mock_ensure_db)
 
     # Use a command that is guaranteed to fail
     with pytest.raises(subprocess.CalledProcessError):
