@@ -19,8 +19,8 @@ def _ensure_message(msg: str) -> str:
 def start(c):
     """Build context, clear __lastSession__, optional briefing, enable tracking."""
     log_usage("session", "start", command="start", returncode=0, stdout="session started", stderr="")
-    from scripts.hub_manager import clear_last_session
-    clear_last_session()
+    from scripts import hub_manager
+    hub_manager.clear_last_session()
     print("  - Building context index...")
     build_context_index(c)
     try:
@@ -39,7 +39,7 @@ def end(c, task_id="general"):
     """WIP commit, restore gitignore, write __lastSession__ block."""
     run_command("end", ["invoke", "wip"], check=False)
     run_command("end", ["powershell.exe", "-ExecutionPolicy", "Bypass", "-File", "scripts/toggle_gitignore.ps1", "-Restore"], check=False)
-    run_command("end", [sys.executable, "scripts/hub_manager.py", task_id], check=False)
+    hub_manager.update_session_end_info(task_id)
     run_command("end", ["git", "add", "docs/HUB.md"], check=False)
     run_command("end", ["invoke", "wip"], check=False)
     log_usage(task_id, "session_end", command="end", returncode=0, stdout="session ended", stderr="")

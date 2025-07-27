@@ -108,7 +108,7 @@ def test_last_session_cycle(test_env):
     assert "__lastSession__:" in hub_content_after_end
 
     program.run("start", exit=False)
-    time.sleep(0.1) # 파일 시스템 업데이트 대기
+    time.sleep(0.2) # 파일 시스템 업데이트 대기
     hub_content_after_start = HUB_PATH.read_text(encoding="utf-8")
     assert "__lastSession__:" not in hub_content_after_start
 

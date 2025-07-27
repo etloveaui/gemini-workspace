@@ -1,37 +1,44 @@
+# scripts/hub_manager.py
+import re
+import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
-import subprocess
+import os
+import time
 
 ROOT = Path(__file__).resolve().parents[1]
 HUB_PATH = ROOT / "docs" / "HUB.md"
 
-def _read():
+_CONTROL_CHARS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1F]")
+_BLOCK_RE = re.compile(r"(?ms)^[ \t]*---[ \t]*\n__lastSession__:[ \t]*.*?(?=^[ \t]*---[ \t]*$|\Z)")
+
+# --- Low-level I/O helpers -------------------------------------------------
+
+def _read() -> str:
     return HUB_PATH.read_text(encoding="utf-8", errors="replace")
 
-import os
+def _write(text: str) -> None:
+    # LF 고정 + 파일 끝 개행 보장 + flush + fsync + 짧은 sleep
+    if text and not text.endswith("\n"):
+        text += "\n"
+    with open(HUB_PATH, "w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
+        f.flush()
+        os.fsync(f.fileno())
+    time.sleep(0.05)
 
-def _write(text: str):
-    if text and not text.endswith(os.linesep):
-        text += os.linesep
-    HUB_PATH.write_text(text, encoding="utf-8", newline='')
+# --- High-level transformers ----------------------------------------------
+
+def _normalize(s: str) -> str:
+    s = s.replace("\r\n", "\n").replace("\r", "\n")
+    return _CONTROL_CHARS.sub("", s)
 
 def strip_last_session_block(text: str) -> str:
-    lines = text.replace('\r\n','\n').replace('\r','\n').split('\n')
-    out = []
-    i = 0
-    while i < len(lines):
-        line = lines[i]
-        if line.strip() == '---' and i + 1 < len(lines) and lines[i+1].strip().startswith('__lastSession__:'):
-            i += 2
-            while i < len(lines):
-                if lines[i].strip() == '---':
-                    i += 1
-                    break
-                i += 1
-            continue
-        out.append(line)
-        i += 1
-    return "\n".join(out).rstrip() + "\n"
+    t = _normalize(text)
+    t = _BLOCK_RE.sub("", t)
+    return t.rstrip() + "\n"
+
+# --- Public API ------------------------------------------------------------
 
 def get_changed_files() -> list[str]:
     try:
@@ -47,19 +54,25 @@ def update_session_end_info(task_id: str = "general") -> None:
     hub = strip_last_session_block(_read())
     changed = get_changed_files()
     ts = datetime.now(timezone.utc).isoformat()
-    block = ["---", "__lastSession__:", f"  task: {task_id}", f"  timestamp: {ts}"]
+
+    lines = [
+        "---",
+        "__lastSession__:",
+        f"  task: {task_id}",
+        f"  timestamp: {ts}",
+    ]
     if changed:
-        block.append("  changed_files:")
-        block.extend([f"    - {p}" for p in changed])
-    hub = hub.rstrip() + "\n" + "\n".join(block) + "\n"
+        lines.append("  changed_files:")
+        lines.extend([f"    - {p}" for p in changed])
+
+    hub = hub.rstrip() + "\n" + "\n".join(lines) + "\n"
     _write(hub)
 
 def clear_last_session() -> None:
     _write(strip_last_session_block(_read()))
 
 def handle_last_session() -> None:
-    txt = _read()
-    if "__lastSession__:" in txt:
+    if "__lastSession__:" in _read():
         clear_last_session()
 
 if __name__ == "__main__":
