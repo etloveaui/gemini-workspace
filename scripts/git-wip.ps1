@@ -11,7 +11,10 @@ if (-not (git diff --cached --quiet)) {
         $commitMsg = "$Message - $stats" # 한 줄로 요약
     }
     
-    git commit -m "$commitMsg" # -F 대신 -m 사용
+    $tmpFile = [System.IO.Path]::GetTempFileName()
+    Set-Content -Path $tmpFile -Value $commitMsg -Encoding utf8
+    git commit -F $tmpFile
+    Remove-Item $tmpFile
 } else {
     Write-Host "No staged changes to commit"
 }

@@ -85,7 +85,7 @@ def end(c, task_id="general"):
     run_command('end', ["powershell.exe", "-ExecutionPolicy", "Bypass", "-File", ".\\scripts\\toggle_gitignore.ps1", "-Restore"]) # run_command 사용
     
     print("  - Updating __lastSession__ block in HUB.md...")
-    run_command('end', ["python", "scripts/hub_manager.py", task_id]) # run_command 사용
+    run_command('end', ["python", "scripts/hub_manager.py", "update_session", task_id]) # run_command 사용
     
     print("  - Creating final commit for session updates...")
     run_command('end', ["git", "add", "docs/HUB.md"]) # run_command 사용
