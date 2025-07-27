@@ -138,12 +138,11 @@ def test_last_session_cycle(test_env):
         raise AssertionError("Timeout: __lastSession__ block still present after start")
 
 
-def test_runner_error_logging(test_env):
+def test_runner_error_logging(test_env, clean_usage_db, monkeypatch):
     """Verify that a failed command in runner.py logs a 'command_error'."""
-    # Ensure a clean database state for this test
-    if DB_PATH.exists():
-        os.remove(DB_PATH)
-    _ensure_db() # Ensure the database table exists after clearing
+    # Monkeypatch DB_PATH to use a temporary file for this test
+    temp_db_path = Path(clean_usage_db) # clean_usage_db fixture returns the path to the temporary db
+    monkeypatch.setattr("scripts.runner.DB_PATH", temp_db_path)
 
     # Use a command that is guaranteed to fail
     with pytest.raises(subprocess.CalledProcessError):
@@ -151,7 +150,7 @@ def test_runner_error_logging(test_env):
 
     # Check the database for the error log
     time.sleep(0.1) # Give some time for DB write to complete
-    with sqlite3.connect(DB_PATH) as conn:
+    with sqlite3.connect(temp_db_path) as conn:
         cursor = conn.cursor()
         cursor.execute("PRAGMA journal_mode=WAL;")
         cursor.execute("SELECT * FROM usage WHERE event_type = 'command_error' AND task_name = 'test_runner'")
