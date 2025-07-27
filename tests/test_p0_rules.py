@@ -143,6 +143,7 @@ def test_runner_error_logging(test_env, clean_usage_db, monkeypatch):
     # Monkeypatch DB_PATH to use a temporary file for this test
     temp_db_path = Path(clean_usage_db) # clean_usage_db fixture returns the path to the temporary db
     monkeypatch.setattr("scripts.runner.DB_PATH", temp_db_path)
+    _ensure_db() # Ensure the database table exists for the monkeypatched path
 
     # Use a command that is guaranteed to fail
     with pytest.raises(subprocess.CalledProcessError):
