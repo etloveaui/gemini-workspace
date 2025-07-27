@@ -143,6 +143,7 @@ def test_runner_error_logging(test_env):
     # Ensure a clean database state for this test
     if DB_PATH.exists():
         os.remove(DB_PATH)
+    _ensure_db() # Ensure the database table exists after clearing
 
     # Use a command that is guaranteed to fail
     with pytest.raises(subprocess.CalledProcessError):
