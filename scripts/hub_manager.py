@@ -9,34 +9,50 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 HUB_PATH = ROOT / "docs" / "HUB.md"
 
-_CONTROL_CHARS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1F]")
-_BLOCK_RE = re.compile(r"(?ms)^[ \t]*---[ \t]*\n__lastSession__:[ \t]*.*?(?=^[ \t]*---[ \t]*$|\Z)")
-
-# --- Low-level I/O helpers -------------------------------------------------
-
 def _read() -> str:
     return HUB_PATH.read_text(encoding="utf-8", errors="replace")
 
-def _write(text: str) -> None:
-    # LF 고정 + 파일 끝 개행 보장 + flush + fsync + 짧은 sleep
-    if text and not text.endswith("\n"):
-        text += "\n"
-    with open(HUB_PATH, "w", encoding="utf-8", newline="\n") as f:
+def _write_atomic(text: str) -> None:
+    if text and not text.endswith('\n'):
+        text += '\n'
+    tmp_path = HUB_PATH.with_suffix(".tmp")
+
+    with open(tmp_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
         f.flush()
         os.fsync(f.fileno())
-    time.sleep(0.05)
 
-# --- High-level transformers ----------------------------------------------
+    os.replace(tmp_path, HUB_PATH)  # atomic
+    time.sleep(0.05)  # 보수적 대기 (윈도우/AV 캐시 대비)
 
-def _normalize(s: str) -> str:
-    s = s.replace("\r\n", "\n").replace("\r", "\n")
-    return _CONTROL_CHARS.sub("", s)
+CONTROL_CHARS = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1F]')  # ,  제외
+
 
 def strip_last_session_block(text: str) -> str:
-    t = _normalize(text)
-    t = _BLOCK_RE.sub("", t)
-    return t.rstrip() + "\n"
+    """
+    __lastSession__ YAML 블록(위의 --- 포함) 제거.
+    라인 스캔 + 정규식 하이브리드로 안전 제거.
+    """
+    cleaned = CONTROL_CHARS.sub('', text)
+    lines = cleaned.splitlines()
+
+    start_idx = -1
+    # 뒤에서부터 __lastSession__ 라인 탐색
+    for i in range(len(lines) - 1, -1, -1):
+        if lines[i].strip().startswith('__lastSession__'):
+            # 위쪽에서 가장 가까운 '---' 찾기
+            for j in range(i - 1, -1, -1):
+                if lines[j].strip() == '---':
+                    start_idx = j
+                    break
+            break
+
+    if start_idx == -1:
+        return text  # 블록 없음
+
+    new_lines = lines[:start_idx]
+    result = '\n'.join(new_lines).rstrip()
+    return (result + '\n') if result else ''
 
 # --- Public API ------------------------------------------------------------
 
@@ -66,10 +82,10 @@ def update_session_end_info(task_id: str = "general") -> None:
         lines.extend([f"    - {p}" for p in changed])
 
     hub = hub.rstrip() + "\n" + "\n".join(lines) + "\n"
-    _write(hub)
+    _write_atomic(hub)
 
 def clear_last_session() -> None:
-    _write(strip_last_session_block(_read()))
+    _write_atomic(strip_last_session_block(_read()))
 
 def handle_last_session() -> None:
     if "__lastSession__:" in _read():

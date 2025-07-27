@@ -4,6 +4,7 @@ from pathlib import Path
 from scripts.runner import run_command as _runner_run_command
 from scripts.usage_tracker import log_usage
 import sys
+from scripts import hub_manager
 
 ROOT = Path(__file__).resolve().parent
 
@@ -19,7 +20,7 @@ def _ensure_message(msg: str) -> str:
 def start(c):
     """Build context, clear __lastSession__, optional briefing, enable tracking."""
     log_usage("session", "start", command="start", returncode=0, stdout="session started", stderr="")
-    from scripts import hub_manager
+
     hub_manager.clear_last_session()
     print("  - Building context index...")
     build_context_index(c)
@@ -40,6 +41,7 @@ def end(c, task_id="general"):
     run_command("end", ["invoke", "wip"], check=False)
     run_command("end", ["powershell.exe", "-ExecutionPolicy", "Bypass", "-File", "scripts/toggle_gitignore.ps1", "-Restore"], check=False)
     hub_manager.update_session_end_info(task_id)
+    
     run_command("end", ["git", "add", "docs/HUB.md"], check=False)
     run_command("end", ["invoke", "wip"], check=False)
     log_usage(task_id, "session_end", command="end", returncode=0, stdout="session ended", stderr="")
@@ -52,11 +54,11 @@ def status(c):
 @task
 def wip(c, message=""):
     msg = _ensure_message(message)
-    _runner_run_command("wip", ["git", "diff", "--cached", "--shortstat"], check=False)
+    _runner_run_command("wip", ["git", "diff", "--cached", "--shortstat"], cwd=c.cwd, check=False)
     with tempfile.NamedTemporaryFile("w", delete=False, encoding="utf-8") as tf:
         tf.write(msg + "\n")
         temp_path = tf.name
-    _runner_run_command("wip", ["git", "commit", "-F", temp_path], check=False)
+    _runner_run_command("wip", ["git", "commit", "-F", temp_path], cwd=c.cwd, check=False)
 
 @task(name="build")
 def build_context_index(c):

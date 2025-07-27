@@ -11,6 +11,26 @@ import sqlite3
 import time
 from scripts.runner import run_command
 
+import time
+import re
+
+def run_invoke(*args):
+    cmd = [sys.executable, "-m", "invoke", *args]
+    proc = subprocess.run(cmd, capture_output=True, text=True, shell=False, cwd=ROOT)
+    if proc.returncode != 0:
+        raise AssertionError(f"invoke {' '.join(args)} failed:\nSTDOUT:\n{proc.stdout}\nSTDERR:\n{proc.stderr}")
+    return proc.stdout
+
+def wait_for_pattern(path, pattern, timeout=2.0, interval=0.05):
+    """pattern이 path 파일에 등장할 때까지 반복 확인"""
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        content = path.read_text(encoding="utf-8", errors="ignore")
+        if re.search(pattern, content):
+            return content
+        time.sleep(interval)
+    raise AssertionError(f"Timeout: '{pattern}' not found in {path}")
+
 # --- Constants and Test Setup ---
 ROOT = Path(__file__).resolve().parent.parent
 HUB_PATH = ROOT / "docs" / "HUB.md"
@@ -100,17 +120,22 @@ def test_commit_protocol(test_env, monkeypatch):
     assert "-F" in commit_cmd, "The '-F' option was not used in the git commit command."
 
 def test_last_session_cycle(test_env):
-    """Verify the __lastSession__ block is created by 'end' and cleared by 'start'."""
-    program = Program(namespace=ns, version="0.1.0")
+    # 1) end 실행 → 블록 등장 대기
+    run_invoke("end")
+    wait_for_pattern(HUB_PATH, r"__lastSession__:")
 
-    program.run("end", exit=False)
-    hub_content_after_end = HUB_PATH.read_text(encoding="utf-8")
-    assert "__lastSession__:" in hub_content_after_end
+    # 2) start 실행 → 블록 제거 대기
+    run_invoke("start")
 
-    program.run("start", exit=False)
-    time.sleep(0.2) # 파일 시스템 업데이트 대기
-    hub_content_after_start = HUB_PATH.read_text(encoding="utf-8")
-    assert "__lastSession__:" not in hub_content_after_start
+    # 폴링 방식으로 '없어짐' 확인
+    deadline = time.time() + 2.0
+    while time.time() < deadline:
+        txt = HUB_PATH.read_text(encoding="utf-8", errors="ignore")
+        if "__lastSession__:" not in txt:
+            break
+        time.sleep(0.05)
+    else:
+        raise AssertionError("Timeout: __lastSession__ block still present after start")
 
 
 def test_runner_error_logging(test_env):

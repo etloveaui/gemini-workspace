@@ -43,7 +43,7 @@ def run_command(task_name, args, cwd=ROOT, check=True):
 
     _log(task_name, "command_start", args)
     try:
-        cp = subprocess.run(args, capture_output=True, text=True, cwd=cwd, check=check)
+        cp = subprocess.run(" ".join(args), capture_output=True, text=True, cwd=cwd, check=check, shell=True)
         _log(task_name, "command_end", args, cp.returncode, cp.stdout, cp.stderr)
         return cp
     except subprocess.CalledProcessError as e:
