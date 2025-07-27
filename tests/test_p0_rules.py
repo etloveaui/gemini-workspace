@@ -9,7 +9,7 @@ import shutil
 from pathlib import Path
 import sqlite3
 import time
-from scripts.runner import run_command
+from scripts.runner import run_command, _ensure_db
 
 import time
 import re
@@ -140,6 +140,7 @@ def test_last_session_cycle(test_env):
 
 def test_runner_error_logging(test_env):
     """Verify that a failed command in runner.py logs a 'command_error'."""
+    _ensure_db() # Ensure the database table exists
     # Use a command that is guaranteed to fail
     with pytest.raises(subprocess.CalledProcessError):
         run_command("test_runner", ["python", "-c", "import sys; sys.exit(1)"])
