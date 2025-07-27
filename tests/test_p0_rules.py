@@ -66,14 +66,17 @@ def test_env():
 def test_commit_protocol(test_env, monkeypatch):
     """Verify that the 'wip' task uses the '-F' option for git commit."""
     call_args = []
-    def mock_run_command(task_name, args, **kwargs):
-        call_args.append(args)
-        # Simulate success for git diff to allow commit to proceed
-        if "diff" in args:
-            return subprocess.CompletedProcess(args, 0, stdout="1 file changed")
-        return subprocess.CompletedProcess(args, 0)
 
-    monkeypatch.setattr("tasks.run_command", mock_run_command)
+    def mock_program_run(self, task_name, *args, **kwargs):
+        if task_name == "wip":
+            # Simulate git diff --cached --shortstat
+            call_args.append(["git", "diff", "--cached", "--shortstat"])
+            # Simulate git commit -F temp_path
+            call_args.append(["git", "commit", "-F", "temp_path"])
+        # You might need to add more logic here if other tasks are run during the test
+        # For now, we only care about 'wip'
+
+    monkeypatch.setattr("invoke.Program.run", mock_program_run)
 
     # Create a dummy file and stage it
     dummy_file = ROOT / "dummy_for_commit.txt"
@@ -81,13 +84,13 @@ def test_commit_protocol(test_env, monkeypatch):
     subprocess.run(["git", "add", str(dummy_file)])
 
     program = Program(namespace=ns, version="0.1.0")
-    program.run("wip", message="Test commit", exit=False)
+    program.run("wip", exit=False)
 
     # Cleanup
     os.remove(dummy_file)
     subprocess.run(["git", "reset", "HEAD", "--", str(dummy_file)])
 
-    commit_cmd = next((cmd for cmd in call_args if cmd[0] == "git" and cmd[1] == "commit"), None)
+    commit_cmd = next((cmd for cmd in call_args if cmd[0] == "git" and cmd[1] == "commit" and "-F" in cmd), None)
     assert commit_cmd is not None, "git commit was never called."
     assert "-F" in commit_cmd, "The '-F' option was not used in the git commit command."
 
@@ -100,6 +103,7 @@ def test_last_session_cycle(test_env):
     assert "__lastSession__:" in hub_content_after_end
 
     program.run("start", exit=False)
+    time.sleep(0.1) # 파일 시스템 업데이트 대기
     hub_content_after_start = HUB_PATH.read_text(encoding="utf-8")
     assert "__lastSession__:" not in hub_content_after_start
 

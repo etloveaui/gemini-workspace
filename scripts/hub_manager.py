@@ -1,4 +1,3 @@
-# scripts/hub_manager.py (stable regex-based)
 import re
 import subprocess
 from pathlib import Path
@@ -8,20 +7,25 @@ ROOT = Path(__file__).resolve().parents[1]
 HUB_PATH = ROOT / "docs" / "HUB.md"
 
 CONTROL_CHARS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1F]")
-# YAML block starting with --- then __lastSession__:
-_BLOCK_RE = re.compile(r"(?ms)^\s*---\s*\n__lastSession__:\s*.*?(?=^\s*---\s*$|\Z)")
+_BLOCK_RE = re.compile(r"(?ms)^---\s*__lastSession__:\s*.*?(?=^---\s*$|\Z)")
 
-def _read() -> str:
+def _read():
     return HUB_PATH.read_text(encoding="utf-8", errors="replace")
 
-def _write(text: str) -> None:
+def _write(text: str):
     if text and not text.endswith("\n"):
         text += "\n"
     HUB_PATH.write_text(text, encoding="utf-8")
 
 def strip_last_session_block(text: str) -> str:
-    cleaned = CONTROL_CHARS.sub('', text.replace('\r\n', '\n').replace('\r', '\n'))
-    return _BLOCK_RE.sub('', cleaned).rstrip() + "\n"
+    cleaned = CONTROL_CHARS.sub('', text.replace('
+', '
+').replace('', '
+'))
+    print(f"Cleaned text before regex: {cleaned[-500:]}") # 디버그 출력 추가
+    result = _BLOCK_RE.sub('', cleaned)
+    print(f"Text after regex substitution: {result[-500:]}") # 디버그 출력 추가
+    return result.rstrip() + "\n"
 
 def get_changed_files() -> list[str]:
     try:

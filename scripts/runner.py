@@ -1,30 +1,57 @@
-# /scripts/runner.py
 import subprocess
-from scripts.usage_tracker import log_usage
+import sqlite3
+from pathlib import Path
+from datetime import datetime, timezone
 
-def run_command(task_name: str, args: list[str], **kwargs):
-    """인자를 리스트로 받아 안전하게 실행하고 로그를 남기는 새로운 표준 실행기."""
-    command_str = " ".join(args)
-    log_usage(task_name, "command_start", details=f"Executing: {command_str}")
-    
-    # kwargs에서 'check' 및 'hide' 인자를 추출하고 기본값 설정
-    check_param = kwargs.pop('check', True)
-    hide_param = kwargs.pop('hide', False)
+ROOT = Path(__file__).resolve().parents[1]
+DB_PATH = ROOT / "usage.db"
 
+def _ensure_db():
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    # tests/test_runner_error_logging.py 에 맞춘 테이블/컬럼명
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS usage (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            timestamp TEXT NOT NULL,
+            task_name TEXT NOT NULL,
+            event_type TEXT NOT NULL,
+            command TEXT,
+            returncode INTEGER,
+            stdout TEXT,
+            stderr TEXT
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+def _log(task_name, event_type, command, returncode=None, stdout="", stderr=""):
+    _ensure_db()
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    ts = datetime.now(timezone.utc).isoformat()
+    cur.execute(
+        "INSERT INTO usage (timestamp, task_name, event_type, command, returncode, stdout, stderr) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        (ts, task_name, event_type, " ".join(command) if isinstance(command, (list, tuple)) else str(command),
+         returncode if returncode is not None else None, stdout, stderr)
+    )
+    conn.commit()
+    conn.close()
+
+def run_command(task_name, args, cwd=ROOT, check=True):
+    """
+    Wrapper around subprocess.run with logging.
+    - logs command_start, command_end or command_error into 'usage' table.
+    - returns subprocess.CompletedProcess
+    """
+    if not isinstance(args, (list, tuple)):
+        raise TypeError("args must be list/tuple of command tokens")
+
+    _log(task_name, "command_start", args)
     try:
-        # 셸 파싱을 피하기 위해 shell=False가 기본값
-        result = subprocess.run(args, text=True, capture_output=True, encoding="utf-8", errors="replace", check=check_param, **kwargs)
-        log_usage(task_name, "command_end", details=f"Success: {result.stdout[:200]}")
-        return result
+        cp = subprocess.run(args, capture_output=True, text=True, cwd=cwd, check=check)
+        _log(task_name, "command_end", args, cp.returncode, cp.stdout, cp.stderr)
+        return cp
     except subprocess.CalledProcessError as e:
-        log_usage(task_name, "command_error", details=f"Failed: {e.stderr[:200]}")
-        # check=False일 경우 예외를 발생시키지 않고 result 반환
-        if not check_param:
-            # check=False일 경우 예외를 발생시키지 않고 CompletedProcess 객체 반환
-            return subprocess.CompletedProcess(
-                args=e.cmd,
-                returncode=e.returncode,
-                stdout=e.stdout,
-                stderr=e.stderr
-            )
-        raise e
+        _log(task_name, "command_error", args, e.returncode, e.stdout, e.stderr)
+        raise
