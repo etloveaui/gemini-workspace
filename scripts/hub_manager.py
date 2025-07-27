@@ -36,7 +36,7 @@ def update_session_end_info(task_id: str):
     changed_files = get_changed_files()
 
     # First, robustly clear any existing __lastSession__ block and its separator
-    content = re.sub(r"\n---\n__lastSession__:\n.*?\n(?=^---\n|\Z)", "\n", content, flags=re.DOTALL | re.MULTILINE).strip()
+    content = re.sub(r"\n\s*---\s*\n__lastSession__:.*", "", content, flags=re.DOTALL).strip()
 
     # Create the YAML-formatted string for the changed files
     changed_files_yaml = "\n".join([f"    - {f}" for f in changed_files]) if changed_files else "    (No uncommitted changes)"
@@ -63,7 +63,7 @@ def clear_last_session():
 
     content = hub_path.read_text(encoding="utf-8")
     # This regex finds the --- separator and everything after it
-    content = re.sub(r"\n---\n__lastSession__:\n.*?\n(?=^---\n|\Z)", "\n", content, flags=re.DOTALL | re.MULTILINE).strip()
+    content = re.sub(r"\n\s*---\s*\n__lastSession__:.*", "", content, flags=re.DOTALL).strip()
     hub_path.write_text(content + "\n", encoding="utf-8")
     print("Previous session state has been cleared from HUB.md.")
 

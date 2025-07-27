@@ -65,23 +65,28 @@ def test_env():
 
 def test_commit_protocol(test_env, monkeypatch):
     """Verify that the 'wip' task uses the '-F' option for git commit."""
+    # Mock subprocess.run to capture its arguments
     call_args = []
-    def mock_run_command(task_name, args, **kwargs):
-        call_args.append(args)
+    original_subprocess_run = subprocess.run
+    def mock_subprocess_run(*args, **kwargs):
+        call_args.append(args[0])
         # Simulate success for git diff to allow commit to proceed
-        if "diff" in args:
-            return subprocess.CompletedProcess(args, 0, stdout="1 file changed")
-        return subprocess.CompletedProcess(args, 0)
+        if "git" in args[0] and "diff" in args[0]:
+            return original_subprocess_run(args[0], capture_output=True, text=True, check=False, cwd=kwargs.get('cwd', ROOT))
+        # For git commit, just return success
+        if "git" in args[0] and "commit" in args[0]:
+            return subprocess.CompletedProcess(args[0], 0)
+        return original_subprocess_run(*args, **kwargs)
 
-    monkeypatch.setattr("tasks.run_command", mock_run_command)
+    monkeypatch.setattr(subprocess, "run", mock_subprocess_run)
 
     # Create a dummy file and stage it
     dummy_file = ROOT / "dummy_for_commit.txt"
     dummy_file.write_text("test content")
-    subprocess.run(["git", "add", str(dummy_file)])
+    original_subprocess_run(["git", "add", str(dummy_file)], cwd=ROOT)
 
     # Run the 'wip' task via subprocess to simulate CLI call
-    result = subprocess.run(
+    result = original_subprocess_run(
         [sys.executable, "-m", "invoke", "wip", "--message='Test commit'"],
         capture_output=True,
         text=True,
@@ -90,10 +95,14 @@ def test_commit_protocol(test_env, monkeypatch):
     )
     assert result.returncode == 0, f"invoke wip failed: {result.stderr}"
 
-    # Assert that 'git commit -F' was called (check mock_run_command calls)
+    # Cleanup
+    os.remove(dummy_file)
+    original_subprocess_run(["git", "reset", "HEAD", "--", str(dummy_file)], cwd=ROOT)
+
+    # Assert that 'git commit -F' was called (check mock_subprocess_run calls)
     commit_cmd_found = False
     for args in call_args:
-        if len(args) >= 3 and args[0] == "git" and args[1] == "commit" and args[2] == "-F":
+        if "git" in args and "commit" in args and "-F" in args:
             commit_cmd_found = True
             break
     assert commit_cmd_found, "The -F option was not used in the git commit command."
