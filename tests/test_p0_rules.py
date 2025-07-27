@@ -140,19 +140,21 @@ def test_last_session_cycle(test_env):
 
 def test_runner_error_logging(test_env):
     """Verify that a failed command in runner.py logs a 'command_error'."""
-    _ensure_db() # Ensure the database table exists
+    # Ensure a clean database state for this test
+    if DB_PATH.exists():
+        os.remove(DB_PATH)
+
     # Use a command that is guaranteed to fail
     with pytest.raises(subprocess.CalledProcessError):
         run_command("test_runner", ["python", "-c", "import sys; sys.exit(1)"])
 
     # Check the database for the error log
     time.sleep(0.1) # Give some time for DB write to complete
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("PRAGMA journal_mode=WAL;")
-    cursor.execute("SELECT * FROM usage WHERE event_type = 'command_error' AND task_name = 'test_runner'")
-    error_log = cursor.fetchone()
-    conn.close()
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute("PRAGMA journal_mode=WAL;")
+        cursor.execute("SELECT * FROM usage WHERE event_type = 'command_error' AND task_name = 'test_runner'")
+        error_log = cursor.fetchone()
 
     assert error_log is not None, "A 'command_error' log was not found."
 
