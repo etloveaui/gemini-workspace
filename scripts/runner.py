@@ -9,7 +9,6 @@ DB_PATH = ROOT / "usage.db"
 def _ensure_db():
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
-    # tests/test_runner_error_logging.py 에 맞춘 테이블/컬럼명
     cur.execute("""
         CREATE TABLE IF NOT EXISTS usage (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,11 +38,6 @@ def _log(task_name, event_type, command, returncode=None, stdout="", stderr=""):
     conn.close()
 
 def run_command(task_name, args, cwd=ROOT, check=True):
-    """
-    Wrapper around subprocess.run with logging.
-    - logs command_start, command_end or command_error into 'usage' table.
-    - returns subprocess.CompletedProcess
-    """
     if not isinstance(args, (list, tuple)):
         raise TypeError("args must be list/tuple of command tokens")
 

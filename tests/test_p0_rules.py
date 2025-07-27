@@ -19,9 +19,20 @@ DB_PATH = ROOT / "usage.db"
 @pytest.fixture(scope="function")
 def test_env():
     # --- Setup ---
-    # Backup original HUB.md
-    if HUB_PATH.exists():
-        shutil.copy(HUB_PATH, HUB_PATH.with_suffix(".bak"))
+    # Ensure HUB.md is clean before each test
+    initial_hub_content = """# Workspace HUB
+
+*Last Updated: 2025-07-22*
+
+## Projects
+
+## Active Tasks
+
+## Paused Tasks
+
+## Completed Tasks
+"""
+    HUB_PATH.write_text(initial_hub_content, encoding="utf-8", newline='')
 
     # Rename usage.db to avoid permission issues
     db_renamed = False
@@ -33,19 +44,15 @@ def test_env():
             print(f"Could not rename usage.db: {e}")
             # If rename fails, try to delete (might be locked by another process)
             try:
-                sqlite3.connect(DB_PATH).close()
-                time.sleep(0.1)
                 os.remove(DB_PATH)
             except (sqlite3.OperationalError, PermissionError) as e_inner:
                 print(f"Could not delete usage.db: {e_inner}")
-                # If still locked, proceed without deleting/renaming, tests might fail
 
     yield
 
     # --- Teardown ---
-    # Restore original HUB.md
-    if HUB_PATH.with_suffix(".bak").exists():
-        shutil.move(HUB_PATH.with_suffix(".bak"), HUB_PATH)
+    # Ensure HUB.md is clean after each test
+    HUB_PATH.write_text(initial_hub_content, encoding="utf-8", newline='')
 
     # Restore usage.db
     if db_renamed and DB_PATH.with_suffix(".db.bak").exists():
@@ -55,8 +62,6 @@ def test_env():
             print(f"Could not restore usage.db: {e}")
     elif DB_PATH.exists(): # If a new DB was created during test, remove it
         try:
-            sqlite3.connect(DB_PATH).close()
-            time.sleep(0.1)
             os.remove(DB_PATH)
         except (sqlite3.OperationalError, PermissionError) as e_inner:
             print(f"Could not remove new usage.db: {e_inner}")
@@ -106,6 +111,7 @@ def test_last_session_cycle(test_env):
     time.sleep(0.1) # 파일 시스템 업데이트 대기
     hub_content_after_start = HUB_PATH.read_text(encoding="utf-8")
     assert "__lastSession__:" not in hub_content_after_start
+
 
 def test_runner_error_logging(test_env):
     """Verify that a failed command in runner.py logs a 'command_error'."""
