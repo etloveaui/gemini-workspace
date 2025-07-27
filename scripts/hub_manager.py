@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HUB_PATH = ROOT / "docs" / "HUB.md"
 
 CONTROL_CHARS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1F]")
-_BLOCK_RE = re.compile(r"(?ms)^---\s*__lastSession__:\s*.*?(?=^---\s*$|\Z)")
+_BLOCK_RE = re.compile(r"(?ms)^---\s*[\r\n]+__lastSession__:\s*.*?(?=^---\s*$|\Z)")
 
 def _read():
     return HUB_PATH.read_text(encoding="utf-8", errors="replace")
