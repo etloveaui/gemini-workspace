@@ -37,15 +37,22 @@ def _log(task_name, event_type, command, returncode=None, stdout="", stderr=""):
     conn.commit()
     conn.close()
 
-def run_command(task_name, args, cwd=ROOT, check=True):
-    if not isinstance(args, (list, tuple)):
-        raise TypeError("args must be list/tuple of command tokens")
-
-    _log(task_name, "command_start", args)
-    try:
-        cp = subprocess.run(" ".join(args), capture_output=True, text=True, cwd=cwd, check=check, shell=True)
-        _log(task_name, "command_end", args, cp.returncode, cp.stdout, cp.stderr)
-        return cp
-    except subprocess.CalledProcessError as e:
-        _log(task_name, "command_error", args, e.returncode, e.stdout, e.stderr)
-        raise
+def run_command(task_name: str, args: list[str], cwd=ROOT, check=True):
+    """
+    안전 실행 래퍼:
+    - shell=False
+    - 리스트 인자만
+    - cwd는 절대경로 str
+    """
+    abs_cwd = str(Path(cwd).resolve()) if cwd else None
+    print(f"[RUN:{task_name}] args={args!r}, cwd={abs_cwd!r}")
+    cp = subprocess.run(
+        args,
+        cwd=abs_cwd,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        check=check,
+        shell=False
+    )
+    return cp

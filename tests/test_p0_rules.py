@@ -152,3 +152,11 @@ def test_runner_error_logging(test_env):
     conn.close()
 
     assert error_log is not None, "A 'command_error' log was not found."
+
+def test_debug_19_doc_exists():
+    from pathlib import Path
+    assert Path("scratchpad/Gemini-Self-Upgrade/[P0]Debug_19.md").exists(), "[P0]Debug_19.md 문서가 삭제됨!"
+
+def test_debug20_doc_exists():
+    from pathlib import Path
+    assert Path("docs/debug/[P0]Debug_20.md").exists(), "[P0]Debug_20.md 문서가 삭제됨!"

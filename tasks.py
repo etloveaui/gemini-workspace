@@ -5,6 +5,7 @@ from scripts.runner import run_command as _runner_run_command
 from scripts.usage_tracker import log_usage
 import sys
 from scripts import hub_manager
+import subprocess, os
 
 ROOT = Path(__file__).resolve().parent
 
@@ -15,6 +16,23 @@ def run_command(task_name, args, cwd=ROOT, check=True):
 
 def _ensure_message(msg: str) -> str:
     return msg if msg.strip() else "WIP auto commit"
+
+def python_wip_commit(message: str, cwd: Path):
+    cwd = cwd.resolve()
+    # 1) 변경사항 스테이징
+    subprocess.run(["git", "add", "-A"], cwd=str(cwd), check=True, text=True)
+
+    # 2) 임시 메시지 파일
+    with tempfile.NamedTemporaryFile("w", delete=False, encoding="utf-8") as tf:
+        tf.write(message or "auto WIP commit")
+        tf.flush()
+        temp_path = tf.name
+
+    try:
+        subprocess.run(["git", "commit", "-F", temp_path],
+                       cwd=str(cwd), check=True, text=True)
+    finally:
+        os.unlink(temp_path)
 
 @task
 def start(c):
@@ -53,12 +71,12 @@ def status(c):
 
 @task
 def wip(c, message=""):
-    msg = _ensure_message(message)
-    _runner_run_command("wip", ["git", "diff", "--cached", "--shortstat"], cwd=c.cwd, check=False)
-    with tempfile.NamedTemporaryFile("w", delete=False, encoding="utf-8") as tf:
-        tf.write(msg + "\n")
-        temp_path = tf.name
-    _runner_run_command("wip", ["git", "commit", "-F", temp_path], cwd=c.cwd, check=False)
+    """
+    PowerShell 호출을 제거한, 순수 Python 버전.
+    테스트/실행 환경 모두 동일하게 사용 (권장).
+    """
+    repo_root = Path.cwd()  # 또는 프로젝트 루트로 고정 필요시 ROOT.parent 등
+    python_wip_commit(message, repo_root)
 
 @task(name="build")
 def build_context_index(c):
@@ -72,12 +90,18 @@ def query_context(c, query):
 def test(c):
     run_command("test", ["pytest", "tests/", "-v"], check=False)
 
+@task
+def clean_cli(c):
+    """Clears temporary files and session cache directories."""
+    run_command("clean_cli", [sys.executable, "scripts/clear_cli_state.py"], check=False)
+
 ns = Collection()
 ns.add_task(start)
 ns.add_task(end)
 ns.add_task(status)
 ns.add_task(wip)
 ns.add_task(test)
+ns.add_task(clean_cli)
 
 ctx_ns = Collection('context')
 ctx_ns.add_task(build_context_index, name='build')
