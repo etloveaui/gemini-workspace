@@ -31,48 +31,48 @@ def start(c):
     except Exception as e:
         print(f"prompt_builder failed: {e}")
     # 3. toggle .gitignore tracking on
-        run_logged("start", c, r"powershell.exe -ExecutionPolicy Bypass -File .\scripts\toggle_gitignore.ps1")
+    run_logged(c.task.name, c, r"powershell.exe -ExecutionPolicy Bypass -File .\scripts\toggle_gitignore.ps1")
     print("✅ start done")
 
 @task
 def end(c, task_id="general"):
     """[Session End] WIP commit, restore gitignore, write __lastSession__ block.""" 
     print("⏹️ Ending session...")
-    run_logged(c.current_task.name, c, "invoke wip")
-    run_logged(c.current_task.name, c, r"powershell.exe -ExecutionPolicy Bypass -File .\scripts\toggle_gitignore.ps1 -Restore")
+    run_logged(c.task.name, c, "invoke wip")
+    run_logged(c.task.name, c, r"powershell.exe -ExecutionPolicy Bypass -File .\scripts\toggle_gitignore.ps1 -Restore")
     # update HUB.md
     subprocess.run([sys.executable, "scripts/hub_manager.py", task_id], check=False)
-    run_logged(c.current_task.name, c, "git add docs/HUB.md")
-    run_logged(c.current_task.name, c, "invoke wip")
+    run_logged(c.task.name, c, "git add docs/HUB.md")
+    run_logged(c.task.name, c, "invoke wip")
     log_usage(task_id, "session_end", description="session ended")
     print("✅ end done")
 
 @task
 def status(c):
     """[Status Check] Quick git status.""" 
-    run_logged(c.current_task.name, c, "git status --short")
+    run_logged(c.task.name, c, "git status --short")
 
 @task
 def wip(c, message=""):
     """Create WIP commit using git-wip.ps1 (uses -F tempfile protocol).""" 
     cmd = f'powershell.exe -ExecutionPolicy Bypass -File "scripts/git-wip.ps1" -Message "{message}"'
-    run_logged(c.current_task.name, c, cmd)
+    run_logged(c.task.name, c, cmd)
 
 # ---- context namespace -------------------------------------
 @task(name="build")
 def build_context_index(c):
-    run_logged(c.current_task.name, c, r"python .\scripts\build_context_index.py")
+    run_logged(c.task.name, c, r"python .\scripts\build_context_index.py")
 
 @task(name="query")
 def query_context(c, query):
     print(f"Query: {query}")
-    run_logged(c.current_task.name, c, f'python scripts/context_store.py "{query}"')
+    run_logged(c.task.name, c, f'python scripts/context_store.py "{query}"')
 
 # ---- tests -------------------------------------------------
 @task
 def test(c):
     """Run all pytest cases in tests/""" 
-    run_logged(c.current_task.name, c, "pytest tests/ -v")
+    run_logged(c.task.name, c, "pytest tests/ -v")
 
 # namespace
 ns = Collection()
