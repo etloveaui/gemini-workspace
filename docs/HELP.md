@@ -1,26 +1,26 @@
-# Gemini CLI Help
+# Gemini CLI 도움말
 
-## Getting Started
+## 시작하기
 
-This section provides information on how to get started with the Gemini CLI.
+이 섹션에서는 Gemini CLI를 시작하는 방법에 대한 정보를 제공합니다.
 
-## Commands Overview
+## 명령어 개요
 
-Here's an overview of available commands:
+사용 가능한 명령어에 대한 개요입니다:
 
-* `invoke doctor`: Check your environment setup.
-* `invoke quickstart`: Get a quick guide to start.
-* `invoke help [section]`: Display help information.
-* `invoke search "<query>"`: Perform a web search and summarize the results.
+* `invoke doctor`: 환경 설정을 확인합니다.
+* `invoke quickstart`: 빠른 시작 가이드를 확인합니다.
+* `invoke help [section]`: 도움말 정보를 표시합니다.
+* `invoke search "<query>"`: 웹 검색을 수행하고 결과를 요약합니다.
 
-## Troubleshooting
+## 문제 해결
 
-This section provides troubleshooting tips.
+이 섹션에서는 문제 해결 팁을 제공합니다.
 
-## FAQ
+## 자주 묻는 질문
 
-Frequently Asked Questions.
+자주 묻는 질문입니다.
 
-## Conventions & Policies
+## 규칙 및 정책
 
-Refer to `GEMINI.md` for detailed conventions and policies.
+자세한 규칙 및 정책은 `GEMINI.md`를 참조하십시오.
