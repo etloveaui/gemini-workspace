@@ -7,3 +7,6 @@ scripts/quickstart.py
 scripts/help.py
 docs/HELP.md
 tests/test_ux_enhancements.py
+GEMINI.md
+docs/proposals/gemini-md-v2/DRAFT.md
+docs/tasks/gemini-md-v2/log.md

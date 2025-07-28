@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# GEMINI.md v2 pre-commit guard
+
+FORBIDDEN_PATTERNS=(
+    "datetime.utcnow"
+    "TODO:"
+    "print("
+)
+
+for pattern in "${FORBIDDEN_PATTERNS[@]}"; do
+    if git diff --cached --name-only | xargs grep -l "$pattern"; then
+        echo "ERROR: Forbidden pattern \"$pattern\" found in staged files. Please remove it before committing."
+        exit 1
+    fi
+done
+
+exit 0
