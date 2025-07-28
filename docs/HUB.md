@@ -13,3 +13,4 @@
 ## Completed Tasks
 
 - P0 작업 완료 (DeprecationWarning 해결, 테스트 구조 개선, Help 시스템 구축)
+- [P1]UX_01_Doctor_Quickstart_Help: CLI UX 향상 (doctor, quickstart, help 기능 구현) [log](docs/tasks/gemini-cli-ux-enhancement/log.md)
