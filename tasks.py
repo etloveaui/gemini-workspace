@@ -95,6 +95,18 @@ def clean_cli(c):
     """Clears temporary files and session cache directories."""
     run_command("clean_cli", [sys.executable, "scripts/clear_cli_state.py"], check=False)
 
+@task
+def doctor(c):
+    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/doctor.py'\"", pty=False)
+
+@task
+def quickstart(c):
+    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/quickstart.py'\"", pty=False)
+
+@task
+def help(c, section="all"):
+    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/help.py' {section}\"", pty=False)
+
 ns = Collection()
 ns.add_task(start)
 ns.add_task(end)
@@ -102,6 +114,9 @@ ns.add_task(status)
 ns.add_task(wip)
 ns.add_task(test)
 ns.add_task(clean_cli)
+ns.add_task(doctor)
+ns.add_task(quickstart)
+ns.add_task(help)
 
 ctx_ns = Collection('context')
 ctx_ns.add_task(build_context_index, name='build')
