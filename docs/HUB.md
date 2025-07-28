@@ -4,6 +4,12 @@
 
 ## Projects
 
+## Project Blueprints
+
+- **[P0] Foundational Enhancements:** `scratchpad/Gemini-Self-Upgrade/Plan/[P0]Plan_Gemini.md`, `scratchpad/Gemini-Self-Upgrade/Plan/[P0]Plan_O3.md`
+- **[P1] Core Feature Expansion:** `scratchpad/Gemini-Self-Upgrade/Plan/[P1]Plan_O3.md`, `scratchpad/Gemini-Self-Upgrade/Plan/[P1_P2]Plan_Gemini.md`
+- **[P2] System Optimization & UX Refinement:** `scratchpad/Gemini-Self-Upgrade/Plan/[P2]Plan_O3.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_Gemini.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_O3.md`
+
 ## Active Tasks
 
 ## Paused Tasks
