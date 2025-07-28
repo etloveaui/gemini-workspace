@@ -7,6 +7,8 @@
 ## Active Tasks
 
 - P0 작업 완료 및 시스템 안정화
+- [P1-0-GMD] GEMINI.md v2 업그레이드 [log](docs/tasks/gemini-md-v2/log.md)
+- [P1-1] Web Agent Integration [log](docs/tasks/web-agent-integration/log.md)
 
 ## Paused Tasks
 

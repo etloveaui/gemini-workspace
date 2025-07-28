@@ -105,7 +105,12 @@ def quickstart(c):
 
 @task
 def help(c, section="all"):
-    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/help.py' {section}\"", pty=False)
+    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/help.py' {section}'", pty=False)
+
+@task
+def search(c, q):
+    """invoke search \"<query>\" : web search + summarize"""
+    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/web_agent.py' --query '{q}'\"", pty=False)
 
 ns = Collection()
 ns.add_task(start)
@@ -117,6 +122,7 @@ ns.add_task(clean_cli)
 ns.add_task(doctor)
 ns.add_task(quickstart)
 ns.add_task(help)
+ns.add_task(search)
 
 ctx_ns = Collection('context')
 ctx_ns.add_task(build_context_index, name='build')

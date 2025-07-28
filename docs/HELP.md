@@ -11,6 +11,7 @@ Here's an overview of available commands:
 * `invoke doctor`: Check your environment setup.
 * `invoke quickstart`: Get a quick guide to start.
 * `invoke help [section]`: Display help information.
+* `invoke search "<query>"`: Perform a web search and summarize the results.
 
 ## Troubleshooting
 
