@@ -12,6 +12,8 @@
 
 ## Active Tasks
 
+- ars-can-busoff-recovery-fix
+
 ## Paused Tasks
 
 - 100xfenok-generator-data-cleanup
