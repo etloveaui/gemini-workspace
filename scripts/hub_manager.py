@@ -56,6 +56,26 @@ def strip_last_session_block(text: str) -> str:
 
 # --- Public API ------------------------------------------------------------
 
+def parse_tasks(content: str, section_title: str) -> list[str]:
+    """지정된 섹션 아래의 작업 목록을 파싱합니다."""
+    try:
+        # 섹션 제목과 그 다음 섹션 제목 사이의 내용을 추출
+        pattern = re.compile(rf"## {re.escape(section_title)}\n(.*?)\n## ", re.DOTALL)
+        match = pattern.search(content)
+        if not match:
+            # 파일 끝까지의 내용을 처리하기 위한 대체 패턴
+            pattern = re.compile(rf"## {re.escape(section_title)}\n(.*?)$", re.DOTALL)
+            match = pattern.search(content)
+
+        if match:
+            section_content = match.group(1)
+            # "- "로 시작하는 라인 아이템을 추출
+            tasks = re.findall(r"^\s*-\s*(.+?)\s*$", section_content, re.MULTILINE)
+            return [task.strip() for task in tasks]
+        return []
+    except Exception:
+        return []
+
 def get_changed_files() -> list[str]:
     try:
         out = subprocess.run(

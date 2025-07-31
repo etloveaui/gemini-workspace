@@ -8,6 +8,7 @@ from scripts import hub_manager
 import subprocess, os
 
 ROOT = Path(__file__).resolve().parent
+VENV_PYTHON = str(ROOT / "venv/Scripts/python.exe")
 
 __all__ = ["run_command"]
 
@@ -36,22 +37,42 @@ def python_wip_commit(message: str, cwd: Path):
 
 @task
 def start(c):
-    """Build context, clear __lastSession__, optional briefing, enable tracking."""
-    log_usage("session", "start", command="start", returncode=0, stdout="session started", stderr="")
+    """System check, status briefing, and session initialization."""
+    log_usage("session", "start", command="start")
 
-    hub_manager.clear_last_session()
-    print("  - Building context index...")
-    build_context_index(c)
+    # 1. 시스템 환경 점검
+    print("--- System Status Check ---")
+    doctor_result = run_command("start.doctor", [VENV_PYTHON, "scripts/doctor.py"], check=False)
+    print(doctor_result.stdout)
+
+    # 2. HUB.md에서 작업 현황 브리핑
+    print("--- Task Status ---")
     try:
-        cp = run_command("start", [sys.executable, "scripts/prompt_builder.py"], check=False)
-        if cp.stdout:
-            print("\nSession Start Briefing\n" + "-"*50)
-            print(cp.stdout)
-            print("-"*50)
-    except Exception as e:
-        print(f"prompt_builder failed: {e}")
-    run_command("start", ["powershell.exe", "-ExecutionPolicy", "Bypass", "-File", "scripts/toggle_gitignore.ps1"], check=False)
-    print("start done")
+        with open("docs/HUB.md", "r", encoding="utf-8") as f:
+            hub_content = f.read()
+        active_tasks = hub_manager.parse_tasks(hub_content, "Active Tasks")
+        paused_tasks = hub_manager.parse_tasks(hub_content, "Paused Tasks")
+        print(f"Active Tasks: {active_tasks}")
+        print(f"Paused Tasks: {paused_tasks}")
+    except FileNotFoundError:
+        print("docs/HUB.md not found.")
+
+    # 3. Git 변경 사항 요약
+    print("--- Git Status ---")
+    git_status_result = run_command("start.git_status", ["git", "status", "--porcelain"], check=False)
+    if git_status_result.stdout:
+        print(git_status_result.stdout)
+    else:
+        print("No changes in the working directory.")
+
+    # 4. 이전 세션 정보 정리 및 컨텍스트 빌드
+    hub_manager.clear_last_session()
+    print("\n--- Initializing Session ---")
+    build_context_index(c)
+
+    # 5. 도움말 및 다음 행동 제안
+    print("\nMore help is available by typing: invoke help")
+    print("What would you like to do next?")
 
 @task
 def end(c, task_id="general"):
@@ -75,16 +96,16 @@ def wip(c, message=""):
     PowerShell 호출을 제거한, 순수 Python 버전.
     테스트/실행 환경 모두 동일하게 사용 (권장).
     """
-    repo_root = Path.cwd()  # 또는 프로젝트 루트로 고정 필요시 ROOT.parent 등
+    repo_root = Path.cwd()
     python_wip_commit(message, repo_root)
 
 @task(name="build")
 def build_context_index(c):
-    run_command("context.build", [sys.executable, "scripts/build_context_index.py"], check=False)
+    run_command("context.build", [VENV_PYTHON, "scripts/build_context_index.py"], check=False)
 
 @task(name="query")
 def query_context(c, query):
-    run_command("context.query", [sys.executable, "scripts/context_store.py", query], check=False)
+    run_command("context.query", [VENV_PYTHON, "scripts/context_store.py", query], check=False)
 
 @task
 def test(c):
@@ -93,24 +114,24 @@ def test(c):
 @task
 def clean_cli(c):
     """Clears temporary files and session cache directories."""
-    run_command("clean_cli", [sys.executable, "scripts/clear_cli_state.py"], check=False)
+    run_command("clean_cli", [VENV_PYTHON, "scripts/clear_cli_state.py"], check=False)
 
 @task
 def doctor(c):
-    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/doctor.py'\"", pty=False)
+    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & '{VENV_PYTHON}' 'scripts/doctor.py'\"", pty=False)
 
 @task
 def quickstart(c):
-    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/quickstart.py'\"", pty=False)
+    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & '{VENV_PYTHON}' 'scripts/quickstart.py'\"", pty=False)
 
 @task
 def help(c, section="all"):
-    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/help.py' {section}'", pty=False)
+    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & '{VENV_PYTHON}' 'scripts/help.py' {section}'\"", pty=False)
 
 @task
 def search(c, q):
     """invoke search \"<query>\" : web search + summarize"""
-    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"& '{sys.executable}' 'scripts/web_agent.py' --query '{q}'\"", pty=False)
+    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & '{VENV_PYTHON}' 'scripts/web_agent.py' --query '{q}'\"", pty=False)
 
 ns = Collection()
 ns.add_task(start)

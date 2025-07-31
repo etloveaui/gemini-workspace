@@ -113,7 +113,7 @@
 ### 다음 단계
 - `[P0] 핵심 기반 강화`의 다음 목표를 진행하거나, 다른 작업을 시작합니다.
 
-## 2025-07-26: 지능형 컨텍스트 관리 프레임워크 구축 (P0-3)
+## 2025-07-27: 지능형 컨텍스트 관리 프레임워크 구축 (P0-3)
 
 ### 전략적 목표
 - 세션이 시작될 때마다 `HUB.md`를 수동으로 파싱하는 불안정한 방식을 폐기한다. 대신, 워크스페이스의 모든 중요 정보를 사전에 '인덱싱(Indexing)' 하고, 명확한 '정책(Policy)' 에 따라 컨텍스트를 조합하여 제공하는 확장 가능한 프레임워크를 구축한다. 이 프레임워크는 향후 모든 지능형 기능의 기반이 될 것이다.
@@ -289,4 +289,227 @@
 - `tasks.py`의 주요 태스크들이 새로운 아키텍처에 맞춰 재설계되었고, `invoke start`를 통해 지능형 세션 시작이 정상 작동함을 확인.
 
 ### 다음 단계
-- 다음 우선순위 작업을 진행하거나, 추가적인 시스템 개선 작업을 수행합니다.
+- `[P0] 핵심 기반 강화`의 다음 목표를 진행하거나, 다른 작업을 시작합니다.
+
+## 2025-07-30: 모든 스크립트 분석 완료 및 시스템 파악 종합
+
+### 목표
+- `scripts` 디렉터리 내의 모든 스크립트를 분석하여 시스템의 전체적인 작동 방식과 구성 요소를 파악한다.
+
+### 과정
+1.  **`hub_manager.py` 분석:** `docs/HUB.md`를 관리하며 세션 종료 시 `__lastSession__` 블록을 업데이트하는 역할을 파악.
+2.  **`runner.py` 분석:** 외부 명령어 실행 및 `usage.db`에 로깅하는 핵심적인 역할을 파악.
+3.  **`prompt_builder.py` 분석:** `context_policy.yaml`과 `context/index.json`을 기반으로 프롬프트 컨텍스트를 동적으로 구성하는 역할을 파악.
+4.  **`summarizer.py` 분석:** 텍스트를 요약하는 추출적 요약 기능을 파악.
+5.  **`context_store.py` 분석:** `context/index.json`을 관리하고 쿼리에 따라 문서를 검색하는 역할을 파악.
+6.  **`doctor.py` 분석:** 시스템 환경 및 필수 파일의 존재 여부를 진단하는 역할을 파악.
+7.  **`toggle_gitignore.ps1` 분석:** `.gitignore` 파일 내의 `/projects/` 라인을 주석 처리/해제하는 역할을 파악.
+8.  **`build_context_index.py` 분석:** `context/index.json` 파일을 생성하고 업데이트하는 역할을 파악.
+9.  **`check_no_delete.py` 분석:** `.no_delete_list`에 지정된 파일의 삭제/이름 변경을 방지하는 역할을 파악.
+10. **`clear_cli_state.py` 분석:** CLI의 임시 파일 및 세션 캐시를 정리하는 역할을 파악.
+11. **`git-wip.ps1` 분석:** Git의 WIP 커밋을 자동화하는 PowerShell 스크립트임을 파악.
+12. **`help.py` 분석:** `docs/HELP.md`를 파싱하여 도움말 정보를 제공하는 역할을 파악.
+13. **`log_usage.ps1` 분석:** 사용량(usage)을 기록하는 PowerShell 스크립트임을 파악.
+14. **`quickstart.py` 분석:** 새로운 사용자를 위한 빠른 시작 가이드를 제공하는 역할을 파악.
+15. **`web_agent.py` 분석:** 웹 검색 기능을 제공하는 웹 에이전트 역할을 파악.
+
+### 현재 상태
+- `scripts` 디렉터리 내의 모든 스크립트 분석을 완료했으며, 시스템의 전체적인 작동 방식과 구성 요소를 상세하게 파악함.
+
+### 다음 단계
+- `GEMINI.md` 구조 개선 제안을 통해 대화 시작 시 시스템이 더 능동적으로 정보를 제공하고 다음 단계를 제안하도록 한다.
+
+---
+
+## 2025-07-30: `GEMINI.md` 구조 개선 제안 (대화 시작 원활화)
+
+### 목표
+- `GEMINI.md`의 "세션 시작" 프로토콜을 개선하여 대화 시작 시 시스템이 더 능동적으로 정보를 제공하고 다음 단계를 제안하도록 한다.
+
+### 제안하는 새로운 "1. 세션 시작" in `GEMINI.md`:
+
+```markdown
+**1. 세션 시작**
+- 모든 대화 세션을 시작할 때, 이 `GEMINI.md` 파일을 가장 먼저 읽고 모든 규칙을 인지한 상태에서 작업을 시작해야 합니다.
+- **시스템 초기 점검 및 브리핑:**
+    - **환경 상태 확인:** `scripts/doctor.py`를 자동으로 실행하여 시스템 환경(Python, Git, venv 등) 및 필수 파일(`usage.db`, `.no_delete_list`, `GEMINI.md`)의 상태를 점검하고, 그 결과를 간결하게 브리핑합니다.
+    - **활성/일시 중지된 작업 브리핑:** `docs/HUB.md`를 참조하여 현재 진행 중이거나 일시 중지된 작업 목록을 상세히 브리핑합니다. 각 작업에 대한 최근 로그 요약(예: `docs/tasks/[task_id]/log.md`의 마지막 3줄)을 포함하여 컨텍스트를 제공합니다.
+    - **워크스페이스 변경 사항 요약:** `git status --porcelain`을 실행하여 커밋되지 않은 변경 사항이 있는지 확인하고, 그 상태를 브리핑합니다.
+- **이전 세션 복구 제안:** `docs/HUB.md`에 `__lastSession__` 블록이 있는지 확인하고, 존재하면 사용자에게 해당 세션을 복구할지 여부를 질문한 후 해당 블록을 삭제합니다.
+- **다음 행동 제안:** 위의 브리핑을 마친 후, 사용자에게 "어떤 작업을 계속할까요?, 아니면 새로운 작업을 시작할까요? 시스템 상태를 점검하시겠습니까?"와 같이 다음 행동을 제안하여 대화의 흐름을 자연스럽게 유도합니다.
+```
+
+---
+
+## 2025-07-30: Gemini 운영 지침 및 시스템 최신화 구조 개선 (재정의)
+
+### 목표
+- `GEMINI.md`를 최신 시스템 기능과 완벽하게 통합하고, 시스템의 지속적인 최신화 및 자율적인 운영을 위한 기반을 마련하며, 이 과정의 견고성을 확보합니다.
+
+### 세부 계획:
+
+*   **Phase 0: 계획 실행 견고성 확보 (새로운 추가)**
+    *   **0.1. 사전 백업 전략:**
+        *   `GEMINI.md`, `tasks.py`, `.gitignore`와 같이 수정될 핵심 파일들에 대해 **타임스탬프가 포함된 백업본**을 `docs/backup/` 디렉터리에 생성합니다. (예: `GEMINI_YYYYMMDD_HHMMSS.md.bak`)
+        *   **오류 발생 시 복구 계획:** 각 단계에서 오류 발생 시, 해당 단계에서 변경된 내용을 즉시 롤백하고, 상세 오류 로그를 `scratchpad/emergency_logs/`에 기록한 후 사용자에게 보고합니다.
+    *   **0.2. 진행 상황 상세 로깅:**
+        *   이 계획의 각 세부 단계가 완료될 때마다 `docs/tasks/gemini-self-upgrade/log.md` 파일에 **진행 상황를 업데이트**합니다. (Git 커밋은 최종 완료 시점에 일괄 진행)
+    *   **0.3. `replace` 도구 사용 원칙 (새로운 추가):**
+        *   `replace` 도구 사용 직전, **항상 대상 파일의 최신 내용을 `read_file`로 읽어와 `old_string`을 직접 복사하여 사용합니다.**
+        *   `old_string`에는 변경하려는 내용의 앞뒤로 충분한 컨텍스트(3~5줄)를 포함하여 고유성을 확보합니다.
+        *   복잡한 `GEMINI.md` 수정 시, `replace` 실행 전 `old_string`과 `new_string`을 사용자에게 제시하여 사전 검토 및 승인을 요청합니다.
+
+*   **Phase 1: `GEMINI.md` 업데이트 및 `.gitignore` 관리**
+    *   **1.1. `GEMINI.md` 백업 및 정리:**
+        *   `GEMINI.md` 백업본 생성.
+        *   `GEMINI.md` 파일 내용을 `read_file`로 읽어와, 현재 시스템의 기능과 맞지 않거나 불필요한 레거시 지침들을 식별하고 삭제합니다. (이때, `replace` 도구의 새로운 사용 원칙을 적용)
+        *   `GEMINI.md`의 "I. 핵심 운영 환경 (Core Operating Environment)" -> "1. 세션 시작" 섹션을 제가 이전에 제안했던 "시스템 초기 점검 및 브리핑" 내용을 포함하도록 수정합니다.
+        *   `GEMINI.md`에 "시스템 최신화" 또는 "자가 개선"과 관련된 새로운 섹션을 추가하여, 시스템이 지속적으로 업데이트되고 새로운 기능이 반영되는 구조임을 명시합니다.
+    *   **1.2. `.gitignore` 수정 및 Git 서브모듈 관리 명확화:**
+        *   `C:\Users\eunta\gemini-workspace\.gitignore` 파일에서 `.gemini/` 라인을 제거하여 `context_policy.yaml`을 포함한 `.gemini` 디렉터리 전체가 Git으로 관리되도록 합니다.
+        *   **사용자님께 Git 서브모듈(`projects` 폴더 내)에 대한 설명 제공:** `git status`에서 "new commits"로 표시되는 것은 정상적인 서브모듈 동작이며, `.gitignore`로 무시할 수 없음을 명확히 설명합니다. (이 설명은 계획 실행 전 사용자 컨펌 단계에서 제공)
+
+*   **Phase 2: `tasks.py`의 지능적인 구현**
+    *   **2.1. `tasks.py` `start` 함수 수정:**
+        *   `C:\Users\eunta\gemini-workspace\tasks.py` 파일의 `start` 함수를 다음과 같이 수정합니다.
+        *   `invoke build-context-index`를 호출하여 `context/index.json`을 최신 상태로 유지합니다.
+        *   `scripts/prompt_builder.py`를 활용하여 `session_start_briefing` 정책에 따라 동적으로 브리핑 내용을 생성합니다.
+        *   생성된 브리핑 내용을 사용자에게 출력합니다.
+        *   **`help` 기능 안내 포함:** 브리핑 마지막에 "더 많은 도움말이 필요하시면 `invoke help`를 입력해주세요."와 같이 `help` 태스크를 안내하는 문구를 추가합니다.
+        *   **다음 행동 제안:** 브리핑 후 사용자에게 "어떤 작업을 계속할까요?, 아니면 새로운 작업을 시작할까요?"와 같이 다음 행동을 제안하여 대화의 흐름을 주도합니다.
+    *   **2.2. `tasks.py` 기타 태스크 일관성 유지:**
+        *   `tasks.py` 내의 다른 태스크들도 `scripts/runner.py`를 통해 명령어를 실행하도록 일관성을 유지합니다.
+
+*   **Phase 3: 시스템의 지속적인 최신화 구조 반영 (새로운 추가)**
+    *   **3.1. `GEMINI.md`에 "견고한 계획 실행 가이드라인" 섹션 추가 제안:**
+        *   이 계획의 Phase 0에서 정의된 "사전 백업 전략", "오류 발생 시 복구 계획", "진행 상황 상세 로깅"과 같은 가이드라인을 `GEMINI.md`의 새로운 섹션으로 추가할 것을 제안합니다. (예: "V. 고급 기능 및 예외 처리" 아래에 "VI. 견고한 계획 실행 가이드라인" 또는 별도 문서)
+        *   이 섹션은 제가 향후 복잡한 작업을 수행할 때 항상 참조해야 할 메타-규칙이 됩니다.
+    *   **3.2. `GEMINI.md`에 "지속적인 최신화" 섹션 추가:**
+        *   시스템이 항상 최신 상태를 유지하고 새로운 기능이 자동으로 반영되는 구조임을 명시합니다.
+        *   `build_context_index.py`가 주기적으로 실행되어 컨텍스트 인덱스를 업데이트하는 역할, 그리고 제가 `GEMINI.md`의 "자가 개선 제안 프로토콜"에 따라 새로운 규칙이나 개선 사항을 제안할 수 있음을 포함합니다.
+
+---
+
+## 2025-07-31: `tasks.py` 점진적 개선 시작
+
+### 목표 (1/N)
+- `tasks.py`의 `start` 함수에 `doctor.py` 실행 기능을 추가하여, 세션 시작 시 시스템 상태를 자동으로 점검하도록 한다.
+
+### 실행할 작업
+- `write_file`을 사용하여 `tasks.py`의 `start` 함수를 수정할 예정.
+
+### 변경 내용 요약
+- 기존 `start` 함수 시작 부분에 `run_command`를 사용하여 `scripts/doctor.py`를 호출하고, 그 결과를 출력하는 코드를 추가한다.
+
+---
+
+### 결과 (1/N)
+- **성공:** `tasks.py` 파일에 `doctor.py` 실행 기능이 성공적으로 추가됨.
+
+---
+
+## 2025-07-31: `tasks.py` `start` 함수 안정화
+
+### 목표 (2/N)
+- `invoke start` 실행 시 발생하는 가상 환경(venv) 미적용 및 출력 인코딩 깨짐 문제를 해결한다.
+
+### 실행할 작업
+- `tasks.py`의 `start` 함수에서 `sys.executable` 대신 가상 환경의 `python.exe` 경로를 명시적으로 사용하도록 수정.
+- `scripts/runner.py`의 `run_command` 함수에서 `subprocess.run` 호출 시 `encoding='utf-8'` 파라미터를 추가하여 인코딩 문제를 해결.
+
+### 변경 내용 요약
+- `tasks.py`: `start` 함수 내 `run_command` 호출 시, `sys.executable`을 `str(ROOT / "venv/Scripts/python.exe")`로 변경.
+- `scripts/runner.py`: `subprocess.run`에 `encoding='utf-8', errors='replace'`를 추가.
+
+---
+
+### 결과 (2/N)
+- **성공:** `tasks.py` 및 `scripts/runner.py` 파일이 성공적으로 수정됨.
+
+---
+
+## 2025-07-31: `scripts/runner.py` SyntaxError 해결
+
+### 목표 (3/N)
+- `invoke start` 실행 시 발생한 `SyntaxError: invalid syntax` 오류를 해결한다.
+
+### 실행할 작업
+- `scripts/runner.py` 파일의 `_log_event` 함수 정의 부분에 발생한 `ndef` 오타를 `def`로 수정.
+
+### 변경 내용 요약
+- `scripts/runner.py`: `ndef _log_event`를 `def _log_event`로 수정.
+
+---
+
+### 결과 (3/N)
+- **성공:** `scripts/runner.py` 파일의 `SyntaxError`가 성공적으로 해결됨.
+
+---
+
+## 2025-07-31: PowerShell 버전 차이로 인한 인코딩 문제 해결
+
+### 목표 (4/N)
+- `invoke start` 실행 시 발생하는 한글 출력 깨짐 현상을 근본적으로 해결한다.
+
+### 실행할 작업
+- `scripts/runner.py`와 `tasks.py`를 수정하여 Python과 PowerShell 간의 데이터 전송 인코딩을 UTF-8로 강제한다.
+
+### 변경 내용 요약
+- `scripts/runner.py`: `subprocess.run` 호출 시 `env` 파라미터를 추가하여 `PYTHONIOENCODING=utf-8` 환경 변수를 명시적으로 설정한다.
+- `tasks.py`: `c.run`으로 PowerShell을 호출하는 모든 태스크(`doctor`, `quickstart`, `help`, `search`)의 명령어 앞에 `[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8;`를 추가하여 PowerShell의 출력 인코딩을 UTF-8로 강제한다.
+
+---
+
+### 결과 (4/N)
+- **미해결 (Known Issue):** `tasks.py`의 `c.run`을 사용하는 태스크에서 PowerShell 5.1의 근본적인 한계로 인해 한글 출력 깨짐 현상이 지속됨. 사용자가 추후 PowerShell 7.x 버전으로 업그레이드하여 해결할 예정.
+
+---
+
+## 2025-07-31: `start` 함수에 작업 현황 브리핑 기능 추가
+
+### 목표 (5/N)
+- `tasks.py`의 `start` 함수에 `docs/HUB.md` 파일을 읽고, 활성/일시 중지된 작업 목록을 브리핑하는 기능을 추가한다.
+
+### 실행할 작업
+- `tasks.py`의 `start` 함수를 수정하여 `hub_manager.py`의 `parse_tasks` 함수를 호출하고, 그 결과를 출력하는 코드를 추가할 예정.
+
+### 변경 내용 요약
+- `tasks.py`: `start` 함수 내에 `hub_manager`를 사용하여 "Active Tasks"와 "Paused Tasks"를 파싱하고, `print`를 통해 출력하는 로직을 추가한다.
+
+---
+
+### 결과 (5/N)
+- **실패:** `AttributeError: module 'scripts.hub_manager' has no attribute 'parse_tasks'` 오류 발생.
+
+---
+
+## 2025-07-31: `hub_manager.py` `AttributeError` 해결
+
+### 목표 (6/N)
+- `invoke start` 실행 시 발생하는 `AttributeError`를 해결한다.
+
+### 실행할 작업
+- `scripts/hub_manager.py`에 `parse_tasks` 함수를 추가하거나, 기존 함수를 사용하도록 `tasks.py`를 수정한다.
+
+### 변경 내용 요약
+- `scripts/hub_manager.py`를 읽고 분석하여 `parse_tasks` 기능의 존재 여부를 확인하고, 없으면 새로 구현하거나 `tasks.py`가 올바른 함수를 호출하도록 수정한다.
+
+---
+
+### 결과 (6/N)
+- **성공:** `scripts/hub_manager.py`에 `parse_tasks` 함수를 성공적으로 추가함.
+
+---
+
+## 2025-07-31: `start` 함수에 Git 상태 브리핑 기능 추가
+
+### 목표 (7/N)
+- `tasks.py`의 `start` 함수에 `git status --porcelain` 명령을 실행하고, 그 결과를 브리핑하는 기능을 추가한다.
+
+### 실행할 작업
+- `tasks.py`의 `start` 함수를 수정하여 `run_command`로 `git status`를 호출하고, 그 결과를 출력하는 코드를 추가할 예정.
+
+### 변경 내용 요약
+- `tasks.py`: `start` 함수 내에 `run_command`를 사용하여 `git status --porcelain`을 실행하고, 그 결과를 `print`로 출력하는 로직을 추가한다.
+
+```

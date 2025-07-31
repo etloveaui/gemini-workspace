@@ -1,0 +1,11 @@
+session_start_briefing:
+  sources:
+    - doc_tag: "Active Tasks"
+    - doc_tag: "Paused Tasks"
+  max_tokens: 1500
+
+code_refactor:
+  sources:
+    - changed_files
+    - file_extension: ".py"
+  max_tokens: 4000

@@ -52,6 +52,10 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
     # cwd가 None일 경우, 프로젝트 루트를 기본값으로 사용
     effective_cwd = Path(cwd).resolve() if cwd else ROOT
     
+    # 자식 프로세스에 전달할 환경 변수 설정
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
+
     print(f"[RUN:{task_name}] args={args!r}, cwd={str(effective_cwd)!r}")
 
     try:
@@ -61,8 +65,10 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
             text=True,
             capture_output=True,
             encoding="utf-8",
+            errors="replace",
             check=check,
-            shell=False  # 보안을 위해 shell=False 유지
+            shell=False,  # 보안을 위해 shell=False 유지
+            env=env
         )
         return cp
     except subprocess.CalledProcessError as e:
@@ -89,4 +95,3 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
             db_path=db_path
         )
         raise
-
