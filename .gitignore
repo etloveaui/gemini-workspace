@@ -14,7 +14,9 @@ __pycache__/
 
 # 민감 정보가 포함되어 있으므로 Git 추적에서 제외
 .env
-.gemini/
 
 # 사용자 개인 민감 데이터 파일 (Git 추적 제외)
 secrets/my_sensitive_data.md
+
+# Google OAuth Access Token 파일 (Git 추적 제외)
+.gemini/oauth_creds.json
