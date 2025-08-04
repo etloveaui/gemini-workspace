@@ -1,6 +1,6 @@
 # Workspace HUB
 
-*Last Updated: 2025-07-28*
+*Last Updated: 2025-08-04*
 
 ## Projects
 
@@ -12,7 +12,7 @@
 
 ## Active Tasks
 
-- ars-can-busoff-recovery-fix
+- gemini-system-upgrade
 
 ## Paused Tasks
 
@@ -23,6 +23,7 @@
 
 ## Completed Tasks
 
+- ars-can-busoff-recovery-fix
 - P0 작업 완료 및 시스템 안정화
 - P0 작업 완료 (DeprecationWarning 해결, 테스트 구조 개선, Help 시스템 구축)
 - [P1]UX_01_Doctor_Quickstart_Help: CLI UX 향상 (doctor, quickstart, help 기능 구현) [log](docs/tasks/gemini-cli-ux-enhancement/log.md)
@@ -35,7 +36,3 @@
 - terminalx-ui-analysis
 - venv-cleanup-and-rebuild
 - workspace-setup
----
-__lastSession__:
-  task: general
-  timestamp: 2025-08-04T07:36:09.001895+00:00

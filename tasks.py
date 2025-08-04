@@ -109,7 +109,7 @@ def query_context(c, query):
 
 @task
 def test(c):
-    run_command("test", ["pytest", "tests/", "-v"], check=False)
+    run_command("test", ["pytest", "tests/", "-q"], check=False)
 
 @task
 def clean_cli(c):
@@ -118,20 +118,20 @@ def clean_cli(c):
 
 @task
 def doctor(c):
-    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & '{VENV_PYTHON}' 'scripts/doctor.py'\"", pty=False)
+    run_command("doctor", [VENV_PYTHON, "scripts/doctor.py"], check=False)
 
 @task
 def quickstart(c):
-    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & '{VENV_PYTHON}' 'scripts/quickstart.py'\"", pty=False)
+    run_command("quickstart", [VENV_PYTHON, "scripts/quickstart.py"], check=False)
 
 @task
 def help(c, section="all"):
-    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & '{VENV_PYTHON}' 'scripts/help.py' {section}'\"", pty=False)
+    run_command("help", [VENV_PYTHON, "scripts/help.py", section], check=False)
 
 @task
 def search(c, q):
     """invoke search \"<query>\" : web search + summarize"""
-    c.run(f"powershell.exe -ExecutionPolicy Bypass -Command \"[System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & '{VENV_PYTHON}' 'scripts/web_agent.py' --query '{q}'\"", pty=False)
+    run_command("search", [VENV_PYTHON, "scripts/web_agent.py", "--query", q], check=False)
 
 ns = Collection()
 ns.add_task(start)
