@@ -1,4 +1,4 @@
-# --- Python / OS common ---
+﻿# --- Python / OS common ---
 __pycache__/
 *.py[cod]
 *$py.class
