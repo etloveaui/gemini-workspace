@@ -91,7 +91,36 @@ def end(c, task_id="general"):
     run_command("end", ["invoke", "wip"], check=False)
     # Use cross‑platform PowerShell Core (`pwsh`) instead of the Windows‑only
     # `powershell.exe`. This avoids quoting issues on non‑Windows platforms.
-    run_command("end", ["pwsh", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/toggle_gitignore.ps1", "-Restore"], check=False)
+    # Run the PowerShell script using pwsh when available; fall back to Windows PowerShell.
+    try:
+        run_command(
+            "end",
+            [
+                "pwsh",
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "scripts/toggle_gitignore.ps1",
+                "-Restore",
+            ],
+            check=True,
+        )
+    except FileNotFoundError:
+        # Fallback to Windows built-in PowerShell (common on Windows)
+        run_command(
+            "end",
+            [
+                "powershell.exe",
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "scripts/toggle_gitignore.ps1",
+                "-Restore",
+            ],
+            check=False,
+        )
     hub_manager.update_session_end_info(task_id)
     
     run_command("end", ["git", "add", "docs/HUB.md"], check=False)
