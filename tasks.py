@@ -8,7 +8,18 @@ from scripts import hub_manager
 import subprocess, os
 
 ROOT = Path(__file__).resolve().parent
-VENV_PYTHON = str(ROOT / "venv/Scripts/python.exe")
+# Determine the path to the Python executable within the virtual environment.
+# Prefer a venv-managed interpreter when present (cross‑platform), otherwise
+# fall back to the interpreter running this script. This avoids hard‑coding
+# Windows‑specific paths and makes the CLI portable across platforms.
+if os.name == "nt":
+    _venv_candidate = ROOT / "venv" / "Scripts" / "python.exe"
+else:
+    _venv_candidate = ROOT / "venv" / "bin" / "python"
+if _venv_candidate.exists():
+    VENV_PYTHON = str(_venv_candidate)
+else:
+    VENV_PYTHON = sys.executable
 
 __all__ = ["run_command"]
 
@@ -78,7 +89,9 @@ def start(c):
 def end(c, task_id="general"):
     """WIP commit, restore gitignore, write __lastSession__ block."""
     run_command("end", ["invoke", "wip"], check=False)
-    run_command("end", ["powershell.exe", "-ExecutionPolicy", "Bypass", "-File", "scripts/toggle_gitignore.ps1", "-Restore"], check=False)
+    # Use cross‑platform PowerShell Core (`pwsh`) instead of the Windows‑only
+    # `powershell.exe`. This avoids quoting issues on non‑Windows platforms.
+    run_command("end", ["pwsh", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "scripts/toggle_gitignore.ps1", "-Restore"], check=False)
     hub_manager.update_session_end_info(task_id)
     
     run_command("end", ["git", "add", "docs/HUB.md"], check=False)
