@@ -25,6 +25,11 @@
 
 ## Completed Tasks
 
+- gemini-system-upgrade
+
+- [P2-3] 최종 사용자 경험(UX) 개선
+- [P2-1] 성능 및 효율 최적화
+- [P1-3] 멀티모달 인식 기능 준비
 - [P1-2] 파일 시스템 에이전트 구축
 
 - ars-can-busoff-recovery-fix

@@ -38,34 +38,49 @@ def python_wip_commit(message: str, cwd: Path):
     finally:
         os.unlink(temp_path)
 
+from rich.console import Console
+from rich.table import Table
+
+console = Console()
+
 @task
 def start(c):
     """System check, status briefing, and session initialization."""
     log_usage('session', 'start', command='start')
-    print('--- System Status Check ---')
+    console.print("[bold blue]--- System Status Check ---[/bold blue]")
     doctor_result = run_command('start.doctor', [VENV_PYTHON, 'scripts/doctor.py'], check=False)
-    print(doctor_result.stdout)
-    print('--- Task Status ---')
+    console.print(doctor_result.stdout)
+    console.print("[bold blue]--- Task Status ---[/bold blue]")
     try:
         with open('docs/HUB.md', 'r', encoding='utf-8') as f:
             hub_content = f.read()
         active_tasks = hub_manager.parse_tasks(hub_content, 'Active Tasks')
         paused_tasks = hub_manager.parse_tasks(hub_content, 'Paused Tasks')
-        print(f'Active Tasks: {active_tasks}')
-        print(f'Paused Tasks: {paused_tasks}')
+
+        table = Table(title="Task Status")
+        table.add_column("Type", style="cyan", no_wrap=True)
+        table.add_column("Task", style="magenta")
+
+        for task_name in active_tasks:
+            table.add_row("Active", task_name)
+        for task_name in paused_tasks:
+            table.add_row("Paused", task_name)
+        
+        console.print(table)
+
     except FileNotFoundError:
-        print('docs/HUB.md not found.')
-    print('--- Git Status ---')
+        console.print("[red]docs/HUB.md not found.[/red]")
+    console.print("[bold blue]--- Git Status ---[/bold blue]")
     git_status_result = run_command('start.git_status', ['git', 'status', '--porcelain'], check=False)
     if git_status_result.stdout:
-        print(git_status_result.stdout)
+        console.print(git_status_result.stdout)
     else:
-        print('No changes in the working directory.')
+        console.print("No changes in the working directory.")
     hub_manager.clear_last_session()
-    print('\n--- Initializing Session ---')
+    console.print("[bold blue]\n--- Initializing Session ---[/bold blue]")
     build_context_index(c)
-    print('\nMore help is available by typing: invoke help')
-    print('What would you like to do next?')
+    console.print("[bold green]\nMore help is available by typing: invoke help[/bold green]")
+    console.print("[bold green]What would you like to do next?[/bold green]")
 
 @task
 def end(c, task_id='general'):
@@ -76,9 +91,8 @@ def end(c, task_id='general'):
     except FileNotFoundError:
         run_command('end', ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'scripts/toggle_gitignore.ps1', '-Restore'], check=False)
     hub_manager.update_session_end_info(task_id)
-    run_command('end', ['git', 'add', 'docs/HUB.md'], check=False)
-    run_command('end', ['invoke', 'wip'], check=False)
-    log_usage(task_id, 'session_end', command='end', returncode=0, stdout='session ended', stderr='')
+    subprocess.Popen([VENV_PYTHON, "-c", f"from scripts import hub_manager; hub_manager.update_session_end_info('{task_id}')"])
+    subprocess.Popen([VENV_PYTHON, "-c", f"from scripts.usage_tracker import log_usage; log_usage('{task_id}', 'session_end', command='end', returncode=0, stdout='session ended', stderr='')"])
     print('end done')
 
 @task
@@ -161,6 +175,20 @@ def analyze_image(c, image):
     run_command('analyze_image', [VENV_PYTHON, 'scripts/multimodal_agent.py', '--image', image], check=False)
 
 ns.add_task(analyze_image)
+
+@task
+def benchmark(c):
+    """Runs performance benchmarks for key functionalities."""
+    run_command('benchmark', [VENV_PYTHON, 'scripts/benchmark.py'], check=False)
+
+ns.add_task(benchmark)
+
+@task
+def config(c, lang):
+    """Sets the CLI language (e.g., 'en', 'ko')."""
+    run_command('config', [VENV_PYTHON, 'scripts/config_manager.py', '--lang', lang], check=False)
+
+ns.add_task(config)
 
 ctx_ns = Collection('context')
 ctx_ns.add_task(build_context_index, name='build')

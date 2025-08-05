@@ -1,8 +1,10 @@
 # /scripts/summarizer.py
 import re
 
-def summarize_text(text: str, max_sentences: int = 5) -> str:
+def summarize_text(text: str, max_sentences: int = 5, lang: str = "en") -> str:
     """간단한 추출적 요약(Extractive Summarization)을 수행합니다."""
+    # TODO: Implement actual multilingual summarization here based on 'lang'
+    # For now, this is a dummy implementation.
     if not text:
         return ""
     

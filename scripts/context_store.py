@@ -15,8 +15,10 @@ class ContextStore:
         with open(INDEX_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def retrieve(self, query: dict):
+    def retrieve(self, query: dict, lang: str = "en"):
         """쿼리에 해당하는 문서를 검색합니다. 현재는 태그 또는 경로를 지원합니다."""
+        # TODO: Implement actual multilingual processing here based on 'lang'
+        # For now, this is a dummy implementation.
         matching_docs = []
         for doc in self.index.get("docs", []):
             # 태그 검색

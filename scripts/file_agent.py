@@ -47,8 +47,29 @@ def main():
         )
         sys.stdout.writelines(diff)
     else:
-        file_path.write_text(new_code, encoding='utf-8')
-        print(f"Successfully refactored {args.file}")
+        # confirm_action 함수를 사용하기 위해 runner 모듈을 임포트합니다.
+        from scripts.runner import confirm_action
+
+        diff = difflib.unified_diff(
+            source_code.splitlines(keepends=True),
+            new_code.splitlines(keepends=True),
+            fromfile=f"a/{args.file}",
+            tofile=f"b/{args.file}",
+        )
+        diff_output = "".join(diff)
+
+        if diff_output:
+            print("The following changes will be applied:")
+            sys.stdout.writelines(diff_output)
+            
+            confirmation = confirm_action("Apply these changes?", ["yes", "no"], default="no")
+            if confirmation == "yes":
+                file_path.write_text(new_code, encoding='utf-8')
+                print(f"Successfully refactored {args.file}")
+            else:
+                print("Refactoring cancelled.")
+        else:
+            print("No changes to apply.")
 
 if __name__ == "__main__":
     main()

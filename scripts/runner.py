@@ -4,6 +4,35 @@ from pathlib import Path
 import os
 import subprocess
 import json
+from prompt_toolkit import prompt
+from prompt_toolkit.completion import WordCompleter
+from rich.console import Console
+from rich.panel import Panel
+from rich.text import Text
+from rich.syntax import Syntax
+
+console = Console()
+
+def confirm_action(message: str, choices: list[str], default: str = None) -> str:
+    """
+    Presents an interactive prompt to the user for confirmation.
+    """
+    completer = WordCompleter(choices, ignore_case=True)
+    while True:
+        try:
+            answer = prompt(f"{message} ({'/'.join(choices)}) ", completer=completer, default=default).strip()
+            if answer in choices:
+                return answer
+            else:
+                print(f"Invalid choice. Please select one of: {', '.join(choices)}")
+        except EOFError:
+            # User pressed Ctrl+D
+            print("Operation cancelled by user.")
+            return None
+        except KeyboardInterrupt:
+            # User pressed Ctrl+C
+            print("Operation cancelled by user.")
+            return None
 
 # 환경 변수 또는 기본 경로를 사용하여 DB 경로 설정
 DEFAULT_DB_PATH = Path(os.getenv("GEMINI_USAGE_DB_PATH", Path(__file__).parent.parent / "usage.db"))
@@ -23,21 +52,23 @@ def _ensure_db(db_path: Path = DEFAULT_DB_PATH):
             command TEXT,
             stdout TEXT,
             stderr TEXT,
-            returncode INTEGER
+            returncode INTEGER,
+            error_type TEXT,
+            error_message TEXT
         )
     """)
     conn.commit()
     conn.close()
 
-def _log_event(task_name: str, event_type: str, command: str, stdout: str, stderr: str, returncode: int = None, db_path: Path = DEFAULT_DB_PATH):
+def _log_event(task_name: str, event_type: str, command: str, stdout: str, stderr: str, returncode: int = None, error_type: str = None, error_message: str = None, db_path: Path = DEFAULT_DB_PATH):
     """이벤트(특히 오류)를 DB에 기록합니다."""
     _ensure_db(db_path)
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
     cur.execute("""
-        INSERT INTO usage (timestamp, task_name, event_type, command, stdout, stderr, returncode)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    """, (datetime.now(timezone.utc).isoformat(), task_name, event_type, command, stdout, stderr, returncode))
+        INSERT INTO usage (timestamp, task_name, event_type, command, stdout, stderr, returncode, error_type, error_message)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (datetime.now(timezone.utc).isoformat(), task_name, event_type, command, stdout, stderr, returncode, error_type, error_message))
     conn.commit()
     conn.close()
 
@@ -56,7 +87,7 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
     env = os.environ.copy()
     env["PYTHONIOENCODING"] = "utf-8"
 
-    print(f"[RUN:{task_name}] args={args!r}, cwd={str(effective_cwd)!r}")
+    console.print(f"[bold green][RUN:{task_name}][/bold green] args={args!r}, cwd={str(effective_cwd)!r}")
 
     try:
         cp = subprocess.run(
@@ -72,7 +103,8 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
         )
         return cp
     except subprocess.CalledProcessError as e:
-        # 실패 시 로그 기록
+        error_type = "CalledProcessError"
+        error_message = str(e)
         _log_event(
             task_name=task_name,
             event_type="command_error",
@@ -80,18 +112,43 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
             stdout=e.stdout,
             stderr=e.stderr,
             returncode=e.returncode,
+            error_type=error_type,
+            error_message=error_message,
             db_path=db_path
         )
+        console.print(Panel(
+            Text(f"Command failed with exit code {e.returncode}.\n\n[bold red]Stderr:[/bold red]\n{e.stderr}\n\n[bold yellow]Stdout:[/bold yellow]\n{e.stdout}", style="red"),
+            title=f"[bold red]Error in {task_name}[/bold red]",
+            border_style="red"
+        ))
+        console.print(Panel(
+            Text("Possible solutions: Check the command syntax, ensure all dependencies are installed, or verify file paths.", style="cyan"),
+            title="[bold cyan]Suggested Solutions[/bold cyan]",
+            border_style="cyan"
+        ))
         raise
     except FileNotFoundError as e:
-        # 명령어 자체를 찾지 못한 경우
+        error_type = "FileNotFoundError"
+        error_message = str(e)
         _log_event(
             task_name=task_name,
             event_type="file_not_found_error",
             command=" ".join(args),
             stdout="",
             stderr=str(e),
-            returncode=-1, # 임의의 에러 코드
+            returncode=-1,
+            error_type=error_type,
+            error_message=error_message,
             db_path=db_path
         )
+        console.print(Panel(
+            Text(f"Command not found: {e.strerror}.\n\n[bold red]Error Message:[/bold red]\n{e.strerror}", style="red"),
+            title=f"[bold red]Error in {task_name}[/bold red]",
+            border_style="red"
+        ))
+        console.print(Panel(
+            Text("Possible solutions: Ensure the command is correctly spelled and is in your system's PATH. If it's a script, verify its existence and permissions.", style="cyan"),
+            title="[bold cyan]Suggested Solutions[/bold cyan]",
+            border_style="cyan"
+        ))
         raise

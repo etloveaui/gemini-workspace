@@ -2,3 +2,5 @@ invoke
 pyyaml
 rank-bm25
 pytest
+rich
+prompt_toolkit
