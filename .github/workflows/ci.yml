@@ -2,6 +2,7 @@ name: CI (Windows)
 on:
   push: { branches: [ main, dev ] }
   pull_request:
+  workflow_dispatch:
 jobs:
   build-test-and-scan:
     runs-on: windows-latest
