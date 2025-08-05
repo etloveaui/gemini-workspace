@@ -45,7 +45,3 @@
 - venv-cleanup-and-rebuild
 - workspace-setup
 - test-task-1
----
-__lastSession__:
-  task: P1-1_Web_Search_Tool_Completed_Evidence: pytest_passed, invoke_search_ok, pre_commit_hook_ok, CI_success
-  timestamp: 2025-08-05T08:34:11.775332+00:00

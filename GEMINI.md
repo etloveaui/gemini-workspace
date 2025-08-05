@@ -1,4 +1,4 @@
-# GEMINI.md
+# GEMINI.md (v2 Final+)
 
 ## 0) 목적/범위
 본 문서는 이 워크스페이스의 **운영 표준**이다. 목표는 **재현성**, **보안**, **신속한 인수인계**다. 모든 규정은 Windows 환경과 Python/Invoke 중심으로 정의한다.
@@ -13,6 +13,8 @@
   - **커밋 금지**: `*.creds*.json`, `*oauth*.*`, 토큰류는 **로컬 전용(local-only)** 으로 보관하고 커밋하지 않는다.  
   - **추적 허용**: `.gemini/`에서 **`context_policy.yaml`만** 버전 추적을 허용한다.
 - **`projects/`**: 로컬 전용 작업 공간. **항상 커밋 금지**(`.gitignore`에서 전면 차단).
+- **pre-commit 가드**: `.githooks/pre-commit` + `scripts/hooks/precommit_secrets_guard.py`로  
+  `.gemini/*(oauth|creds|token|secret|.json|.db|.sqlite|.pem|.p12|.key)` 및 `projects/` **스테이징 차단**.
 
 ## 3) 명령 표준 (Invoke)
 - `invoke start` : 환경 점검(doctor) → HUB 브리핑 → 컨텍스트 인덱스 빌드  
@@ -23,6 +25,8 @@
 - `invoke test` : pytest 실행  
 - `invoke wip -m "<msg>"` : WIP 커밋  
 - `invoke end` : 세션 종료(아카이브/로그/HUB 갱신)
+
+**(로컬 1회 설정)** pre-commit 훅 활성화: `git config core.hooksPath .githooks`
 
 **Exit Codes (표준)**  
 - **0** 정상 / **2** Provider 미설정·불가 / **4** 예외(기타 오류)
@@ -62,16 +66,17 @@
 
 ## 8) 품질 게이트
 - **필수**: `pytest -q` 통과.  
-- **도입**: 정적 분석(`ruff`/`mypy`)과 Secret Scan을 CI에 추가한다. 도입 후 PR 게이트로 강제한다.
+- **도입**: 정적 분석(`ruff`/`mypy`)과 Secret Scan을 CI에 추가한다.  
+- **병합 조건**: **모든 PR은 Windows CI 통과가 필수**다.
 
 ## 9) P1-1: Web Search Tool (DoD)
 - **즉시 구현(더미 Provider)**  
   - 함수 시그니처: `search(query: str, top_k: int = 5) -> List[Dict[str,str]]`  
   - **결정적·비네트워크·`top_k` 준수**. 각 item은 `title/url/snippet` 포함, `title/snippet`에 `query` 반영, 최소 1개 결과 보장.  
 - **실 Provider(병행)**  
-  - Google 기반(Serper 또는 Google CSE)로 구현하되 **동일 시그니처·Exit Codes**를 적용한다.  
+  - Serper.dev(권장) 또는 Google CSE/SerpAPI로 구현하되 **동일 시그니처·Exit Codes**를 적용한다.  
 - **완료 기준(DoD)**  
-  - `invoke search -q "test"` 실행 시 약 5개 결과 요약 출력 **및** 관련 테스트 통과 → HUB의 **[P1-1]**을 **Completed로 이동**한다.
+  - `invoke search -q "test"` 실행 시 약 5개 결과 요약 출력 **및** 관련 테스트 통과 → HUB의 **[P1-1]**을 **Completed**로 이동한다.
 
 ## 10) 트러블슈팅 (Quick)
 - **따옴표/인코딩**: PowerShell 래핑 대신 파이썬 직접 호출(UTF-8 보장)  
@@ -80,7 +85,5 @@
 - **검색 실패**: Provider 미설정 시 **Exit 2**. 기본은 **ChatGPT 심층리서치 트리거**로 안내
 
 ## 11) 변경관리
-- 변경은 **게이트 승인 후** 적용(설계→리뷰→적용→검증).
+- 변경은 **게이트 승인 후** 적용(설계→리뷰→적용→검증).  
 - **메타러닝 규칙**: 동일 목표 2회 실패+1회 성공 패턴은 규칙으로 제안, 3회 연속 성공 시 표준화.
-- **문서 자동 업데이트 및 개선**: 시스템 업데이트 시 `GEMINI.md`도 함께 검토하고, 불필요한 내용을 제거하며, 구조를 최신화하는 것을 목표로 한다.
-- **`GEMINI.md` 수정 사전 고지**: 에이전트가 `GEMINI.md`를 수정할 경우, 사용자에게 어떤 부분을 어떤 이유로 바꾸거나 수정하려 하는지 사전에 명확히 고지한다.

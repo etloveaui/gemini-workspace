@@ -25,6 +25,7 @@ Thumbs.db
 
 # (2) Local-only project space (never commit)
 projects/
+!projects/do-not-commit.txt
 secrets/
 
 # (3) Local artifacts (enable as needed)
