@@ -154,6 +154,14 @@ ns.add_task(quickstart)
 ns.add_task(help)
 ns.add_task(search)
 ns.add_task(refactor)
+
+@task
+def analyze_image(c, image):
+    """Analyzes an image file and returns a text description."""
+    run_command('analyze_image', [VENV_PYTHON, 'scripts/multimodal_agent.py', '--image', image], check=False)
+
+ns.add_task(analyze_image)
+
 ctx_ns = Collection('context')
 ctx_ns.add_task(build_context_index, name='build')
 ctx_ns.add_task(query_context, name='query')

@@ -13,6 +13,7 @@
 ## Active Tasks
 
 - gemini-system-upgrade
+  - [P1-3] 멀티모달 인식 기능 준비
   - [P1-2] 파일 시스템 에이전트 구축
 
 ## Paused Tasks
@@ -23,6 +24,8 @@
 - vscode-integration-problem
 
 ## Completed Tasks
+
+- [P1-2] 파일 시스템 에이전트 구축
 
 - ars-can-busoff-recovery-fix
 - P0 작업 완료 및 시스템 안정화
