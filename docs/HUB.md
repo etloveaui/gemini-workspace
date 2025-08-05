@@ -13,6 +13,7 @@
 ## Active Tasks
 
 - gemini-system-upgrade
+  - [P1-2] 파일 시스템 에이전트 구축
 
 ## Paused Tasks
 
