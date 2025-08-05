@@ -1,0 +1,1 @@
+[allowlist]description = "Ignore .gemini except policy"paths = [ "^\\.gemini/(?!context_policy\\.yaml)" ]

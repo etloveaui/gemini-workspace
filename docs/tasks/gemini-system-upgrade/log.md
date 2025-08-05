@@ -14,3 +14,9 @@
 
 - **[P2-1] 성능 및 효율 최적화**: 컨텍스트 캐싱 도입, 비동기 태스크 실행, `invoke benchmark` 태스크 도입 완료.
 - **[P2-3] 최종 사용자 경험(UX) 개선**: Rich Terminal Output, 대화형 프롬프트, 상세 오류 보고 및 해결책 제안 기능 구현 완료.
+
+## Phase 4: Agent Enhancements
+
+- **[Agent | PR-CI] Add Windows CI with pytest + Gitleaks**: `.github/workflows/ci.yml` 및 `.github/gitleaks.toml` 파일 추가 완료.
+- **[Agent | PR-SERPER] Add Serper provider with safe fallback & docs**: `scripts/tools/web_search.py`, `scripts/web_agent.py`, `requirements.txt`, `docs/HELP.md` 수정 완료.
+- **[Agent | PR-DPAPI] Add Windows DPAPI utility for local secret encryption**: `scripts/utils/dpapi.py`, `requirements.txt`, `docs/HELP.md` 수정 완료.

@@ -1,0 +1,23 @@
+name: CI (Windows)
+on:
+  push: { branches: [ main, dev ] }
+  pull_request:
+jobs:
+  build-test-and-scan:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest -q
+      - name: Gitleaks scan
+        uses: gacts/gitleaks@v1
+        with:
+          config-path: .github/gitleaks.toml

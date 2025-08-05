@@ -25,6 +25,10 @@
 
 ## Completed Tasks
 
+- [Agent | PR-DPAPI] Add Windows DPAPI utility for local secret encryption
+- [Agent | PR-SERPER] Add Serper provider with safe fallback & docs
+- [Agent | PR-CI] Add Windows CI with pytest + Gitleaks
+
 - gemini-system-upgrade
 
 - [P2-3] 최종 사용자 경험(UX) 개선
