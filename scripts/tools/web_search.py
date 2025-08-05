@@ -1,6 +1,8 @@
 from typing import List, Dict
 import os
 import requests
+import json
+from scripts.secret_reader import get_serper_api_key_from_file
 
 class ProviderNotConfigured(Exception):
     """Exception raised when a search provider is not configured."""
@@ -16,6 +18,9 @@ def search(query: str, top_k: int = 5) -> List[Dict[str, str]]:
                  "snippet": f"{query} 관련 더미 결과 {i+1}"} for i in range(n)]
     
     serper_api_key = os.getenv("SERPER_API_KEY")
+    if not serper_api_key:
+        serper_api_key = get_serper_api_key_from_file()
+
     if serper_api_key:
         url = "https://google.serper.dev/search"
         headers = {
@@ -41,4 +46,4 @@ def search(query: str, top_k: int = 5) -> List[Dict[str, str]]:
             print(f"Serper API request failed: {e}", file=sys.stderr)
             raise ProviderNotConfigured("Serper API request failed.") from e
     else:
-        raise ProviderNotConfigured("SERPER_API_KEY is not set.")
+        raise ProviderNotConfigured("SERPER_API_KEY is not set in environment or found in my_sensitive_data.md.")
