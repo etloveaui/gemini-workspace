@@ -1,6 +1,6 @@
 # Workspace HUB
 
-*Last Updated: 2025-08-04*
+\*Last Updated: 2025-08-05
 
 ## Projects
 
@@ -12,10 +12,6 @@
 
 ## Active Tasks
 
-- gemini-system-upgrade
-  - [P1-3] 멀티모달 인식 기능 준비
-  - [P1-2] 파일 시스템 에이전트 구축
-
 ## Paused Tasks
 
 - 100xfenok-generator-data-cleanup
@@ -24,7 +20,6 @@
 - vscode-integration-problem
 
 ## Completed Tasks
-
 - [Agent | PR-DPAPI] Add Windows DPAPI utility for local secret encryption
 - [Agent | PR-SERPER] Add Serper provider with safe fallback & docs
 - [Agent | PR-CI] Add Windows CI with pytest + Gitleaks
@@ -49,3 +44,5 @@
 - terminalx-ui-analysis
 - venv-cleanup-and-rebuild
 - workspace-setup
+- test-task-1
+

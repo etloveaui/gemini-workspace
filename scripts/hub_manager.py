@@ -111,11 +111,54 @@ def handle_last_session() -> None:
     if "__lastSession__:" in _read():
         clear_last_session()
 
+def move_task_to_completed(task_name: str) -> None:
+    """
+    Moves a task from 'Active Tasks' to 'Completed Tasks' in HUB.md.
+    Updates the 'Last Updated' timestamp.
+    """
+    content = _read()
+    updated_content = content
+
+    # 1. Update Last Updated timestamp
+    now = datetime.now().strftime("%Y-%m-%d")
+    updated_content = re.sub(r"\*Last Updated: \d{4}-\d{2}-\d{2}\*", f"\*Last Updated: {now}", updated_content)
+
+    # 2. Remove from Active Tasks
+    active_tasks_pattern = r"(## Active Tasks\n)(.*?)(## Paused Tasks)"
+    match = re.search(active_tasks_pattern, updated_content, re.DOTALL)
+    if match:
+        active_section_content = match.group(2)
+        # Remove the task_name line, handling potential leading/trailing whitespace
+        new_active_section_content = re.sub(rf"^- {re.escape(task_name)}\s*$", "", active_section_content, flags=re.MULTILINE)
+        # Remove any empty lines that might result from removal
+        new_active_section_content = "\n".join([line for line in new_active_section_content.splitlines() if line.strip()]) + "\n"
+        updated_content = updated_content.replace(active_section_content, new_active_section_content)
+
+    # 3. Add to Completed Tasks
+    completed_tasks_pattern = r"(## Completed Tasks\n)(.*?)(##|$)" # Matches until next section or end of file
+    match = re.search(completed_tasks_pattern, updated_content, re.DOTALL)
+    if match:
+        completed_section_content = match.group(2)
+        # Add the task if it's not already there
+        if f"- {task_name}" not in completed_section_content:
+            new_completed_section_content = completed_section_content.strip() + f"\n- {task_name}\n"
+            updated_content = updated_content.replace(completed_section_content, new_completed_section_content)
+    else:
+        # If no Completed Tasks section, add it at the end
+        updated_content += f"\n## Completed Tasks\n\n- {task_name}\n"
+
+    _write_atomic(updated_content)
+
 if __name__ == "__main__":
     import sys
     if len(sys.argv) == 1:
         handle_last_session()
     elif sys.argv[1] == "clear":
         clear_last_session()
+    elif sys.argv[1] == "complete_task":
+        if len(sys.argv) > 2:
+            move_task_to_completed(sys.argv[2])
+        else:
+            print("Usage: python hub_manager.py complete_task <task_name>")
     else:
         update_session_end_info(sys.argv[1])

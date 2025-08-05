@@ -190,6 +190,17 @@ def config(c, lang):
 
 ns.add_task(config)
 
+# New task for managing task status in HUB.md
+@task
+def complete_task(c, task_name):
+    """Moves a task from Active to Completed in HUB.md."""
+    hub_manager.move_task_to_completed(task_name)
+    print(f"Task '{task_name}' moved to Completed in HUB.md.")
+
+task_ns = Collection('task')
+task_ns.add_task(complete_task, name='complete')
+ns.add_collection(task_ns)
+
 ctx_ns = Collection('context')
 ctx_ns.add_task(build_context_index, name='build')
 ctx_ns.add_task(query_context, name='query')
