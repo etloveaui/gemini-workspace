@@ -84,12 +84,8 @@ def start(c):
 
 @task
 def end(c, task_id='general'):
-    """WIP commit, restore gitignore, write __lastSession__ block."""
+    """WIP commit, write __lastSession__ block."""
     run_command('end', ['invoke', 'wip'], check=False)
-    try:
-        run_command('end', ['pwsh', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'scripts/toggle_gitignore.ps1', '-Restore'], check=True)
-    except FileNotFoundError:
-        run_command('end', ['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', 'scripts/toggle_gitignore.ps1', '-Restore'], check=False)
     hub_manager.update_session_end_info(task_id)
     subprocess.Popen([VENV_PYTHON, "-c", f"from scripts import hub_manager; hub_manager.update_session_end_info('{task_id}')"])
     subprocess.Popen([VENV_PYTHON, "-c", f"from scripts.usage_tracker import log_usage; log_usage('{task_id}', 'session_end', command='end', returncode=0, stdout='session ended', stderr='')"])
