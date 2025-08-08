@@ -5,7 +5,7 @@ from scripts.runner import run_command as _runner_run_command
 from scripts.usage_tracker import log_usage
 import sys
 from scripts import hub_manager
-# from scripts.organizer import organize_scratchpad
+from scripts.organizer import organize_scratchpad
 import subprocess, os
 ROOT = Path(__file__).resolve().parent
 if os.name == 'nt':
@@ -55,17 +55,28 @@ def start(c):
     try:
         with open('docs/HUB.md', 'r', encoding='utf-8') as f:
             hub_content = f.read()
+        
+        staging_tasks = hub_manager.parse_tasks(hub_content, 'Staging Tasks')
         active_tasks = hub_manager.parse_tasks(hub_content, 'Active Tasks')
+        planned_tasks = hub_manager.parse_tasks(hub_content, 'Planned Tasks')
         paused_tasks = hub_manager.parse_tasks(hub_content, 'Paused Tasks')
 
         table = Table(title="Task Status")
-        table.add_column("Type", style="cyan", no_wrap=True)
+        table.add_column("Status", style="cyan", no_wrap=True)
         table.add_column("Task", style="magenta")
 
-        for task_name in active_tasks:
-            table.add_row("Active", task_name)
-        for task_name in paused_tasks:
-            table.add_row("Paused", task_name)
+        if staging_tasks:
+            for task_name in staging_tasks:
+                table.add_row("Staging", task_name)
+        if active_tasks:
+            for task_name in active_tasks:
+                table.add_row("Active", task_name)
+        if planned_tasks:
+            for task_name in planned_tasks:
+                table.add_row("Planned", task_name)
+        if paused_tasks:
+            for task_name in paused_tasks:
+                table.add_row("Paused", task_name)
         
         console.print(table)
 
@@ -189,7 +200,7 @@ ns.add_task(quickstart)
 ns.add_task(help)
 ns.add_task(search)
 ns.add_task(refactor)
-# ns.add_task(organize_scratchpad)
+ns.add_task(organize_scratchpad)
 
 auto_ns = Collection('auto')
 auto_ns.add_task(auto_scan, name='scan')
