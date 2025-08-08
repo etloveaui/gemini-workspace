@@ -31,28 +31,21 @@ CONTROL_CHARS = re.compile(r'[\x00-\x08\x0b\x0c\x0e-\x1F]')  # ,  제외
 def strip_last_session_block(text: str) -> str:
     """
     __lastSession__ YAML 블록(위의 --- 포함) 제거.
-    라인 스캔 + 정규식 하이브리드로 안전 제거.
+    정규식을 사용하여 마지막 블록만 정확히 제거.
     """
-    cleaned = CONTROL_CHARS.sub('', text)
-    lines = cleaned.splitlines()
+    # 정규식: --- 로 시작해서 __lastSession__을 포함하고, 파일 끝까지 이어지는 마지막 블록을 찾음
+    # re.DOTALL 플래그는 .이 개행문자도 포함하게 함
+    pattern = re.compile(r"^---\n__lastSession__:.*$", re.MULTILINE | re.DOTALL)
+    
+    # finditer로 모든 매치를 찾고 마지막 매치만 사용
+    matches = list(pattern.finditer(text))
+    if not matches:
+        return text
 
-    start_idx = -1
-    # 뒤에서부터 __lastSession__ 라인 탐색
-    for i in range(len(lines) - 1, -1, -1):
-        if lines[i].strip().startswith('__lastSession__'):
-            # 위쪽에서 가장 가까운 '---' 찾기
-            for j in range(i - 1, -1, -1):
-                if lines[j].strip() == '---':
-                    start_idx = j
-                    break
-            break
-
-    if start_idx == -1:
-        return text  # 블록 없음
-
-    new_lines = lines[:start_idx]
-    result = '\n'.join(new_lines).rstrip()
-    return (result + '\n') if result else ''
+    last_match = matches[-1]
+    start_index = last_match.start()
+    
+    return text[:start_index].rstrip() + "\n"
 
 # --- Public API ------------------------------------------------------------
 

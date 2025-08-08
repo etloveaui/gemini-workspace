@@ -5,6 +5,7 @@ from scripts.runner import run_command as _runner_run_command
 from scripts.usage_tracker import log_usage
 import sys
 from scripts import hub_manager
+# from scripts.organizer import organize_scratchpad
 import subprocess, os
 ROOT = Path(__file__).resolve().parent
 if os.name == 'nt':
@@ -167,6 +168,15 @@ def refactor(c, file=None, rule=None, dry_run=False, yes=False, list_rules=False
         return
 
     run_command('refactor', command, check=False)
+
+@task
+def auto_scan(c):
+    c.run(f"{sys.executable} scripts/auto_update/scanner.py", pty=False)
+
+@task
+def auto_propose(c):
+    c.run(f"{sys.executable} scripts/auto_update/proposer.py", pty=False)
+
 ns = Collection()
 ns.add_task(start)
 ns.add_task(end)
@@ -179,6 +189,12 @@ ns.add_task(quickstart)
 ns.add_task(help)
 ns.add_task(search)
 ns.add_task(refactor)
+# ns.add_task(organize_scratchpad)
+
+auto_ns = Collection('auto')
+auto_ns.add_task(auto_scan, name='scan')
+auto_ns.add_task(auto_propose, name='propose')
+ns.add_collection(auto_ns)
 
 @task
 def analyze_image(c, image):
