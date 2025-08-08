@@ -12,7 +12,9 @@
 
 ## Active Tasks
 
-- [P1-2] File System Agent Framework Upgrade [log](docs/tasks/file-agent-framework-upgrade/log.md)
+- [P2-SU] Self-Update Engine [log](docs/tasks/self-update-engine/log.md)
+- [P2-OPT] Performance Optimization [log](docs/tasks/performance-optimization/log.md)
+- [P2-UX] UX Refinement [log](docs/tasks/ux-refinement/log.md)
 
 
 ## Paused Tasks
@@ -23,6 +25,7 @@
 - vscode-integration-problem
 
 ## Completed Tasks
+- [P1-2] File System Agent Framework Upgrade [log](docs/tasks/file-agent-framework-upgrade/log.md)
 - [Agent | PR-DPAPI] Add Windows DPAPI utility for local secret encryption
 - [Agent | PR-SERPER] Add Serper provider with safe fallback & docs
 - [Agent | PR-CI] Add Windows CI with pytest + Gitleaks
