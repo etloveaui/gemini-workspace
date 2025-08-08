@@ -20,6 +20,10 @@
 
 ## Planned Tasks
 
+- [P-AGENT] Repeated Modification Failures [log](docs/tasks/agent-repeated-modification-failures/log.md)
+- [P-AGENT] Repetitive Behavior with Flash Model [log](docs/tasks/agent-repetitive-behavior-flash-model/log.md)
+- [P2-UX] Fix `invoke start` Table Corruption [log](docs/tasks/ux-fix-invoke-start-corruption/log.md)
+- [P-CORE] `replace` Tool Reliability Enhancement [log](docs/tasks/core-replace-tool-reliability/log.md)
 - [P2-OPT] Performance Optimization [log](docs/tasks/performance-optimization/log.md)
 - [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md)
 

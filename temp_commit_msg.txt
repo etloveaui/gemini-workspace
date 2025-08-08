@@ -1,8 +1,0 @@
-feat(core): Implement advanced task state management
-
-Introduces a more granular 5-state system (Active, Staging, Planned, Paused, Completed) to provide a clearer and more intuitive overview of the project's operational status.
-
-- Updates `GEMINI.md` to codify the new state definitions.
-- Refactors `docs/HUB.md` to use the new `Staging` and `Planned` sections, and reclassifies existing tasks.
-- Enhances the `invoke start` command to display tasks according to the new 5-state model, improving clarity at the start of a session.
-- Includes the results of `invoke organize-scratchpad` to clean up the workspace.
