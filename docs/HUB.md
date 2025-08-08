@@ -12,6 +12,9 @@
 
 ## Active Tasks
 
+- [P1-2] File System Agent Framework Upgrade [log](docs/tasks/file-agent-framework-upgrade/log.md)
+
+
 ## Paused Tasks
 
 - 100xfenok-generator-data-cleanup

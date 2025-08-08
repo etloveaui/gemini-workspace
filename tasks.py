@@ -145,12 +145,27 @@ def search(c, q):
     """invoke search "<query>" : web search + summarize"""
     run_command('search', [VENV_PYTHON, 'scripts/web_agent.py', '--query', q], check=False)
 
-@task
-def refactor(c, file, rule, dry_run=False):
-    """Refactors a file based on a given rule."""
-    command = [VENV_PYTHON, 'scripts/file_agent.py', '--file', file, '--rule', rule]
-    if dry_run:
-        command.append('--dry-run')
+@task(help={'file': 'The file to refactor or inspect.', 'rule': 'The refactoring rule to apply.', 'dry_run': 'Show changes without applying them.', 'yes': 'Apply changes without confirmation.', 'list_rules': 'List all available refactoring rules.', 'explain': 'Explain a specific refactoring rule.'})
+def refactor(c, file=None, rule=None, dry_run=False, yes=False, list_rules=False, explain=None):
+    """Refactors a file using a plugin-driven rule system."""
+    command = [VENV_PYTHON, 'scripts/agents/file_agent.py']
+    
+    if list_rules:
+        command.append('--list')
+    elif explain:
+        command.append(f'--explain={explain}')
+    elif file and rule:
+        command.append(f'--file={file}')
+        command.append(f'--rule={rule}')
+        if dry_run:
+            command.append('--dry-run')
+        if yes:
+            command.append('--yes')
+    else:
+        # 사용자가 아무 인자도 없이 invoke refactor를 호출했을 때 도움말을 보여주기 위함
+        run_command('refactor.help', [VENV_PYTHON, 'scripts/agents/file_agent.py', '--help'], check=False)
+        return
+
     run_command('refactor', command, check=False)
 ns = Collection()
 ns.add_task(start)
