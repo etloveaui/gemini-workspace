@@ -19,6 +19,7 @@
 
 - [P2-SU] Self-Update Engine [log](docs/tasks/self-update-engine/log.md)
 - [P2-UX] UX Refinement [log](docs/tasks/ux-refinement/log.md)
+- [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md)
 - 100xfenok-generator-data-cleanup
 - 100xfenok-generator-date-title-input-fix
 - 100xfenok-generator-dev
