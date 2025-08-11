@@ -18,8 +18,16 @@ def main():
 
     # 실제 image_to_text 도구가 없으므로 더미 설명을 생성합니다.
     # 이 부분은 향후 실제 이미지 분석 로직으로 대체될 것입니다.
-    dummy_description = f"Description: This is a simulated analysis of the image at {image_path.name}. It appears to be a placeholder for a real image analysis tool."
-    print(dummy_description)
+    from scripts.utils.ko_rationale import is_enabled as _ko_on, build_rationale as _ko_reason
+    dummy_description = (
+        f"Description: This is a simulated analysis of the image at {image_path.name}. "
+        f"It appears to be a placeholder for a real image analysis tool."
+    )
+    if _ko_on():
+        reason = _ko_reason(hint="image")
+        print(dummy_description + f"\n\n근거(요약):\n{reason}")
+    else:
+        print(dummy_description)
 
 if __name__ == "__main__":
     main()

@@ -11,6 +11,10 @@
 - 전환: `invoke agent.set --name gemini|codex`
 - 프로세스 별 라벨: PowerShell에서 `($env:ACTIVE_AGENT='codex'); invoke start`
 
+## 출력 포맷 정책
+- 기본으로 최종 출력에 한국어 "근거(요약)" 1–2줄을 덧붙입니다(체인오브소트 비공개, 휴리스틱 설명).
+- 비활성화: `($env:OUTPUT_KO_RATIONALE='0'); invoke <task>`
+
 ## 문서
 - 운영 표준: `GEMINI.md` (섹션 13: 멀티 에이전트)
 - 멀티에이전트 가이드: `AGENTS.md`

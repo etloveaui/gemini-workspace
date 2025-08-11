@@ -10,6 +10,7 @@ sys.path.insert(0, str(ROOT))
 import scripts.tools.web_search
 from scripts.tools.web_search import ProviderNotConfigured
 from scripts.summarizer import summarize_text as summarize
+from scripts.utils.ko_rationale import is_enabled as _ko_on, build_rationale as _ko_reason
 
 def _parse_args(args):
     query = ""
@@ -34,7 +35,11 @@ def main():
 
         merged = "\n\n".join(r["snippet"] for r in results)
         summary = summarize(merged, max_sentences=5)
-        print(summary)
+        if _ko_on():
+            reason = _ko_reason(hint="search")
+            print(summary + f"\n\n근거(요약):\n{reason}")
+        else:
+            print(summary)
     except ProviderNotConfigured as e:
         print(f"Error: Search provider not configured. {e}. Set SERPER_API_KEY or enable WEB_AGENT_TEST_MODE=true.", file=sys.stderr)
         sys.exit(2)
