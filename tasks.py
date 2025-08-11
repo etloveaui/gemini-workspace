@@ -384,9 +384,18 @@ ns.add_collection(agent_ns)
         'mark_read': "처리 후 읽음 처리(기본 True)"
     }
 )
-def agent_watch(c, agent=None, interval=5, ack=False, mark_read=True):
+def agent_watch(c, agent=None, interval=5, ack=False, mark_read=True, duration=None):
     """새 메시지를 주기적으로 감시합니다(Ctrl+C로 종료)."""
     import time
+    # optional bounded run
+    end_ts = None
+    if duration is not None:
+        try:
+            d = int(duration)
+            if d > 0:
+                end_ts = time.time() + d
+        except Exception:
+            end_ts = None
 
     target = agent or agent_manager.get_active_agent()
     console.print(f"[bold blue]Watching inbox for {target}[/bold blue] every {interval}s...")
@@ -413,9 +422,15 @@ def agent_watch(c, agent=None, interval=5, ack=False, mark_read=True):
                             console.print(f"  [red]ACK failed:[/red] {e}")
                 if mark_read:
                     agent_messages.mark_read(target)
+            # stop after duration if requested
+            if end_ts is not None and time.time() >= end_ts:
+                break
             time.sleep(int(interval))
     except KeyboardInterrupt:
         console.print("\n[dim]Watcher stopped[/dim]")
+    finally:
+        if end_ts is not None:
+            console.print("[dim]Watcher finished (duration reached)[/dim]")
 
 # Register watch task under agent namespace as well
 agent_ns.add_task(agent_watch, name='watch')
@@ -437,10 +452,9 @@ def agent_set(c, name):
     print(f"Active agent set to: {updated}")
 
 
-agent_ns = Collection('agent')
+# Reuse existing 'agent' namespace defined above; just add tasks
 agent_ns.add_task(agent_status, name='status')
 agent_ns.add_task(agent_set, name='set')
-ns.add_collection(agent_ns)
 program = Program(namespace=ns)
 
 # --- Hub (agents_hub) tasks ---

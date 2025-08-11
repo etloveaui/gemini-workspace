@@ -130,3 +130,11 @@
 - 로깅: `scripts/runner.py`는 실행 로그/오류 기록 시 `AGENT=<name>` 프리픽스를 포함합니다.
 - 원칙 상속: Windows-first, Python 직접 호출(UTF-8), 레포 내부 작업 경계, 비밀 커밋 금지 규칙은 모든 에이전트에 동일 적용합니다.
 - 현재 상태: v0.1은 “스위칭/표기” 중심으로 동작하며, 태스크 동작은 기존과 동일합니다(필요 시 후속 버전에서 에이전트별 Provider 분기 예정).
+# 운영 업데이트 (v0.1.1)
+
+- 단시간 워처 실행: Codex가 메시지를 신속히 수신·확인하도록 `invoke agent.watch --agent codex --interval 5 --duration 10`을 사용합니다. 무한 대기 없이 자동 종료됩니다. `--ack`를 함께 주면 자동 확인 응답도 보냅니다.
+- Fallback(Invoke 불가 시): Gemini가 레포에서 Invoke를 실행할 수 없으면 `context/messages.jsonl`에 한 줄 JSON을 추가해 요청을 남깁니다.
+  - 예: `{"ts":"2025-08-11T12:34:56Z","from":"gemini","to":"codex","tags":["task","context"],"body":"README 섹션 A 수정 요청"}`
+  - Codex는 워처로 수신: `invoke agent.watch --agent codex --ack --duration 5`
+- 에이전트 라벨: `ACTIVE_AGENT='gemini'`를 설정해 세션 라벨을 구분합니다.
+- MCP(선택): Gemini CLI는 MCP 지원이 내장되어 있으나, 본 레포는 파일/Invoke 중심으로 운영합니다. MCP 설정은 각 CLI 사용자 환경에서만 관리하세요.

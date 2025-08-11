@@ -72,3 +72,19 @@
 - `invoke start --fast` : 빠른 브리핑(Doctor/HUB/인덱스 스킵, Git 변경 요약, 에이전트 표시)
 - 에이전트 지정 실행: `($env:ACTIVE_AGENT='codex'); invoke start --fast`
 - 전체 시작 + 백그라운드 인덱싱: `invoke start` (기본값은 인덱스 백그라운드 실행)
+# 업데이트 요약 (v0.1.1)
+
+- 워처 단시간 실행: `invoke agent.watch --agent codex --interval 5 --duration 10`
+  - 자동 확인 응답: `--ack` 병행. 예) `... --ack --duration 5`
+- Gemini Fallback(Invoke 불가 시): `context/messages.jsonl`에 한 줄 JSON 추가로 요청 전달
+  - 예: `{"ts":"2025-08-11T12:34:56Z","from":"gemini","to":"codex","tags":["task","context"],"body":"README 섹션 A 수정 요청"}`
+  - Codex 확인: `invoke agent.watch --agent codex --ack --duration 5`
+- MCP 통합(선택): 사용자 환경에만 설정
+  - Codex CLI(예): `~/.codex/config.toml`에 MCP 서버 등록
+    ```
+    [mcp_servers.snyk-security]
+    command = "npx"
+    args = ["-y", "snyk@latest", "mcp", "-t", "stdio"]
+    ```
+  - Gemini CLI: MCP 지원 내장. 레포 수준에서는 메시지 허브/Invoke만 사용
+  - 참고: `scratchpad/20250811_CLI_upgrade_MCP.md`
