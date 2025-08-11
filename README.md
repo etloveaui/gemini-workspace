@@ -18,5 +18,12 @@
 ## 문서
 - 운영 표준: `GEMINI.md` (섹션 13: 멀티 에이전트)
 - 멀티에이전트 가이드: `AGENTS.md`
+ - 에이전트 허브: `agents_hub/README.md` (파일 기반 메시지 큐)
+
+## 에이전트 허브(간단)
+- 보내기: `invoke hub.send --to gemini --title "작업" --body "설명" --type task`
+- 대기열 보기: `invoke hub.inbox --agent gemini`
+- 클레임: `invoke hub.claim --agent gemini` → 처리 중으로 이동
+- 완료: `invoke hub.complete --id <ID> --status success --agent gemini`
 
 참고: 비밀·토큰은 커밋 금지(`.gemini/*`, `secrets/*`). 모든 명령은 레포 내부 경로에서 실행하세요.

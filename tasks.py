@@ -267,3 +267,42 @@ agent_ns.add_task(agent_status, name='status')
 agent_ns.add_task(agent_set, name='set')
 ns.add_collection(agent_ns)
 program = Program(namespace=ns)
+
+# --- Hub (agents_hub) tasks ---
+@task
+def hub_send(c, to, title, body, type='message', tags=''):
+    """Send a message/task to another agent via hub."""
+    tag_list = [t for t in tags.split(',') if t.strip()]
+    run_command('hub.send', [VENV_PYTHON, 'scripts/agents/broker.py', 'send', '--to', to, '--title', title, '--body', body, '--type', type, '--tags', *tag_list], check=False)
+
+
+@task
+def hub_inbox(c, agent=None):
+    """List pending items for agent (default: active agent)."""
+    agent = agent or agent_manager.get_active_agent()
+    run_command('hub.list', [VENV_PYTHON, 'scripts/agents/broker.py', 'list', '--for', agent], check=False)
+
+
+@task
+def hub_claim(c, agent=None):
+    """Claim one pending item for agent and move to processing."""
+    agent = agent or agent_manager.get_active_agent()
+    run_command('hub.claim', [VENV_PYTHON, 'scripts/agents/broker.py', 'claim', '--agent', agent], check=False)
+
+
+@task
+def hub_complete(c, id, status='success', note='', agent=None):
+    """Complete a processing item and archive it."""
+    agent = agent or agent_manager.get_active_agent()
+    args = [VENV_PYTHON, 'scripts/agents/broker.py', 'complete', '--agent', agent, '--id', id, '--status', status]
+    if note:
+        args += ['--note', note]
+    run_command('hub.complete', args, check=False)
+
+
+hub_ns = Collection('hub')
+hub_ns.add_task(hub_send, name='send')
+hub_ns.add_task(hub_inbox, name='inbox')
+hub_ns.add_task(hub_claim, name='claim')
+hub_ns.add_task(hub_complete, name='complete')
+ns.add_collection(hub_ns)
