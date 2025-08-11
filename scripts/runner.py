@@ -10,6 +10,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 from rich.syntax import Syntax
+from . import agent_manager
 
 console = Console()
 
@@ -42,6 +43,12 @@ def _ensure_db(db_path: Path = DEFAULT_DB_PATH):
     """지정된 경로에 DB와 'usage' 테이블이 있는지 확인하고 없으면 생성합니다."""
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
+    # 동시 실행 안정화: WAL 모드 및 합리적 동기화 레벨 설정
+    try:
+        cur.execute("PRAGMA journal_mode=WAL;")
+        cur.execute("PRAGMA synchronous=NORMAL;")
+    except Exception:
+        pass
     # 스키마를 Debug_21.md에 명시된 내용과 유사하게, 하지만 기존 컬럼 유지
     cur.execute("""
         CREATE TABLE IF NOT EXISTS usage (
@@ -57,6 +64,25 @@ def _ensure_db(db_path: Path = DEFAULT_DB_PATH):
             error_message TEXT
         )
     """)
+    # 마이그레이션: 누락된 컬럼이 있으면 추가
+    cur.execute("PRAGMA table_info(usage);")
+    cols = {row[1] for row in cur.fetchall()}
+    migrations = []
+    if "stdout" not in cols:
+        migrations.append("ALTER TABLE usage ADD COLUMN stdout TEXT;")
+    if "stderr" not in cols:
+        migrations.append("ALTER TABLE usage ADD COLUMN stderr TEXT;")
+    if "returncode" not in cols:
+        migrations.append("ALTER TABLE usage ADD COLUMN returncode INTEGER;")
+    if "error_type" not in cols:
+        migrations.append("ALTER TABLE usage ADD COLUMN error_type TEXT;")
+    if "error_message" not in cols:
+        migrations.append("ALTER TABLE usage ADD COLUMN error_message TEXT;")
+    for sql in migrations:
+        try:
+            cur.execute(sql)
+        except Exception:
+            pass
     conn.commit()
     conn.close()
 
@@ -87,7 +113,8 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
     env = os.environ.copy()
     env["PYTHONIOENCODING"] = "utf-8"
 
-    console.print(f"[bold green][RUN:{task_name}][/bold green] args={args!r}, cwd={str(effective_cwd)!r}")
+    agent = agent_manager.get_active_agent()
+    console.print(f"[bold green][RUN:{task_name}][agent={agent}][/bold green] args={args!r}, cwd={str(effective_cwd)!r}")
 
     try:
         cp = subprocess.run(
@@ -108,7 +135,7 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
         _log_event(
             task_name=task_name,
             event_type="command_error",
-            command=" ".join(args),
+            command=f"AGENT={agent} " + " ".join(args),
             stdout=e.stdout,
             stderr=e.stderr,
             returncode=e.returncode,
@@ -133,7 +160,7 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
         _log_event(
             task_name=task_name,
             event_type="file_not_found_error",
-            command=" ".join(args),
+            command=f"AGENT={agent} " + " ".join(args),
             stdout="",
             stderr=str(e),
             returncode=-1,

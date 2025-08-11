@@ -6,6 +6,7 @@ from scripts.usage_tracker import log_usage
 import sys
 from scripts import hub_manager
 from scripts.organizer import organize_scratchpad
+from scripts import agent_manager
 import subprocess, os
 ROOT = Path(__file__).resolve().parent
 if os.name == 'nt':
@@ -130,7 +131,7 @@ def query_context(c, query):
 @task
 def test(c):
     '''"""TODO: Add docstring."""'''
-    run_command('test', ['pytest', 'tests/', '-q'], check=False)
+    run_command('test', [VENV_PYTHON, '-m', 'pytest', 'tests/', '-q'], check=False)
 
 @task
 def clean_cli(c):
@@ -243,4 +244,26 @@ ctx_ns = Collection('context')
 ctx_ns.add_task(build_context_index, name='build')
 ctx_ns.add_task(query_context, name='query')
 ns.add_collection(ctx_ns)
+
+# --- Agent management tasks ---
+from invoke import task as _task_alias  # avoid shadowing
+
+@_task_alias
+def agent_status(c):
+    """Shows the currently active agent."""
+    name = agent_manager.get_active_agent()
+    print(f"Active agent: {name}")
+
+
+@_task_alias
+def agent_set(c, name):
+    """Sets the active agent (gemini|codex)."""
+    updated = agent_manager.set_active_agent(name)
+    print(f"Active agent set to: {updated}")
+
+
+agent_ns = Collection('agent')
+agent_ns.add_task(agent_status, name='status')
+agent_ns.add_task(agent_set, name='set')
+ns.add_collection(agent_ns)
 program = Program(namespace=ns)

@@ -121,3 +121,12 @@
 
 **Phase 4: 계획 실행 (Execution)**
 1.  **Gemini:** 사용자에게 승인받은 실행 계획에 따라서만 실제 작업을 수행한다.
+
+## 13) 멀티 에이전트 호환 (Coexistence)
+- 개요: 본 워크스페이스는 여러 CLI 에이전트(Gemini, Codex, 향후 Claude 등)가 공존하도록 설계되었습니다. 세부 운영은 `AGENTS.md`를 참조하세요.
+- 활성 에이전트 확인: `invoke agent.status`
+- 활성 에이전트 전환: `invoke agent.set --name gemini|codex`
+- 설정 파일: `.agents/config.json`의 `{"active": "gemini|codex"}` 값으로 관리됩니다.
+- 로깅: `scripts/runner.py`는 실행 로그/오류 기록 시 `AGENT=<name>` 프리픽스를 포함합니다.
+- 원칙 상속: Windows-first, Python 직접 호출(UTF-8), 레포 내부 작업 경계, 비밀 커밋 금지 규칙은 모든 에이전트에 동일 적용합니다.
+- 현재 상태: v0.1은 “스위칭/표기” 중심으로 동작하며, 태스크 동작은 기존과 동일합니다(필요 시 후속 버전에서 에이전트별 Provider 분기 예정).

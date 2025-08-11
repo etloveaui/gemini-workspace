@@ -1,6 +1,7 @@
 import sqlite3
 from pathlib import Path
 import datetime
+import sqlite3
 
 ROOT = Path(__file__).resolve().parent.parent
 DB_PATH = ROOT / "usage.db"
@@ -10,6 +11,11 @@ def log_usage(task_name: str, event_type: str, command: str = None, returncode: 
     timestamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
+        try:
+            cursor.execute("PRAGMA journal_mode=WAL;")
+            cursor.execute("PRAGMA synchronous=NORMAL;")
+        except Exception:
+            pass
         # usage_tracker.py가 runner.py의 스키마를 따르도록 수정
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS usage (
