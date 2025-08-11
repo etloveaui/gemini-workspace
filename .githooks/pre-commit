@@ -1,5 +1,7 @@
 #!/bin/bash
-# Run pre-commit secret/project guard
+# 1) Show staged diff and ask confirmation
+python scripts/hooks/precommit_diff_confirm.py || exit $?
+# 2) Run pre-commit secret/project guard
 python scripts/hooks/precommit_secrets_guard.py || exit $?
 # Run existing no-delete guard
 python scripts/check_no_delete.py

@@ -53,3 +53,22 @@
 
 ## 참고
 - 상세 운영 표준과 절차는 `GEMINI.md`를 따릅니다. Codex 관련 차이점은 본 문서에서만 최소 표기합니다.
+
+### 교차 에이전트 메시징(v0.1)
+- 저장소: `context/messages.jsonl` (JSON Lines, UTF-8)
+- 필드: `{ "ts": "UTC ISO", "from": "gemini|codex", "to": "codex|gemini|all", "tags": ["note"], "body": "..." }`
+- 남기기(권장): `invoke agent.msg --to codex --body "메시지" --tags "decision,context"`
+- 보기: `invoke agent.inbox --agent codex --unread --limit 20` → `.agents/inbox/codex.md` 갱신
+- 읽음처리: `invoke agent.read --agent codex`
+
+#### 실시간 감시(옵션)
+- 감시 실행: `invoke agent.watch --agent codex --interval 5` (Ctrl+C로 종료)
+- 자동 확인 응답: `invoke agent.watch --agent codex --interval 5 --ack`
+- 비침투형: 감시는 별도 터미널에서 실행 권장. 작업 흐름은 방해받지 않습니다.
+
+참고: Invoke 사용이 어려운 에이전트(Gemini 등)는 `context/messages.jsonl`에 위 필드를 한 줄 JSON으로 append 하면 됩니다.
+
+### 빠른 시작(권장)
+- `invoke start --fast` : 빠른 브리핑(Doctor/HUB/인덱스 스킵, Git 변경 요약, 에이전트 표시)
+- 에이전트 지정 실행: `($env:ACTIVE_AGENT='codex'); invoke start --fast`
+- 전체 시작 + 백그라운드 인덱싱: `invoke start` (기본값은 인덱스 백그라운드 실행)

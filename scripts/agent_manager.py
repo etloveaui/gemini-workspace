@@ -43,3 +43,16 @@ def set_active_agent(name: str) -> str:
     CONFIG_DIR.mkdir(parents=True, exist_ok=True)
     CONFIG_PATH.write_text(json.dumps({"active": name}, ensure_ascii=False, indent=2), encoding="utf-8")
     return name
+
+
+def get_flag(key: str, default=None):
+    data = _read_config()
+    return data.get(key, default)
+
+
+def set_flag(key: str, value):
+    data = _read_config()
+    data[key] = value
+    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    CONFIG_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    return value

@@ -7,6 +7,7 @@ import sys
 from scripts import hub_manager
 from scripts.organizer import organize_scratchpad
 from scripts import agent_manager
+from scripts.agents import messages as agent_messages
 import subprocess, os
 ROOT = Path(__file__).resolve().parent
 if os.name == 'nt':
@@ -45,55 +46,170 @@ from rich.table import Table
 
 console = Console()
 
-@task
-def start(c):
+@task(
+    help={
+        'fast': "빠른 시작 모드(검사/인덱스 생략)",
+        'skip_doctor': "Doctor 검사를 건너뜀",
+        'skip_index': "컨텍스트 인덱스 생성을 건너뜀",
+        'bg_index': "인덱스를 백그라운드로 실행(기본 True)",
+    }
+)
+def start(c, fast=False, skip_doctor=False, skip_index=False, bg_index=True):
     """System check, status briefing, and session initialization."""
     log_usage('session', 'start', command='start')
-    console.print("[bold blue]--- System Status Check ---[/bold blue]")
-    doctor_result = run_command('start.doctor', [VENV_PYTHON, 'scripts/doctor.py'], check=False)
-    console.print(doctor_result.stdout)
-    console.print("[bold blue]--- Task Status ---[/bold blue]")
-    try:
-        with open('docs/HUB.md', 'r', encoding='utf-8') as f:
-            hub_content = f.read()
-        
-        staging_tasks = hub_manager.parse_tasks(hub_content, 'Staging Tasks')
-        active_tasks = hub_manager.parse_tasks(hub_content, 'Active Tasks')
-        planned_tasks = hub_manager.parse_tasks(hub_content, 'Planned Tasks')
-        paused_tasks = hub_manager.parse_tasks(hub_content, 'Paused Tasks')
 
-        table = Table(title="Task Status")
-        table.add_column("Status", style="cyan", no_wrap=True)
-        table.add_column("Task", style="magenta")
+    def _print_quick_status():
+        console.print("[bold blue]--- Quick Status ---[/bold blue]")
+        active = agent_manager.get_active_agent()
+        console.print(f"Active Agent: [bold]{active}[/bold]")
+        git_status_result = run_command('start.git_status', ['git', 'status', '--porcelain'], check=False)
+        changed = bool(git_status_result.stdout.strip())
+        console.print("Changes: " + ("YES" if changed else "NO"))
+        if changed:
+            console.print(git_status_result.stdout)
+        # Inbox summary
+        try:
+            ucnt = agent_messages.unread_count(active)
+            console.print(f"Inbox: {ucnt} unread for {active}")
+            if ucnt:
+                msgs = agent_messages.list_inbox(active, unread_only=True, limit=5)
+                for m in msgs:
+                    tags = (", ".join(m.tags)) if m.tags else ""
+                    tag_str = f" [{tags}]" if tags else ""
+                    console.print(f"- {m.ts} from:{m.sender}{tag_str} :: {m.body[:120]}")
+        except Exception:
+            pass
+        console.print("Hint: invoke help | invoke test | invoke search \"query\" | invoke agent.inbox --unread")
 
-        if staging_tasks:
-            for task_name in staging_tasks:
-                table.add_row("Staging", task_name)
-        if active_tasks:
-            for task_name in active_tasks:
-                table.add_row("Active", task_name)
-        if planned_tasks:
-            for task_name in planned_tasks:
-                table.add_row("Planned", task_name)
-        if paused_tasks:
-            for task_name in paused_tasks:
-                table.add_row("Paused", task_name)
-        
-        console.print(table)
-
-    except FileNotFoundError:
-        console.print("[red]docs/HUB.md not found.[/red]")
-    console.print("[bold blue]--- Git Status ---[/bold blue]")
-    git_status_result = run_command('start.git_status', ['git', 'status', '--porcelain'], check=False)
-    if git_status_result.stdout:
-        console.print(git_status_result.stdout)
+    if fast:
+        _print_quick_status()
+        console.print("[dim]Fast mode: doctor/HUB/index 생략[/dim]")
     else:
-        console.print("No changes in the working directory.")
-    hub_manager.clear_last_session()
-    console.print("[bold blue]\n--- Initializing Session ---[/bold blue]")
-    build_context_index(c)
-    console.print("[bold green]\nMore help is available by typing: invoke help[/bold green]")
-    console.print("[bold green]What would you like to do next?[/bold green]")
+        console.print("[bold blue]--- System Status Check ---[/bold blue]")
+        if not skip_doctor:
+            doctor_result = run_command('start.doctor', [VENV_PYTHON, 'scripts/doctor.py'], check=False)
+            console.print(doctor_result.stdout)
+        else:
+            console.print("[dim]Skip doctor[/dim]")
+
+        console.print("[bold blue]--- Task Status ---[/bold blue]")
+        try:
+            with open('docs/HUB.md', 'r', encoding='utf-8') as f:
+                hub_content = f.read()
+
+            staging_tasks = hub_manager.parse_tasks(hub_content, 'Staging Tasks')
+            active_tasks = hub_manager.parse_tasks(hub_content, 'Active Tasks')
+            planned_tasks = hub_manager.parse_tasks(hub_content, 'Planned Tasks')
+            paused_tasks = hub_manager.parse_tasks(hub_content, 'Paused Tasks')
+
+            table = Table(title="Task Status")
+            table.add_column("Status", style="cyan", no_wrap=True)
+            table.add_column("Task", style="magenta")
+
+            if staging_tasks:
+                for task_name in staging_tasks:
+                    table.add_row("Staging", task_name)
+            if active_tasks:
+                for task_name in active_tasks:
+                    table.add_row("Active", task_name)
+            if planned_tasks:
+                for task_name in planned_tasks:
+                    table.add_row("Planned", task_name)
+            if paused_tasks:
+                for task_name in paused_tasks:
+                    table.add_row("Paused", task_name)
+
+            console.print(table)
+
+        except FileNotFoundError:
+            console.print("[red]docs/HUB.md not found.[/red]")
+
+        console.print("[bold blue]--- Git Status ---[/bold blue]")
+        git_status_result = run_command('start.git_status', ['git', 'status', '--porcelain'], check=False)
+        if git_status_result.stdout:
+            console.print(git_status_result.stdout)
+        else:
+            console.print("No changes in the working directory.")
+
+        hub_manager.clear_last_session()
+
+        console.print("[bold blue]\n--- Initializing Session ---[/bold blue]")
+        if skip_index:
+            console.print("[dim]Skip context index build[/dim]")
+        else:
+            if bg_index:
+                # 백그라운드 인덱싱
+                subprocess.Popen([VENV_PYTHON, 'scripts/build_context_index.py'])
+                console.print("Context index building in background...")
+            else:
+                build_context_index(c)
+
+        console.print("[bold green]\nMore help: invoke help[/bold green]")
+        console.print("[bold green]Next: invoke test / search \"query\"[/bold green]")
+
+    # Fast 모드에서도 마지막 안내는 공통 제공
+    active = agent_manager.get_active_agent()
+    console.print(f"[dim]Agent=[{active}] Ready. What next?[/dim]")
+
+@task(name='start_fast')
+def start_fast(c):
+    """Alias for fast start: invoke start --fast"""
+    start(c, fast=True)
+
+
+# --- Agent messaging tasks ---
+from invoke import Argument  # noqa: F401 (kept for potential future CLI arg specs)
+
+
+@task(
+    help={
+        'to': "수신 에이전트명(codex|gemini|all)",
+        'body': "메시지 본문",
+        'tags': "쉼표구분 태그들(선택)",
+        'sender': "발신자 지정(기본: ACTIVE_AGENT)"
+    }
+)
+def agent_msg(c, to, body, tags='', sender=None):
+    """다른 에이전트에게 메시지를 남깁니다."""
+    tag_list = [t.strip() for t in (tags or '').split(',') if t.strip()]
+    msg = agent_messages.append_message(to=to, body=body, tags=tag_list, sender=sender)
+    console.print(f"[green]Message queued[/green] ts={msg.ts} from={msg.sender} -> {msg.to}")
+
+
+@task(
+    help={
+        'agent': "인박스를 조회할 에이전트(기본: active)",
+        'since': "조회 기준 시각(예: 24h, 7d, ISO)",
+        'unread': "읽지 않은 항목만",
+        'limit': "표시 개수(기본 20)",
+        'write_md': ".agents/inbox/<agent>.md 파일 업데이트"
+    }
+)
+def agent_inbox(c, agent=None, since='', unread=False, limit=20, write_md=True):
+    """에이전트 인박스를 조회합니다."""
+    target = agent or agent_manager.get_active_agent()
+    msgs = agent_messages.list_inbox(target, since=since or None, unread_only=bool(unread), limit=int(limit))
+    if write_md:
+        path = agent_messages.write_inbox_markdown(target, msgs)
+        console.print(f"Updated inbox markdown: {path}")
+    if not msgs:
+        console.print("No messages.")
+    else:
+        console.print(f"Showing {len(msgs)} messages for {target}:")
+        for m in msgs:
+            tags = (", ".join(m.tags)) if m.tags else ""
+            tag_str = f" [{tags}]" if tags else ""
+            console.print(f"- {m.ts} from:{m.sender}{tag_str}\n  - {m.body}")
+
+
+@task(
+    help={'agent': "읽음 처리할 에이전트(기본: active)"}
+)
+def agent_read(c, agent=None):
+    """인박스를 읽음 처리합니다."""
+    target = agent or agent_manager.get_active_agent()
+    ts = agent_messages.mark_read(target)
+    console.print(f"Marked inbox as read for {target} at {ts}")
 
 @task
 def end(c, task_id='general'):
@@ -156,7 +272,14 @@ def help(c, section='all'):
 @task
 def search(c, q):
     """invoke search "<query>" : web search + summarize"""
-    run_command('search', [VENV_PYTHON, 'scripts/web_agent.py', '--query', q], check=False)
+    # 에이전트별 분기: scripts/agents/<agent>/web_agent.py 가 있으면 사용, 없으면 기본
+    agent = agent_manager.get_active_agent()
+    agent_script = ROOT / 'scripts' / 'agents' / agent / 'web_agent.py'
+    if agent_script.exists():
+        cmd = [VENV_PYTHON, str(agent_script), '--query', q]
+    else:
+        cmd = [VENV_PYTHON, 'scripts/web_agent.py', '--query', q]
+    run_command('search', cmd, check=False)
 
 @task(help={'file': 'The file to refactor or inspect.', 'rule': 'The refactoring rule to apply.', 'dry_run': 'Show changes without applying them.', 'yes': 'Apply changes without confirmation.', 'list_rules': 'List all available refactoring rules.', 'explain': 'Explain a specific refactoring rule.'})
 def refactor(c, file=None, rule=None, dry_run=False, yes=False, list_rules=False, explain=None):
@@ -244,6 +367,58 @@ ctx_ns = Collection('context')
 ctx_ns.add_task(build_context_index, name='build')
 ctx_ns.add_task(query_context, name='query')
 ns.add_collection(ctx_ns)
+
+# Agent messaging namespace
+agent_ns = Collection('agent')
+agent_ns.add_task(agent_msg, name='msg')
+agent_ns.add_task(agent_inbox, name='inbox')
+agent_ns.add_task(agent_read, name='read')
+ns.add_collection(agent_ns)
+
+
+@task(
+    help={
+        'agent': "감시할 에이전트(기본: active)",
+        'interval': "폴링 간격(초, 기본 5)",
+        'ack': "새 메시지에 자동 확인 응답(ACK) 남김",
+        'mark_read': "처리 후 읽음 처리(기본 True)"
+    }
+)
+def agent_watch(c, agent=None, interval=5, ack=False, mark_read=True):
+    """새 메시지를 주기적으로 감시합니다(Ctrl+C로 종료)."""
+    import time
+
+    target = agent or agent_manager.get_active_agent()
+    console.print(f"[bold blue]Watching inbox for {target}[/bold blue] every {interval}s...")
+    try:
+        while True:
+            msgs = agent_messages.list_inbox(target, unread_only=True, limit=100)
+            if msgs:
+                console.print(f"[yellow]New messages: {len(msgs)}[/yellow]")
+                for m in reversed(msgs):  # 시간순 출력
+                    tags = (", ".join(m.tags)) if m.tags else ""
+                    tag_str = f" [{tags}]" if tags else ""
+                    console.print(f"- {m.ts} from:{m.sender}{tag_str}\n  - {m.body}")
+                    # 자동 ACK (무한 루프 방지: ack 태그에는 응답하지 않음)
+                    if ack and m.sender and m.sender != target and ("ack" not in (m.tags or [])):
+                        try:
+                            agent_messages.append_message(
+                                to=m.sender,
+                                body=f"ACK: {m.body[:200]}",
+                                tags=["ack"],
+                                sender=target,
+                            )
+                            console.print(f"  [dim]ACK sent to {m.sender}[/dim]")
+                        except Exception as e:
+                            console.print(f"  [red]ACK failed:[/red] {e}")
+                if mark_read:
+                    agent_messages.mark_read(target)
+            time.sleep(int(interval))
+    except KeyboardInterrupt:
+        console.print("\n[dim]Watcher stopped[/dim]")
+
+# Register watch task under agent namespace as well
+agent_ns.add_task(agent_watch, name='watch')
 
 # --- Agent management tasks ---
 from invoke import task as _task_alias  # avoid shadowing
@@ -361,3 +536,117 @@ git_ns.add_task(commit_safe, name='commit_safe')
 git_ns.add_task(git_push, name='push')
 git_ns.add_task(git_untrack_projects, name='untrack-projects')
 ns.add_collection(git_ns)
+
+# --- Edits (pre-edit diff workflow) ---
+@task
+def edits_capture(c, file):
+    run_command('edits.capture', [VENV_PYTHON, 'scripts/edits_manager.py', 'capture', '--file', file], check=False)
+
+
+@task
+def edits_propose(c, file, from_file=None, content=None):
+    args = [VENV_PYTHON, 'scripts/edits_manager.py', 'propose', '--file', file]
+    if from_file:
+        args += ['--from-file', from_file]
+    if content:
+        args += ['--content', content]
+    run_command('edits.propose', args, check=False)
+
+
+@task
+def edits_list(c):
+    run_command('edits.list', [VENV_PYTHON, 'scripts/edits_manager.py', 'list'], check=False)
+
+
+@task
+def edits_diff(c, file=None):
+    args = [VENV_PYTHON, 'scripts/edits_manager.py', 'diff']
+    if file:
+        args += ['--file', file]
+    run_command('edits.diff', args, check=False)
+
+
+@task
+def edits_apply(c, file=None, keep=False):
+    args = [VENV_PYTHON, 'scripts/edits_manager.py', 'apply']
+    if file:
+        args += ['--file', file]
+    if keep:
+        args.append('--keep')
+    run_command('edits.apply', args, check=False)
+
+
+@task
+def edits_discard(c, file):
+    run_command('edits.discard', [VENV_PYTHON, 'scripts/edits_manager.py', 'discard', '--file', file], check=False)
+
+
+edits_ns = Collection('edits')
+edits_ns.add_task(edits_capture, name='capture')
+edits_ns.add_task(edits_propose, name='propose')
+edits_ns.add_task(edits_list, name='list')
+edits_ns.add_task(edits_diff, name='diff')
+edits_ns.add_task(edits_apply, name='apply')
+edits_ns.add_task(edits_discard, name='discard')
+ns.add_collection(edits_ns)
+
+# --- Archive tasks ---
+@task
+def archive_save(c, title, content=None, from_file=None, agent=None):
+    args = [VENV_PYTHON, 'scripts/archive_manager.py', 'save', '--title', title]
+    if content:
+        args += ['--content', content]
+    if from_file:
+        args += ['--from-file', from_file]
+    if agent:
+        args += ['--agent', agent]
+    run_command('archive.save', args, check=False)
+
+
+@task
+def archive_export(c, day=None):
+    args = [VENV_PYTHON, 'scripts/archive_manager.py', 'export']
+    if day:
+        args += ['--day', day]
+    run_command('archive.export', args, check=False)
+
+
+arch_ns = Collection('archive')
+arch_ns.add_task(archive_save, name='save')
+arch_ns.add_task(archive_export, name='export')
+ns.add_collection(arch_ns)
+
+# --- Hub watcher ---
+@task
+def hub_watch(c, agent=None, interval=5):
+    agent = agent or agent_manager.get_active_agent()
+    run_command('hub.watch', [VENV_PYTHON, 'scripts/agents/watcher.py', '--agent', agent, '--interval', str(interval)], check=False)
+
+hub_ns.add_task(hub_watch, name='watch')
+
+# --- Preferences (toggle features) ---
+@task
+def prefs_show(c):
+    print({
+        'active': agent_manager.get_active_agent(),
+        'diff_confirm': agent_manager.get_flag('diff_confirm', True),
+        'edits_enforce': agent_manager.get_flag('edits_enforce', True),
+    })
+
+
+@task
+def prefs_set(c, key, value):
+    # bool parsing
+    v = value
+    if value.lower() in {'true', '1', 'on', 'yes'}:
+        v = True
+    elif value.lower() in {'false', '0', 'off', 'no'}:
+        v = False
+    agent_manager.set_flag(key, v)
+    prefs_show(c)
+
+
+prefs_ns = Collection('prefs')
+prefs_ns.add_task(prefs_show, name='show')
+prefs_ns.add_task(prefs_set, name='set')
+ns.add_collection(prefs_ns)
