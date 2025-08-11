@@ -48,10 +48,10 @@ console = Console()
 
 @task(
     help={
-        'fast': "빠른 시작 모드(검사/인덱스 생략)",
-        'skip_doctor': "Doctor 검사를 건너뜀",
-        'skip_index': "컨텍스트 인덱스 생성을 건너뜀",
-        'bg_index': "인덱스를 백그라운드로 실행(기본 True)",
+        'fast': "빠른 ?�작 모드(검???�덱???�략)",
+        'skip_doctor': "Doctor 검?��? 건너?�",
+        'skip_index': "컨텍?�트 ?�덱???�성??건너?�",
+        'bg_index': "?�덱?��? 백그?�운?�로 ?�행(기본 True)",
     }
 )
 def start(c, fast=False, skip_doctor=False, skip_index=False, bg_index=True):
@@ -83,7 +83,7 @@ def start(c, fast=False, skip_doctor=False, skip_index=False, bg_index=True):
 
     if fast:
         _print_quick_status()
-        console.print("[dim]Fast mode: doctor/HUB/index 생략[/dim]")
+        console.print("[dim]Fast mode: doctor/HUB/index ?�략[/dim]")
     else:
         console.print("[bold blue]--- System Status Check ---[/bold blue]")
         if not skip_doctor:
@@ -138,7 +138,7 @@ def start(c, fast=False, skip_doctor=False, skip_index=False, bg_index=True):
             console.print("[dim]Skip context index build[/dim]")
         else:
             if bg_index:
-                # 백그라운드 인덱싱
+                # 백그?�운???�덱??
                 subprocess.Popen([VENV_PYTHON, 'scripts/build_context_index.py'])
                 console.print("Context index building in background...")
             else:
@@ -147,7 +147,7 @@ def start(c, fast=False, skip_doctor=False, skip_index=False, bg_index=True):
         console.print("[bold green]\nMore help: invoke help[/bold green]")
         console.print("[bold green]Next: invoke test / search \"query\"[/bold green]")
 
-    # Fast 모드에서도 마지막 안내는 공통 제공
+    # Fast 모드?�서??마�?�??�내??공통 ?�공
     active = agent_manager.get_active_agent()
     console.print(f"[dim]Agent=[{active}] Ready. What next?[/dim]")
 
@@ -163,14 +163,14 @@ from invoke import Argument  # noqa: F401 (kept for potential future CLI arg spe
 
 @task(
     help={
-        'to': "수신 에이전트명(codex|gemini|all)",
+        'to': "?�신 ?�이?�트�?codex|gemini|all)",
         'body': "메시지 본문",
-        'tags': "쉼표구분 태그들(선택)",
-        'sender': "발신자 지정(기본: ACTIVE_AGENT)"
+        'tags': "?�표구분 ?�그???�택)",
+        'sender': "발신??지??기본: ACTIVE_AGENT)"
     }
 )
 def agent_msg(c, to, body, tags='', sender=None):
-    """다른 에이전트에게 메시지를 남깁니다."""
+    """?�른 ?�이?�트?�게 메시지�??�깁?�다."""
     tag_list = [t.strip() for t in (tags or '').split(',') if t.strip()]
     msg = agent_messages.append_message(to=to, body=body, tags=tag_list, sender=sender)
     console.print(f"[green]Message queued[/green] ts={msg.ts} from={msg.sender} -> {msg.to}")
@@ -178,15 +178,15 @@ def agent_msg(c, to, body, tags='', sender=None):
 
 @task(
     help={
-        'agent': "인박스를 조회할 에이전트(기본: active)",
-        'since': "조회 기준 시각(예: 24h, 7d, ISO)",
-        'unread': "읽지 않은 항목만",
-        'limit': "표시 개수(기본 20)",
-        'write_md': ".agents/inbox/<agent>.md 파일 업데이트"
+        'agent': "?�박?��? 조회???�이?�트(기본: active)",
+        'since': "조회 기�? ?�각(?? 24h, 7d, ISO)",
+        'unread': "?��? ?��? ??���?,
+        'limit': "?�시 개수(기본 20)",
+        'write_md': ".agents/inbox/<agent>.md ?�일 ?�데?�트"
     }
 )
 def agent_inbox(c, agent=None, since='', unread=False, limit=20, write_md=True):
-    """에이전트 인박스를 조회합니다."""
+    """?�이?�트 ?�박?��? 조회?�니??"""
     target = agent or agent_manager.get_active_agent()
     msgs = agent_messages.list_inbox(target, since=since or None, unread_only=bool(unread), limit=int(limit))
     if write_md:
@@ -203,27 +203,29 @@ def agent_inbox(c, agent=None, since='', unread=False, limit=20, write_md=True):
 
 
 @task(
-    help={'agent': "읽음 처리할 에이전트(기본: active)"}
+    help={'agent': "?�음 처리???�이?�트(기본: active)"}
 )
 def agent_read(c, agent=None):
-    """인박스를 읽음 처리합니다."""
+    """?�박?��? ?�음 처리?�니??"""
     target = agent or agent_manager.get_active_agent()
     ts = agent_messages.mark_read(target)
     console.print(f"Marked inbox as read for {target} at {ts}")
 
 @task
 def end(c, task_id='general'):
-    """WIP commit, write __lastSession__ block, ensure HUB.md is committed."""
-    # General WIP commit first
+    """WIP commit, write __lastSession__ block."""
+    # First, perform a WIP commit for general changes
     run_command('end', ['invoke', 'wip'], check=False)
-    # Update HUB session info synchronously
+    # Update HUB session info synchronously to ensure HUB.md reflects latest
     try:
         hub_manager.update_session_end_info(task_id)
     except Exception as e:
         console.print(f"[red]HUB update failed: {e}[/red]")
-    # Explicitly stage and commit HUB.md if changed
+    # Ensure docs/HUB.md is staged and committed if modified
     try:
-        subprocess.run(['git', 'add', 'docs/HUB.md'], check=False, text=True)
+        # Stage HUB explicitly
+        subprocess.run(['git', 'add', 'docs/HUB.md'], cwd=str(Path.cwd()), check=False, text=True)
+        # Commit only if there is something to commit
         res = subprocess.run(['git', 'diff', '--cached', '--name-only'], capture_output=True, text=True, check=False)
         if 'docs/HUB.md' in (res.stdout or ''):
             with tempfile.NamedTemporaryFile('w', delete=False, encoding='utf-8') as tf:
@@ -236,9 +238,29 @@ def end(c, task_id='general'):
                 os.unlink(temp_path)
     except Exception as e:
         console.print(f"[yellow]HUB auto-commit skipped/failed: {e}[/yellow]")
-    # Log usage asynchronously
+    # Log usage in background (non-blocking)
     subprocess.Popen([VENV_PYTHON, "-c", f"from scripts.usage_tracker import log_usage; log_usage('{task_id}', 'session_end', command='end', returncode=0, stdout='session ended', stderr='')"])
     print('end done')
+
+@task(name='text.replace', help={
+    'file': '?�???�일 경로',
+    'old': '기존 문자??,
+    'new': '?��?문자??,
+    'expect': '?�상 치환 ?�수(0?� 무시)',
+    'dry_run': '미리보기�??�행'
+})
+def text_replace(c, file, old, new, expect=0, dry_run=False):
+    """?�인?�딩 차이�??�동 ?�수?�는 ?�전??문자??치환."""
+    args = [VENV_PYTHON, 'scripts/textops.py', 'replace', '--file', file, '--old', old, '--new', new]
+    try:
+        exp = int(expect)
+    except Exception:
+        exp = 0
+    if exp:
+        args += ['--expect', str(exp)]
+    if dry_run:
+        args += ['--dry-run']
+    run_command('text.replace', args, check=False)
 
 @task
 def status(c):
@@ -248,8 +270,8 @@ def status(c):
 @task
 def wip(c, message=''):
     """
-    PowerShell 호출을 제거한, 순수 Python 버전.
-    테스트/실행 환경 모두 동일하게 사용 (권장).
+    PowerShell ?�출???�거?? ?�수 Python 버전.
+    ?�스???�행 ?�경 모두 ?�일?�게 ?�용 (권장).
     """
     repo_root = Path.cwd()
     python_wip_commit(message, repo_root)
@@ -292,7 +314,7 @@ def help(c, section='all'):
 @task
 def search(c, q):
     """invoke search "<query>" : web search + summarize"""
-    # 에이전트별 분기: scripts/agents/<agent>/web_agent.py 가 있으면 사용, 없으면 기본
+    # ?�이?�트�?분기: scripts/agents/<agent>/web_agent.py 가 ?�으�??�용, ?�으�?기본
     agent = agent_manager.get_active_agent()
     agent_script = ROOT / 'scripts' / 'agents' / agent / 'web_agent.py'
     if agent_script.exists():
@@ -318,7 +340,7 @@ def refactor(c, file=None, rule=None, dry_run=False, yes=False, list_rules=False
         if yes:
             command.append('--yes')
     else:
-        # 사용자가 아무 인자도 없이 invoke refactor를 호출했을 때 도움말을 보여주기 위함
+        # ?�용?��? ?�무 ?�자???�이 invoke refactor�??�출?�을 ???��?말을 보여주기 ?�함
         run_command('refactor.help', [VENV_PYTHON, 'scripts/agents/file_agent.py', '--help'], check=False)
         return
 
@@ -398,14 +420,14 @@ ns.add_collection(agent_ns)
 
 @task(
     help={
-        'agent': "감시할 에이전트(기본: active)",
-        'interval': "폴링 간격(초, 기본 5)",
-        'ack': "새 메시지에 자동 확인 응답(ACK) 남김",
-        'mark_read': "처리 후 읽음 처리(기본 True)"
+        'agent': "감시???�이?�트(기본: active)",
+        'interval': "?�링 간격(�? 기본 5)",
+        'ack': "??메시지???�동 ?�인 ?�답(ACK) ?��?",
+        'mark_read': "처리 ???�음 처리(기본 True)"
     }
 )
 def agent_watch(c, agent=None, interval=5, ack=False, mark_read=True, duration=None):
-    """새 메시지를 주기적으로 감시합니다(Ctrl+C로 종료)."""
+    """??메시지�?주기?�으�?감시?�니??Ctrl+C�?종료)."""
     import time
     # optional bounded run
     end_ts = None
@@ -424,11 +446,11 @@ def agent_watch(c, agent=None, interval=5, ack=False, mark_read=True, duration=N
             msgs = agent_messages.list_inbox(target, unread_only=True, limit=100)
             if msgs:
                 console.print(f"[yellow]New messages: {len(msgs)}[/yellow]")
-                for m in reversed(msgs):  # 시간순 출력
+                for m in reversed(msgs):  # ?�간??출력
                     tags = (", ".join(m.tags)) if m.tags else ""
                     tag_str = f" [{tags}]" if tags else ""
                     console.print(f"- {m.ts} from:{m.sender}{tag_str}\n  - {m.body}")
-                    # 자동 ACK (무한 루프 방지: ack 태그에는 응답하지 않음)
+                    # ?�동 ACK (무한 루프 방�?: ack ?�그?�는 ?�답?��? ?�음)
                     if ack and m.sender and m.sender != target and ("ack" not in (m.tags or [])):
                         try:
                             agent_messages.append_message(
@@ -624,31 +646,6 @@ edits_ns.add_task(edits_apply, name='apply')
 edits_ns.add_task(edits_discard, name='discard')
 ns.add_collection(edits_ns)
 
-# --- Text utils ---
-@task(help={
-    'file': 'Target file path',
-    'old': 'Old string',
-    'new': 'New string',
-    'expect': 'Expected replacements (0 ignore)',
-    'dry_run': 'Preview only'
-})
-def text_replace(c, file, old, new, expect=0, dry_run=False):
-    """Replace text with line-ending tolerance (CRLF/LF)."""
-    args = [VENV_PYTHON, 'scripts/textops.py', 'replace', '--file', file, '--old', old, '--new', new]
-    try:
-        exp = int(expect)
-    except Exception:
-        exp = 0
-    if exp:
-        args += ['--expect', str(exp)]
-    if dry_run:
-        args += ['--dry-run']
-    run_command('text.replace', args, check=False)
-
-text_ns = Collection('text')
-text_ns.add_task(text_replace, name='replace')
-ns.add_collection(text_ns)
-
 # --- Archive tasks ---
 @task
 def archive_save(c, title, content=None, from_file=None, agent=None):
@@ -709,3 +706,4 @@ prefs_ns = Collection('prefs')
 prefs_ns.add_task(prefs_show, name='show')
 prefs_ns.add_task(prefs_set, name='set')
 ns.add_collection(prefs_ns)
+

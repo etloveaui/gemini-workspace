@@ -45,3 +45,16 @@ LLM 모델, 외부 도구, 내부 규칙의 변화를 주기적으로 스캔하�
     -   모든 적용 과정은 `file_agent`와 마찬가지로 Dry-run과 명시적 승인 절차를 거치도록 안전장치를 마련한다.
 
 ---
+## 5. Action Taken (2025-08-11)
+
+- Added `docs/SELF_UPDATE_POLICY.md` (MVP policy: cadence/scope/safety).
+- Implemented scanner/proposer tasks and scripts:
+  - `invoke auto.scan` → collects outdated packages, warnings, policy violations.
+  - `invoke auto.propose` → generates `docs/proposals/auto_update_YYYYMMDD.md`.
+- Generated proposal: `docs/proposals/auto_update_20250811.md`.
+
+## 6. Next Steps
+
+- Optional: Add minimal CI job to lint proposals exist on PR and reference policy.
+- Optional: Extend scanner with release notes fetch for critical libs.
+- Defer automated apply to post-MVP; keep manual apply with `git.commit-safe`.

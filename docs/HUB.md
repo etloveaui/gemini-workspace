@@ -1,6 +1,6 @@
 # Workspace HUB
 
-\*Last Updated: 2025-08-05
+\*Last Updated: 2025-08-11
 
 ## Projects
 
@@ -20,12 +20,10 @@
 
 ## Planned Tasks
 
-- [P-CORE] HUB.md Auto-Commit Reliability [log](docs/tasks/core-hub-auto-commit-reliability/log.md)
+- [100xFenok] Telegram Notification Integration
 - [P-AGENT] Repeated Modification Failures [log](docs/tasks/agent-repeated-modification-failures/log.md)
 - [P-AGENT] Repetitive Behavior with Flash Model [log](docs/tasks/agent-repetitive-behavior-flash-model/log.md)
 - [P-AGENT] OS Command Consistency [log](docs/tasks/agent-os-command-consistency/log.md)
-- [P2-UX] Fix `invoke start` Table Corruption [log](docs/tasks/ux-fix-invoke-start-corruption/log.md)
-- [P-CORE] `replace` Tool Reliability Enhancement [log](docs/tasks/core-replace-tool-reliability/log.md)
 - [P2-OPT] Performance Optimization [log](docs/tasks/performance-optimization/log.md)
 - [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md)
 
@@ -64,6 +62,9 @@
 - venv-cleanup-and-rebuild
 - workspace-setup
 - test-task-1
+- [P-CORE] HUB.md Auto-Commit Reliability [log](docs/tasks/core-hub-auto-commit-reliability/log.md)
+- [P-CORE] `replace` Tool Reliability Enhancement [log](docs/tasks/core-replace-tool-reliability/log.md)
+- [P2-UX] Fix `invoke start` Table Corruption [log](docs/tasks/ux-fix-invoke-start-corruption/log.md)
 
 __lastSession__
 
