@@ -306,3 +306,39 @@ hub_ns.add_task(hub_inbox, name='inbox')
 hub_ns.add_task(hub_claim, name='claim')
 hub_ns.add_task(hub_complete, name='complete')
 ns.add_collection(hub_ns)
+
+# --- Review / Git helpers ---
+@task
+def review(c):
+    """Show working tree changes (diff)."""
+    run_command('review.diff', ['git', '--no-pager', 'diff'], check=False)
+
+
+@task
+def review_staged(c):
+    """Show staged changes (diff --cached)."""
+    run_command('review.staged', ['git', '--no-pager', 'diff', '--cached'], check=False)
+
+
+@task
+def review_last(c, n=1):
+    """Show last commit patch (HEAD~n..HEAD)."""
+    rng = f'HEAD~{int(n)}..HEAD'
+    run_command('review.last', ['git', '--no-pager', 'show', rng, '--stat', '--patch'], check=False)
+
+
+@task
+def commit_safe(c, message, no_verify=False, skip_add=False):
+    """Commit via Python helper to avoid quoting/guard issues."""
+    args = [VENV_PYTHON, 'scripts/commit_helper.py', '--message', message]
+    if no_verify:
+        args.append('--no-verify')
+    if skip_add:
+        args.append('--skip-add')
+    run_command('commit.safe', args, check=False)
+
+
+@task
+def git_push(c):
+    """Push current branch to origin (safe with rebase retry)."""
+    run_command('git.push', [VENV_PYTHON, 'scripts/git_safe.py'], check=False)
