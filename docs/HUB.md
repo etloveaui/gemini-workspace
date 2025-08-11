@@ -20,12 +20,13 @@
 
 ## Planned Tasks
 
-- [100xFenok] Telegram Notification Integration
+- [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
 - [P-AGENT] Repeated Modification Failures [log](docs/tasks/agent-repeated-modification-failures/log.md)
 - [P-AGENT] Repetitive Behavior with Flash Model [log](docs/tasks/agent-repetitive-behavior-flash-model/log.md)
 - [P-AGENT] OS Command Consistency [log](docs/tasks/agent-os-command-consistency/log.md)
 - [P2-OPT] Performance Optimization [log](docs/tasks/performance-optimization/log.md)
 - [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md)
+- [P-CH-ALT] Remove pre-commit hook if troubleshooting fails [log](docs/tasks/pre-commit-hook-alternative/log.md)
 
 ## Paused Tasks
 
