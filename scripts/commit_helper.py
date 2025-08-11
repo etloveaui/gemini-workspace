@@ -49,14 +49,16 @@ def main():
     parser.add_argument("--message", "-m", default=os.environ.get("COMMIT_MSG", "auto WIP commit"))
     parser.add_argument("--no-verify", action="store_true", default=os.environ.get("NO_VERIFY", "0").lower() in {"1", "true"})
     parser.add_argument("--skip-add", action="store_true", default=os.environ.get("SKIP_ADD", "0").lower() in {"1", "true"})
+    parser.add_argument("--allow-projects", action="store_true", help="Do not auto-unstage projects/* paths")
     args = parser.parse_args()
 
     cwd = Path.cwd()
     if not args.skip_add:
         _run(["git", "add", "-A"], cwd)
 
-    # Unstage blocked paths if present
-    _unstage_blocked(cwd)
+    # Unstage blocked paths if present (unless explicitly allowed)
+    if not args.allow_projects:
+        _unstage_blocked(cwd)
 
     # Write message to temp file
     from tempfile import NamedTemporaryFile

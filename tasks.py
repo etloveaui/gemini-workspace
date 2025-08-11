@@ -342,3 +342,22 @@ def commit_safe(c, message, no_verify=False, skip_add=False):
 def git_push(c):
     """Push current branch to origin (safe with rebase retry)."""
     run_command('git.push', [VENV_PYTHON, 'scripts/git_safe.py'], check=False)
+
+
+@task
+def git_untrack_projects(c):
+    """Remove projects/* from git index (keep files on disk) and commit."""
+    run_command('git.rm_cached', ['git', 'rm', '-r', '--cached', 'projects'], check=False)
+    # Commit with allow-projects to include the index removal
+    run_command('git.commit_untrack', [VENV_PYTHON, 'scripts/commit_helper.py', '--message', 'chore(git): untrack projects/* from repo index', '--no-verify', '--allow-projects'], check=False)
+
+# register review helpers and git helpers
+ns.add_task(review, name='review')
+ns.add_task(review_staged, name='review_staged')
+ns.add_task(review_last, name='review_last')
+
+git_ns = Collection('git')
+git_ns.add_task(commit_safe, name='commit_safe')
+git_ns.add_task(git_push, name='push')
+git_ns.add_task(git_untrack_projects, name='untrack-projects')
+ns.add_collection(git_ns)
