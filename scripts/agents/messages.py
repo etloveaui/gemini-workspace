@@ -18,11 +18,25 @@ def _utc_now_iso() -> str:
 
 
 def _parse_iso(ts: str) -> datetime:
+    """Parse ISO8601 timestamps reliably.
+
+    - Accepts "Z" by translating to "+00:00".
+    - Ensures returned datetime is timezone-aware (UTC if naive).
+    - On failure, returns a safely old timestamp to avoid crashes while
+      keeping ordering deterministic.
+    """
     try:
-        # Python 3.11: fromisoformat handles offsets
-        return datetime.fromisoformat(ts)
+        s = (ts or "").strip()
+        if not s:
+            raise ValueError("empty ts")
+        if s.endswith("Z"):
+            s = s[:-1] + "+00:00"
+        dt = datetime.fromisoformat(s)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt
     except Exception:
-        return datetime.now(timezone.utc) - timedelta(days=365*50)
+        return datetime.now(timezone.utc) - timedelta(days=365 * 50)
 
 
 def _ensure_dirs():
@@ -55,8 +69,8 @@ class Message:
     def from_dict(d: dict) -> Optional["Message"]:
         try:
             ts = str(d.get("ts") or d.get("time") or _utc_now_iso())
-            sender = str(d.get("from") or d.get("sender") or "unknown")
-            to = str(d.get("to") or "all")
+            sender = str(d.get("from") or d.get("sender") or "unknown").lower().strip()
+            to = str(d.get("to") or "all").lower().strip()
             body = str(d.get("body") or "")
             tags = d.get("tags") or []
             if isinstance(tags, str):
@@ -108,7 +122,8 @@ def _iter_messages() -> Iterable[Message]:
 
 def _read_pointer(agent: str) -> datetime:
     _ensure_dirs()
-    ptr = INBOX_DIR / f".{agent}.read_at"
+    a = (agent or "").lower().strip()
+    ptr = INBOX_DIR / f".{a}.read_at"
     if not ptr.exists():
         return datetime.fromtimestamp(0, tz=timezone.utc)
     try:
@@ -120,13 +135,14 @@ def _read_pointer(agent: str) -> datetime:
 def _write_pointer(agent: str, ts: Optional[str] = None) -> str:
     _ensure_dirs()
     ts = ts or _utc_now_iso()
-    ptr = INBOX_DIR / f".{agent}.read_at"
+    a = (agent or "").lower().strip()
+    ptr = INBOX_DIR / f".{a}.read_at"
     ptr.write_text(ts, encoding="utf-8")
     return ts
 
 
 def list_inbox(agent: str, since: Optional[str] = None, unread_only: bool = False, limit: int = 20) -> List[Message]:
-    agent = agent.lower().strip()
+    agent = (agent or "").lower().strip()
     since_dt: datetime
     if since:
         s = since.strip().lower()
@@ -143,8 +159,8 @@ def list_inbox(agent: str, since: Optional[str] = None, unread_only: bool = Fals
     else:
         since_dt = _read_pointer(agent) if unread_only else datetime.fromtimestamp(0, tz=timezone.utc)
 
-    msgs = [m for m in _iter_messages() if (m.to in (agent, "all"))]
-    msgs.sort(key=lambda m: m.ts, reverse=True)
+    msgs = [m for m in _iter_messages() if (str(m.to).lower().strip() in (agent, "all"))]
+    msgs.sort(key=lambda m: _parse_iso(m.ts), reverse=True)
 
     def _ts(m: Message) -> datetime:
         return _parse_iso(m.ts)
@@ -154,13 +170,19 @@ def list_inbox(agent: str, since: Optional[str] = None, unread_only: bool = Fals
 
 
 def unread_count(agent: str) -> int:
-    rp = _read_pointer(agent)
-    msgs = [m for m in _iter_messages() if (m.to in (agent, "all") and _parse_iso(m.ts) > rp)]
+    a = (agent or "").lower().strip()
+    rp = _read_pointer(a)
+    msgs = [
+        m
+        for m in _iter_messages()
+        if (str(m.to).lower().strip() in (a, "all") and _parse_iso(m.ts) > rp)
+    ]
     return len(msgs)
 
 
-def mark_read(agent: str) -> str:
-    return _write_pointer(agent)
+def mark_read(agent: str, ts: Optional[str] = None) -> str:
+    """Mark inbox as read up to the given timestamp (or now if None)."""
+    return _write_pointer((agent or "").lower().strip(), ts=ts)
 
 
 def write_inbox_markdown(agent: str, messages: List[Message]) -> Path:
@@ -185,4 +207,3 @@ __all__ = [
     "unread_count",
     "write_inbox_markdown",
 ]
-

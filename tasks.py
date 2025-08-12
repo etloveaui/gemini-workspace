@@ -441,7 +441,12 @@ def agent_watch(c, agent=None, interval=5, ack=False, mark_read=True, duration=N
                         except Exception as e:
                             console.print(f"  [red]ACK failed:[/red] {e}")
                 if mark_read:
-                    agent_messages.mark_read(target)
+                    # Advance read pointer to the newest processed message
+                    try:
+                        latest_ts = msgs[0].ts
+                    except Exception:
+                        latest_ts = None
+                    agent_messages.mark_read(target, ts=latest_ts)
             # stop after duration if requested
             if end_ts is not None and time.time() >= end_ts:
                 break
@@ -519,6 +524,13 @@ ns.add_collection(hub_ns)
 # --- Review / Git helpers ---
 @task
 def review(c):
+    """Show a quick preview of changes (status + diff summary)."""
+    console.print("[bold blue]--- Git Status ---[/bold blue]")
+    res = run_command('review.status', ['git', 'status', '--porcelain'], check=False)
+    console.print(res.stdout or 'Clean')
+    console.print("[bold blue]--- Diff (names) ---[/bold blue]")
+    res2 = run_command('review.diffnames', ['git', 'diff', '--name-only'], check=False)
+    console.print(res2.stdout or '(no unstaged diffs)')
     """Show working tree changes (diff)."""
     run_command('review.diff', ['git', '--no-pager', 'diff'], check=False)
 
