@@ -29,6 +29,7 @@
 - [P-CH-ALT] Remove pre-commit hook if troubleshooting fails [log](docs/tasks/pre-commit-hook-alternative/log.md)
 - [Free & Flexible AI Integration] Free & Flexible AI Integration [log](docs/tasks/free-flexible-ai-integration/log.md)
 - [Codex] PowerShell UX Fix [log](docs/tasks/codex-powershell-ux-fix/log.md)
+- [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
 
 ## Paused Tasks
 

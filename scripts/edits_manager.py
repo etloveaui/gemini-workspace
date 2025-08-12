@@ -5,6 +5,8 @@ from pathlib import Path
 import os
 import sys
 import difflib
+import hashlib
+from scripts.tools.edits_safety import should_apply, record_result
 
 ROOT = Path(__file__).resolve().parents[1]
 EDITS = ROOT / ".edits" / "proposals"
@@ -81,6 +83,12 @@ def cmd_apply(args):
         diff = _diff_one(t)
         if not diff.strip():
             continue
+        # Safety: skip identical patch recently applied or backoff on repeated failures
+        diff_hash = hashlib.sha256(diff.encode("utf-8", errors="replace")).hexdigest()
+        ok_to_apply, reason = should_apply(t, diff_hash)
+        if not ok_to_apply:
+            print(f"skip {t}: {reason}")
+            continue
         print(diff)
         ok = auto_yes
         if not ok:
@@ -95,7 +103,12 @@ def cmd_apply(args):
         src_path = _target_path(t)
         prop_path = _proposal_path(t)
         src_path.parent.mkdir(parents=True, exist_ok=True)
-        src_path.write_text(prop_path.read_text(encoding="utf-8", errors="replace"), encoding="utf-8")
+        try:
+            src_path.write_text(prop_path.read_text(encoding="utf-8", errors="replace"), encoding="utf-8")
+            record_result(t, diff_hash, success=True)
+        except Exception:
+            record_result(t, diff_hash, success=False)
+            raise
         # optional: delete proposal
         if not args.keep:
             try:
@@ -152,4 +165,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

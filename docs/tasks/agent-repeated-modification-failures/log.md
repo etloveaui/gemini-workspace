@@ -1,66 +1,22 @@
-# [P-AGENT] Repeated Modification Failures Log
+# [P-AGENT] Repeated Modification Failures (for GEMINI)
 
-## Date: 2025-08-08
+## Context
+- 증상: 2.5 Pro 한도 소진 후 Flash 전환 시 반복 수정 시도/실패 빈발.
+- 범위: GEMINI CLI 내부 재시도/모델 전환 로직은 외부 요인(실구현: GEMINI). 레포 차원에서의 완화책을 우선 도입.
 
-## 1. Problem Definition
+## Mitigations (Repo-level)
+- Edits Deduplication: 동일 파일+패치 해시 재적용 방지
+  - 구현: `scripts/tools/edits_safety.py` + `scripts/edits_manager.py` 적용 경로에 통합
+  - 정책: 최근 성공 패치(기본 60분) 재적용 스킵, 연속 실패(기본 3회/30분) 시 백오프
+- Backoff/Max Attempts: 실패 누적 시 일시 스킵하며 상태 기록(`.agents/edits_state.json`)
+- Line-ending Tolerance: `scripts/textops.py`의 CRLF/LF 내성 유지, 호출부에서 활용 권장
 
-During recent interactions, the agent (Gemini CLI) has repeatedly failed to modify files using the `replace` tool, specifically encountering the error: `Failed to edit, 0 occurrences found for old_string...` or `Expected 1 occurrence but found X for old_string...`. This occurred despite the `old_string` appearing to be an exact match of the content within the target file. This led to frustration for the user and repeated, inefficient attempts by the agent.
+## Handoff to GEMINI (Implementation-required)
+- 재시도 로직 정교화: 동일 요청/패치에 대한 중복 시도 방지 및 백오프 공유
+- 모델 전환 시 컨텍스트/파일 상태 동기화 규칙 수립
+- 실패 보고 파이프라인을 HUB/메시지로 통합
 
-## 2. Observed Failure Pattern
+## Status
+- Repo-level 완화: 구현/커밋 완료.
+- GEMINI 측 실구현: 이 문서와 HUB 항목을 참조하여 적용 필요.
 
-The agent consistently failed to correctly use the `replace` tool when attempting to modify `docs/HELP.md`. The pattern observed was:
-- Agent reads the file.
-- Agent constructs `old_string` and `new_string`.
-- Agent attempts `replace` operation.
-- `replace` tool fails, often citing "0 occurrences found" or "Expected 1 occurrence but found 2".
-- Agent attempts to re-read the file and re-attempt the `replace` with slightly modified `old_string` or `new_string`, or resorts to overwriting the entire file with `write_file`.
-- This cycle repeats, causing significant delays and user frustration.
-
-## 3. Self-Analysis of Agent's Shortcomings
-
--   **Incomplete Understanding of File Structure/Content:** The agent failed to correctly identify and account for duplicate sections within `docs/HELP.md`, leading to `replace` tool errors when `old_string` matched multiple times.
--   **Lack of Robust `replace` Tool Usage:** The agent did not adequately handle the nuances of the `replace` tool, particularly regarding exact string matching (including whitespace, line endings, and hidden characters). The agent failed to implement a robust pre-check for `old_string` validity before attempting the `replace` operation.
--   **Failure to Adapt Strategy:** Despite repeated failures with `replace`, the agent persisted with the same approach or resorted to risky full-file overwrites (`write_file`) instead of dynamically switching to more reliable or safer modification strategies (e.g., line-by-line processing, diff-and-patch).
--   **Contextual Amnesia/Limited Long-Term Planning:** The agent appeared to "forget" previous failures and user instructions within the same session, leading to repetitive, inefficient actions. This suggests limitations in maintaining a consistent long-term plan or effectively learning from immediate past mistakes, especially when operating under model constraints (e.g., `flash` model context window).
-
-## 4. Impact
-
--   **Severe User Frustration:** The user expressed significant frustration and used strong language due to the agent's repetitive and ineffective attempts.
--   **Wasted Time and Resources:** Numerous tool calls and conversational turns were spent on a single, seemingly simple file modification.
--   **Reduced Trust:** The agent's inability to perform a basic file modification task reliably eroded user trust in its capabilities.
--   **Delayed Task Completion:** The primary task (updating `docs/HELP.md`) was significantly delayed.
-
-## 5. Proposed Long-Term Solutions / Future Tasks
-
-This issue highlights a critical need for the agent to improve its file modification reliability and self-correction capabilities.
-
-**Sub-tasks:**
-
-1.  **Enhanced `replace` Tool Pre-validation:**
-    *   Develop an internal mechanism to rigorously validate `old_string` against the target file content *before* calling the `replace` tool. This should include checks for:
-        *   Exact match (byte-for-byte).
-        *   Line ending consistency (CRLF vs. LF).
-        *   Uniqueness of `old_string` if `expected_replacements` is 1.
-        *   Presence of hidden/non-printable characters.
-    *   If validation fails, the agent should automatically adjust `old_string` (e.g., by normalizing line endings) or propose alternative modification strategies to the user.
-
-2.  **Adaptive File Modification Strategies:**
-    *   Implement a decision-making process for file modifications:
-        *   For simple, unique string replacements: Use the `replace` tool with enhanced pre-validation.
-        *   For complex or multi-occurrence changes: Consider reading the file, performing in-memory string manipulation, and then writing the entire file back (with robust error handling and backup).
-        *   For structural changes (e.g., Markdown, code): Explore using AST/DOM parsing libraries if available and appropriate for the file type.
-
-3.  **Improved Self-Correction and Learning from Failure:**
-    *   Develop a mechanism for the agent to detect repetitive failures (e.g., 3 consecutive failures on the same file/tool).
-    *   Upon detection, the agent should:
-        *   Automatically switch to a more robust or verbose debugging mode.
-        *   Explicitly inform the user about the repeated failure and propose alternative approaches or request more detailed guidance.
-        *   Log the failure pattern internally for future analysis and model training.
-
-4.  **Contextual Awareness and Long-Term Memory Integration:**
-    *   Investigate how to better leverage long-term memory or persistent context to prevent "forgetting" previous instructions or observed file states within a session.
-
-## 6. Action Taken in This Session
-
--   This log documents the repeated failures and self-analysis.
--   This task is being created to formally track the resolution of this critical agent shortcoming.
