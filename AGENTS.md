@@ -18,6 +18,11 @@
   1) 간단 분석 → 2) 구축 계획을 문서(본 파일 또는 별도 문서)에 기록 → 3) 사용자 승인 후 구현합니다.
 - 태스크 활용: 가능하면 Invoke 태스크로 작업(감시/인박스/프리뷰/허브 전송)을 일관되게 실행합니다.
 
+## Git 훅(Pre-commit) 정책
+- 전역 토글: `.agents/config.json`의 `hooks.enabled`로 전체 훅 on/off.
+- 대화형 프롬프트 회피: `invoke commit_safe --skip-diff-confirm` 또는 환경변수 `SKIP_DIFF_CONFIRM=1`.
+- 관리 태스크: `invoke git.set-hooks --on|--off`.
+
 ## Codex 사용 지침 (VS Code PowerShell 7)
 - 워크스페이스 루트에서 Codex CLI를 실행해 파일을 읽고 수정합니다.
 - 출력이 길 때

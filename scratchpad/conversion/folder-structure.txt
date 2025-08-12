@@ -1,0 +1,28 @@
+﻿Samaung SSD 980 PRO 볼륨에 대한 폴더 경로의 목록입니다.
+볼륨 일련 번호는 E7E9-8170입니다.
+C:.
+│  .gitignore
+│  folder-structure.txt
+│  Multi-AI Workspace 구축 프로젝트.md
+│  powersell.txt
+│  README.md
+│  requirements.txt
+│  USE.md
+│  venv_명령.txt
+│  
+├─scripts
+│      ask-gemini.ps1
+│      ask-kimi.ps1
+│      ask-qwen.ps1
+│      ask_gemini.py
+│      ask_kimi.py
+│      ask_qwen.py
+│      Get-ApiKey.ps1
+│      use-kimi.ps1
+│      use-qwen.ps1
+│      
+├─secrets
+│      my_sensitive_data.md
+│      
+└─venv
+    └─Include

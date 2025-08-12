@@ -28,6 +28,7 @@
 - [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md)
 - [P-CH-ALT] Remove pre-commit hook if troubleshooting fails [log](docs/tasks/pre-commit-hook-alternative/log.md)
 - [Free & Flexible AI Integration] Free & Flexible AI Integration [log](docs/tasks/free-flexible-ai-integration/log.md)
+- [Codex] PowerShell UX Fix [log](docs/tasks/codex-powershell-ux-fix/log.md)
 
 ## Paused Tasks
 

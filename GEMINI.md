@@ -8,6 +8,15 @@
 - **셸/인코딩**: PowerShell 래핑 금지, 파이썬 프로세스 **직접 호출**. 표준 I/O는 **UTF-8** 고정.
 - **작업 경계**: 파일 작업은 원칙적으로 **레포 경로 내부**에서 수행한다.
 
+## HUB 작업 수명주기(자동 관리)
+- 시작 전 등록 → 클레임 → 완료 보고(성공/실패)로 일관 관리합니다.
+- Invoke 태스크 또는 브로커 스크립트를 사용하며, 비대화식 환경에서는 큐/아카이브 JSON을 원자적으로 기록해 일관성을 보장합니다.
+
+## Git 훅(Pre-commit) 정책
+- 전역 토글: `.agents/config.json`의 `hooks.enabled`로 전체 훅 on/off.
+- 대화형 프롬프트 회피: `invoke commit_safe --skip-diff-confirm` 또는 `SKIP_DIFF_CONFIRM=1` 설정을 사용합니다.
+  - 외부 GUI 툴(Sourcetree 등) 사용 시 권장: 훅 비활성(`invoke git.set-hooks --off`).
+
 ## 2) 디렉터리·추적 정책
 - **`.gemini/`**: 설정·로컬 비밀 보관 위치.  
   - **커밋 금지**: `*.creds*.json`, `*oauth*.*`, 토큰류는 **로컬 전용(local-only)** 으로 보관하고 커밋하지 않는다.  
