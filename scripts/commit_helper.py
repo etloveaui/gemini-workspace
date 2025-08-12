@@ -49,6 +49,7 @@ def main():
     parser.add_argument("--message", "-m", default=os.environ.get("COMMIT_MSG", "auto WIP commit"))
     parser.add_argument("--no-verify", action="store_true", default=os.environ.get("NO_VERIFY", "0").lower() in {"1", "true"})
     parser.add_argument("--skip-add", action="store_true", default=os.environ.get("SKIP_ADD", "0").lower() in {"1", "true"})
+    parser.add_argument("--skip-diff-confirm", action="store_true", help="Set SKIP_DIFF_CONFIRM=1 to bypass interactive diff prompt")
     parser.add_argument("--allow-projects", action="store_true", help="Do not auto-unstage projects/* paths")
     args = parser.parse_args()
 
@@ -67,6 +68,9 @@ def main():
         tf.flush()
         temp_path = tf.name
     try:
+        # Inherit env and optionally set SKIP_DIFF_CONFIRM for pre-commit hook
+        if args.skip_diff_confirm:
+            os.environ["SKIP_DIFF_CONFIRM"] = "1"
         base_cmd = ["git", "commit", "-F", temp_path]
         if args.no_verify:
             base_cmd.insert(2, "--no-verify")

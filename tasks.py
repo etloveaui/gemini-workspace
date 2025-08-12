@@ -549,13 +549,15 @@ def review_last(c, n=1):
 
 
 @task
-def commit_safe(c, message, no_verify=False, skip_add=False):
+def commit_safe(c, message, no_verify=False, skip_add=False, skip_diff_confirm=False):
     """Commit via Python helper to avoid quoting/guard issues."""
     args = [VENV_PYTHON, 'scripts/commit_helper.py', '--message', message]
     if no_verify:
         args.append('--no-verify')
     if skip_add:
         args.append('--skip-add')
+    if skip_diff_confirm:
+        args.append('--skip-diff-confirm')
     run_command('commit.safe', args, check=False)
 
 
