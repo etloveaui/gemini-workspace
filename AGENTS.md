@@ -46,6 +46,12 @@
   - 예: 파이썬 원라이너로 요약 기록하기
     - `python -c "from scripts.usage_tracker import log_usage; log_usage('codex-note','manual','AGENT=codex')"`
 
+## HUB 작업 수명주기(자동 관리)
+- 시작 전 등록: 작업을 시작하기 전에 `agents_hub/queue`에 태스크를 등록합니다(Invoke 사용 시 `invoke hub.send`).
+- 클레임: 동일 에이전트가 즉시 클레임하여 `processing/<agent>/`로 이동합니다(`invoke hub.claim`).
+- 완료 보고: 완료 시 `archive/<날짜>/success|failed/`로 이동하며 노트를 남깁니다(`invoke hub.complete`).
+- 비대화식 환경: 인코딩/쉘 이슈가 있을 경우 브로커 스크립트 직접 호출 또는 큐/아카이브 JSON 파일을 원자적으로 기록하여 일관성 유지.
+
 ## 디렉터리/보안 합의
 - `.gemini/` 내 자격증명·토큰류는 항상 로컬 전용, 커밋 금지.
 - `projects/`는 로컬 전용 작업 공간으로 유지(커밋 금지).
