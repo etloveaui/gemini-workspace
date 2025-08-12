@@ -25,6 +25,20 @@ def main():
     except Exception:
         pass
 
+    # Global toggle from .agents/config.json (hooks.enabled=false)
+    try:
+        from pathlib import Path
+        root = Path(__file__).resolve().parents[2]
+        cfg = root / ".agents" / "config.json"
+        if cfg.exists():
+            import json as _json
+            data = _json.loads(cfg.read_text(encoding="utf-8"))
+            hooks_cfg = data.get("hooks", {}) if isinstance(data, dict) else {}
+            if not hooks_cfg.get("enabled", True):
+                sys.exit(0)
+    except Exception:
+        pass
+
     # Show staged diff
     files = run(["git", "diff", "--cached", "--name-only"]).stdout.strip()
     if not files:

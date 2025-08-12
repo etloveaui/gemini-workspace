@@ -595,6 +595,24 @@ git_ns.add_task(git_push, name='push')
 git_ns.add_task(git_untrack_projects, name='untrack-projects')
 ns.add_collection(git_ns)
 
+# --- Git hooks toggle ---
+@task(help={"on": "true/false to enable or disable hooks"})
+def set_hooks(c, on='false'):
+    """Enable/disable pre-commit hooks via .agents/config.json."""
+    import json
+    cfg_path = ROOT / '.agents' / 'config.json'
+    cfg_path.parent.mkdir(parents=True, exist_ok=True)
+    data = {
+        "hooks": {
+            "enabled": str(on).lower() in {"1", "true", "yes", "on"},
+            "diff_confirm": True,
+        }
+    }
+    cfg_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
+    console.print(f"Hooks enabled={data['hooks']['enabled']}. Updated {cfg_path}")
+
+git_ns.add_task(set_hooks, name='set-hooks')
+
 # --- Edits (pre-edit diff workflow) ---
 @task
 def edits_capture(c, file):
