@@ -58,3 +58,21 @@ LLM 모델, 외부 도구, 내부 규칙의 변화를 주기적으로 스캔하�
 - Optional: Add minimal CI job to lint proposals exist on PR and reference policy.
 - Optional: Extend scanner with release notes fetch for critical libs.
 - Defer automated apply to post-MVP; keep manual apply with `git.commit-safe`.
+
+---
+
+## Definition of Done (DoD) — MVP
+
+- 정책 문서: `docs/SELF_UPDATE_POLICY.md`에 주기(cadence), 범위(scope), 안전장치(safety/approval/rollback)가 명시되어 있고 `GEMINI.md`에서 해당 정책을 참조한다.
+- 태스크 가용성: `invoke auto.scan`, `invoke auto.propose`가 Windows PowerShell 7 환경에서 오류 없이 실행된다(venv 존재 시 `venv/Scripts/python.exe` 사용 규칙 준수).
+- 산출물 생성: `auto.propose` 실행 시 `docs/proposals/auto_update_YYYYMMDD.md`가 생성되며 WHAT/WHY/HOW 및 안전 점검 체크가 포함된다.
+- 미적용 원칙: 자동 적용은 보류되고 수동 적용만 허용된다(`git.commit_safe`/리뷰 태스크 경유, Git hooks 기본 OFF 준수).
+- 로깅/추적: 실행 내역은 최소한 제안 문서 생성으로 추적 가능하며(선택) `usage.db`에 간단 요약을 남길 수 있다.
+- 안전/준수: 비밀 노출 금지, UTF-8 고정, 레포 내부 경로만 사용, 블록리스트/allowlist를 `scripts/commit_helper.py` 규칙에 맞게 준수한다.
+- 검증 예시: 샘플 실행을 통해 최소 1건의 제안 문서가 실제 생성되어 로그에 경로가 기재되어 있다(예: `docs/proposals/auto_update_20250811.md`).
+
+### 검증 절차(권장)
+
+1) `invoke auto.scan` 실행 → 경고/업데이트 후보 수 확인(오류 없음).
+2) `invoke auto.propose` 실행 → 신규 제안 문서가 생성되고 정책 링크 포함 확인.
+3) 필요 시 `review` 태스크로 변경 미리보기 후 `git.commit_safe`로 커밋(훅 기본 OFF 유지, 외부 도구 커밋 호환 확인).

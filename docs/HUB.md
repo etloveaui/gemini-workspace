@@ -12,7 +12,7 @@
 
 ## Active Tasks
 
-- [P2-SU] Self-Update Engine [log](docs/tasks/self-update-engine/log.md)
+- [P2-SU] Self-Update Engine [log](docs/tasks/self-update-engine/log.md) — DoD 강화 진행; MVP 범위 확정 및 `auto.scan`/`auto.propose` 구현 완료
 
 ## Staging Tasks
 
@@ -31,9 +31,7 @@
 
 ## Paused Tasks
 
-- 100xfenok-generator-data-cleanup
 - 100xfenok-generator-date-title-input-fix
-- 100xfenok-generator-dev
 - vscode-integration-problem
 
 ## Completed Tasks
@@ -71,10 +69,12 @@
 - [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md)
 - [P-CH-ALT] Remove pre-commit hook if troubleshooting fails [log](docs/tasks/pre-commit-hook-alternative/log.md)
 - [P-AGENT] OS Command Consistency [log](docs/tasks/agent-os-command-consistency/log.md)
+- 100xfenok-generator-data-cleanup [log](docs/tasks/100xfenok-generator-data-cleanup/log.md)
+- 100xfenok-generator-dev [log](docs/tasks/100xfenok-generator-dev/log.md)
 
 __lastSession__
 
-- **Current Status**: Paused. Waiting for final work directives from external LLMs for [P2-SU] Self-Update Engine and [P2-UX] Scratchpad Organization projects.
-- **Last Action**: Submitted analysis requests for [P2-SU] and [P2-UX] to external LLMs.
-- **Next Step**: Receive work directives from external LLMs and proceed with Phase 3 (Receive & Plan) of the SOP.
+- **Current Status**: Active. P2-SU DoD 보강 및 HUB 메모 업데이트 진행 중.
+- **Last Action**: P2-SU 로그에 DoD(MVP) 체크리스트 추가, Active 섹션 상태 주석 갱신.
+- **Next Step**: 간단 리뷰 후 DoD 체크리스트 마무리; (선택) 최소 CI 언급 포함 및 적용 단계는 수동으로 유지.
 - [P2-UX] UX Refinement

@@ -147,3 +147,10 @@
   - Codex는 워처로 수신: `invoke agent.watch --agent codex --ack --duration 5`
 - 에이전트 라벨: `ACTIVE_AGENT='gemini'`를 설정해 세션 라벨을 구분합니다.
 - MCP(선택): Gemini CLI는 MCP 지원이 내장되어 있으나, 본 레포는 파일/Invoke 중심으로 운영합니다. MCP 설정은 각 CLI 사용자 환경에서만 관리하세요.
+## Self-Update Protocol(자가 업데이트)
+- 정책 참조: `docs/SELF_UPDATE_POLICY.md`에 주기/범위/안전장치가 정의되어 있습니다.
+- 허용 범위: 현재 단계(MVP)는 제안 생성까지만 허용합니다.
+  - 실행: `invoke auto.scan` → `invoke auto.propose`
+  - 산출물: `docs/proposals/auto_update_YYYYMMDD.md`
+- 적용 단계: 자동 적용은 보류(OFF)이며 수동 적용만 허용합니다.
+  - 리뷰 태스크/`invoke review_last` 및 `invoke git.commit_safe` 경유, 훅은 기본 OFF 유지.

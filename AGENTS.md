@@ -108,3 +108,7 @@
     ```
   - Gemini CLI: MCP 지원 내장. 레포 수준에서는 메시지 허브/Invoke만 사용
   - 참고: `scratchpad/20250811_CLI_upgrade_MCP.md`
+## Self-Update Protocol(자가 업데이트)
+- 정책 공통 참조: `docs/SELF_UPDATE_POLICY.md`를 따른다(주기/범위/안전장치).
+- 현재 범위: 자동 적용 OFF, 제안 생성만 허용(`invoke auto.scan` → `invoke auto.propose`).
+- 적용 시나리오: 리뷰/미리보기 후 `invoke git.commit_safe`로 수동 적용, 훅 기본 OFF 유지.

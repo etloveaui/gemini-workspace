@@ -61,3 +61,47 @@
 *   **로깅 및 모니터링**: 작업 로그 외에 런타임 로그 및 모델 사용량을 어떻게 추적할 것인가?
 *   **의존성 관리**: 새로운 라이브러리(예: Groq SDK, HTTP 클라이언트)는 어떻게 관리할 것인가(`requirements.txt` 등)?
 *   **사용자 인터페이스/상호작용**: 통합된 AI 시스템과 사용자는 어떻게 상호작용할 것인가(CLI, API, GUI 등)?
+
+---
+
+## `scratchpad/claude_code` 디렉토리 분석 및 통합 계획
+
+### 1. `scratchpad/claude_code` 프로젝트 개요
+`c:\Users\eunta\gemini-workspace\scratchpad\claude_code` 디렉토리는 "멀티 AI 워크스페이스" 프로젝트의 잘 구조화된 프로토타입입니다. 이는 통합된 인터페이스를 통해 다양한 AI 모델(Groq, Kimi, Qwen, Gemini, Llama, Gemma)과 유연하고 비용 효율적인 상호 작용을 가능하게 하도록 설계되었습니다.
+
+### 2. 주요 구성 요소 및 기능
+*   **Model Context Protocol (MCP) 통합**: MCP를 활용하여 파일 시스템과의 상호 작용, 데스크톱 명령 실행, 검색 서비스(Brave Search, Firecrawl)와의 통합을 허용합니다.
+*   **LLM 라우팅 및 상호 작용**: 시스템은 작업 유형(예: 고정밀 추론을 위한 `/think`, 코드 친화적인 작업을 위한 `/code`)에 따라 사용자 쿼리를 다른 LLM(Groq, Kimi, Qwen, Llama, Gemma)으로 라우팅합니다. Groq를 기본 API 엔드포인트로 사용합니다.
+*   **명령줄 인터페이스 (CLI)**: `router.py` 및 PowerShell 래퍼를 통해 사용자가 슬래시 명령(예: `/open`, `/run`, `/think`)을 사용하여 AI 모델 및 도구와 상호 작용할 수 있도록 CLI를 제공합니다.
+*   **API 키 관리**: `Get-ApiKey.ps1`, `mcp_client.py`, `ask_groq.py`를 통해 `secrets/my_sensitive_data.md`에서 API 키를 안전하게 로드하는 메커니즘을 포함합니다.
+*   **AI 에이전트 운영 지침**: `CLAUDE.md`는 Windows 환경 특정 사항, 민감한 데이터 처리, Git 절차 및 협업 로깅을 포함하여 AI 에이전트(Claude와 같은)가 이 워크스페이스 내에서 작동하는 방법에 대한 명시적인 지침을 제공합니다.
+
+### 3. `scratchpad/claude_code` 파일 목록 및 위치
+이 디렉토리의 파일들은 프로젝트의 핵심 구성 요소이며, 향후 통합 및 참조를 위해 삭제되지 않고 보관됩니다.
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\requirements.txt`
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\scripts\router.py`
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\scripts\mcp_client.py`
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\scripts\mcp_servers.json`
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\MCP.md`
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\scripts\ask-groq.ps1`
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\scripts\ask_groq.py`
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\docs\CLAUDE.md`
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\docs\README.md`
+*   `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\scripts\Get-ApiKey.ps1`
+*   **참고**: `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\secrets\my_sensitive_data.md` 파일은 주 `secrets/my_sensitive_data.md` 파일로 내용이 병합되었으며, `c:\Users\eunta\gemini-workspace\scratchpad\claude_code\secrets\my_sensitive_data_merged_to_main.md`로 이름이 변경되어 보관됩니다.
+
+### 4. 통합 전략 및 Claude 시스템 진입 원활화 계획
+이 `claude_code` 디렉토리는 "무료 및 유연한 AI 통합" 프로젝트를 위한 **작동 청사진 또는 상세 참조 구현** 역할을 합니다. 이를 활용하여 Claude를 포함한 AI 시스템을 원활하게 통합할 계획입니다.
+
+**4.1. `claude_code`를 청사진으로 활용**: `scratchpad/claude_code` 프로젝트를 주요 참조로 삼아 "무료 및 유연한 AI 통합" 작업을 구현합니다.
+
+**4.2. 재사용 가능한 구성 요소 식별**: `mcp_client.py`, `router.py`, `ask_groq.py`와 같은 스크립트, `mcp_servers.json`과 같은 구성 파일, `CLAUDE.md`, `MCP.md`와 같은 문서를 직접 적용하거나 강력한 예시로 활용할 수 있도록 식별합니다.
+
+**4.3. 통합 접근 방식**: 초기 설정에는 **직접 채택 및 적용** 방식을 권장합니다. 이는 `scratchpad/claude_code`의 `scripts/` 및 `docs/` 디렉토리를 주 워크스페이스 내의 새롭고 전용된 위치(예: `src/ai_integration/`)로 복사하고, 필요 시 리팩토링을 수행하는 것을 의미합니다. 이 방식은 가장 빠르게 작동하는 프로토타입을 얻을 수 있습니다.
+
+**4.4. Claude 통합 계획**: `scratchpad/claude_code/docs/CLAUDE.md` 파일은 Claude의 작동에 대한 명시적인 지침을 제공하므로 매우 중요합니다. `router.py`는 이미 모델 라우팅을 포함하고 있어, 이 프레임워크 내에서 직접 Claude 모델을 포함하도록 확장하는 것이 간단할 것입니다. `mcp_servers.json`도 Claude MCP 서버가 사용 가능해지면 확장할 수 있습니다.
+
+### 5. 실행 단계 (상위 수준)
+*   **5.1. `claude_code` 구성 요소 복사**: `scratchpad/claude_code`의 관련 부분을 주 프로젝트의 새롭고 지정된 위치로 복사합니다.
+*   **5.2. 적용 및 테스트**: 경로를 수정하고, 기존 프로젝트 구조와 통합하고, 핵심 기능(MCP, Groq 상호 작용, 라우팅)을 테스트합니다.
+*   **5.3. 개선 및 확장**: 테스트를 기반으로 구현을 개선하고 AI 작업에 대한 특정 사용자 요구 사항을 충족하도록 확장합니다.
