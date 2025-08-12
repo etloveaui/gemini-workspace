@@ -5,12 +5,9 @@
   "type": "task",
   "title": "[P-CH] Pre-commit Hook Troubleshooting",
   "body": "비대화식 커밋 차단 해결: diff 확인 훅 우회 플래그/설정 정비",
-  "tags": [
-    "P-CH",
-    "priority",
-    "quick"
-  ],
+  "tags": ["P-CH", "priority", "quick"],
   "created_at": "2025-08-12T04:40:00+00:00",
-  "status": "processing",
-  "claimed_at": "2025-08-12T04:51:38.537889+00:00"
+  "status": "done",
+  "completed_at": "2025-08-12T04:55:00+00:00",
+  "note": "skip-diff-confirm 지원 및 invoke 연동(Commit Helper/Task)"
 }
