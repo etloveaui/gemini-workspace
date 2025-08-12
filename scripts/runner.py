@@ -112,6 +112,8 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
     # 자식 프로세스에 전달할 환경 변수 설정
     env = os.environ.copy()
     env["PYTHONIOENCODING"] = "utf-8"
+    # Force UTF-8 mode in Python subprocesses on Windows for better PS UX
+    env["PYTHONUTF8"] = "1"
 
     agent = agent_manager.get_active_agent()
     console.print(f"[bold green][RUN:{task_name}][agent={agent}][/bold green] args={args!r}, cwd={str(effective_cwd)!r}")

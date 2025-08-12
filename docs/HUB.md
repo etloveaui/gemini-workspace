@@ -12,7 +12,8 @@
 
 ## Active Tasks
 
-- [P2-SU] Self-Update Engine [log](docs/tasks/self-update-engine/log.md)
+- [Codex] PowerShell UX Fix [log](docs/tasks/codex-powershell-ux-fix/log.md)
+
 ## Staging Tasks
 
 - [P2-SU] Self-Update Engine [log](docs/tasks/self-update-engine/log.md)
@@ -20,8 +21,7 @@
 ## Planned Tasks
 
 - [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
-- [P-AGENT] Repeated Modification Failures [log](docs/tasks/agent-repeated-modification-failures/log.md) — Repo-level mitigations delivered; GEMINI CLI implementation pending
-- [P-AGENT] Repetitive Behavior with Flash Model [log](docs/tasks/agent-repetitive-behavior-flash-model/log.md)
+- [GEMINI] Edit Reliability (Repeated Modifications + Flash Fallback) [log](docs/tasks/gemini-edit-reliability/log.md) — Repo-level mitigations delivered; GEMINI CLI implementation pending
 - [P-AGENT] OS Command Consistency [log](docs/tasks/agent-os-command-consistency/log.md) — moved to Completed
 - [P2-OPT] Performance Optimization [log](docs/tasks/performance-optimization/log.md)
 - [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md) — moved to Completed
