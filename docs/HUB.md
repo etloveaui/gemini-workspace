@@ -21,12 +21,8 @@
 
 - [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
 - [GEMINI] Edit Reliability (Repeated Modifications + Flash Fallback) [log](docs/tasks/gemini-edit-reliability/log.md) — Repo-level mitigations delivered; GEMINI CLI implementation pending
-- [P-AGENT] OS Command Consistency [log](docs/tasks/agent-os-command-consistency/log.md) — moved to Completed
 - [P2-OPT] Performance Optimization [log](docs/tasks/performance-optimization/log.md)
-- [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md) — moved to Completed
-- [P-CH-ALT] Remove pre-commit hook if troubleshooting fails [log](docs/tasks/pre-commit-hook-alternative/log.md) — moved to Completed
 - [Free & Flexible AI Integration] Free & Flexible AI Integration [log](docs/tasks/free-flexible-ai-integration/log.md)
-- [Codex] PowerShell UX Fix [log](docs/tasks/codex-powershell-ux-fix/log.md)
 - [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
 
 ## Paused Tasks
@@ -69,6 +65,7 @@
 - [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md)
 - [P-CH-ALT] Remove pre-commit hook if troubleshooting fails [log](docs/tasks/pre-commit-hook-alternative/log.md)
 - [P-AGENT] OS Command Consistency [log](docs/tasks/agent-os-command-consistency/log.md)
+- [Codex] PowerShell UX Fix [log](docs/tasks/codex-powershell-ux-fix/log.md)
 - 100xfenok-generator-data-cleanup [log](docs/tasks/100xfenok-generator-data-cleanup/log.md)
 - 100xfenok-generator-dev [log](docs/tasks/100xfenok-generator-dev/log.md)
 
