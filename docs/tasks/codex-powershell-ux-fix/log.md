@@ -48,3 +48,12 @@ The file `scratchpad/터미널 환경 변경.md` was reviewed. It contains envir
 *   **Gemini**: Lead investigation, implement programmatic solutions, document findings and progress.
 *   **Codex**: (If applicable) Assist in testing and validating changes within its own environment.
 *   **User**: Provide feedback, perform manual console configuration changes, and provide system context.
+
+---
+
+## 2025-08-12 Update (Completed: Minimal Fix)
+- Enforce UTF-8 in Python subprocesses to improve PS7 output stability: set `PYTHONUTF8=1` in `scripts/runner.py`.
+- Verified UTF-8 for help/doctor scripts via `sys.stdout.reconfigure(encoding='utf-8')`.
+- Recommendation retained: use `Start-Transcript` for long sessions; increase VS Code terminal scrollback.
+
+Outcome: Noticeably improved Korean output rendering and reduced garbled text in PowerShell. Further tuning (table format, Out-String width) kept as optional.

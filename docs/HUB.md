@@ -12,11 +12,10 @@
 
 ## Active Tasks
 
-- [Codex] PowerShell UX Fix [log](docs/tasks/codex-powershell-ux-fix/log.md)
+- [P2-SU] Self-Update Engine [log](docs/tasks/self-update-engine/log.md)
 
 ## Staging Tasks
 
-- [P2-SU] Self-Update Engine [log](docs/tasks/self-update-engine/log.md)
 
 ## Planned Tasks
 
