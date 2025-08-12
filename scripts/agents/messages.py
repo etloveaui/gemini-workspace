@@ -165,7 +165,8 @@ def list_inbox(agent: str, since: Optional[str] = None, unread_only: bool = Fals
     def _ts(m: Message) -> datetime:
         return _parse_iso(m.ts)
 
-    filtered = [m for m in msgs if _ts(m) >= since_dt]
+    # Strictly newer than the read pointer to avoid reprocessing the same ts
+    filtered = [m for m in msgs if _ts(m) > since_dt]
     return filtered[: max(0, int(limit)) or 20]
 
 

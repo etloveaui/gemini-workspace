@@ -531,8 +531,8 @@ def review(c):
     console.print("[bold blue]--- Diff (names) ---[/bold blue]")
     res2 = run_command('review.diffnames', ['git', 'diff', '--name-only'], check=False)
     console.print(res2.stdout or '(no unstaged diffs)')
-    """Show working tree changes (diff)."""
-    run_command('review.diff', ['git', '--no-pager', 'diff'], check=False)
+    # Optional short patch at the end for quick glance
+    run_command('review.diff', ['git', '--no-pager', 'diff', '--stat'], check=False)
 
 
 @task
@@ -572,7 +572,17 @@ def git_untrack_projects(c):
     # Commit with allow-projects to include the index removal
     run_command('git.commit_untrack', [VENV_PYTHON, 'scripts/commit_helper.py', '--message', 'chore(git): untrack projects/* from repo index', '--no-verify', '--allow-projects'], check=False)
 
-# register review helpers and git helpers
+
+# --- OS tools ---
+@task
+def os_audit(c):
+    """OS 명령 일관성 감사 리포트를 생성합니다."""
+    log_usage('os', 'audit', command='os.audit')
+    run_command('os.audit', [VENV_PYTHON, 'scripts/tools/os_command_audit.py'], check=False)
+
+os_ns = Collection('os')
+os_ns.add_task(os_audit, name='audit')
+ns.add_collection(os_ns)
 ns.add_task(review, name='review')
 ns.add_task(review_staged, name='review_staged')
 ns.add_task(review_last, name='review_last')
