@@ -1,0 +1,15 @@
+{
+  "id": "9acf4006-4e46-4600-bf0b-63a803596026",
+  "from": "codex",
+  "to": "codex",
+  "type": "task",
+  "title": "[Hardening] GPT-5 rate-limit resiliency (Step 1)",
+  "body": "Implement tools/codex_safe.ps1 with retries/backoff + minimal docs; wire optional task later. Scope: repo-only, PS7.",
+  "tags": [
+    "hardening",
+    "rate-limit",
+    "codex"
+  ],
+  "created_at": "2025-08-13T09:05:21.470816+00:00",
+  "status": "queued"
+}

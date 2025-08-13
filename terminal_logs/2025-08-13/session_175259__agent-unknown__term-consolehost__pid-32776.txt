@@ -1,0 +1,24 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20250813175259
+Username: DESKTOP-SEISHAI\eunta
+RunAs User: DESKTOP-SEISHAI\eunta
+Configuration Name: 
+Machine: DESKTOP-SEISHAI (Microsoft Windows NT 10.0.19045.0)
+Host Application: powershell -NoProfile -ExecutionPolicy Bypass -Command $ErrorActionPreference='Stop'; & .\ai-rec-start.ps1; Write-Host 'REC A: first session'; Start-Sleep -Milliseconds 200; & .\ai-rec-stop.ps1; & .\ai-rec-start.ps1; Write-Host 'REC B: second session'; Start-Sleep -Milliseconds 200; & .\ai-rec-stop.ps1; Get-ChildItem .\terminal_logs -Recurse -Filter '*.txt' | Sort-Object LastWriteTime -Descending | Select-Object -First 4 | ForEach-Object { $_.FullName }
+Process ID: 32776
+PSVersion: 5.1.19041.6157
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6157
+BuildVersion: 10.0.19041.6157
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Recording started -> C:\Users\eunta\gemini-workspace\terminal_logs\2025-08-13\session_175259__agent-unknown__term-consolehost__pid-32776.txt
+REC B: second session
+**********************
+Windows PowerShell transcript end
+End time: 20250813175259
+**********************
