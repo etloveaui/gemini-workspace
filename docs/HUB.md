@@ -77,3 +77,7 @@ __lastSession__
 - **Last Action**: P2-SU 로그에 DoD(MVP) 체크리스트 추가, Active 섹션 상태 주석 갱신.
 - **Next Step**: 간단 리뷰 후 DoD 체크리스트 마무리; (선택) 최소 CI 언급 포함 및 적용 단계는 수동으로 유지.
 - [P2-UX] UX Refinement
+---
+__lastSession__:
+  task: hardening-claude-step1
+  timestamp: 2025-08-13T09:53:12.844449+00:00
