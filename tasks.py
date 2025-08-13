@@ -395,6 +395,25 @@ agent_ns.add_task(agent_inbox, name='inbox')
 agent_ns.add_task(agent_read, name='read')
 ns.add_collection(agent_ns)
 
+# --- Claude tasks ---
+from invoke import task as _task
+
+@_task
+def claude_help(c):
+    """Show Claude router help."""
+    run_command('claude.help', [VENV_PYTHON, 'claude.py', '/help'], check=False)
+
+
+@_task(help={'q': 'Query, e.g., "/think <q>" or plain text.'})
+def claude_run(c, q):
+    """Run Claude router with a query string."""
+    run_command('claude.run', [VENV_PYTHON, 'claude.py', q], check=False)
+
+claude_ns = Collection('claude')
+claude_ns.add_task(claude_help, name='help')
+claude_ns.add_task(claude_run, name='run')
+ns.add_collection(claude_ns)
+
 
 @task(
     help={
