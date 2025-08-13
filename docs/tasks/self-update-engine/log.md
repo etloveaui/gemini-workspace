@@ -76,3 +76,14 @@ LLM 모델, 외부 도구, 내부 규칙의 변화를 주기적으로 스캔하�
 1) `invoke auto.scan` 실행 → 경고/업데이트 후보 수 확인(오류 없음).
 2) `invoke auto.propose` 실행 → 신규 제안 문서가 생성되고 정책 링크 포함 확인.
 3) 필요 시 `review` 태스크로 변경 미리보기 후 `git.commit_safe`로 커밋(훅 기본 OFF 유지, 외부 도구 커밋 호환 확인).
+
+---
+
+## Status Update — MVP Completed (2025-08-12)
+
+- 정책 문서 존재 및 참조: `docs/SELF_UPDATE_POLICY.md` 작성, `GEMINI.md`/`AGENTS.md`에서 참조.
+- 태스크 가용성: `auto.scan`/`auto.propose` 태스크와 스크립트 구현됨(Windows PS7 기준 동작 가정, 로컬 제약하 테스트).
+- 산출물: `docs/proposals/auto_update_20250811.md` 등 제안서 존재 확인.
+- 미적용 원칙: 자동 적용 보류, 수동 적용 원칙 명시 유지.
+- 로깅/준수: UTF-8/레포 경로/비밀 금지 원칙 준수.
+- 결론: MVP DoD 충족. 추가 확장은 별도 Phase로 진행.

@@ -12,7 +12,6 @@
 
 ## Active Tasks
 
-- [P2-SU] Self-Update Engine [log](docs/tasks/self-update-engine/log.md) — DoD 강화 진행; MVP 범위 확정 및 `auto.scan`/`auto.propose` 구현 완료
 
 ## Staging Tasks
 
@@ -68,6 +67,9 @@
 - [Codex] PowerShell UX Fix [log](docs/tasks/codex-powershell-ux-fix/log.md)
 - 100xfenok-generator-data-cleanup [log](docs/tasks/100xfenok-generator-data-cleanup/log.md)
 - 100xfenok-generator-dev [log](docs/tasks/100xfenok-generator-dev/log.md)
+
+- [P2-SU] Self-Update Engine (MVP) [log](docs/tasks/self-update-engine/log.md)
+- [Codex] Terminal Output Width & Scrollback Wrap Fix (MVP) [log](docs/tasks/codex-terminal-output-wrap/log.md)
 
 __lastSession__
 

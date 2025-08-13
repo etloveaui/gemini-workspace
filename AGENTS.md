@@ -18,6 +18,24 @@
   1) 간단 분석 → 2) 구축 계획을 문서(본 파일 또는 별도 문서)에 기록 → 3) 사용자 승인 후 구현합니다.
 - 태스크 활용: 가능하면 Invoke 태스크로 작업(감시/인박스/프리뷰/허브 전송)을 일관되게 실행합니다.
 
+## Codex 작업 운영 모드(정책 업데이트 v0.1.2)
+- 개선 요청 처리: 레포 내부에서 바로 수정(문서/코드). 미구현이면 최소 구현까지 진행 후 프리뷰 제공. 파괴적 변경 전에는 간단 고지.
+- 작업 목록 응답(시스템화): 사용자가 "작업 목록"을 요청하면 `docs/HUB.md`의 Active/Staging/Planned 섹션을 기준으로 한 화면 요약과 `agents_hub`의 queue/processing 개수만 덧붙여 보고합니다.
+- 응답 스타일: 초간결 원샷 브리핑(제목·개수·핵심 1줄). 상세가 필요하면 사용자가 "세부"라고 요청할 때 확장합니다.
+- 다중 지시 처리 방식: 여러 항목을 동시에 지시하면, (1) 수행 순서를 정리하여 본 파일의 정책에 따라 진행, (2) 파괴적/외부 의존 변경은 사전 고지 및 승인 요청, (3) 나머지는 즉시 수행합니다.
+- 터미널 출력 메모: Codex CLI 출력은 렌더러 폭/래핑의 영향을 받습니다. 개선 과제는 HUB Planned 태스크로 관리합니다.
+
+### 터미널 출력 가이드(운영 팁)
+- PowerShell 7 권장 설정(세션 내 적용 예시): `scripts/ps7_utf8_profile_sample.ps1`를 `. .\scripts\ps7_utf8_profile_sample.ps1`로 임포트.
+- VS Code 권장: Terminal: Integrated: Scrollback(예: 50000) 확장, 터미널 워드랩 해제, 폰트는 고정폭(예: Cascadia Code).
+- 인코딩 고정: Python 실행 시 `PYTHONIOENCODING=utf-8` 환경변수 유지.
+- 출력 스타일: 과도한 마크업·빈 줄 최소화로 재래핑 영향을 줄입니다.
+
+#### 다른 PC 적용(간편)
+- 레포 클론 후 VS Code로 열면 `.vscode/settings.json` 자동 반영.
+- PowerShell 7 영구 적용: `pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\ps7_utf8_install.ps1`
+- 현재 세션만: `. .\scripts\ps7_utf8_profile_sample.ps1`
+
 ## Git 훅(Pre-commit) 정책
 - 전역 토글: `.agents/config.json`의 `hooks.enabled`로 전체 훅 on/off.
 - 대화형 프롬프트 회피: `invoke commit_safe --skip-diff-confirm` 또는 환경변수 `SKIP_DIFF_CONFIRM=1`.
