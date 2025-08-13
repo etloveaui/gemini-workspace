@@ -31,6 +31,24 @@
 - 인코딩 고정: Python 실행 시 `PYTHONIOENCODING=utf-8` 환경변수 유지.
 - 출력 스타일: 과도한 마크업·빈 줄 최소화로 재래핑 영향을 줄입니다.
 
+#### 대화 녹화(옵션, ai-rec)
+- 스크립트: `ai-rec-start.ps1`/`ai-rec-stop.ps1`/`ai-rec.ps1` (루트에 포함)
+- 자동 시작: 프로필 샘플이 `AI_REC_AUTO=1`이면 세션 시작 시 자동 녹화 시작
+  - 세션 내 임포트: `. .\scripts\ps7_utf8_profile_sample.ps1`
+  - 활성화: `($env:AI_REC_AUTO='1'); ($env:ACTIVE_AGENT='codex')` 후 작업 시작
+  - 비활성화: `($env:AI_REC_AUTO='0')`
+- 저장 위치: `<repo>\terminal_logs\YYYY-MM-DD\session_HHMMSS__agent-<name>__term-<env>__pid-<pid>.txt`
+- 터미널 식별: Windows Terminal(`WT_SESSION`), VS Code(`VSCODE_PID`), 그 외 `ConsoleHost`
+- 평면 저장(하위 폴더 없이): `($env:AI_REC_FLAT='1')`
+- 수동 제어: 동일 세션에서 `.\ai-rec-start.ps1`, `.\ai-rec-stop.ps1`, `.\ai-rec.ps1`(토글)
+- 참고: Start-Transcript 특성상 같은 PowerShell 세션에서 실행해야 전체 대화가 기록됩니다.
+
+#### 로컬 런처(권장)
+- `codex-session.ps1`: 코덱스 세션 자동 구성(루트 이동, UTF-8 설정, `AI_REC_AUTO=1`, 자동 녹화 시작)
+- `gemini-session.ps1`: 제미나이 세션 자동 구성(동일 동작, 에이전트 라벨만 다름)
+- 새 창으로 열기: `-Spawn` 스위치 지원. 예) `powershell -ExecutionPolicy Bypass -File .\\codex-session.ps1 -Spawn`
+- 현재 터미널에서 적용: `powershell -ExecutionPolicy Bypass -File .\\codex-session.ps1` 또는 `. .\\codex-session.ps1`
+
 #### 다른 PC 적용(간편)
 - 레포 클론 후 VS Code로 열면 `.vscode/settings.json` 자동 반영.
 - PowerShell 7 영구 적용: `pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\ps7_utf8_install.ps1`
@@ -110,6 +128,7 @@
 - `invoke start --fast` : 빠른 브리핑(Doctor/HUB/인덱스 스킵, Git 변경 요약, 에이전트 표시)
 - 에이전트 지정 실행: `($env:ACTIVE_AGENT='codex'); invoke start --fast`
 - 전체 시작 + 백그라운드 인덱싱: `invoke start` (기본값은 인덱스 백그라운드 실행)
+- 대화 녹화와 함께 시작(예): `($env:AI_REC_AUTO='1'); ($env:ACTIVE_AGENT='codex'); . .\scripts\ps7_utf8_profile_sample.ps1; invoke start --fast`
 # 업데이트 요약 (v0.1.1)
 
 - 워처 단시간 실행: `invoke agent.watch --agent codex --interval 5 --duration 10`
@@ -130,3 +149,9 @@
 - 정책 공통 참조: `docs/SELF_UPDATE_POLICY.md`를 따른다(주기/범위/안전장치).
 - 현재 범위: 자동 적용 OFF, 제안 생성만 허용(`invoke auto.scan` → `invoke auto.propose`).
 - 적용 시나리오: 리뷰/미리보기 후 `invoke git.commit_safe`로 수동 적용, 훅 기본 OFF 유지.
+## Rate-limit Hardening(간단)
+- 목적: GPT-5 사용 중 "Rate limit reached / stream disconnected" 시 자동 재시도로 무반응 구간 최소화.
+- 사용: `pwsh -ExecutionPolicy Bypass -File tools/codex_safe.ps1 -- <codex args>`
+- 기본 상한: `--max-tokens 3500` 자동 부여(명시 시 우선), UTF-8 로그: `.logs/codex/codex_YYYYMMDD_HHMMSS.log`
+- 재시도: 최대 8회, 지수 백오프(200ms 기반, 최대 10s, 0–250ms 지터), `Please try again in Xms`를 존중.
+- 중간 복구: 재시도 시 콘솔에 `[RESUME]` 마커 표시(출력 이어받기 의미적 마커).
