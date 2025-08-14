@@ -49,3 +49,13 @@ pwsh -ExecutionPolicy Bypass -File tools/codex_emergency.ps1 -- codex start --fa
 
 ## 참고
 - 자세한 운영 원칙과 맥락은 `AGENTS.md`의 Rate-limit Hardening 섹션을 따릅니다.
+
+## 프로필 기반 토글(v0.1.2+)
+- `.agents/emergency.json`의 `enabled=true`이면 PowerShell UTF-8 프로필이 `codex`/`cx`를 `tools/codex_emergency.ps1`로 래핑합니다.
+- `rps/max_tokens/retry` 설정은 환경변수(`CODEX_*`)로 자동 주입됩니다.
+- 해제하려면 `enabled=false`로 바꾸고 새 세션을 시작하세요.
+
+## Health Ops 번들
+- 일괄 적용: `tools/health_check.ps1 -Apply`(로그 정리, 허브 50MB↑ 분할, DB VACUUM).
+- 예약 등록: `tools/health_schedule.ps1 -Time 03:30 -Apply` (미리보기만 원하면 `-Apply` 생략).
+- HUB 큐 마감: `tools/hub_complete.ps1 -Result success -Note "요약"` → `agents_hub/archive/<YYYYMMDD>/success/`로 이동.

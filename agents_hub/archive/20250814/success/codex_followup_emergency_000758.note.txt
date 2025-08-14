@@ -1,0 +1,1 @@
+﻿Completed: emergency wrapper toggle via profile, health_check -Apply, hub split/vacuum, docs updated.

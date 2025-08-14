@@ -25,6 +25,12 @@
 - 다중 지시 처리 방식: 여러 항목을 동시에 지시하면, (1) 수행 순서를 정리하여 본 파일의 정책에 따라 진행, (2) 파괴적/외부 의존 변경은 사전 고지 및 승인 요청, (3) 나머지는 즉시 수행합니다.
 - 터미널 출력 메모: Codex CLI 출력은 렌더러 폭/래핑의 영향을 받습니다. 개선 과제는 HUB Planned 태스크로 관리합니다.
 
+### 비상 래퍼 토글(v0.1.2+)
+- 토글 소스: `.agents/emergency.json`의 `enabled`가 `true`면 Codex 호출을 비상 래퍼로 감쌉니다.
+- 적용 방식: PowerShell 7 UTF-8 프로필이 `codex` 함수/`cx` 별칭을 `tools/codex_emergency.ps1`로 래핑합니다.
+- 기본값 상속: `rps/max_tokens/retry` 필드는 환경변수(`CODEX_*`)로 주입됩니다.
+- 해제: `.agents/emergency.json`에서 `enabled=false` 후 새 세션 시작.
+
 ### 터미널 출력 가이드(운영 팁)
 - PowerShell 7 권장 설정(세션 내 적용 예시): `scripts/ps7_utf8_profile_sample.ps1`를 `. .\scripts\ps7_utf8_profile_sample.ps1`로 임포트.
 - VS Code 권장: Terminal: Integrated: Scrollback(예: 50000) 확장, 터미널 워드랩 해제, 폰트는 고정폭(예: Cascadia Code).
@@ -155,3 +161,11 @@
 - 기본 상한: `--max-tokens 3500` 자동 부여(명시 시 우선), UTF-8 로그: `.logs/codex/codex_YYYYMMDD_HHMMSS.log`
 - 재시도: 최대 8회, 지수 백오프(200ms 기반, 최대 10s, 0–250ms 지터), `Please try again in Xms`를 존중.
 - 중간 복구: 재시도 시 콘솔에 `[RESUME]` 마커 표시(출력 이어받기 의미적 마커).
+- 운영 기본값: `CODEX_RPS=0.2~0.3`, `--max-tokens` 기본 2500~3500. 프로필이 `.agents/emergency.json`을 읽어 주입합니다.
+- 실행 경로: `codex`/`cx`를 호출하면(세션 내) 자동으로 `tools/codex_emergency.ps1` 래퍼를 통과합니다(토글 on일 때).
+- 수동 실행: 직접 래퍼 사용 `pwsh -ExecutionPolicy Bypass -File tools/codex_emergency.ps1 -- codex <args>`
+
+## Health Check 자동화(운영)
+- 일일 실행: `tools/health_schedule.ps1`로 Windows 예약 작업 등록(드라이런 미리보기 → `-Apply`로 등록).
+- 수동 일괄 적용: `tools/health_check.ps1 -Apply`(로그 정리/허브 분할[50MB↑]/DB VACUUM).
+- 임계치 조정: `-HubThresholdMB <정수>`로 분할 임계치 변경, `-Vacuum`만 별도 수행 가능.
