@@ -1,0 +1,28 @@
+{
+  "projectRoot": ".",
+  "servers": {
+    "filesystem": {
+      "enabled": false,
+      "command": "python",
+      "args": ["-m", "mcp_filesystem"],
+      "env": {
+        "PROJECT_ROOT": "${PROJECT_ROOT}"
+      }
+    },
+    "brave-search": {
+      "enabled": false,
+      "command": "npx",
+      "args": ["-y", "@mcp/brave", "--stdio"],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      }
+    },
+    "desktop-commander": {
+      "enabled": false,
+      "command": "python",
+      "args": ["-m", "mcp_desktop"],
+      "env": {}
+    }
+  }
+}
+
