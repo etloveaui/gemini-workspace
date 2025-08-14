@@ -1,0 +1,307 @@
+﻿{
+    "environment":  {
+                        "time_utc":  "2025-08-14T04:17:35.5105136Z",
+                        "root":  "C:\\Users\\eunta\\gemini-workspace",
+                        "ps_version":  "5.1.19041.6157",
+                        "os":  {
+                                   "Caption":  "Microsoft Windows 10 Home",
+                                   "Version":  "10.0.19045"
+                               },
+                        "env":  {
+                                    "CODEX_RPS":  null,
+                                    "AI_REC_AUTO":  null,
+                                    "PYTHONIOENCODING":  null,
+                                    "ACTIVE_AGENT":  null
+                                }
+                    },
+    "git":  {
+                "status":  [
+                               "## main...origin/main",
+                               "?? .agents/emergency.json",
+                               "?? docs/EMERGENCY_MODE.md",
+                               "?? docs/SYSTEM_AUDIT.md",
+                               "?? tools/codex_emergency.ps1",
+                               "?? tools/health_check.ps1",
+                               "?? tools/hub_split.ps1",
+                               "?? tools/sqlite_vacuum_helper.ps1",
+                               "?? tools/sys_audit.ps1",
+                               "?? tools/sys_maint.ps1"
+                           ]
+            },
+    "top_dirs":  [
+                     {
+                         "name":  "projects",
+                         "size_bytes":  1374165163,
+                         "size":  "1.28 GB"
+                     },
+                     {
+                         "name":  "venv",
+                         "size_bytes":  116122975,
+                         "size":  "110.74 MB"
+                     },
+                     {
+                         "name":  ".git",
+                         "size_bytes":  8281545,
+                         "size":  "7.90 MB"
+                     },
+                     {
+                         "name":  "scratchpad",
+                         "size_bytes":  4135444,
+                         "size":  "3.94 MB"
+                     },
+                     {
+                         "name":  "docs",
+                         "size_bytes":  466310,
+                         "size":  "455.38 KB"
+                     },
+                     {
+                         "name":  "scripts",
+                         "size_bytes":  163014,
+                         "size":  "159.19 KB"
+                     },
+                     {
+                         "name":  "tests",
+                         "size_bytes":  72800,
+                         "size":  "71.09 KB"
+                     },
+                     {
+                         "name":  "tools",
+                         "size_bytes":  24051,
+                         "size":  "23.49 KB"
+                     },
+                     {
+                         "name":  "context",
+                         "size_bytes":  21647,
+                         "size":  "21.14 KB"
+                     },
+                     {
+                         "name":  ".gemini",
+                         "size_bytes":  19659,
+                         "size":  "19.20 KB"
+                     },
+                     {
+                         "name":  ".github",
+                         "size_bytes":  17063,
+                         "size":  "16.66 KB"
+                     },
+                     {
+                         "name":  "__pycache__",
+                         "size_bytes":  9001,
+                         "size":  "8.79 KB"
+                     },
+                     {
+                         "name":  "terminal_logs",
+                         "size_bytes":  5322,
+                         "size":  "5.20 KB"
+                     },
+                     {
+                         "name":  "secrets",
+                         "size_bytes":  4589,
+                         "size":  "4.48 KB"
+                     },
+                     {
+                         "name":  "agents_hub",
+                         "size_bytes":  3707,
+                         "size":  "3.62 KB"
+                     },
+                     {
+                         "name":  ".pytest_cache",
+                         "size_bytes":  3458,
+                         "size":  "3.38 KB"
+                     },
+                     {
+                         "name":  ".githooks",
+                         "size_bytes":  3325,
+                         "size":  "3.25 KB"
+                     },
+                     {
+                         "name":  "src",
+                         "size_bytes":  1627,
+                         "size":  "1.59 KB"
+                     },
+                     {
+                         "name":  "logs",
+                         "size_bytes":  725,
+                         "size":  "725 B"
+                     },
+                     {
+                         "name":  ".agents",
+                         "size_bytes":  616,
+                         "size":  "616 B"
+                     }
+                 ],
+    "big_files":  [
+
+                  ],
+    "heavy_paths":  [
+                        {
+                            "path":  "C:\\Users\\eunta\\gemini-workspace\\context\\messages.jsonl",
+                            "size_bytes":  21647,
+                            "size":  "21.14 KB"
+                        },
+                        {
+                            "path":  "C:\\Users\\eunta\\gemini-workspace\\usage.db",
+                            "size_bytes":  12288,
+                            "size":  "12.00 KB"
+                        },
+                        {
+                            "path":  "C:\\Users\\eunta\\gemini-workspace\\terminal_logs",
+                            "type":  "dir",
+                            "size_bytes":  5322,
+                            "size":  "5.20 KB"
+                        }
+                    ],
+    "ext_counts":  [
+                       {
+                           "ext":  ".py",
+                           "count":  2650
+                       },
+                       {
+                           "ext":  ".pyc",
+                           "count":  2607
+                       },
+                       {
+                           "ext":  ".h",
+                           "count":  1433
+                       },
+                       {
+                           "ext":  ".c",
+                           "count":  1194
+                       },
+                       {
+                           "ext":  ".opt",
+                           "count":  1135
+                       },
+                       {
+                           "ext":  ".d",
+                           "count":  1134
+                       },
+                       {
+                           "ext":  ".src",
+                           "count":  1132
+                       },
+                       {
+                           "ext":  ".o",
+                           "count":  1132
+                       },
+                       {
+                           "ext":  ".arxml",
+                           "count":  290
+                       },
+                       {
+                           "ext":  "(none)",
+                           "count":  244
+                       },
+                       {
+                           "ext":  ".pyi",
+                           "count":  238
+                       },
+                       {
+                           "ext":  ".mk",
+                           "count":  237
+                       },
+                       {
+                           "ext":  ".md",
+                           "count":  194
+                       },
+                       {
+                           "ext":  ".txt",
+                           "count":  113
+                       },
+                       {
+                           "ext":  ".html",
+                           "count":  105
+                       },
+                       {
+                           "ext":  ".pyd",
+                           "count":  72
+                       },
+                       {
+                           "ext":  ".json",
+                           "count":  70
+                       },
+                       {
+                           "ext":  ".xdm",
+                           "count":  69
+                       },
+                       {
+                           "ext":  ".f90",
+                           "count":  60
+                       },
+                       {
+                           "ext":  ".dll",
+                           "count":  55
+                       },
+                       {
+                           "ext":  ".exe",
+                           "count":  48
+                       },
+                       {
+                           "ext":  ".lsl",
+                           "count":  31
+                       },
+                       {
+                           "ext":  ".cmm",
+                           "count":  30
+                       },
+                       {
+                           "ext":  ".csv",
+                           "count":  30
+                       },
+                       {
+                           "ext":  ".lib",
+                           "count":  24
+                       },
+                       {
+                           "ext":  ".f",
+                           "count":  24
+                       },
+                       {
+                           "ext":  ".png",
+                           "count":  21
+                       },
+                       {
+                           "ext":  ".ps1",
+                           "count":  21
+                       },
+                       {
+                           "ext":  ".xml",
+                           "count":  20
+                       },
+                       {
+                           "ext":  ".typed",
+                           "count":  18
+                       }
+                   ],
+    "ignore_checks":  [
+                          {
+                              "pattern":  ".gemini/",
+                              "present_in_gitignore":  false,
+                              "path_exists":  true
+                          },
+                          {
+                              "pattern":  "secrets/",
+                              "present_in_gitignore":  true,
+                              "path_exists":  true
+                          },
+                          {
+                              "pattern":  "projects/",
+                              "present_in_gitignore":  true,
+                              "path_exists":  true
+                          },
+                          {
+                              "pattern":  "*.log",
+                              "present_in_gitignore":  true,
+                              "path_exists":  false
+                          },
+                          {
+                              "pattern":  "*.sqlite*",
+                              "present_in_gitignore":  true,
+                              "path_exists":  false
+                          }
+                      ],
+    "emergency":  {
+                      "wrapper_present":  true,
+                      "config_present":  true
+                  }
+}

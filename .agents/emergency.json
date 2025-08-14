@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "rps": 0.3,
+  "max_tokens": 2500,
+  "retry": { "max": 8, "base_ms": 200, "max_ms": 10000 },
+  "notes": "운영 시 tools/codex_emergency.ps1 래퍼와 함께 사용을 권장합니다."
+}
+
