@@ -6,6 +6,7 @@
 #   python ask_groq.py --route code  "리팩터링 포인트 찾아줘"
 #   echo "stdin" | python ask_groq.py -r fast
 import os, sys, json, re, argparse, urllib.request, urllib.error, time
+from pathlib import Path
 
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
@@ -34,15 +35,27 @@ def read_all_stdin() -> str:
     return ""
 
 def load_groq_key_from_secrets() -> str:
-    """Prefer environment variable, fallback to local secrets file."""
+    """Prefer environment variable, then repo-root secrets, then local scratchpad secrets."""
     env_key = os.environ.get("GROQ_API_KEY")
     if env_key and env_key.strip():
         return env_key.strip()
-    base = os.path.dirname(os.path.abspath(__file__))
-    secrets_path = os.path.join(base, "secrets", "my_sensitive_data.md")
-    if not os.path.isfile(secrets_path):
+    # 1) repo root fallback
+    try:
+        root = Path(__file__).resolve().parents[3]
+        root_secret = root / "secrets" / "my_sensitive_data.md"
+        if root_secret.is_file():
+            txt = root_secret.read_text(encoding="utf-8", errors="ignore")
+            m = re.search(r"(gsk_[A-Za-z0-9_-]+)", txt)
+            if m:
+                return m.group(1)
+    except Exception:
+        pass
+    # 2) local scratchpad fallback
+    base = Path(__file__).resolve().parent
+    secrets_path = base / "secrets" / "my_sensitive_data.md"
+    if not secrets_path.is_file():
         raise SystemExit("GROQ_API_KEY 미설정: 환경변수 GROQ_API_KEY 또는 secrets/my_sensitive_data.md(gsk_...) 필요")
-    txt = open(secrets_path, "r", encoding="utf-8", errors="ignore").read()
+    txt = secrets_path.read_text(encoding="utf-8", errors="ignore")
     m = re.search(r"(gsk_[A-Za-z0-9_-]+)", txt)
     if not m:
         raise SystemExit("GROQ 키를 찾지 못함: secrets/my_sensitive_data.md 내 gsk_ 패턴 미검출")
