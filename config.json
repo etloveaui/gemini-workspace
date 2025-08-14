@@ -1,0 +1,17 @@
+{
+  "Providers": [
+    {
+      "name": "groq",
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "apiKey": "${GROQ_API_KEY}"
+    }
+  ],
+  "Router": {
+    "default": "groq,kimi",
+    "think":   "groq,kimi-k2",
+    "long":    "groq,llama-3.3-70b-versatile",
+    "code":    "groq,qwen/qwen3-32b",
+    "fast":    "groq,llama-3.1-8b-instant"
+  }
+}
+
