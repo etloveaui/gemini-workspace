@@ -1,4 +1,4 @@
-# --- Python / OS common ---
+﻿# --- Python / OS common ---
 __pycache__/
 *.py[cod]
 *$py.class
@@ -33,3 +33,7 @@ usage.db*
 *.db
 *.log
 *.tmp
+
+# Block local CLAUDE configs
+.claude*/
+

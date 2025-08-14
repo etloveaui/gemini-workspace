@@ -90,3 +90,33 @@ PS>.\claude.ps1 /think /help
 Transcript already active ->
 
 ]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cetlov\x5cmulti-agent-workspacePS C:\Users\etlov\multi-agent-workspace> ]633;B
+PS>claude
+PS C:\Users\etlov\multi-agent-workspace> claude
+╭───────────────────────────────────────────────────╮
+│ ✻ Welcome to Claude Code!                         │
+│                                                   │
+│   /help for help, /status for your current setup  │
+│                                                   │
+│   cwd: C:\Users\etlov\multi-agent-workspace       │
+╰───────────────────────────────────────────────────╯
+
+
+ What's new:
+  • Rename CLAUDE_CODE_BASH_PREFIX to CLAUDE_CODE_SHELL_PREFIX
+  • SDK: Added tool confirmation support with canUseTool callback
+  • SDK: Allow specifying env for spawned process
+  • Hooks: Exposed PermissionDecision to hooks (including "ask")
+  • Hooks: UserPromptSubmit now supports additionalContext in advanced JSON
+  output
+
+> 되되나나?
+  ⎿  Invalid API key · Please run /login
+
+
+Total cost:            $0.0000
+Total duration (API):  0s
+Total duration (wall): 29.6s
+Total code changes:    0 lines added, 0 lines removed
+Usage:                 0 input, 0 output, 0 cache read, 0 cache write
+]633;D;0]633;A]633;P;Cwd=C:\x5cUsers\x5cetlov\x5cmulti-agent-workspacePS C:\Users\etlov\multi-agent-workspace> ]633;B
+PS>claude

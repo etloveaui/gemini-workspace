@@ -1,0 +1,43 @@
+﻿**********************
+Windows PowerShell 기록 시작
+시작 시간: 20250815025140
+사용자 이름: ETK-DESKTOP\etlov
+RunAs 사용자: ETK-DESKTOP\etlov
+구성 이름: 
+Machine: ETK-DESKTOP (Microsoft Windows NT 10.0.19045.0)
+호스트 응용 프로그램: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Users\etlov\multi-agent-workspace\tools\claude_ui.ps1
+프로세스 ID: 4276
+PSVersion: 5.1.19041.6216
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6216
+BuildVersion: 10.0.19041.6216
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Recording started -> C:\Users\etlov\multi-agent-workspace\terminal_logs\2025-08-15\session_025140__agent-claude__term-consolehost__pid-4276.txt
+  ⎿  API Error (429 {"error":{"message":"Error from provider(429): {\"error\":{\"message\":\"Rate limit reached for model `llama-3.1-8b-instant` in organization `org_01k2e7q4y4ffbt4q5nryn8
+987c` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 2274, Requested 4112. Please try again in 3.856999999s. Need more tokens? Upgrade to Dev Tier today at https://c
+onsole.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}\nError: Error from provider(429): {\"error\":{\"message\":\"Rate limit reached for model `llama-3.
+1-8b-instant` in organization `org_01k2e7q4y4ffbt4q5nryn8987c` service tier `on_demand` on tokens per minute (TPM): Limit 6000, Used 2274, Requested 4112. Please try again in 3.856999999s.
+ Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}\n\n    at bt (C:\\Users\\etlov\\AppData\\
+Roaming\\npm\\node_modules\\@musistudio\\claude-code-router\\dist\\cli.js:74721:11)\n    at u0 (C:\\Users\\etlov\\AppData\\Roaming\\npm\\node_modules\\@musistudio\\claude-code-router\\dist
+\\cli.js:74779:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async o0 (C:\\Users\\etlov\\AppData\\Roaming\\npm\\node_modules\\@musistudio\
+\claude-code-router\\dist\\cli.js:74746:84)","type":"api_error","code":"provider_response_error"}}) · Retrying in 35 seconds… (attempt 7/10)
+
+✽ Churning… (48s · ↑ 3 tokens · esc to interrupt)
+
+Total cost:            $0.0000 (costs may be inaccurate due to usage of unknown models)
+Total duration (API):  4.2s
+Total duration (wall): 55.4s
+Total code changes:    0 lines added, 0 lines removed
+Usage by model:
+    claude-3-5-haiku:  0 input, 0 output, 0 cache read, 0 cache write
+                qwen:  0 input, 0 output, 0 cache read, 0 cache write
+PS>$global:?
+True
+**********************
+Windows PowerShell 기록 끝
+종료 시간: 20250815025235
+**********************

@@ -1,0 +1,84 @@
+Vibe coding with Claude Code + Groq + Kimi K2
+Hungrysoul
+Hungrysoul
+
+Follow
+2 min read
+·
+Jul 16, 2025
+10
+
+
+3
+
+
+
+Recently, I started using Claude Code with Groq’s Kimi K2-Instruct model, and honestly, the combo feels too good to be true (open source FTW). If you’ve been relying heavily on Anthropic’s Claude Sonnet model, this alternative might be exactly what you’re looking for — it’s significantly faster and way cheaper. Let’s dive in!
+
+Why Groq + Kimi K2 Makes Sense
+Just to give you an idea why I’m excited, here’s a quick comparison between Kimi K2 on Groq and Claude Sonnet 4 from Anthropic:
+
+Press enter or click to view image in full size
+
+Yup, that’s right — it’s nearly 3x faster and about 5x cheaper per token. Pretty hard to beat.
+
+Setting It Up (Super Easy!)
+The best part? The setup takes about five minutes. Here’s how you do it:
+
+Get Hungrysoul’s stories in your inbox
+Join Medium for free to get updates from this writer.
+
+Enter your email
+Subscribe
+First, install Claude Code and Claude Code Router:
+
+npm install -g @anthropic-ai/claude-code
+npm install -g @musistudio/claude-code-router
+Once installed, all you have to do is launch Claude Code through the router:
+
+ccr code
+Configuring the Router (Copy & Paste Job)
+Now, let’s quickly create a config file for your router. Just copy the following snippet into ~/.claude-code-router/config.json:
+
+{
+  "LOG": false,
+  "Providers": [
+    {
+      "name": "groq",
+      "api_base_url": "https://api.groq.com/openai/v1/chat/completions",
+      "api_key": "<YOUR_GROQ_API_KEY>",
+      "models": ["moonshotai/kimi-k2-instruct"],
+      "transformer": {
+        "use": [
+          ["maxtoken", { "max_tokens": 16384 }],
+          "openrouter"
+        ]
+      }
+    }
+  ],
+  "Router": {
+    "default": "groq,moonshotai/kimi-k2-instruct"
+  }
+}
+Don’t forget to replace <YOUR_GROQ_API_KEY> with your actual Groq API key, and keep file permissions tight (chmod 600) to secure your key.
+
+What Can You Actually Do?
+A lot, actually. Here are some common tasks I’ve been using it for:
+
+Generating Unit Tests Recursively:
+Massive Refactoring (like updating APIs)
+Performance in the Real World
+Here’s what performance looks like based on my experience and some community benchmarks:
+
+Press enter or click to view image in full size
+
+Simply put, you’re getting faster results at a fraction of the cost.
+
+When Should You Stick to Sonnet?
+This combo isn’t perfect for every scenario, though. You might want to stick with Claude Sonnet if you need:
+
+Complex UI tasks, I believe kimi k2 is still not that great at UI gen
+Planning and reasoning — combine kimi k2 along with claude and o3 for complex tasks is the best approach
+If you code regularly — whether writing tests, refactoring large codebases, or just prototyping quickly — this setup can seriously streamline your workflow. It gives you instant speed at a much lower price.
+
+Give it a shot, and let me know how it works out! Happy coding and hacking.

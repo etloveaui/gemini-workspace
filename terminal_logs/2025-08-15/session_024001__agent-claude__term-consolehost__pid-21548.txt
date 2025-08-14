@@ -1,0 +1,26 @@
+﻿**********************
+Windows PowerShell 기록 시작
+시작 시간: 20250815024001
+사용자 이름: ETK-DESKTOP\etlov
+RunAs 사용자: ETK-DESKTOP\etlov
+구성 이름: 
+Machine: ETK-DESKTOP (Microsoft Windows NT 10.0.19045.0)
+호스트 응용 프로그램: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Users\etlov\multi-agent-workspace\tools\claude_ui.ps1
+프로세스 ID: 21548
+PSVersion: 5.1.19041.6216
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6216
+BuildVersion: 10.0.19041.6216
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Recording started -> C:\Users\etlov\multi-agent-workspace\terminal_logs\2025-08-15\session_024001__agent-claude__term-consolehost__pid-21548.txt
+
+PS>$global:?
+True
+**********************
+Windows PowerShell 기록 끝
+종료 시간: 20250815025131
+**********************
