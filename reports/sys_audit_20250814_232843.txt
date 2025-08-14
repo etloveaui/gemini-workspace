@@ -1,0 +1,77 @@
+# System Audit Report (2025-08-14T14:28:43.7510109Z)
+Root: C:\Users\etlov\multi-agent-workspace
+PowerShell: 7.5.2
+
+== Git status ==
+## main...origin/main
+
+== Top directories by size ==
+    20.72 MB  projects
+    11.24 MB  venv
+     8.64 MB  .git
+     3.96 MB  scratchpad
+   435.08 KB  docs
+   190.05 KB  scripts
+   112.02 KB  tests
+    35.31 KB  __pycache__
+    24.10 KB  tools
+    21.52 KB  context
+    17.01 KB  .github
+    13.26 KB  reports
+     5.20 KB  terminal_logs
+     4.70 KB  secrets
+     4.35 KB  agents_hub
+     3.62 KB  .pytest_cache
+     3.19 KB  .githooks
+     3.17 KB  src
+     1.94 KB  .gemini
+       745 B  logs
+
+== Largest files ==
+
+== Heavy paths ==
+    21.52 KB  C:\Users\etlov\multi-agent-workspace\context\messages.jsonl
+    12.00 KB  C:\Users\etlov\multi-agent-workspace\usage.db
+     5.20 KB  C:\Users\etlov\multi-agent-workspace\terminal_logs
+
+== Top file extensions ==
+   492  .py
+   463  .pyc
+   190  .md
+    88  .html
+    63  .json
+    45  .txt
+    22  .ps1
+    20  .png
+    15  .js
+    11  .exe
+    11  .typed
+    10  (none)
+     5  .css
+     5  .pdf
+     4  .gitignore
+     4  .bat
+     3  .gs
+     3  .svg
+     2  .webmanifest
+     2  .ini
+     2  .jsonl
+     2  .disabled
+     2  .bak
+     2  .yaml
+     2  .ico
+     2  .jpg
+     2  .yml
+     2  .db
+     1  .pem
+     1  .no_delete_list
+
+== Ignore rules check ==
+.gemini/       present=False  exists=True
+secrets/       present=True  exists=True
+projects/      present=True  exists=True
+*.log          present=True  exists=False
+*.sqlite*      present=True  exists=False
+
+== Emergency config ==
+wrapper_present=True config_present=True

@@ -1,6 +1,7 @@
 Param(
   [string]$Root = (Resolve-Path '.').Path,
-  [string]$Input = (Join-Path (Resolve-Path '.').Path 'context/messages.jsonl'),
+  [Alias('Input')]
+  [string]$InputPath = (Join-Path (Resolve-Path '.').Path 'context/messages.jsonl'),
   [string]$OutDir = (Join-Path (Resolve-Path '.').Path 'context/archive'),
   [switch]$Apply,
   [switch]$Verbose
@@ -10,7 +11,7 @@ $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 [Console]::InputEncoding  = [System.Text.Encoding]::UTF8
 
-if (-not (Test-Path $Input)) { Write-Error "Input not found: $Input"; exit 2 }
+if (-not (Test-Path $InputPath)) { Write-Error "Input not found: $InputPath"; exit 2 }
 if (-not (Test-Path $OutDir)) { New-Item -ItemType Directory -Force -Path $OutDir | Out-Null }
 
 function Get-MonthKey([string]$ts){
@@ -21,14 +22,14 @@ $counts = @{}
 $tmpMap = @{}
 $lineNum = 0
 
-Write-Host "Scanning $Input ..."
-Get-Content -LiteralPath $Input -ReadCount 1000 | ForEach-Object {
+Write-Host "Scanning $InputPath ..."
+Get-Content -LiteralPath $InputPath -ReadCount 1000 | ForEach-Object {
   foreach($line in $_){
     $lineNum++
     if ([string]::IsNullOrWhiteSpace($line)) { continue }
     $month = $null
     try { $obj = $line | ConvertFrom-Json -ErrorAction Stop; $month = Get-MonthKey $obj.ts } catch { $month = $null }
-    if (-not $month) { $month = (Get-Item $Input).LastWriteTime.ToString('yyyyMM') }
+    if (-not $month) { $month = (Get-Item $InputPath).LastWriteTime.ToString('yyyyMM') }
     if (-not $counts.ContainsKey($month)) { $counts[$month] = 0 }
     $counts[$month] += 1
     if ($Apply) {
