@@ -13,7 +13,7 @@ $ErrorActionPreference = 'Stop'
 
 function Ensure-Dir($p){ if (-not (Test-Path $p)) { New-Item -ItemType Directory -Force -Path $p | Out-Null } }
 
-$qPath = Join-Path $Root $QueueFile
+$qPath = if ([System.IO.Path]::IsPathRooted($QueueFile)) { $QueueFile } else { Join-Path $Root $QueueFile }
 if (-not (Test-Path $qPath)) { Write-Error "Queue file not found: $qPath"; exit 2 }
 
 $ts = [DateTime]::UtcNow.ToString('yyyyMMdd')

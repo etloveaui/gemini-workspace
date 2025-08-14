@@ -169,3 +169,13 @@
 - 일일 실행: `tools/health_schedule.ps1`로 Windows 예약 작업 등록(드라이런 미리보기 → `-Apply`로 등록).
 - 수동 일괄 적용: `tools/health_check.ps1 -Apply`(로그 정리/허브 분할[50MB↑]/DB VACUUM).
 - 임계치 조정: `-HubThresholdMB <정수>`로 분할 임계치 변경, `-Vacuum`만 별도 수행 가능.
+- 빠른 실행 래퍼: 세션과 무관하게 즉시 자동 녹화 + UTF-8 환경을 구성합니다.
+  - `./codex.ps1 <invoke args>` 예) `./codex.ps1 start --fast`
+  - `./gemini.ps1 <invoke args>`
+  - `./claude.ps1 /think "질문"` (Groq 키 필요)
+
+## Claude 사용(초간단)
+- 실행: `./claude.ps1 /think "테스트"`
+- 라우팅: `/think`(정밀), `/code`, `/long`, `/fast`, `/help`
+- 키 관리: `secrets/my_sensitive_data.md`의 `gsk_...` 또는 `GROQ_API_KEY` 환경변수 사용
+- 내부 경로: `src/ai_integration/claude/*` (scratchpad 의존 없음)
