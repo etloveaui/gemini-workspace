@@ -1,0 +1,19 @@
+{
+  "ts": "2025-08-15T00:00:00Z",
+  "agent": "codex",
+  "title": "Claude CLI: direct PowerShell entry + Groq routing",
+  "priority": "high",
+  "tasks": [
+    "Forward claude.py to scratchpad router (src.ai_integration.router)",
+    "Wrap claude.ps1 to set ACTIVE_AGENT=claude and import UTF-8 profile",
+    "Ensure ask_groq.py uses GROQ_API_KEY or secrets fallback",
+    "Add minimal docs/README snippet for 'claude' usage"
+  ],
+  "context": {
+    "entry": ["claude.ps1", "claude.py"],
+    "router": "scratchpad/claude_code/scripts/router.py",
+    "env": ["GROQ_API_KEY"],
+    "notes": "Network/API key required by user environment"
+  }
+}
+

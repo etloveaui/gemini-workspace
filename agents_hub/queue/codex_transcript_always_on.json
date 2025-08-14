@@ -1,0 +1,22 @@
+{
+  "ts": "2025-08-14T23:59:00Z",
+  "agent": "codex",
+  "title": "Always-on terminal transcript for agent sessions",
+  "priority": "high",
+  "tasks": [
+    "Default AI_REC_AUTO=1 when ACTIVE_AGENT present",
+    "Ensure claude.ps1 imports UTF-8 profile and starts transcript",
+    "Verify codex/gemini session launchers auto-record",
+    "Document quick usage in AGENTS.md"
+  ],
+  "context": {
+    "files": [
+      "scripts/ps7_utf8_profile_sample.ps1",
+      "ai-rec-start.ps1",
+      "claude.ps1",
+      "codex-session.ps1",
+      "gemini-session.ps1"
+    ]
+  }
+}
+
