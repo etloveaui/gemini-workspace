@@ -27,6 +27,7 @@
 
 ## 3) 명령 표준 (Invoke & GitHub Actions)
 - **Invoke (로컬)**:
+  - **(권장) 세션 시작**: `gemini-session.ps1` 스크립트를 실행하면 UTF-8 설정, 대화 자동 녹화 등 세션 환경이 자동으로 구성됩니다.
   - `invoke start`: 환경 점검(doctor) → HUB 브리핑 → 컨텍스트 인덱스 빌드
   - `invoke doctor`: 파이썬/권한/네트워크/경로/인코딩 점검
   - `invoke help [section]`: 도움말 출력
@@ -138,6 +139,18 @@
 - 설정 파일: `.agents/config.json`의 `{"active": "gemini|codex"}` 값으로 관리됩니다.
 - 로깅: `scripts/runner.py`는 실행 로그/오류 기록 시 `AGENT=<name>` 프리픽스를 포함합니다.
 - 원칙 상속: Windows-first, Python 직접 호출(UTF-8), 레포 내부 작업 경계, 비밀 커밋 금지 규칙은 모든 에이전트에 동일 적용합니다.
+- **파일 수정 프로토콜 (File Modification Protocol)**:
+  - **Codex 전담**: 시스템 파일의 직접 수정은 원칙적으로 **Codex 에이전트**가 전담한다.
+  - **Gemini 역할**: Gemini는 파일 수정이 필요한 경우, 사용자에게 먼저 문제점과 수정 제안을 보고하고 **명시적 승인**을 받는다.
+  - **작업 요청**: 사용자의 승인 후, Gemini는 직접 수정하는 대신 `invoke agent.msg`를 사용하여 Codex에게 상세한 내용을 담은 **작업 요청 메시지**를 남긴다.
+- **교차 에이전트 메시징 (v0.1)**:
+  - **저장소**: `context/messages.jsonl` (JSON Lines, UTF-8)
+  - **필드**: `{ "ts": "UTC ISO", "from": "agent", "to": "agent|all", "tags": [], "body": "..." }`
+  - **명령어**:
+    - `invoke agent.msg --to <agent> --body "..."`: 메시지 전송
+    - `invoke agent.inbox --agent <agent>`: 메시지 수신 및 `.agents/inbox/<agent>.md` 갱신
+    - `invoke agent.read --agent <agent>`: 모든 메시지를 읽음으로 표시
+    - `invoke agent.watch --agent <agent>`: 실시간으로 새 메시지 감시
 - 현재 상태: v0.1은 “스위칭/표기” 중심으로 동작하며, 태스크 동작은 기존과 동일합니다(필요 시 후속 버전에서 에이전트별 Provider 분기 예정).
 # 운영 업데이트 (v0.1.1)
 

@@ -1,4 +1,4 @@
-# Task: 100xFenok Floating Button Responsive Glitch Fix
+﻿# Task: 100xFenok Floating Button Responsive Glitch Fix
 
 ## Problem Description
 The floating "hamburger" menu button in the 100xFenok application (identified as `.combined-floating-menu`'s `main-toggle-btn`) exhibits a responsive layout glitch. When the screen size exceeds a certain threshold (likely the `lg` breakpoint), the button appears to go "out of frame" or is partially cut off, before eventually disappearing as intended for larger screens.
@@ -71,3 +71,26 @@ Possible contributing factors:
 ## Roles and Responsibilities
 *   **Gemini**: Lead investigation, propose and implement CSS/JS solutions, document findings and progress.
 *   **User**: Provide access to the development environment, assist in reproduction, and provide feedback on the fix.
+
+## 2025-08-15 Update — Attempts, Outcomes, Decisions
+
+본 섹션은 재시도 방지를 위한 실패 기록과 결정 사항을 남깁니다.
+
+- 시도 1: CSS로 lg 이상에서 강제 숨김
+  - 변경: `@media (min-width:1024px){ .combined-floating-menu{ display:none!important } }`
+  - 의도: Tailwind `lg:hidden` 전환 타이밍에 발생하는 깜빡임/튀는 현상 차단
+  - 결과: 개선 없음. 문제는 1→2열 카드 전환 구간(메인 그리드 브레이크)에 집중적으로 발생하며, 단순 숨김은 근본 원인(레이아웃 전환/푸터 스택 상호작용)을 해소하지 못함
+  - 결정: 동일 접근 재시도 금지
+
+- 시도 2: 고정 메뉴를 body로 이동 + 최상위 z-index
+  - 변경: 런타임에서 `.combined-floating-menu`를 `document.body`로 이동, `z-index` 대폭 상향, `safe-area-inset-bottom` 보정
+  - 의도: 상위 컨테이너의 스태킹 컨텍스트/오버플로우 간섭 제거
+  - 결과: 개선 없음. 메인 카드 1열→2열 전환 지점에서 버튼이 푸터 아래로 가려지거나 프레임 밖으로 벗어나는 현상 지속
+  - 결정: 동일 접근 재시도 금지
+
+- 조치: 위 두 변경은 원본 파일에서 모두 원복 완료. 향후 원본 파일 직접 수정 없이 오버레이(임시 CSS/JS)로만 재현·검증 후 확정안 문서화 → 사용자 승인 시에만 반영
+
+- 다음 단계(검증 계획):
+  - 재현 조건 정밀화: DevTools 모바일 모드, 메인(100x-main.html), 1열→2열(약 sm=640px) 전환 구간 픽셀단위 확인
+  - 원인 가설 점검: 푸터의 포지셔닝/스택, 상위 요소 transform/overflow, iframe 상호작용, Tailwind 유틸 조합
+  - 수정 전략: (A) 전환 구간 전용 오버레이 CSS로 위치/오프셋 확정, (B) 필요 시 resize 가드 JS로 즉시 보정
