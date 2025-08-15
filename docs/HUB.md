@@ -11,11 +11,11 @@
 - **[P2] System Optimization & UX Refinement:** `scratchpad/Gemini-Self-Upgrade/Plan/[P2]Plan_O3.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_Gemini.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_O3.md`
 
 ## Active Tasks
-- [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
-- [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
 
 ## Staging Tasks
 ## Planned Tasks
+- [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
+- [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
 - [GEMINI] Edit Reliability (Repeated Modifications + Flash Fallback) [log](docs/tasks/gemini-edit-reliability/log.md) ??Repo-level mitigations delivered; GEMINI CLI implementation pending
 - [P2-OPT] Performance Optimization [log](docs/tasks/performance-optimization/log.md)
 - [Free & Flexible AI Integration] Free & Flexible AI Integration [log](docs/tasks/free-flexible-ai-integration/log.md)
