@@ -1,4 +1,4 @@
-# Workspace HUB
+﻿# Workspace HUB
 
 \*Last Updated: 2025-08-12
 
@@ -11,13 +11,14 @@
 - **[P2] System Optimization & UX Refinement:** `scratchpad/Gemini-Self-Upgrade/Plan/[P2]Plan_O3.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_Gemini.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_O3.md`
 
 ## Active Tasks
+- [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
+- [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
+
 ## Staging Tasks
 ## Planned Tasks
-- [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
-- [GEMINI] Edit Reliability (Repeated Modifications + Flash Fallback) [log](docs/tasks/gemini-edit-reliability/log.md) — Repo-level mitigations delivered; GEMINI CLI implementation pending
+- [GEMINI] Edit Reliability (Repeated Modifications + Flash Fallback) [log](docs/tasks/gemini-edit-reliability/log.md) ??Repo-level mitigations delivered; GEMINI CLI implementation pending
 - [P2-OPT] Performance Optimization [log](docs/tasks/performance-optimization/log.md)
 - [Free & Flexible AI Integration] Free & Flexible AI Integration [log](docs/tasks/free-flexible-ai-integration/log.md)
-- [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
 ## Paused Tasks
 
 - 100xfenok-generator-date-title-input-fix
@@ -32,16 +33,13 @@
 
 - gemini-system-upgrade
 
-- [P2-3] 최종 사용자 경험(UX) 개선
-- [P2-1] 성능 및 효율 최적화
-- [P1-3] 멀티모달 인식 기능 준비
-- [P1-2] 파일 시스템 에이전트 구축
+- [P2-3] 理쒖쥌 ?ъ슜??寃쏀뿕(UX) 媛쒖꽑
+- [P2-1] ?깅뒫 諛??⑥쑉 理쒖쟻??- [P1-3] 硫?곕え???몄떇 湲곕뒫 以鍮?- [P1-2] ?뚯씪 ?쒖뒪???먯씠?꾪듃 援ъ텞
 
 - ars-can-busoff-recovery-fix
-- P0 작업 완료 및 시스템 안정화
-- P0 작업 완료 (DeprecationWarning 해결, 테스트 구조 개선, Help 시스템 구축)
-- [P1]UX_01_Doctor_Quickstart_Help: CLI UX 향상 (doctor, quickstart, help 기능 구현) [log](docs/tasks/gemini-cli-ux-enhancement/log.md)
-- [P1-0-GMD] GEMINI.md v2 업그레이드 [log](docs/tasks/gemini-md-v2/log.md)
+- P0 ?묒뾽 ?꾨즺 諛??쒖뒪???덉젙??- P0 ?묒뾽 ?꾨즺 (DeprecationWarning ?닿껐, ?뚯뒪??援ъ“ 媛쒖꽑, Help ?쒖뒪??援ъ텞)
+- [P1]UX_01_Doctor_Quickstart_Help: CLI UX ?μ긽 (doctor, quickstart, help 湲곕뒫 援ы쁽) [log](docs/tasks/gemini-cli-ux-enhancement/log.md)
+- [P1-0-GMD] GEMINI.md v2 ?낃렇?덉씠??[log](docs/tasks/gemini-md-v2/log.md)
 - [P1-1] Web Agent Integration [log](docs/tasks/web-agent-integration/log.md)
 - gemini-cli-setup
 - gemini-self-upgrade
@@ -52,7 +50,7 @@
 - workspace-setup
 - test-task-1
 - [P-CORE] HUB.md Auto-Commit Reliability [log](docs/tasks/core-hub-auto-commit-reliability/log.md)
-- [P-CORE] `replace` Tool Reliability Enhancement [log](docs/tasks/core-replace-tool-reliability/log.md)
+- [P-CORE] eplace` Tool Reliability Enhancement [log](docs/tasks/core-replace-tool-reliability/log.md)
 - [P2-UX] Fix `invoke start` Table Corruption [log](docs/tasks/ux-fix-invoke-start-corruption/log.md)
 
 - [P-CH] Pre-commit Hook Troubleshooting [log](docs/tasks/pre-commit-hook-troubleshooting/log.md)
@@ -67,10 +65,11 @@
 
 __lastSession__
 
-- **Current Status**: Active. P2-SU DoD 보강 및 HUB 메모 업데이트 진행 중.
-- **Last Action**: P2-SU 로그에 DoD(MVP) 체크리스트 추가, Active 섹션 상태 주석 갱신.
-- **Next Step**: 간단 리뷰 후 DoD 체크리스트 마무리; (선택) 최소 CI 언급 포함 및 적용 단계는 수동으로 유지.
+- **Current Status**: Active. P2-SU DoD 蹂닿컯 諛?HUB 硫붾え ?낅뜲?댄듃 吏꾪뻾 以?
+- **Last Action**: P2-SU 濡쒓렇??DoD(MVP) 泥댄겕由ъ뒪??異붽?, Active ?뱀뀡 ?곹깭 二쇱꽍 媛깆떊.
+- **Next Step**: 媛꾨떒 由щ럭 ??DoD 泥댄겕由ъ뒪??留덈Т由? (?좏깮) 理쒖냼 CI ?멸툒 ?ы븿 諛??곸슜 ?④퀎???섎룞?쇰줈 ?좎?.
 - [P2-UX] UX Refinement
 - Emergency wrapper toggle + health_check automation
 - Hub split and SQLite VACUUM pipeline
+
 
