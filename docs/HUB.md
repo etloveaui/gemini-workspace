@@ -24,6 +24,9 @@
 - Claude CLI: direct PowerShell entry + Groq routing
 - Always-on terminal transcript for agent sessions
 
+## Planned Tasks
+- [Test] Fix 15 failing pytest tests
+
 ## Paused Tasks
 
 - 100xfenok-generator-date-title-input-fix
