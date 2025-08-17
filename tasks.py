@@ -532,69 +532,6 @@ claude_ns.add_task(claude_run, name='run')
 ns.add_collection(claude_ns)
 
 
-@task(
-    help={
-        'agent': "감시할 에이전트(기본: active)",
-        'interval': "폴링 간격(초, 기본 5)",
-        'ack': "새 메시지에 자동 확인 응답(ACK) 남김",
-        'mark_read': "처리 후 읽음 처리(기본 True)"
-    }
-)
-def agent_watch(c, agent=None, interval=5, ack=False, mark_read=True, duration=None):
-    """새 메시지를 주기적으로 감시합니다(Ctrl+C로 종료)."""
-    import time
-    # optional bounded run
-    end_ts = None
-    if duration is not None:
-        try:
-            d = int(duration)
-            if d > 0:
-                end_ts = time.time() + d
-        except Exception:
-            end_ts = None
-
-    target = agent or agent_manager.get_active_agent()
-    console.print(f"[bold blue]Watching inbox for {target}[/bold blue] every {interval}s...")
-    try:
-        while True:
-            msgs = agent_messages.list_inbox(target, unread_only=True, limit=100)
-            if msgs:
-                console.print(f"[yellow]New messages: {len(msgs)}[/yellow]")
-                for m in reversed(msgs):  # 시간순 출력
-                    tags = (", ".join(m.tags)) if m.tags else ""
-                    tag_str = f" [{tags}]" if tags else ""
-                    console.print(f"- {m.ts} from:{m.sender}{tag_str}\n  - {m.body}")
-                    # 자동 ACK (무한 루프 방지: ack 태그에는 응답하지 않음)
-                    if ack and m.sender and m.sender != target and ("ack" not in (m.tags or [])):
-                        try:
-                            agent_messages.append_message(
-                                to=m.sender,
-                                body=f"ACK: {m.body[:200]}",
-                                tags=["ack"],
-                                sender=target,
-                            )
-                            console.print(f"  [dim]ACK sent to {m.sender}[/dim]")
-                        except Exception as e:
-                            console.print(f"  [red]ACK failed:[/red] {e}")
-                if mark_read:
-                    # Advance read pointer to the newest processed message
-                    try:
-                        latest_ts = msgs[0].ts
-                    except Exception:
-                        latest_ts = None
-                    agent_messages.mark_read(target, ts=latest_ts)
-            # stop after duration if requested
-            if end_ts is not None and time.time() >= end_ts:
-                break
-            time.sleep(int(interval))
-    except KeyboardInterrupt:
-        console.print("\n[dim]Watcher stopped[/dim]")
-    finally:
-        if end_ts is not None:
-            console.print("[dim]Watcher finished (duration reached)[/dim]")
-
-# Register watch task under agent namespace as well
-agent_ns.add_task(agent_watch, name='watch')
 
 # --- Agent management tasks ---
 from invoke import task as _task_alias  # avoid shadowing
@@ -860,13 +797,6 @@ arch_ns.add_task(archive_save, name='save')
 arch_ns.add_task(archive_export, name='export')
 ns.add_collection(arch_ns)
 
-# --- Hub watcher ---
-@task
-def hub_watch(c, agent=None, interval=5):
-    agent = agent or agent_manager.get_active_agent()
-    run_command('hub.watch', [VENV_PYTHON, 'scripts/agents/watcher.py', '--agent', agent, '--interval', str(interval)], check=False)
-
-hub_ns.add_task(hub_watch, name='watch')
 
 # --- Preferences (toggle features) ---
 @task

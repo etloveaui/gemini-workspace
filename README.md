@@ -9,7 +9,7 @@
 ## AI CLI
 - `ai` : 인터랙티브 모드 시작
   - `/exit` 종료
-  - `/p <provider>` 제공자 전환(예: claude, gemini)
+  - `/p <provider>` 제공자 전환(예: claude, gemini); 마지막 선택은 `.agents/config.json`에 저장되어 세션 간 유지됨
   - `/save` 대화 내용 저장
 - `ai "프롬프트"` : 원샷 질의
 
@@ -24,7 +24,7 @@
 
 ## 문서
 - 운영 표준: `GEMINI.md` (섹션 13: 멀티 에이전트)
-- 멀티에이전트 가이드: `AGENTS.md`
+- Slim+Automation 가이드: `AGENTS.md`
  - 에이전트 허브: `agents_hub/README.md` (파일 기반 메시지 큐)
  - 사전 Diff 워크플로우: `.edits/` 제안/승인 편집 및 pre-commit diff 확인
 
