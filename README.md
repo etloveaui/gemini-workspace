@@ -6,6 +6,13 @@
 - 의존성 설치: `venv\Scripts\pip.exe install -r requirements.txt`
 - 시스템 시작: `venv\Scripts\python.exe -m invoke start`
 
+## AI CLI
+- `ai` : 인터랙티브 모드 시작
+  - `/exit` 종료
+  - `/p <provider>` 제공자 전환(예: claude, gemini)
+  - `/save` 대화 내용 저장
+- `ai "프롬프트"` : 원샷 질의
+
 ## 에이전트 전환/상태
 - 상태 확인: `invoke agent.status`
 - 전환: `invoke agent.set --name gemini|codex`
