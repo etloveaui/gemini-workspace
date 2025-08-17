@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Start a Codex-labeled session with auto recording.
+  Start a Codex-labeled session (recording off by default).
 #>
 [CmdletBinding()]
 param([switch]$Spawn)

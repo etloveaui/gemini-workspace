@@ -75,8 +75,6 @@ function __Find-WorkspaceRoot {
 }
 
 try {
-  # Default AI_REC_AUTO=1 when an agent session is active and not explicitly disabled
-  if ((-not $env:AI_REC_AUTO) -and ($env:ACTIVE_AGENT -in @('codex','gemini','claude'))) { $env:AI_REC_AUTO = '1' }
   $auto = $env:AI_REC_AUTO
   if ($null -ne $auto -and $auto -ne '' -and $auto -ne '0') {
     $root = __Find-WorkspaceRoot

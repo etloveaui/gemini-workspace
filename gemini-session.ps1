@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Start a Gemini-labeled session with auto recording.
+  Start a Gemini-labeled session (recording off by default).
 #>
 [CmdletBinding()]
 param([switch]$Spawn)
