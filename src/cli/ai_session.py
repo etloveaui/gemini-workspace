@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Iterable, List, Tuple
 
 from scripts.agent_manager import get_flag, set_flag
+from scripts.session_logger import append_session_tldr
 
 ROOT = Path(__file__).resolve().parents[2]
 TRANSCRIPT_START = ROOT / "ai-rec-start.ps1"
@@ -120,6 +121,7 @@ def interactive(provider: str, log_summary: bool) -> None:
             transcript.append((current, line, resp))
         summary = summarize_session(transcript)
         print("[summary]\n" + summary)
+        append_session_tldr(summary)
         if log_summary:
             append_messages_log(summary, current)
     finally:
@@ -137,6 +139,7 @@ def one_shot(provider: str, prompt: str, log_summary: bool) -> None:
         resp = "".join(parts).strip()
         summary = summarize_session([(provider, prompt, resp)])
         print("[summary]\n" + summary)
+        append_session_tldr(summary)
         if log_summary:
             append_messages_log(summary, provider)
     finally:
