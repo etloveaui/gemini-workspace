@@ -16,11 +16,13 @@ function __Find-WorkspaceRoot {
 
 try {
   $auto = $env:AI_REC_AUTO
-  if ($null -ne $auto -and $auto -ne '' -and $auto -ne '0') {
-    $root = __Find-WorkspaceRoot
-    $recStart = Join-Path $root 'ai-rec-start.ps1'
-    if (Test-Path $recStart) {
-      & $recStart -FallbackRoot $root
+  if ($null -ne $auto -and $auto -ne '' -and $auto -ne '0' -and $env:ACTIVE_AGENT) {
+    if (-not $global:TRANSCRIPT_ACTIVE) {
+      $root = __Find-WorkspaceRoot
+      $recStart = Join-Path $root 'ai-rec-start.ps1'
+      if (Test-Path $recStart) {
+        & $recStart -FallbackRoot $root
+      }
     }
   }
 } catch { }
