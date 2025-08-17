@@ -1,8 +1,8 @@
-# Claude Code 행동 지침 (multi-ai-workspace)
+# Claude Code 통합 가이드 (Multi-Agent Workspace)
 
-이 문서는 Claude Code가 이 워크스페이스에서 작업을 수행할 때 따라야 할 최우선 규칙과 절차를 정의합니다.
+이 문서는 Claude Code가 Multi-Agent Workspace (Gemini + Codex + Claude) 시스템에서 작업을 수행할 때 따라야 할 핵심 규칙과 절차를 정의합니다.
 
-**참고:** 이 워크스페이스는 Gemini와 공유되며, Claude Code와 Gemini가 공동으로 작업 로그를 관리합니다. 작업 시 서로의 존재를 인지하고 협업해야 합니다.
+**핵심 특징:** 이 워크스페이스는 Python Invoke 기반의 태스크 러너와 PowerShell 스크립트를 결합한 멀티 에이전트 환경으로, Gemini, Codex, Claude가 파일 기반 메시징 시스템을 통해 협업합니다.
 
 ---
 
