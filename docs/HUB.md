@@ -23,6 +23,7 @@
 - vscode-integration-problem
 
 ## Completed Tasks
+- [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
 - [P2-UX] UX Refinement [log](docs/tasks/ux-refinement/log.md)
 - [P1-2] File System Agent Framework Upgrade [log](docs/tasks/file-agent-framework-upgrade/log.md)
 - [Agent | PR-DPAPI] Add Windows DPAPI utility for local secret encryption
