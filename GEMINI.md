@@ -150,14 +150,11 @@
     - `invoke agent.msg --to <agent> --body "..."`: 메시지 전송
     - `invoke agent.inbox --agent <agent>`: 메시지 수신 및 `.agents/inbox/<agent>.md` 갱신
     - `invoke agent.read --agent <agent>`: 모든 메시지를 읽음으로 표시
-    - `invoke agent.watch --agent <agent>`: 실시간으로 새 메시지 감시
 - 현재 상태: v0.1은 “스위칭/표기” 중심으로 동작하며, 태스크 동작은 기존과 동일합니다(필요 시 후속 버전에서 에이전트별 Provider 분기 예정).
 # 운영 업데이트 (v0.1.1)
 
-- 단시간 워처 실행: Codex가 메시지를 신속히 수신·확인하도록 `invoke agent.watch --agent codex --interval 5 --duration 10`을 사용합니다. 무한 대기 없이 자동 종료됩니다. `--ack`를 함께 주면 자동 확인 응답도 보냅니다.
 - Fallback(Invoke 불가 시): Gemini가 레포에서 Invoke를 실행할 수 없으면 `context/messages.jsonl`에 한 줄 JSON을 추가해 요청을 남깁니다.
   - 예: `{"ts":"2025-08-11T12:34:56Z","from":"gemini","to":"codex","tags":["task","context"],"body":"README 섹션 A 수정 요청"}`
-  - Codex는 워처로 수신: `invoke agent.watch --agent codex --ack --duration 5`
 - 에이전트 라벨: `ACTIVE_AGENT='gemini'`를 설정해 세션 라벨을 구분합니다.
 - MCP(선택): Gemini CLI는 MCP 지원이 내장되어 있으나, 본 레포는 파일/Invoke 중심으로 운영합니다. MCP 설정은 각 CLI 사용자 환경에서만 관리하세요.
 ## Self-Update Protocol(자가 업데이트)

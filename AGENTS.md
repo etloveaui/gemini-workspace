@@ -49,12 +49,6 @@
 - 수동 제어: 동일 세션에서 `.\ai-rec-start.ps1`, `.\ai-rec-stop.ps1`, `.\ai-rec.ps1`(토글)
 - 참고: Start-Transcript 특성상 같은 PowerShell 세션에서 실행해야 전체 대화가 기록됩니다.
 
-#### 로컬 런처(권장)
-- `codex-session.ps1`: 코덱스 세션 자동 구성(루트 이동, UTF-8 설정, 기본 `AI_REC_AUTO=0`)
-- `gemini-session.ps1`: 제미나이 세션 자동 구성(동일 동작, 기본 `AI_REC_AUTO=0`)
-- 새 창으로 열기: `-Spawn` 스위치 지원. 예) `powershell -ExecutionPolicy Bypass -File .\\codex-session.ps1 -Spawn`
-- 현재 터미널에서 적용: `powershell -ExecutionPolicy Bypass -File .\\codex-session.ps1` 또는 `. .\\codex-session.ps1`
-
 #### 다른 PC 적용(간편)
 - 레포 클론 후 VS Code로 열면 `.vscode/settings.json` 자동 반영.
 - PowerShell 7 영구 적용: `pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\ps7_utf8_install.ps1`
@@ -119,15 +113,6 @@
 ### 교차 에이전트 메시징(v0.1)
 - 저장소: `context/messages.jsonl` (JSON Lines, UTF-8)
 - 필드: `{ "ts": "UTC ISO", "from": "gemini|codex", "to": "codex|gemini|all", "tags": ["note"], "body": "..." }`
-- 남기기(권장): `invoke agent.msg --to codex --body "메시지" --tags "decision,context"`
-- 보기: `invoke agent.inbox --agent codex --unread --limit 20` → `.agents/inbox/codex.md` 갱신
-- 읽음처리: `invoke agent.read --agent codex`
-
-#### 실시간 감시(옵션)
-- 감시 실행: `invoke agent.watch --agent codex --interval 5` (Ctrl+C로 종료)
-- 자동 확인 응답: `invoke agent.watch --agent codex --interval 5 --ack`
-- 비침투형: 감시는 별도 터미널에서 실행 권장. 작업 흐름은 방해받지 않습니다.
-
 참고: Invoke 사용이 어려운 에이전트(Gemini 등)는 `context/messages.jsonl`에 위 필드를 한 줄 JSON으로 append 하면 됩니다.
 
 ### 빠른 시작(권장)
@@ -137,11 +122,8 @@
 - 대화 녹화와 함께 시작(예): `($env:AI_REC_AUTO='1'); ($env:ACTIVE_AGENT='codex'); . .\scripts\ps7_utf8_profile_sample.ps1; invoke start --fast`
 # 업데이트 요약 (v0.1.1)
 
-- 워처 단시간 실행: `invoke agent.watch --agent codex --interval 5 --duration 10`
-  - 자동 확인 응답: `--ack` 병행. 예) `... --ack --duration 5`
 - Gemini Fallback(Invoke 불가 시): `context/messages.jsonl`에 한 줄 JSON 추가로 요청 전달
   - 예: `{"ts":"2025-08-11T12:34:56Z","from":"gemini","to":"codex","tags":["task","context"],"body":"README 섹션 A 수정 요청"}`
-  - Codex 확인: `invoke agent.watch --agent codex --ack --duration 5`
 - MCP 통합(선택): 사용자 환경에만 설정
   - Codex CLI(예): `~/.codex/config.toml`에 MCP 서버 등록
     ```
@@ -169,13 +151,3 @@
 - 일일 실행: `tools/health_schedule.ps1`로 Windows 예약 작업 등록(드라이런 미리보기 → `-Apply`로 등록).
 - 수동 일괄 적용: `tools/health_check.ps1 -Apply`(로그 정리/허브 분할[50MB↑]/DB VACUUM).
 - 임계치 조정: `-HubThresholdMB <정수>`로 분할 임계치 변경, `-Vacuum`만 별도 수행 가능.
-- 빠른 실행 래퍼: 세션과 무관하게 즉시 자동 녹화 + UTF-8 환경을 구성합니다.
-  - `./codex.ps1 <invoke args>` 예) `./codex.ps1 start --fast`
-  - `./gemini.ps1 <invoke args>`
-  - `./claude.ps1 /think "질문"` (Groq 키 필요)
-
-## Claude 사용(초간단)
-- 실행: `./claude.ps1 /think "테스트"`
-- 라우팅: `/think`(정밀), `/code`, `/long`, `/fast`, `/help`
-- 키 관리: `secrets/my_sensitive_data.md`의 `gsk_...` 또는 `GROQ_API_KEY` 환경변수 사용
-- 내부 경로: `src/ai_integration/claude/*` (scratchpad 의존 없음)

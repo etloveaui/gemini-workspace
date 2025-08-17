@@ -11,12 +11,6 @@
 pwsh -ExecutionPolicy Bypass -File tools/codex_emergency.ps1 -- codex <기존_인자들>
 ```
 
-- 또는 준비된 세션 런처를 사용합니다(환경변수 자동 설정):
-
-```
-pwsh -ExecutionPolicy Bypass -File .\codex-session-emergency.ps1 -- start --fast
-```
-
 - 기본 완화:
   - 자동 재시도: 최대 8회, 지수 백오프(200ms 기반, 최대 10s, 0–250ms 지터)
   - RPS 억제: 최소 간격 3500ms(≈0.28rps), 프로세스 간 파일 게이트로 동기화

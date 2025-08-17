@@ -1,7 +1,6 @@
 Param(
   [Parameter(ValueFromRemainingArguments = $true)]
-  [string[]]$Args,
-  [switch]$Extras
+  [string[]]$Args
 )
 
 $ErrorActionPreference = 'Stop'
@@ -20,7 +19,6 @@ Set-Location $root
 $env:ACTIVE_AGENT = 'claude'
 if (-not $env:AI_REC_AUTO) { $env:AI_REC_AUTO = '0' }
 . "$root\scripts\ps7_utf8_profile_sample.ps1"
-if ($Extras) { . "$root\scripts\ps7_utf8_profile_extras.ps1" }
 
 # Inject GROQ_API_KEY from repo secrets if not set; also set OpenAI-compatible envs for Groq
 if (-not $env:GROQ_API_KEY -or -not $env:GROQ_API_KEY.Trim()) {
