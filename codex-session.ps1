@@ -3,8 +3,11 @@
   Start a Codex-labeled session (recording off by default).
 #>
 [CmdletBinding()]
-param([switch]$Spawn)
+param(
+  [switch]$Spawn,
+  [switch]$Extras
+)
 
 $here = Split-Path -Parent $PSCommandPath
-. "$here\scripts\session_launcher.ps1" -Agent codex -Spawn:$Spawn
+. "$here\scripts\session_launcher.ps1" -Agent codex -Spawn:$Spawn -Extras:$Extras
 
