@@ -533,11 +533,18 @@ def hub_complete(c, id, status='success', note='', agent=None):
     run_command('hub.complete', args, check=False)
 
 
+@task
+def hub_sync(c):
+    """docs/HUB.md와 agents_hub 큐를 양방향 동기화."""
+    run_command('hub.sync', [VENV_PYTHON, 'scripts/hub_sync.py'], check=False)
+
+
 hub_ns = Collection('hub')
 hub_ns.add_task(hub_send, name='send')
 hub_ns.add_task(hub_inbox, name='inbox')
 hub_ns.add_task(hub_claim, name='claim')
 hub_ns.add_task(hub_complete, name='complete')
+hub_ns.add_task(hub_sync, name='sync')
 ns.add_collection(hub_ns)
 
 # --- Review / Git helpers ---
