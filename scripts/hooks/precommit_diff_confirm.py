@@ -12,6 +12,9 @@ def run(args: list[str]) -> subprocess.CompletedProcess:
 
 
 def main():
+    # Allow emergency bypass of all automation hooks
+    if os.getenv("AGENTS_SKIP_HOOKS") in {"1", "true", "True"}:
+        sys.exit(0)
     # Skip in CI or when explicitly disabled or config flag off
     if os.getenv("SKIP_DIFF_CONFIRM") in {"1", "true", "True"}:
         sys.exit(0)
