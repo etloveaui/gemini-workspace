@@ -20,6 +20,12 @@ function Get-ProjectRoot {
 }
 
 $root = Get-ProjectRoot
+
+# Restrict recording to conversation CLI sessions
+if (-not $env:ACTIVE_AGENT -or -not $env:ACTIVE_AGENT.Trim()) {
+  Write-Host "ACTIVE_AGENT not set; recording skipped." -ForegroundColor Yellow
+  return
+}
  $logDir = Join-Path $root "terminal_logs"
  if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir | Out-Null }
 
