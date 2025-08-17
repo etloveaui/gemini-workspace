@@ -103,6 +103,37 @@ def append_message(to: str, body: str, tags: Optional[Iterable[str]] = None, sen
     return msg
 
 
+def append_decision(
+    body: str,
+    sender: Optional[str] = None,
+    to: str = "all",
+    tags: Optional[Iterable[str]] = None,
+) -> Message:
+    """Append a critical decision message to the shared log.
+
+    Parameters
+    ----------
+    body: str
+        Decision text to record.
+    sender: Optional[str]
+        Agent source; defaults to the active agent if omitted.
+    to: str
+        Recipient for the message, defaulting to "all".
+    tags: Optional[Iterable[str]]
+        Additional tags to include besides ``decision`` and ``critical``.
+
+    Returns
+    -------
+    Message
+        The message instance that was written.
+    """
+
+    base_tags = ["decision", "critical"]
+    if tags:
+        base_tags.extend([t.strip() for t in tags if t and str(t).strip()])
+    return append_message(to=to, body=body, tags=base_tags, sender=sender)
+
+
 def _iter_messages() -> Iterable[Message]:
     if not MESSAGES_PATH.exists():
         return []
