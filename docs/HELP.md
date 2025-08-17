@@ -1,5 +1,7 @@
 # Gemini CLI 도움말
 
+> 간단한 워크플로우는 루트의 `AGENTS.md`(Slim+Automation 가이드)를 참고하세요.
+
 ## 시작하기
 
 이 섹션에서는 Gemini CLI를 시작하는 방법에 대한 정보를 제공합니다.

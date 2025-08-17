@@ -24,7 +24,7 @@
 
 ## 문서
 - 운영 표준: `GEMINI.md` (섹션 13: 멀티 에이전트)
-- 멀티에이전트 가이드: `AGENTS.md`
+- Slim+Automation 가이드: `AGENTS.md`
  - 에이전트 허브: `agents_hub/README.md` (파일 기반 메시지 큐)
  - 사전 Diff 워크플로우: `.edits/` 제안/승인 편집 및 pre-commit diff 확인
 
