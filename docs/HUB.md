@@ -1,4 +1,4 @@
-﻿# Workspace HUB
+# Workspace HUB
 
 \*Last Updated: 2025-08-17
 
@@ -23,7 +23,6 @@
 - vscode-integration-problem
 
 ## Completed Tasks
-- ## Completed Tasks
 - [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
 - [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
 - [P2-UX] UX Refinement [log](docs/tasks/ux-refinement/log.md)
@@ -68,9 +67,6 @@ __lastSession__
 
 - **Current Status**: Active. P2-SU DoD 蹂닿컯 諛?HUB 硫붾え ?낅뜲?댄듃 吏꾪뻾 以?
 - **Last Action**: P2-SU 濡쒓렇??DoD(MVP) 泥댄겕由ъ뒪??異붽?, Active ?뱀뀡 ?곹깭 二쇱꽍 媛깆떊.
-- **Next Step**: 媛꾨떒 由щ럭 ??DoD 泥댄겕由ъ뒪??留덈Т由? (?좏깮) 理쒖냼 CI ?멸툒 ?ы븿 諛??곸슜 ?④퀎???섎룞?쇰줈 ?좎?.
-- [P2-UX] UX Refinement
+- **Next Step**: 媛꾨떒 由щ럭 ??DoD 泥댄겕由ъ뒪??留덈Т由? (?좏깮) 理쒖냼 CI ?멸툒 ?ы븿 諛??곸슜 ?④퀎???섎룞?쇰줈 ?좎?.- [P2-UX] UX Refinement
 - Emergency wrapper toggle + health_check automation
 - Hub split and SQLite VACUUM pipeline
-
-
