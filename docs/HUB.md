@@ -33,6 +33,7 @@
 - vscode-integration-problem
 
 ## Completed Tasks
+- [Claude] Multi-Agent Workspace Integration (2025-08-17) - Claude Code 완전 통합 및 설정 완료
 - [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
 - [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
 - [P2-UX] UX Refinement [log](docs/tasks/ux-refinement/log.md)
