@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import sys
@@ -8,6 +9,9 @@ import json
 
 
 def main():
+    # Allow emergency bypass of all automation hooks
+    if os.getenv("AGENTS_SKIP_HOOKS") in {"1", "true", "True"}:
+        sys.exit(0)
     # Global toggle from .agents/config.json (hooks.enabled=false)
     try:
         root = Path(__file__).resolve().parents[2]

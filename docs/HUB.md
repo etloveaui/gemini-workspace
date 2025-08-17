@@ -2,6 +2,13 @@
 
 \*Last Updated: 2025-08-17
 
+## Rollback Steps
+
+1. Set `AGENTS_SKIP_HOOKS=1` to bypass malfunctioning automation hooks.
+2. Alternatively edit `.agents/config.json` and set `"hooks": {"enabled": false}`.
+3. After the issue is resolved, remove the env var or re-enable hooks in the config.
+4. To undo a bad commit, run `git reset --hard HEAD~1`.
+
 ## Projects
 
 ## Project Blueprints
