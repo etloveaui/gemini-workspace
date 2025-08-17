@@ -8,7 +8,7 @@ from scripts import hub_manager
 from scripts.organizer import organize_scratchpad
 from scripts import agent_manager
 from scripts.agents import messages as agent_messages
-import subprocess, os
+import subprocess, os, re
 ROOT = Path(__file__).resolve().parent
 if os.name == 'nt':
     _venv_candidate = ROOT / 'venv' / 'Scripts' / 'python.exe'
@@ -372,7 +372,80 @@ def config(c, lang):
 
 ns.add_task(config)
 
-# New task for managing task status in HUB.md
+# New tasks for managing task status in HUB.md
+@task(
+    help={
+        'tags': 'Comma-separated tags to match for promotion',
+        'whitelist': 'Comma-separated substrings to match task lines',
+    }
+)
+def autopromote(c, tags=None, whitelist=None):
+    """Promote Planned tasks to Active based on tag or whitelist rules."""
+    tags_set = {t.strip().lower() for t in tags.split(',')} if tags else set()
+    wl_set = {w.strip().lower() for w in whitelist.split(',')} if whitelist else set()
+
+    content = hub_manager._read()
+
+    def _replace_section(text, title, new_body):
+        pattern = re.compile(rf"(## {re.escape(title)}\n)(.*?)(\n## |\Z)", re.DOTALL)
+        m = pattern.search(text)
+        if not m:
+            return text, False
+        before = text[:m.start()]
+        after = m.group(3) + text[m.end():]
+        return before + m.group(1) + new_body + after, True
+
+    # Extract sections
+    planned_match = re.search(r"(## Planned Tasks\n)(.*?)(\n## |\Z)", content, re.DOTALL)
+    active_match = re.search(r"(## Active Tasks\n)(.*?)(\n## |\Z)", content, re.DOTALL)
+    if not planned_match or not active_match:
+        print("HUB.md missing Planned or Active section")
+        return
+
+    planned_body = planned_match.group(2)
+    active_body = active_match.group(2)
+
+    promoted_lines = []
+    remaining_lines = []
+    for line in [l for l in planned_body.splitlines() if l.strip()]:
+        core = line.strip()
+        if not core.startswith('-'):
+            remaining_lines.append(line)
+            continue
+        task_text = core[1:].strip()
+        line_tags = set()
+        m = re.match(r"\[([^\]]+)\]", task_text)
+        if m:
+            line_tags = {p.strip().lower() for p in re.split(r"[\s,|]+", m.group(1)) if p.strip()}
+        promote = True
+        if tags_set and not (tags_set & line_tags):
+            promote = False
+        if wl_set and not any(w in task_text.lower() for w in wl_set):
+            promote = False
+        if promote:
+            promoted_lines.append(line)
+        else:
+            remaining_lines.append(line)
+
+    if not promoted_lines:
+        print("No Planned tasks matched promotion rules")
+        return
+
+    new_active = active_body.rstrip()
+    if new_active and not new_active.endswith('\n'):
+        new_active += '\n'
+    new_active += "\n".join(promoted_lines) + "\n"
+
+    new_planned = "\n".join(remaining_lines)
+    if new_planned:
+        new_planned += '\n'
+
+    temp, _ = _replace_section(content, "Active Tasks", new_active)
+    updated, _ = _replace_section(temp, "Planned Tasks", new_planned)
+    hub_manager._write_atomic(updated)
+    print(f"Promoted {len(promoted_lines)} task(s)")
+
+
 @task
 def complete_task(c, task_name):
     """Moves a task from Active to Completed in HUB.md."""
@@ -380,6 +453,7 @@ def complete_task(c, task_name):
     print(f"Task '{task_name}' moved to Completed in HUB.md.")
 
 task_ns = Collection('task')
+task_ns.add_task(autopromote, name='autopromote')
 task_ns.add_task(complete_task, name='complete')
 ns.add_collection(task_ns)
 
