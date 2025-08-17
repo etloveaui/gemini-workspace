@@ -2,5 +2,6 @@
   "hooks": {
     "enabled": false,
     "diff_confirm": true
-  }
+  },
+  "provider": "claude"
 }

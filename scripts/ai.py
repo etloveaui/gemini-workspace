@@ -23,6 +23,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Tuple
 
+from scripts.agent_manager import get_flag, set_flag
+
 DEFAULT_PROVIDER = "claude"
 
 TranscriptEntry = Tuple[str, str, str]  # provider, prompt, response
@@ -57,6 +59,7 @@ def interactive(provider: str) -> List[TranscriptEntry]:
             break
         if line.startswith("/p "):
             current = line.split(maxsplit=1)[1].strip() or current
+            set_flag("provider", current)
             print(f"[system] provider set to {current}")
             continue
         if line == "/save":
@@ -84,7 +87,7 @@ def save_transcript(entries: List[TranscriptEntry]) -> Path | None:
 
 
 def main() -> None:
-    provider = DEFAULT_PROVIDER
+    provider = get_flag("provider", DEFAULT_PROVIDER)
     if len(sys.argv) > 1:
         prompt = " ".join(sys.argv[1:])
         one_shot(provider, prompt)
