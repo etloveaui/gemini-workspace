@@ -26,6 +26,11 @@ if (-not $env:ACTIVE_AGENT -or -not $env:ACTIVE_AGENT.Trim()) {
   Write-Host "ACTIVE_AGENT not set; recording skipped." -ForegroundColor Yellow
   return
 }
+$existingTranscript = Get-ChildItem -Path $root -Filter 'PowerShell_transcript*.txt' -ErrorAction SilentlyContinue | Select-Object -First 1
+if ($existingTranscript) {
+  Write-Warning "Existing PowerShell transcript detected: $($existingTranscript.FullName). Recording skipped."
+  return
+}
  $logDir = Join-Path $root "terminal_logs"
  if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir | Out-Null }
 
