@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "rps": 0.3,
   "max_tokens": 2500,
   "retry": { "max": 8, "base_ms": 200, "max_ms": 10000 },

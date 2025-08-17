@@ -50,8 +50,8 @@
 - 참고: Start-Transcript 특성상 같은 PowerShell 세션에서 실행해야 전체 대화가 기록됩니다.
 
 #### 로컬 런처(권장)
-- `codex-session.ps1`: 코덱스 세션 자동 구성(루트 이동, UTF-8 설정, `AI_REC_AUTO=1`, 자동 녹화 시작)
-- `gemini-session.ps1`: 제미나이 세션 자동 구성(동일 동작, 에이전트 라벨만 다름)
+- `codex-session.ps1`: 코덱스 세션 자동 구성(루트 이동, UTF-8 설정, 기본 `AI_REC_AUTO=0`)
+- `gemini-session.ps1`: 제미나이 세션 자동 구성(동일 동작, 기본 `AI_REC_AUTO=0`)
 - 새 창으로 열기: `-Spawn` 스위치 지원. 예) `powershell -ExecutionPolicy Bypass -File .\\codex-session.ps1 -Spawn`
 - 현재 터미널에서 적용: `powershell -ExecutionPolicy Bypass -File .\\codex-session.ps1` 또는 `. .\\codex-session.ps1`
 

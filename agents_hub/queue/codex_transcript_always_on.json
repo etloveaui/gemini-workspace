@@ -4,9 +4,9 @@
   "title": "Always-on terminal transcript for agent sessions",
   "priority": "high",
   "tasks": [
-    "Default AI_REC_AUTO=1 when ACTIVE_AGENT present",
+    "Default AI_REC_AUTO=0 when ACTIVE_AGENT present",
     "Ensure claude.ps1 imports UTF-8 profile and starts transcript",
-    "Verify codex/gemini session launchers auto-record",
+    "Verify codex/gemini session launchers respect AI_REC_AUTO setting",
     "Document quick usage in AGENTS.md"
   ],
   "context": {
