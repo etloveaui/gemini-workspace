@@ -8,7 +8,7 @@ from scripts import hub_manager
 from scripts.organizer import organize_scratchpad
 from scripts import agent_manager
 from scripts.agents import messages as agent_messages
-import subprocess, os, re
+import subprocess, os, re, json
 ROOT = Path(__file__).resolve().parent
 if os.name == 'nt':
     _venv_candidate = ROOT / 'venv' / 'Scripts' / 'python.exe'
@@ -46,6 +46,36 @@ from rich.table import Table
 
 console = Console()
 
+
+def _run_agent_hooks(phase: str) -> None:
+    """Run hub.sync and task.autopromote once per session and log TL;DR."""
+    lines: list[str] = []
+
+    cp_sync = run_command(
+        f"agent.{phase}.hub_sync",
+        [VENV_PYTHON, "-m", "invoke", "hub.sync"],
+        check=False,
+    )
+    try:
+        data = json.loads(cp_sync.stdout or "{}")
+        lines.append(
+            f"hub.sync staging={len(data.get('staging', []))} active={len(data.get('active', []))}"
+        )
+    except Exception:
+        lines.append("hub.sync executed")
+
+    cp_auto = run_command(
+        f"agent.{phase}.autopromote",
+        [VENV_PYTHON, "-m", "invoke", "task.autopromote"],
+        check=False,
+    )
+    last = (cp_auto.stdout or "").strip().splitlines()
+    lines.append(f"autopromote: {last[-1] if last else 'no output'}")
+
+    lines.append(f"{phase} hooks complete")
+    for line in lines[:3]:
+        console.print(line)
+
 @task(
     help={
         'fast': "빠른 시작 모드(검사/인덱스 생략)",
@@ -57,6 +87,7 @@ console = Console()
 def start(c, fast=False, skip_doctor=False, skip_index=False, bg_index=True):
     """System check, status briefing, and session initialization."""
     log_usage('session', 'start', command='start')
+    agent_start(c)
 
     def _print_quick_status():
         console.print("[bold blue]--- Quick Status ---[/bold blue]")
@@ -211,9 +242,20 @@ def agent_read(c, agent=None):
     ts = agent_messages.mark_read(target)
     console.print(f"Marked inbox as read for {target} at {ts}")
 
+
+@task
+def agent_start(c):
+    _run_agent_hooks('start')
+
+
+@task
+def agent_end(c):
+    _run_agent_hooks('end')
+
 @task
 def end(c, task_id='general'):
     """WIP commit, write __lastSession__ block, ensure HUB.md is committed."""
+    agent_end(c)
     # General WIP commit first
     run_command('end', ['invoke', 'wip'], check=False)
     # Update HUB session info synchronously
@@ -238,7 +280,6 @@ def end(c, task_id='general'):
         console.print(f"[yellow]HUB auto-commit skipped/failed: {e}[/yellow]")
     # Log usage asynchronously
     subprocess.Popen([VENV_PYTHON, "-c", f"from scripts.usage_tracker import log_usage; log_usage('{task_id}', 'session_end', command='end', returncode=0, stdout='session ended', stderr='')"])
-    print('end done')
 
 @task
 def status(c):
@@ -467,6 +508,8 @@ agent_ns = Collection('agent')
 agent_ns.add_task(agent_msg, name='msg')
 agent_ns.add_task(agent_inbox, name='inbox')
 agent_ns.add_task(agent_read, name='read')
+agent_ns.add_task(agent_start, name='start')
+agent_ns.add_task(agent_end, name='end')
 ns.add_collection(agent_ns)
 
 # --- Claude tasks ---
