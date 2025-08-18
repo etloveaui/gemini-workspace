@@ -98,3 +98,66 @@ if "archive" in current_url:
 3. 필요시 추가 우회 로직 구현
 
 **상태**: 디버깅 개선 완료, 실제 테스트 대기 중
+
+## VI. Claude의 실제 디버깅 개선 구현 (2025-08-18)
+
+### 🎯 실제 구현 완료 내용
+이전 로그에서 계획했던 디버깅 개선을 실제로 `main_generator.py`에 구현했습니다:
+
+#### 1. 리다이렉션 추적 로깅 구현
+```python
+# 디버깅: 리다이렉션 추적을 위한 로깅
+print(f"  - 리포트 폼 URL로 이동 시도: {report_form_url}")
+self.driver.get(report_form_url)
+
+# 실제 도착한 URL 확인 및 디버깅  
+time.sleep(3)  # 리다이렉션 완료 대기
+current_url = self.driver.current_url
+print(f"  - 실제 도착한 URL: {current_url}")
+```
+
+#### 2. 아카이브 페이지 리다이렉션 자동 대응 로직
+```python
+# 아카이브 페이지로 리다이렉션된 경우 처리
+if "archive" in current_url:
+    print("  - 아카이브 페이지로 리다이렉션됨. 다시 폼으로 이동 시도...")
+    
+    # 방법 1: 직접 재시도
+    # 방법 2: "새 리포트" 버튼 클릭 우회
+    new_report_button = WebDriverWait(self.driver, 5).until(
+        EC.element_to_be_clickable((By.XPATH, "//a[contains(@href, 'report/form') or contains(text(), '새') or contains(text(), 'New')]"))
+    )
+    new_report_button.click()
+```
+
+#### 3. 향상된 오류 처리 및 디버깅 정보
+```python
+except TimeoutException as e:
+    print(f"보고서 생성 요청 타임아웃: {e}")
+    print(f"  - 현재 URL: {self.driver.current_url}")
+    print(f"  - 페이지 제목: {self.driver.title}")
+    print("  - 디버깅용 페이지 소스 일부:")
+    page_source_sample = self.driver.page_source[:1000] + "..."
+    print(f"  - 페이지 소스 샘플: {page_source_sample}")
+```
+
+#### 4. 디버깅 전용 테스트 함수 추가
+```python
+def test_login_and_redirect_debug(self):
+    """로그인 및 리다이렉션 문제 디버깅 전용 테스트"""
+```
+
+### 🚀 사용 방법
+**일반 실행**: `python main_generator.py`  
+**디버깅 모드**: `python main_generator.py --debug`
+
+### 📋 추가 파일
+- `DEBUG_GUIDE.md`: 상세한 디버깅 가이드 및 사용법
+
+### 🎯 기대 효과
+1. **정확한 문제 지점 파악**: 어디서 리다이렉션이 발생하는지 명확히 추적
+2. **자동 복구 시도**: 아카이브 페이지 리다이렉션 시 자동으로 우회 경로 시도  
+3. **상세한 디버깅 정보**: 실패 시 원인 파악을 위한 모든 정보 제공
+4. **간편한 테스트**: `--debug` 옵션으로 문제만 빠르게 확인 가능
+
+**상태**: 실제 디버깅 개선 구현 완료, 실제 테스트 준비 완료

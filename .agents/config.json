@@ -1,3 +1,7 @@
 {
-  "active": "codex"
+  "active": "codex",
+  "hooks": {
+    "enabled": true,
+    "diff_confirm": true
+  }
 }
