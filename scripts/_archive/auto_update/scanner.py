@@ -9,6 +9,14 @@ FORBIDDEN_PATTERNS = [
     "shell=True"        # 서브프로세스 호출시 shell=True 사용 금지 (Windows-first 원칙)
 ]
 
+# 스캔 제외 디렉터리 (노이즈/외부 의존 경로)
+EXCLUDE_DIRS = {
+    "venv", 
+    ".git", 
+    ".github", 
+    "__pycache__",
+}
+
 def scan_outdated_pip():
     """
     pip 통해 현재 설치된 패키지 중 업데이트 가능한 목록을 반환.
@@ -80,6 +88,10 @@ def scan_rule_violations(base_dir=None):
         root_path = Path(__file__).resolve().parents[2]
     # 모든 파이썬 파일 순회
     for filepath in root_path.rglob("*.py"):
+        # 제외 디렉터리에 포함되면 스킵
+        parts = set(p.name for p in filepath.parents)
+        if parts & EXCLUDE_DIRS:
+            continue
         try:
             text = filepath.read_text(encoding='utf-8')
         except (IOError, UnicodeDecodeError):

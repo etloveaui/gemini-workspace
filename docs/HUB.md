@@ -18,6 +18,7 @@
 - **[P2] System Optimization & UX Refinement:** `scratchpad/Gemini-Self-Upgrade/Plan/[P2]Plan_O3.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_Gemini.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_O3.md`
 
 ## Active Tasks
+- [CODEX-P0] System Cleanup & Stabilization (2025-08-18) - 시스템 정리 및 안정화 최우선 작업 [instructions](docs/tasks/system_cleanup_instructions_for_codex.md)
 - [CLAUDE-P0] System Integration & UTF-8 Encoding Fix (2025-08-18) - Claude 硫붿씤 泥댁젣 ?꾪솚 諛??몄퐫??臾몄젣 ?닿껐 [log](docs/tasks/claude-system-integration/action_plan.md)
 - [P-AGENT] Repeated Modification Failures (for GEMINI)
 - [Test] Fix 15 failing pytest tests

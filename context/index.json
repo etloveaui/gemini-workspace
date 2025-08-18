@@ -1,0 +1,711 @@
+{
+  "updated_at_utc": "2025-08-18T08:21:51.677455+00:00",
+  "docs": [
+    {
+      "path": "docs\\AI_MODEL_INTEGRATION_ANALYSIS.md",
+      "lines": 177,
+      "sha1": "2d7ee812b011f684ffa7606b6de9d8bf84fb87f4",
+      "tags": []
+    },
+    {
+      "path": "docs\\AI_ROLES_DEFINITION.md",
+      "lines": 179,
+      "sha1": "0413dc178495883d854cef0e1231e16941497dda",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\EMERGENCY_MODE.md",
+      "lines": 56,
+      "sha1": "079d07f7805e7f9a19b04c828a781df50d9c94a9",
+      "tags": []
+    },
+    {
+      "path": "docs\\encoding_fix_report.md",
+      "lines": 60,
+      "sha1": "be1fbd291d86bc72ce8994fc363e851d378808eb",
+      "tags": []
+    },
+    {
+      "path": "docs\\HELP.md",
+      "lines": 294,
+      "sha1": "5d8b1180698a9f1036327526babca319af57c7d1",
+      "tags": [
+        "section",
+        "section"
+      ]
+    },
+    {
+      "path": "docs\\help_modified.md",
+      "lines": 34,
+      "sha1": "e6efbc351a4a804784a5946d7e10bf22e547e8b4",
+      "tags": [
+        "section"
+      ]
+    },
+    {
+      "path": "docs\\HUB.md",
+      "lines": 85,
+      "sha1": "eb80c632909fe5ca90ae0245572cbefb30dd5477",
+      "tags": [
+        "log",
+        "Test",
+        "CLAUDE",
+        "log",
+        "Claude",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "Codex",
+        "log",
+        "log",
+        "log",
+        "log",
+        "Codex",
+        "log"
+      ]
+    },
+    {
+      "path": "docs\\hub_modified.md",
+      "lines": 39,
+      "sha1": "47c8cccc6e3cad5f9637cb861eee44e08f5d544f",
+      "tags": [
+        "log",
+        "log",
+        "log"
+      ]
+    },
+    {
+      "path": "docs\\P0_DEFINITION_OF_DONE.md",
+      "lines": 25,
+      "sha1": "17c45394aeb95afc2f863dba8aa011707f9220f9",
+      "tags": []
+    },
+    {
+      "path": "docs\\PROJECT_ROADMAP.md",
+      "lines": 43,
+      "sha1": "f4332861d87b1c763de57b535994178a3173f876",
+      "tags": []
+    },
+    {
+      "path": "docs\\SELF_UPDATE_POLICY.md",
+      "lines": 35,
+      "sha1": "0bcd204298c3565d8a178964426e93ad01f1f4c6",
+      "tags": []
+    },
+    {
+      "path": "docs\\SYSTEM_AUDIT.md",
+      "lines": 51,
+      "sha1": "1a526df3b41646823171bcc41f4df7220cf95e91",
+      "tags": []
+    },
+    {
+      "path": "docs\\debug\\[P0]Debug_20.md",
+      "lines": 47,
+      "sha1": "e74be51cda781d908a10cece3919e6b78ace3dd3",
+      "tags": []
+    },
+    {
+      "path": "docs\\plans\\SYSTEM_SLIM_AUTOMATION.md",
+      "lines": 52,
+      "sha1": "0fd27c1dc156098a0a3060e33ac21930852a886c",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\100xfenok_button_bug_analysis.md",
+      "lines": 43,
+      "sha1": "86c47b6997877516d5fd492920a96dfbd1557b24",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\auto_update_20250808.md",
+      "lines": 336,
+      "sha1": "50d914a37ca230a6015c0eed7a35781cc1be441d",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\auto_update_20250811.md",
+      "lines": 271,
+      "sha1": "575d228d7a8fae4e12c40d98073ff532ee178bfe",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\auto_update_20250818.md",
+      "lines": 46,
+      "sha1": "57c26325d7b61a59d1c0deed19af4f2136788aeb",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\claude_encoding_investigation_report.md",
+      "lines": 32,
+      "sha1": "5fc08589d62d954b0ca261c61fbadb1c26ce6de6",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\claude_encoding_investigation_request.md",
+      "lines": 97,
+      "sha1": "5bcea941465e3a06dbc59be15e7401f367caa858",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\proposals\\gemini_pytest_cleanup_report.md",
+      "lines": 47,
+      "sha1": "749c404600f3b3b63358d05c5cddc6d58d8b17a4",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\gemini_pytest_cleanup_request.md",
+      "lines": 138,
+      "sha1": "b86d2445367a0ea0945cea9c2ef669901c955962",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\proposals\\gemini_terminal_optimization_report.md",
+      "lines": 47,
+      "sha1": "6b6f1c9deece5e47aa36ab7bbfc78510380157e4",
+      "tags": [
+        "Console"
+      ]
+    },
+    {
+      "path": "docs\\proposals\\gemini_terminal_optimization_request.md",
+      "lines": 136,
+      "sha1": "294cbd84a86ea5c6f4c6a9552ecfbdd67dfe6b06",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        "Console",
+        "Console",
+        "Console",
+        "Console",
+        "Console",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\proposals\\mcp_ai_proxy_status_report.md",
+      "lines": 168,
+      "sha1": "9d325bcc0bf158015dec2822ceb596046104dc4f",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\P1-2_File_Agent_Framework_Upgrade.md",
+      "lines": 95,
+      "sha1": "7ec9ea8b9abaf34bf93b17d9958021b6d7cbd173",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\pytest_cleanup_report.md",
+      "lines": 136,
+      "sha1": "7adc5d3429b8fed798c4f8658760e91ee43473e1",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\proposals\\pytest_final_report.md",
+      "lines": 92,
+      "sha1": "1f1c40839af6b91703dffb99d37dbc99c952b8a3",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\pytest_progress_update.md",
+      "lines": 60,
+      "sha1": "176a9568d3d63a03ce1a21e22446cfdc63ac4b64",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\Request_for_Deep_Analysis.md",
+      "lines": 351,
+      "sha1": "9f326dfeac17650490a4b4a42457a00757dd3be4",
+      "tags": [
+        "section",
+        "Unwired Config",
+        "str",
+        "str"
+      ]
+    },
+    {
+      "path": "docs\\proposals\\Request_for_GEMINI_Edit_Reliability_Analysis.md",
+      "lines": 29,
+      "sha1": "c43987d0fed87238f51bea40a1ade718bbd99a37",
+      "tags": [
+        "GEMINI",
+        "GEMINI"
+      ]
+    },
+    {
+      "path": "docs\\proposals\\Request_for_P2-SU_Analysis.md",
+      "lines": 83,
+      "sha1": "fa731c46693e6c5c6dc4aec548b1d4567c750b0f",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\Request_for_P2-SU_Directives.md",
+      "lines": 47,
+      "sha1": "4eded7d92c7134c44f8d1e5f65588b99b3d1a388",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\Request_for_P2-UX_Analysis.md",
+      "lines": 312,
+      "sha1": "62d1022276082614ad276e65556ca4dd86f8ff5a",
+      "tags": [
+        "cat",
+        "cat",
+        "cat",
+        "bold green",
+        "yellow",
+        "bold cyan",
+        "bold green",
+        "green",
+        "bold red",
+        "dim",
+        "dim",
+        "bold red",
+        "bold yellow",
+        "bold yellow",
+        "red",
+        "bold blue"
+      ]
+    },
+    {
+      "path": "docs\\proposals\\Request_for_P2-UX_Directives.md",
+      "lines": 51,
+      "sha1": "543783e5d9892d85ef4dd252b65cc1ef60aa0576",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\Request_for_P2-UX_Scratchpad_Organization.md",
+      "lines": 89,
+      "sha1": "cd2ae971de78bc9d46cc7f629c3cc8cfff35c328",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\system_analysis_report_agent_integration.md",
+      "lines": 52,
+      "sha1": "7532c303bf840fbc81c7503cd76a69723995febe",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\system_analysis_report_core_architecture.md",
+      "lines": 45,
+      "sha1": "bf5a9498bf61c8e82b8f4f4a493042ecba4a9375",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\system_analysis_report_security_quality.md",
+      "lines": 57,
+      "sha1": "092ea92544d35b64730817875f8f66ab51df299d",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\system_analysis_report_state_management.md",
+      "lines": 51,
+      "sha1": "38fdf38deefd6b47a174c51ecf5ba05df3d69680",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\system_analysis_report_usability_maintainability.md",
+      "lines": 45,
+      "sha1": "a5d119e4a3ba2cbbecbf204c66f723684450c665",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\system_overview_for_claude.md",
+      "lines": 51,
+      "sha1": "504c1a7ac5e6c9d02ff9797c630c0bed7d134f16",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\vscode_config_history_and_recommendations.md",
+      "lines": 75,
+      "sha1": "81b1fd1c52a0102a8f6d27baaae56d74e43e3b72",
+      "tags": [
+        "python"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\100xfenok-floating-button-responsive-glitch\\log.md",
+      "lines": 140,
+      "sha1": "322623e78e638904e802c16c4f066fecfa6a5970",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\100xfenok-generator-data-cleanup\\log.md",
+      "lines": 51,
+      "sha1": "ad40106a0aa76b227941fd2547d6e63e04f822af",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\100xfenok-generator-date-title-input-fix\\log.md",
+      "lines": 101,
+      "sha1": "04e7533c3266d4db7463e79727c6bf269cf3fe17",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\100xfenok-generator-dev\\log.md",
+      "lines": 61,
+      "sha1": "89c0dadb90256e06f28023daa24c134f8c2ce677",
+      "tags": [
+        "Project",
+        "Initial Setup",
+        "Project Plan",
+        "Code Analysis"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\100xfenok-telegram-notification\\log.md",
+      "lines": 176,
+      "sha1": "6ee456265710ba9e148d597a4bd8d6831ae029f5",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\agent-os-command-consistency\\log.md",
+      "lines": 45,
+      "sha1": "b2e6644ba5584f231c62d79a070c98403cb92d94",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\agent-repeated-modification-failures\\log.md",
+      "lines": 23,
+      "sha1": "5d828708465499bb3e17fc2e29bb952dbd1c5426",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\agent-repetitive-behavior-flash-model\\log.md",
+      "lines": 67,
+      "sha1": "c0dbe71b57cc5afd039a1333805287b221268afa",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\ars-can-busoff-recovery-fix\\log.md",
+      "lines": 223,
+      "sha1": "5f3cf26ab5378210cb9ad1691f8fa7b870612622",
+      "tags": [
+        "EN",
+        "MCAL",
+        "EN",
+        "MCAL",
+        "EN",
+        "ControllerId",
+        "EN",
+        "MCAL",
+        "EN",
+        "TD"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\claude-system-integration\\action_plan.md",
+      "lines": 121,
+      "sha1": "74c2c0bf91943aa0cbf9996479df6a11f6a9792f",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\tasks\\codex-powershell-ux-fix\\log.md",
+      "lines": 60,
+      "sha1": "49807825b166c875d8a9a7514a31562ab8066eb4",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\codex-terminal-output-wrap\\log.md",
+      "lines": 33,
+      "sha1": "4258d8df2a4a8ccdf4898bf690e2efff769a9d77",
+      "tags": [
+        "Codex",
+        "Console"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\core-hub-auto-commit-reliability\\log.md",
+      "lines": 49,
+      "sha1": "5c77f67e39835935be3b34b3ae20a2daa9369112",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\core-replace-tool-reliability\\log.md",
+      "lines": 55,
+      "sha1": "944372ced2dc3a9ea8c6388e36e6ea2f0448dcd4",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\encoding-hardening\\log.md",
+      "lines": 29,
+      "sha1": "5dbe163742b2616070d6e9c013846a0f46228c50",
+      "tags": [
+        "Console",
+        "Console",
+        "Console"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\file-agent-framework-upgrade\\log.md",
+      "lines": 40,
+      "sha1": "511279c357bda4530c04fc335f8f3316d0a78eef",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\free-flexible-ai-integration\\log.md",
+      "lines": 107,
+      "sha1": "838ce1c6e57974b0ff80fed39791ab6fd97d3667",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\gemini-cli-setup\\log.md",
+      "lines": 21,
+      "sha1": "8f58478e5c03fd525e8725fb8ead7a8d27935a1e",
+      "tags": [
+        "System",
+        "Setup Guide"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\gemini-cli-ux-enhancement\\log.md",
+      "lines": 117,
+      "sha1": "c24ef80611283815b880c9e1f5c1e15c0c5aa983",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\gemini-edit-reliability\\log.md",
+      "lines": 12,
+      "sha1": "c9609c1f6c884cda6d999125102445b3a5c6ea17",
+      "tags": [
+        "GEMINI"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\gemini-md-v2\\log.md",
+      "lines": 31,
+      "sha1": "00b8ff4c518a5745e5abfd0384e9d5847a1b4eb2",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\gemini-self-upgrade\\log.md",
+      "lines": 515,
+      "sha1": "b660f091d470f95624ca54c54574cd733f8b2642",
+      "tags": [
+        "string",
+        "Project",
+        "System",
+        "Intelligent Session Start",
+        "Active Tasks from HUB",
+        "Workspace Status"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\gemini-system-upgrade\\log.md",
+      "lines": 22,
+      "sha1": "53ad2b3781dc46bb228561081172ab9ef17d2501",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\performance-optimization\\log.md",
+      "lines": 10,
+      "sha1": "9fd64736fc9688ec03f6088811ae9a7b85d6a785",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\pre-commit-hook-alternative\\log.md",
+      "lines": 14,
+      "sha1": "4ec22cce247a5c3e861d9b84ad02ed1a4b384545",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\pre-commit-hook-troubleshooting\\log.md",
+      "lines": 107,
+      "sha1": "0ca93a0fecc9a76ee2198c5e618f08041170116b",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\secret-management-setup\\log.md",
+      "lines": 14,
+      "sha1": "bbbf0a5aa7195103b0b742f436683f36f897b02a",
+      "tags": [
+        "System",
+        "Initial Setup"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\self-update-engine\\log.md",
+      "lines": 90,
+      "sha1": "deda593c8f38f82c87713caab5038bab433f6061",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\system-docs-revamp\\log.md",
+      "lines": 14,
+      "sha1": "2b76d84f35d2683a7bf51a0a12b8d45e2e5b7f6d",
+      "tags": [
+        "System",
+        "Initial Setup"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\terminalx-ui-analysis\\log.md",
+      "lines": 29,
+      "sha1": "7d1ace10eb61d6f8440d3fdd3d3af58e249c5f32",
+      "tags": [
+        "Project",
+        "UI Analysis"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\ux-fix-invoke-start-corruption\\log.md",
+      "lines": 34,
+      "sha1": "1ff40f9d17b9e0044119d5b4b8cd4fcc8a3a1f87",
+      "tags": [
+        "bold yellow"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\ux-fix-invoke-start-corruption\\screenshot.md",
+      "lines": 164,
+      "sha1": "f90c8fb8c5f7afe1c6651db74718d53ff2646625",
+      "tags": [
+        "bold yellow"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\ux-refinement\\log.md",
+      "lines": 35,
+      "sha1": "8a8aa69a287daa9a2e2084882041461896f0bf94",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\venv-cleanup-and-rebuild\\log.md",
+      "lines": 35,
+      "sha1": "e9f36c9f40f8153872cc5bf0e527ba1f4e9933a0",
+      "tags": [
+        "System"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\vscode-integration-problem\\log.md",
+      "lines": 47,
+      "sha1": "3a8380f1cf56df03cbc50eecae8715980d7c630e",
+      "tags": [
+        "Problem Solving",
+        "Problem Analysis",
+        "User Request"
+      ]
+    },
+    {
+      "path": "docs\\tasks\\web-agent-integration\\log.md",
+      "lines": 31,
+      "sha1": "d6cc4f4a6af527dc9b829db7ec3575f72b60cb9a",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\workspace-setup\\log.md",
+      "lines": 11,
+      "sha1": "9253cfeb871a95c7dc18374881de9ddd84937ac5",
+      "tags": [
+        "System",
+        "Initial Setup"
+      ]
+    },
+    {
+      "path": "docs\\WORKLOG\\2025-08-14__codex.md",
+      "lines": 24,
+      "sha1": "bf43c530596e0e6eb4dc369737aa9bcb54bd6a83",
+      "tags": []
+    }
+  ]
+}

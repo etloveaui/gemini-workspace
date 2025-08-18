@@ -299,6 +299,27 @@ class UsageLimitMonitor:
         korean_chars = len(text) - english_chars
         
         return (english_chars // 4) + (korean_chars // 2)
+    
+    def check_conversation_length_warning(self, conversation_text: str) -> Tuple[bool, str]:
+        """대화창 길이 기준 제한 임박 경고"""
+        estimated_tokens = self.estimate_tokens(conversation_text)
+        
+        # Claude의 컨텍스트 윈도우 기준 (대략 200k 토큰)
+        context_limit = 200000
+        warning_thresholds = {
+            "yellow": int(context_limit * 0.6),   # 60% - 120k 토큰
+            "orange": int(context_limit * 0.8),   # 80% - 160k 토큰  
+            "red": int(context_limit * 0.9)       # 90% - 180k 토큰
+        }
+        
+        if estimated_tokens >= warning_thresholds["red"]:
+            return True, f"[CRITICAL] 대화 길이 90% 초과 ({estimated_tokens:,}/{context_limit:,} 토큰). 새 대화 시작 권장!"
+        elif estimated_tokens >= warning_thresholds["orange"]:
+            return True, f"[WARNING] 대화 길이 80% 도달 ({estimated_tokens:,}/{context_limit:,} 토큰). 곧 새 대화가 필요합니다."
+        elif estimated_tokens >= warning_thresholds["yellow"]:
+            return True, f"[INFO] 대화 길이 60% 도달 ({estimated_tokens:,}/{context_limit:,} 토큰). 대화 길이를 주의하세요."
+        
+        return False, f"대화 길이 정상 ({estimated_tokens:,}/{context_limit:,} 토큰)"
 
 def main():
     """사용량 모니터 메인 함수"""

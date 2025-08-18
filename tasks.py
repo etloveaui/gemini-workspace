@@ -47,6 +47,25 @@ from rich.table import Table
 console = Console()
 
 
+def _safe_console_print(text: str) -> None:
+    """Print using Rich, with a fallback when terminal encoding rejects chars.
+
+    On some Windows terminals (cp949), certain Unicode codepoints trigger
+    UnicodeEncodeError deep inside Rich's legacy Windows renderer. This
+    helper degrades such output by replacing unencodable characters so that
+    critical commands (e.g., review) still render instead of crashing.
+    """
+    try:
+        console.print(text)
+    except Exception:
+        try:
+            enc = getattr(sys.stdout, 'encoding', None) or 'utf-8'
+            sys.stdout.write((text if isinstance(text, str) else str(text)).encode(enc, errors='replace').decode(enc) + "\n")
+        except Exception:
+            # Last-resort noop to avoid crashing the task
+            pass
+
+
 def _run_agent_hooks(phase: str) -> None:
     """Run hub.sync and task.autopromote once per session and log TL;DR."""
     lines: list[str] = []
@@ -605,12 +624,12 @@ ns.add_collection(hub_ns)
 @task
 def review(c):
     """Show a quick preview of changes (status + diff summary)."""
-    console.print("[bold blue]--- Git Status ---[/bold blue]")
+    _safe_console_print("[bold blue]--- Git Status ---[/bold blue]")
     res = run_command('review.status', ['git', 'status', '--porcelain'], check=False)
-    console.print(res.stdout or 'Clean')
-    console.print("[bold blue]--- Diff (names) ---[/bold blue]")
+    _safe_console_print(res.stdout or 'Clean')
+    _safe_console_print("[bold blue]--- Diff (names) ---[/bold blue]")
     res2 = run_command('review.diffnames', ['git', 'diff', '--name-only'], check=False)
-    console.print(res2.stdout or '(no unstaged diffs)')
+    _safe_console_print(res2.stdout or '(no unstaged diffs)')
     # Optional short patch at the end for quick glance
     run_command('review.diff', ['git', '--no-pager', 'diff', '--stat'], check=False)
 

@@ -1,0 +1,46 @@
+1. 너가 CP949 이거 다 했다그랬는데 여전히 남아있던거자나... 왜이래... 
+2. 이렇게 다꺠졌다는건 예전에 codex가 .git 어쩌고 파일 수정했었는데 그거떄문인거 아닌가? 그건 이미 수정한건가?
+3. codex 작업 완료했어. 아래 log 확인해줘.
+**변경 내용**
+- 삭제: `scratchpad/claude_code/` 폴더 전체 제거.
+- 에이전트: `.agents/config.json`의 `"active"`를 `"codex"`로 변경.     
+- 보관: 루트 `config.json`을 `scratchpad/_archive/config.json`으로 이동
+(보관).
+- 백업 정리: 루트의 `usage.db.bak` 이동/정리(나머지 루트 *.bak는 추적  
+상태에 따
+라 영향 없음).
+- 스캐너 개선: `scripts/auto_update/scanner.py`에 스캔 제외 경로 추가  
+  - 제외: `venv`, `.git`, `.github`, `__pycache__`
+
+**리뷰 출력**
+- `invoke review`는 Windows 콘솔 인코딩(cp949) 문제로 실패(UnicodeEncodeError).
+동일 정보 수동 요약:
+  - 변경 파일
+    - 수정: `.agents/config.json`, `scripts/auto_update/scanner.py`    
+    - 삭제(루트에서 이동 처리): `config.json`
+    - DB: `usage.db` 갱신, `usage.db.bak` 정리
+    - 신규(비추적): `scratchpad/_archive/config.json`
+  - Git 요약
+    - M .agents/config.json
+    - D config.json
+    - M scripts/auto_update/scanner.py
+    - D usage.db.bak
+    - ?? scratchpad/_archive/config.json
+
+**비고**
+- 인코딩 이슈로 `invoke review`가 깨져서, 필요하면 `PYTHONIOENCODING=UTF-8` 환경
+변수로 재시도하거나 `git status --porcelain`/`git --no-pager diff --stat`로 확인
+ 권장.
+- 백업 파일은 “루트” 기준으로만 정리했습니다. 하위 폴더의 백업/보관 파 
+일(`docs/b
+ackup/`, `projects/*` 등)은 유지.
+
+**다음 단계 제안**
+- 커밋: `venv\Scripts\python -m invoke git.commit-safe -m "chore(ops): 
+cleanup s
+cratchpad/claude_code, set agent=codex, archive config, scanner excludes"`
+- 확인: `venv\Scripts\python -m invoke agent.status`로 활성 에이전트가 
+`codex`인
+지 점검.
+- 추가 정리 필요 여부 알려주시면 이어서 처리하겠습니다.
+4. 어디ㅣ서나 계속 문제점이 나오네 인코딩이 모든 시스템을 지배한 느낌이야. 이거 뭔가 자동으로 인코딩이 다 문제를 일으키는 수준아냐?
