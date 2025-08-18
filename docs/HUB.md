@@ -19,7 +19,7 @@
 
 ## Active Tasks
 - [CODEX-P0] System Cleanup & Stabilization (2025-08-18) - 시스템 정리 및 안정화 최우선 작업 [instructions](docs/tasks/system_cleanup_instructions_for_codex.md)
-- [CLAUDE-P0] System Integration & UTF-8 Encoding Fix (2025-08-18) - Claude 硫붿씤 泥댁젣 ?꾪솚 諛??몄퐫??臾몄젣 ?닿껐 [log](docs/tasks/claude-system-integration/action_plan.md)
+- [CLAUDE-P0] System Integration & UTF-8 Encoding Fix (2025-08-18) - Claude 硫붿씤 泥댁젣 꾪솚 諛몄퐫몄젣 닿껐 [log](docs/tasks/claude-system-integration/action_plan.md)
 - [P-AGENT] Repeated Modification Failures (for GEMINI)
 - [Test] Fix 15 failing pytest tests
 - [CLAUDE] 100xfenok-generator-date-title-input-fix (2025-08-18) - TerminalX 리다이렉션 문제 해결 중 [log](docs/tasks/100xfenok-generator-date-title-input-fix/log.md)
@@ -36,7 +36,7 @@
 - vscode-integration-problem
 
 ## Completed Tasks
-- [Claude] Multi-Agent Workspace Integration (2025-08-17) - Claude Code ?꾩쟾 ?듯빀 諛??ㅼ젙 ?꾨즺
+- [Claude] Multi-Agent Workspace Integration (2025-08-17) - Claude Code 완전 통합 및 설정 완료
 - [100xFenok] Telegram Notification Integration [log](docs/tasks/100xfenok-telegram-notification/log.md)
 - [100xFenok] Floating Button Responsive Glitch Fix [log](docs/tasks/100xfenok-floating-button-responsive-glitch/log.md)
 - [P2-UX] UX Refinement [log](docs/tasks/ux-refinement/log.md)
@@ -47,12 +47,12 @@
 
 - gemini-system-upgrade
 
-- [P2-3] 筌ㅼ뮇伊??????野껋?肉?UX) 揶쏆뮇苑?- [P2-1] ?源낅뮟 獄???μ몛 筌ㅼ뮇???- [P1-3] 筌렺?怨뺛걟???紐꾨뻼 疫꿸퀡??餓Β??- [P1-2] ???뵬 ??뽯뮞???癒?뵠?袁る뱜 ?닌딇뀧
+- [P2-3] 껋  [P2-1] 낅뮟 몛  [P1-3] 筌렺뺛걟꾨뻼 疫꿸퀡 [P1-2] 뵬 뽯뮞뵠뱜 닌딇뀧
 
 - ars-can-busoff-recovery-fix
-- P0 ?臾믩씜 ?袁⑥┷ 獄???뽯뮞????됱젟??- P0 ?臾믩씜 ?袁⑥┷ (DeprecationWarning ??욧퍙, ???뮞???닌듼?揶쏆뮇苑? Help ??뽯뮞???닌딇뀧)
-- [P1]UX_01_Doctor_Quickstart_Help: CLI UX ?關湲?(doctor, quickstart, help 疫꿸퀡???닌뗭겱) [log](docs/tasks/gemini-cli-ux-enhancement/log.md)
-- [P1-0-GMD] GEMINI.md v2 ??껊젃??됱뵠??[log](docs/tasks/gemini-md-v2/log.md)
+- P0 믩씜  뽯뮞됱젟 P0 믩씜  (DeprecationWarning 욧퍙, 뮞닌듼 Help 뽯뮞닌딇뀧)
+- [P1]UX_01_Doctor_Quickstart_Help: CLI UX  quickstart, help 疫꿸퀡닌뗭겱) [log](docs/tasks/gemini-cli-ux-enhancement/log.md)
+- [P1-0-GMD] GEMINI.md v2 껊젃됱뵠
 - [P1-1] Web Agent Integration [log](docs/tasks/web-agent-integration/log.md)
 - gemini-cli-setup
 - gemini-self-upgrade
@@ -78,8 +78,8 @@
 
 __lastSession__
 
-- **Current Status**: Active. P2-SU DoD 癰귣떯而?獄?HUB 筌롫뗀????낅쑓??꾨뱜 筌욊쑵六?餓?
-- **Last Action**: P2-SU 嚥≪뮄???DoD(MVP) 筌ｋ똾寃뺟뵳?????곕떽?, Active ?諭???怨밴묶 雅뚯눘苑?揶쏄퉮??
-- **Next Step**: 揶쏄쑬???귐됰윮 ??DoD 筌ｋ똾寃뺟뵳????筌띾뜄龜?? (?醫뤾문) 筌ㅼ뮇??CI ?硫명닋 ??釉?獄??怨몄뒠 ??ｍ????롫짗??곗쨮 ?醫?.- [P2-UX] UX Refinement
+- **Current Status**: Active. P2-SU DoD 癰귣떯而 筌롫뗀낅쑓꾨뱜 筌욊쑵六
+- **Last Action**: P2-SU 嚥≪뮄 筌ｋ똾寃뺟뵳곕떽 Active 밴묶 雅뚯눘苑쏄퉮
+- **Next Step**: 揶쏄쑬귐됰윮  筌ｋ똾寃뺟뵳띾뜄龜 (뤾문)  명닋 몄뒠 롫짗곗쨮  [P2-UX] UX Refinement
 - Emergency wrapper toggle + health_check automation
 - Hub split and SQLite VACUUM pipeline
