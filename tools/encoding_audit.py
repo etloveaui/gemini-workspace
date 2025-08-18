@@ -32,6 +32,16 @@ BROKEN_PATTERNS = [
     "?뀒?뒪?듃", "?쒗븘?듃", "CUserseuntamulti-agent-workspace",
 ]
 
+# Allow-list: files that intentionally contain demo patterns or tooling code
+ALLOW_PATHS = {
+    'bulk_recovery.py',
+    'tools/encoding_audit.py',
+    'docs/tasks/URGENT_CODEX_인코딩_대량_복구_지시서.md',
+}
+ALLOW_PREFIXES = {
+    'scratchpad/',  # scratch files may intentionally include examples
+}
+
 def sh(args:list[str]) -> tuple[int, str, str]:
     p = subprocess.run(
         args,
@@ -98,6 +108,8 @@ def main():
         print(f"Changed files in bad commit: {len(changed)}")
 
     for rel in candidates:
+        if rel in ALLOW_PATHS or any(rel.startswith(pfx) for pfx in ALLOW_PREFIXES):
+            continue
         p = Path(rel)
         if not p.exists():
             continue
