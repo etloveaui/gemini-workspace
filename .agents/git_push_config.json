@@ -1,0 +1,28 @@
+{
+  "auto_push_enabled": true,
+  "push_intervals": {
+    "normal_work": 1800,
+    "critical_work": 300,
+    "experimental": 600,
+    "documentation": 3600
+  },
+  "critical_files": [
+    "CLAUDE.md",
+    "GEMINI.md",
+    "tasks.py",
+    "main_generator.py",
+    "*.py",
+    "docs/HUB.md"
+  ],
+  "critical_changes": [
+    "add new feature",
+    "fix critical bug",
+    "complete task",
+    "system integration",
+    "encoding fix",
+    "pytest fix"
+  ],
+  "max_uncommitted_time": 7200,
+  "file_count_threshold": 10,
+  "size_threshold_mb": 5
+}

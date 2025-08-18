@@ -1,0 +1,19 @@
+  # 긴급 지시사항
+
+  1. **이모지 사용 금지 규칙**을 GEMINI.md에 영구적으로
+  추가해주세요
+     - Windows CP949 환경에서 이모지 사용 시 UnicodeEncodeError        
+  발생
+     - 모든 스크립트, 로그, 출력에서 이모지 대신 [성공], [경고],       
+  [오류] 형태 사용
+
+  2. **100xfenok 버튼 문제** 분석 요청
+     - `scratchpad/100xfenok_button_bug/` 스크린샷 참조
+     - 플로팅 버튼이 abnormal.jpg에서는 보이지 않고,
+  normal.jpg에서만 보임
+     - `projects/100xFenok/nav.css`, `nav.html` 파일의 responsive      
+  문제
+
+  3. **VSCode 설정 히스토리** 정리
+     - 이전에 변경한 모든 VSCode config 설정들 문서화
+     - 인코딩 관련 변경사항들을 체계적으로 정리

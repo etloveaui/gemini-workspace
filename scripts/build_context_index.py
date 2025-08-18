@@ -59,7 +59,7 @@ def build_index():
             print("Existing index file is corrupted. Rebuilding...")
 
     index_data = {
-        "updated_at_utc": datetime.datetime.now(datetime.UTC).isoformat(),
+        "updated_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "docs": [info for p in docs if (info := get_file_info(p)) is not None]
     }
     

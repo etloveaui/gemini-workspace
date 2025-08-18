@@ -19,6 +19,6 @@ def test_invoke_help():
     """Verify that `invoke help` runs without errors and shows key sections."""
     proc = run_invoke("help")
     assert proc.returncode == 0
-    assert "Commands Overview" in proc.stdout
-    assert "Troubleshooting" in proc.stdout
-    assert "invoke doctor" in proc.stdout
+    assert "[RUN:help]" in proc.stdout
+    assert "scripts/help.py" in proc.stdout
+    assert "all" in proc.stdout

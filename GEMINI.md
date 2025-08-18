@@ -1,166 +1,166 @@
-# GEMINI.md (v2 Final+)
+﻿# GEMINI.md (v2 Final+)
 
-## 0) 목적/범위
-본 문서는 이 워크스페이스의 **운영 표준**이다. 목표는 **재현성**, **보안**, **신속한 인수인계**다. 모든 규정은 Windows 환경과 Python/Invoke 중심으로 정의한다.
+## 0) 紐⑹쟻/踰붿쐞
+蹂?臾몄꽌?????뚰겕?ㅽ럹?댁뒪??**?댁쁺 ?쒖?**?대떎. 紐⑺몴??**?ы쁽??*, **蹂댁븞**, **?좎냽???몄닔?멸퀎**?? 紐⑤뱺 洹쒖젙? Windows ?섍꼍怨?Python/Invoke 以묒떖?쇰줈 ?뺤쓽?쒕떎.
 
-## 1) 운영 원칙 (Windows-first)
-- **Python 경로**: venv가 있으면 `%REPO%/venv/Scripts/python.exe`, 없으면 `sys.executable`.
-- **셸/인코딩**: PowerShell 래핑 금지, 파이썬 프로세스 **직접 호출**. 표준 I/O는 **UTF-8** 고정.
-- **작업 경계**: 파일 작업은 원칙적으로 **레포 경로 내부**에서 수행한다.
+## 1) ?댁쁺 ?먯튃 (Windows-first)
+- **Python 寃쎈줈**: venv媛 ?덉쑝硫?`%REPO%/venv/Scripts/python.exe`, ?놁쑝硫?`sys.executable`.
+- **???몄퐫??*: PowerShell ?섑븨 湲덉?, ?뚯씠???꾨줈?몄뒪 **吏곸젒 ?몄텧**. ?쒖? I/O??**UTF-8** 怨좎젙.
+- **?묒뾽 寃쎄퀎**: ?뚯씪 ?묒뾽? ?먯튃?곸쑝濡?**?덊룷 寃쎈줈 ?대?**?먯꽌 ?섑뻾?쒕떎.
 
-## HUB 작업 수명주기(자동 관리)
-- 시작 전 등록 → 클레임 → 완료 보고(성공/실패)로 일관 관리합니다.
-- Invoke 태스크 또는 브로커 스크립트를 사용하며, 비대화식 환경에서는 큐/아카이브 JSON을 원자적으로 기록해 일관성을 보장합니다.
+## HUB ?묒뾽 ?섎챸二쇨린(?먮룞 愿由?
+- ?쒖옉 ???깅줉 ???대젅?????꾨즺 蹂닿퀬(?깃났/?ㅽ뙣)濡??쇨? 愿由ы빀?덈떎.
+- Invoke ?쒖뒪???먮뒗 釉뚮줈而??ㅽ겕由쏀듃瑜??ъ슜?섎ŉ, 鍮꾨??붿떇 ?섍꼍?먯꽌?????꾩뭅?대툕 JSON???먯옄?곸쑝濡?湲곕줉???쇨??깆쓣 蹂댁옣?⑸땲??
 
-## Git 훅(Pre-commit) 정책
-- 전역 토글: `.agents/config.json`의 `hooks.enabled`로 전체 훅 on/off.
-- 대화형 프롬프트 회피: `invoke commit_safe --skip-diff-confirm` 또는 `SKIP_DIFF_CONFIRM=1` 설정을 사용합니다.
-  - 외부 GUI 툴(Sourcetree 등) 사용 시 권장: 훅 비활성(`invoke git.set-hooks --off`).
+## Git ??Pre-commit) ?뺤콉
+- ?꾩뿭 ?좉?: `.agents/config.json`??`hooks.enabled`濡??꾩껜 ??on/off.
+- ??뷀삎 ?꾨＼?꾪듃 ?뚰뵾: `invoke commit_safe --skip-diff-confirm` ?먮뒗 `SKIP_DIFF_CONFIRM=1` ?ㅼ젙???ъ슜?⑸땲??
+  - ?몃? GUI ??Sourcetree ?? ?ъ슜 ??沅뚯옣: ??鍮꾪솢??`invoke git.set-hooks --off`).
 
-## 2) 디렉터리·추적 정책
-- **`.gemini/`**: 설정·로컬 비밀 보관 위치.  
-  - **커밋 금지**: `*.creds*.json`, `*oauth*.*`, 토큰류는 **로컬 전용(local-only)** 으로 보관하고 커밋하지 않는다.  
-  - **추적 허용**: `.gemini/`에서 **`context_policy.yaml`만** 버전 추적을 허용한다.
-- **`projects/`**: 로컬 전용 작업 공간. **항상 커밋 금지**(`.gitignore`에서 전면 차단).
-- **pre-commit 가드**: `.githooks/pre-commit` + `scripts/hooks/precommit_secrets_guard.py`로  
-  `.gemini/*(oauth|creds|token|secret|.json|.db|.sqlite|.pem|.p12|.key)` 및 `projects/` **스테이징 차단**.
+## 2) ?붾젆?곕━쨌異붿쟻 ?뺤콉
+- **`.gemini/`**: ?ㅼ젙쨌濡쒖뺄 鍮꾨? 蹂닿? ?꾩튂.  
+  - **而ㅻ컠 湲덉?**: `*.creds*.json`, `*oauth*.*`, ?좏겙瑜섎뒗 **濡쒖뺄 ?꾩슜(local-only)** ?쇰줈 蹂닿??섍퀬 而ㅻ컠?섏? ?딅뒗??  
+  - **異붿쟻 ?덉슜**: `.gemini/`?먯꽌 **`context_policy.yaml`留?* 踰꾩쟾 異붿쟻???덉슜?쒕떎.
+- **`projects/`**: 濡쒖뺄 ?꾩슜 ?묒뾽 怨듦컙. **??긽 而ㅻ컠 湲덉?**(`.gitignore`?먯꽌 ?꾨㈃ 李⑤떒).
+- **pre-commit 媛??*: `.githooks/pre-commit` + `scripts/hooks/precommit_secrets_guard.py`濡? 
+  `.gemini/*(oauth|creds|token|secret|.json|.db|.sqlite|.pem|.p12|.key)` 諛?`projects/` **?ㅽ뀒?댁쭠 李⑤떒**.
 
-## 3) 명령 표준 (Invoke & GitHub Actions)
-- **Invoke (로컬)**:
-  - **(권장) 세션 시작**: `gemini-session.ps1` 스크립트를 실행하면 UTF-8 설정, 대화 자동 녹화 등 세션 환경이 자동으로 구성됩니다.
-  - `invoke start`: 환경 점검(doctor) → HUB 브리핑 → 컨텍스트 인덱스 빌드
-  - `invoke doctor`: 파이썬/권한/네트워크/경로/인코딩 점검
-  - `invoke help [section]`: 도움말 출력
-  - `invoke search -q "<질의>"`: 웹 검색 요약
+## 3) 紐낅졊 ?쒖? (Invoke & GitHub Actions)
+- **Invoke (濡쒖뺄)**:
+  - **(沅뚯옣) ?몄뀡 ?쒖옉**: `gemini-session.ps1` ?ㅽ겕由쏀듃瑜??ㅽ뻾?섎㈃ UTF-8 ?ㅼ젙, ????먮룞 ?뱁솕 ???몄뀡 ?섍꼍???먮룞?쇰줈 援ъ꽦?⑸땲??
+  - `invoke start`: ?섍꼍 ?먭?(doctor) ??HUB 釉뚮━????而⑦뀓?ㅽ듃 ?몃뜳??鍮뚮뱶
+  - `invoke doctor`: ?뚯씠??沅뚰븳/?ㅽ듃?뚰겕/寃쎈줈/?몄퐫???먭?
+  - `invoke help [section]`: ?꾩?留?異쒕젰
+  - `invoke search -q "<吏덉쓽>"`: ??寃???붿빟
   - `invoke context.build` / `invoke context.query "<q>"`
-  - `invoke test`: pytest 실행
-  - `invoke wip -m "<msg>"`: WIP 커밋
-  - `invoke end`: 세션 종료(아카이브/로그/HUB 갱신)
-- **GitHub Actions (원격)**:
-  - `@gemini-cli <요청>`: PR 또는 이슈의 댓글을 통해 원격 AI 어시스턴트에게 작업을 지시합니다. (예: `@gemini-cli 이 코드 리뷰해줘`)
+  - `invoke test`: pytest ?ㅽ뻾
+  - `invoke wip -m "<msg>"`: WIP 而ㅻ컠
+  - `invoke end`: ?몄뀡 醫낅즺(?꾩뭅?대툕/濡쒓렇/HUB 媛깆떊)
+- **GitHub Actions (?먭꺽)**:
+  - `@gemini-cli <?붿껌>`: PR ?먮뒗 ?댁뒋???볤????듯빐 ?먭꺽 AI ?댁떆?ㅽ꽩?몄뿉寃??묒뾽??吏?쒗빀?덈떎. (?? `@gemini-cli ??肄붾뱶 由щ럭?댁쨾`)
 
-**(로컬 1회 설정)** pre-commit 훅 활성화: `git config core.hooksPath .githooks`
+**(濡쒖뺄 1???ㅼ젙)** pre-commit ???쒖꽦?? `git config core.hooksPath .githooks`
 
-**Exit Codes (표준)**
-- **0** 정상 / **2** Provider 미설정·불가 / **4** 예외(기타 오류)
+**Exit Codes (?쒖?)**
+- **0** ?뺤긽 / **2** Provider 誘몄꽕?빧룸텋媛 / **4** ?덉쇅(湲고? ?ㅻ쪟)
 
-## 4) 세션 라이프사이클
+## 4) ?몄뀡 ?쇱씠?꾩궗?댄겢
 **Start**
-1) `doctor` 실행 → 핵심 의존성/권한/인코딩 점검  
-2) `docs/HUB.md`의 Active/Paused 요약, `git status --porcelain` 요약  
-3) `context.build` 실행(인덱스 최신화)  
-4) 이전 세션의 `__lastSession__` 블록이 있으면 정리 후 시작
+1) `doctor` ?ㅽ뻾 ???듭떖 ?섏〈??沅뚰븳/?몄퐫???먭?  
+2) `docs/HUB.md`??Active/Paused ?붿빟, `git status --porcelain` ?붿빟  
+3) `context.build` ?ㅽ뻾(?몃뜳??理쒖떊??  
+4) ?댁쟾 ?몄뀡??`__lastSession__` 釉붾줉???덉쑝硫??뺣━ ???쒖옉
 
-**During (작업 회복성 프로토콜)**
-- **작업 분할:** 복잡한 작업은 명확한 하위 목표로 분할하여 순차적으로 실행한다.
-- **사전/사후 로그:** 모든 도구 실행(특히 파일 수정, 명령어 실행) 전후로 의도와 결과를 즉시 로그로 기록한다.
-- **실패 시 즉시 전환:** 동일한 접근으로 2회 연속 실패 시, 즉시 다른 해결책을 모색한다 (기존 3-Strikes Rule 강화).
-- **가정 명시:** 불확실한 상황에서는 명시적으로 가정을 설정하고, 검증 계획을 함께 제시한다.
+**During (?묒뾽 ?뚮났???꾨줈?좎퐳)**
+- **?묒뾽 遺꾪븷:** 蹂듭옟???묒뾽? 紐낇솗???섏쐞 紐⑺몴濡?遺꾪븷?섏뿬 ?쒖감?곸쑝濡??ㅽ뻾?쒕떎.
+- **?ъ쟾/?ы썑 濡쒓렇:** 紐⑤뱺 ?꾧뎄 ?ㅽ뻾(?뱁엳 ?뚯씪 ?섏젙, 紐낅졊???ㅽ뻾) ?꾪썑濡??섎룄? 寃곌낵瑜?利됱떆 濡쒓렇濡?湲곕줉?쒕떎.
+- **?ㅽ뙣 ??利됱떆 ?꾪솚:** ?숈씪???묎렐?쇰줈 2???곗냽 ?ㅽ뙣 ?? 利됱떆 ?ㅻⅨ ?닿껐梨낆쓣 紐⑥깋?쒕떎 (湲곗〈 3-Strikes Rule 媛뺥솕).
+- **媛??紐낆떆:** 遺덊솗?ㅽ븳 ?곹솴?먯꽌??紐낆떆?곸쑝濡?媛?뺤쓣 ?ㅼ젙?섍퀬, 寃利?怨꾪쉷???④퍡 ?쒖떆?쒕떎.
 
 **End**
-- `.gitignore` 상태 확인, 미커밋 변경은 `wip` 권고  
-- HUB 상태 갱신(Active↔Paused), `__lastSession__` 블록에 핵심 요약 기록
+- `.gitignore` ?곹깭 ?뺤씤, 誘몄빱諛?蹂寃쎌? `wip` 沅뚭퀬  
+- HUB ?곹깭 媛깆떊(Active?봒aused), `__lastSession__` 釉붾줉???듭떖 ?붿빟 湲곕줉
 
-## 5) 로깅·인수인계
-- **중앙 허브**: `docs/HUB.md` — 작업의 라이프사이클을 관리하는 중앙 허브. 모든 작업은 아래 5가지 상태 중 하나를 가집니다.
-  - **`Active` (활성)**: 현재 최우선으로 진행 중인 단일 작업.
-  - **`Staging` (대기)**: 직전까지 `Active`였던 작업으로, 가장 먼저 재개될 가능성이 높은 작업.
-  - **`Planned` (계획)**: 계획은 승인되었으나, 아직 실제 코드 작업은 시작되지 않은 작업.
-  - **`Paused` (보류)**: 외부 요인(의존성, 정보 부족 등)으로 인해 상당 기간 진행이 어려운 작업.
-  - **`Completed` (완료)**: 모든 구현과 검증이 완료된 작업.
-- **작업 로그**: `docs/tasks/<task_id>/log.md` — 시간순 **Append-only**(정정은 하단에 추가)  
-- **권장 주기**: Detailed | Standard(기본) | Minimal 중 선택
+## 5) 濡쒓퉭쨌?몄닔?멸퀎
+- **以묒븰 ?덈툕**: `docs/HUB.md` ???묒뾽???쇱씠?꾩궗?댄겢??愿由ы븯??以묒븰 ?덈툕. 紐⑤뱺 ?묒뾽? ?꾨옒 5媛吏 ?곹깭 以??섎굹瑜?媛吏묐땲??
+  - **`Active` (?쒖꽦)**: ?꾩옱 理쒖슦?좎쑝濡?吏꾪뻾 以묒씤 ?⑥씪 ?묒뾽.
+  - **`Staging` (?湲?**: 吏곸쟾源뚯? `Active`????묒뾽?쇰줈, 媛??癒쇱? ?ш컻??媛?μ꽦???믪? ?묒뾽.
+  - **`Planned` (怨꾪쉷)**: 怨꾪쉷? ?뱀씤?섏뿀?쇰굹, ?꾩쭅 ?ㅼ젣 肄붾뱶 ?묒뾽? ?쒖옉?섏? ?딆? ?묒뾽.
+  - **`Paused` (蹂대쪟)**: ?몃? ?붿씤(?섏〈?? ?뺣낫 遺議????쇰줈 ?명빐 ?곷떦 湲곌컙 吏꾪뻾???대젮???묒뾽.
+  - **`Completed` (?꾨즺)**: 紐⑤뱺 援ы쁽怨?寃利앹씠 ?꾨즺???묒뾽.
+- **?묒뾽 濡쒓렇**: `docs/tasks/<task_id>/log.md` ???쒓컙??**Append-only**(?뺤젙? ?섎떒??異붽?)  
+- **沅뚯옣 二쇨린**: Detailed | Standard(湲곕낯) | Minimal 以??좏깮
 
-## 6) 정책 파일 (context_policy.yaml)
-- **위치/추적**: `.gemini/context_policy.yaml`만 **버전 추적 허용**.  
-- **화이트리스트 스키마**: `sources`, `tokens`, `context_limits` 만 유효 키로 간주한다.  
-- **[Unwired Config] 규정**: 코드에서 **실사용 참조 없는 키는 Deprecated**로 분류하고 **차기 마이너 릴리스에서 제거**한다. Unknown key는 로드 시 **경고**만 남기고 **무시**한다.
+## 6) ?뺤콉 ?뚯씪 (context_policy.yaml)
+- **?꾩튂/異붿쟻**: `.gemini/context_policy.yaml`留?**踰꾩쟾 異붿쟻 ?덉슜**.  
+- **?붿씠?몃━?ㅽ듃 ?ㅽ궎留?*: `sources`, `tokens`, `context_limits` 留??좏슚 ?ㅻ줈 媛꾩＜?쒕떎.  
+- **[Unwired Config] 洹쒖젙**: 肄붾뱶?먯꽌 **?ㅼ궗??李몄“ ?녿뒗 ?ㅻ뒗 Deprecated**濡?遺꾨쪟?섍퀬 **李④린 留덉씠??由대━?ㅼ뿉???쒓굅**?쒕떎. Unknown key??濡쒕뱶 ??**寃쎄퀬**留??④린怨?**臾댁떆**?쒕떎.
 
-## 7) 보안 / Secrets
-- **레포 내 자격증명 커밋 금지**: `.gemini/*` 내 비밀 파일은 **로컬 전용**이며 커밋 금지.  
-- **보관 위치**: 기본 `%APPDATA%\gemini-workspace\secrets\` 또는 **환경변수/시크릿 매니저**.  
-- **노출 대응 절차**  
-  1) **키 회전**(재발급·기존 폐기)  
-  2) **Git 이력 정리**(예: `git filter-repo`로 해당 경로 제거)  
-  3) 영향권 스캔/폐기 및 HUB에 사고·조치 로그 기록
+## 7) 蹂댁븞 / Secrets
+- **?덊룷 ???먭꺽利앸챸 而ㅻ컠 湲덉?**: `.gemini/*` ??鍮꾨? ?뚯씪? **濡쒖뺄 ?꾩슜**?대ŉ 而ㅻ컠 湲덉?.  
+- **蹂닿? ?꾩튂**: 湲곕낯 `%APPDATA%\gemini-workspace\secrets\` ?먮뒗 **?섍꼍蹂???쒗겕由?留ㅻ땲?**.  
+- **?몄텧 ????덉감**  
+  1) **???뚯쟾**(?щ컻湲됀룰린議??먭린)  
+  2) **Git ?대젰 ?뺣━**(?? `git filter-repo`濡??대떦 寃쎈줈 ?쒓굅)  
+  3) ?곹뼢沅??ㅼ틪/?먭린 諛?HUB???ш퀬쨌議곗튂 濡쒓렇 湲곕줉
 
-## 8) 품질 게이트
-- **필수**: `pytest -q` 통과.  
-- **도입**: 정적 분석(`ruff`/`mypy`)과 Secret Scan을 CI에 추가한다.  
-- **병합 조건**: **모든 PR은 Windows CI 통과가 필수**다.
+## 8) ?덉쭏 寃뚯씠??
+- **?꾩닔**: `pytest -q` ?듦낵.  
+- **?꾩엯**: ?뺤쟻 遺꾩꽍(`ruff`/`mypy`)怨?Secret Scan??CI??異붽??쒕떎.  
+- **蹂묓빀 議곌굔**: **紐⑤뱺 PR? Windows CI ?듦낵媛 ?꾩닔**??
 
 ## 9) P1-1: Web Search Tool (DoD)
-- **즉시 구현(더미 Provider)**  
-  - 함수 시그니처: `search(query: str, top_k: int = 5) -> List[Dict[str,str]]`  
-  - **결정적·비네트워크·`top_k` 준수**. 각 item은 `title/url/snippet` 포함, `title/snippet`에 `query` 반영, 최소 1개 결과 보장.  
-- **실 Provider(병행)**  
-  - Serper.dev(권장) 또는 Google CSE/SerpAPI로 구현하되 **동일 시그니처·Exit Codes**를 적용한다.  
-- **완료 기준(DoD)**  
-  - `invoke search -q "test"` 실행 시 약 5개 결과 요약 출력 **및** 관련 테스트 통과 → HUB의 **[P1-1]**을 **Completed**로 이동한다.
+- **利됱떆 援ы쁽(?붾? Provider)**  
+  - ?⑥닔 ?쒓렇?덉쿂: `search(query: str, top_k: int = 5) -> List[Dict[str,str]]`  
+  - **寃곗젙?겶룸퉬?ㅽ듃?뚰겕쨌`top_k` 以??*. 媛?item? `title/url/snippet` ?ы븿, `title/snippet`??`query` 諛섏쁺, 理쒖냼 1媛?寃곌낵 蹂댁옣.  
+- **??Provider(蹂묓뻾)**  
+  - Serper.dev(沅뚯옣) ?먮뒗 Google CSE/SerpAPI濡?援ы쁽?섎릺 **?숈씪 ?쒓렇?덉쿂쨌Exit Codes**瑜??곸슜?쒕떎.  
+- **?꾨즺 湲곗?(DoD)**  
+  - `invoke search -q "test"` ?ㅽ뻾 ????5媛?寃곌낵 ?붿빟 異쒕젰 **諛?* 愿???뚯뒪???듦낵 ??HUB??**[P1-1]**??**Completed**濡??대룞?쒕떎.
 
-## 10) 트러블슈팅 (Quick)
-- **`git push` 권한 오류**: 워크플로우(.github/workflows) 수정 등 높은 권한이 필요한 Push 실패 시, `C:\Users\eunta\gemini-workspace\secrets\my_sensitive_data.md` 파일에 기록된 GitHub PAT를 자동으로 적용한다.
-- **따옴표/인코딩**: PowerShell 래핑 대신 파이썬 직접 호출(UTF-8 보장)
-- **경로/권한**: 관리자 권한·경로 길이·파일 잠금 확인
-- **삭제 실패(Windows)**: `os.remove`/`shutil.rmtree` 우선
-- **검색 실패**: Provider 미설정 시 **Exit 2**. 기본은 **ChatGPT 심층리서치 트리거**로 안내
+## 10) ?몃윭釉붿뒋??(Quick)
+- **`git push` 沅뚰븳 ?ㅻ쪟**: ?뚰겕?뚮줈??.github/workflows) ?섏젙 ???믪? 沅뚰븳???꾩슂??Push ?ㅽ뙣 ?? `C:\Users\eunta\gemini-workspace\secrets\my_sensitive_data.md` ?뚯씪??湲곕줉??GitHub PAT瑜??먮룞?쇰줈 ?곸슜?쒕떎.
+- **?곗샂???몄퐫??*: PowerShell ?섑븨 ????뚯씠??吏곸젒 ?몄텧(UTF-8 蹂댁옣)
+- **寃쎈줈/沅뚰븳**: 愿由ъ옄 沅뚰븳쨌寃쎈줈 湲몄씠쨌?뚯씪 ?좉툑 ?뺤씤
+- **??젣 ?ㅽ뙣(Windows)**: `os.remove`/`shutil.rmtree` ?곗꽑
+- **寃???ㅽ뙣**: Provider 誘몄꽕????**Exit 2**. 湲곕낯? **ChatGPT ?ъ링由ъ꽌移??몃━嫄?*濡??덈궡
 
-## 11) 변경관리 및 워크플로우
-- **통합 워크플로우**: 로컬(Gemini CLI)과 원격(GitHub Action)의 역할을 명확히 분리하여 시너지를 창출합니다.
-  1. **로컬 개발 (Gemini CLI)**: 사용자와의 대화를 통해 로컬 환경에서 신속하게 코드를 작성, 수정, 테스트합니다.
-  2. **원격 Push 및 PR 생성 (Gemini CLI)**: 로컬 개발이 완료되면, 변경사항을 원격 저장소에 Push하고 Pull Request를 생성합니다.
-  3. **자동 리뷰 및 분석 (GitHub Action)**: PR이 생성되면 `run-gemini-cli` Action이 자동으로 코드 리뷰, 분석 등 설정된 작업을 수행합니다.
-  4. **피드백 반영 및 병합**: Action의 피드백을 바탕으로 로컬에서 추가 수정을 진행하고, 최종적으로 PR을 병합합니다.
-- **게이트 승인**: 모든 변경은 위 워크플로우에 따른 코드 리뷰 및 자동화된 검증(CI)을 거친 후 적용됩니다.
-- **메타러닝 규칙**: 동일 목표 2회 실패+1회 성공 패턴은 규칙으로 제안, 3회 연속 성공 시 표준화합니다.
+## 11) 蹂寃쎄?由?諛??뚰겕?뚮줈??
+- **?듯빀 ?뚰겕?뚮줈??*: 濡쒖뺄(Gemini CLI)怨??먭꺽(GitHub Action)????븷??紐낇솗??遺꾨━?섏뿬 ?쒕꼫吏瑜?李쎌텧?⑸땲??
+  1. **濡쒖뺄 媛쒕컻 (Gemini CLI)**: ?ъ슜?먯?????붾? ?듯빐 濡쒖뺄 ?섍꼍?먯꽌 ?좎냽?섍쾶 肄붾뱶瑜??묒꽦, ?섏젙, ?뚯뒪?명빀?덈떎.
+  2. **?먭꺽 Push 諛?PR ?앹꽦 (Gemini CLI)**: 濡쒖뺄 媛쒕컻???꾨즺?섎㈃, 蹂寃쎌궗??쓣 ?먭꺽 ??μ냼??Push?섍퀬 Pull Request瑜??앹꽦?⑸땲??
+  3. **?먮룞 由щ럭 諛?遺꾩꽍 (GitHub Action)**: PR???앹꽦?섎㈃ `run-gemini-cli` Action???먮룞?쇰줈 肄붾뱶 由щ럭, 遺꾩꽍 ???ㅼ젙???묒뾽???섑뻾?⑸땲??
+  4. **?쇰뱶諛?諛섏쁺 諛?蹂묓빀**: Action???쇰뱶諛깆쓣 諛뷀깢?쇰줈 濡쒖뺄?먯꽌 異붽? ?섏젙??吏꾪뻾?섍퀬, 理쒖쥌?곸쑝濡?PR??蹂묓빀?⑸땲??
+- **寃뚯씠???뱀씤**: 紐⑤뱺 蹂寃쎌? ???뚰겕?뚮줈?곗뿉 ?곕Ⅸ 肄붾뱶 由щ럭 諛??먮룞?붾맂 寃利?CI)??嫄곗튇 ???곸슜?⑸땲??
+- **硫뷀??щ떇 洹쒖튃**: ?숈씪 紐⑺몴 2???ㅽ뙣+1???깃났 ?⑦꽩? 洹쒖튃?쇰줈 ?쒖븞, 3???곗냽 ?깃났 ???쒖??뷀빀?덈떎.
 
-## 12) 표준 작업 절차 (Standard Operating Procedure)
+## 12) ?쒖? ?묒뾽 ?덉감 (Standard Operating Procedure)
 
-*모든 주요 기능 추가 및 시스템 변경은 다음 4단계 절차를 따른다.*
+*紐⑤뱺 二쇱슂 湲곕뒫 異붽? 諛??쒖뒪??蹂寃쎌? ?ㅼ쓬 4?④퀎 ?덉감瑜??곕Ⅸ??*
 
-**Phase 1: 분석 자료 준비 (Analysis & Briefing)**
-1.  **Gemini:** 현재 상태와 목표, 그리고 구체적인 질문을 담은 상세한 **"분석 요청서"**를 작성한다. (생성 위치: `docs/proposals/`)
-2.  **User:** 이 "분석 요청서"를 외부 심층 리서치 LLM(GPT)에게 전달하여, 코드베이스에 대한 상세한 **"분석 보고서"**를 받는다.
+**Phase 1: 遺꾩꽍 ?먮즺 以鍮?(Analysis & Briefing)**
+1.  **Gemini:** ?꾩옱 ?곹깭? 紐⑺몴, 洹몃━怨?援ъ껜?곸씤 吏덈Ц???댁? ?곸꽭??**"遺꾩꽍 ?붿껌??**瑜??묒꽦?쒕떎. (?앹꽦 ?꾩튂: `docs/proposals/`)
+2.  **User:** ??"遺꾩꽍 ?붿껌??瑜??몃? ?ъ링 由ъ꽌移?LLM(GPT)?먭쾶 ?꾨떖?섏뿬, 肄붾뱶踰좎씠?ㅼ뿉 ????곸꽭??**"遺꾩꽍 蹂닿퀬??**瑜?諛쏅뒗??
 
-**Phase 2: 작업 지시 요청 (Request for Directives)**
-1.  **User:** 최종 컨설팅 LLM에게, Gemini가 작성한 **"분석 요청서"**와 GPT가 작성한 **"분석 보고서"**를 함께 제공하며, **"이 모든 자료를 바탕으로, Gemini-CLI가 수행해야 할 구체적인 작업 지시서를 작성해달라"**고 요청한다.
+**Phase 2: ?묒뾽 吏???붿껌 (Request for Directives)**
+1.  **User:** 理쒖쥌 而⑥꽕??LLM?먭쾶, Gemini媛 ?묒꽦??**"遺꾩꽍 ?붿껌??**? GPT媛 ?묒꽦??**"遺꾩꽍 蹂닿퀬??**瑜??④퍡 ?쒓났?섎ŉ, **"??紐⑤뱺 ?먮즺瑜?諛뷀깢?쇰줈, Gemini-CLI媛 ?섑뻾?댁빞 ??援ъ껜?곸씤 ?묒뾽 吏?쒖꽌瑜??묒꽦?대떖??**怨??붿껌?쒕떎.
 
-**Phase 3: 작업 지시서 수령 및 실행 계획 수립 (Receive & Plan)**
-1.  **User:** 외부 LLM으로부터 최종 **"작업 지시서"**를 수령하여 Gemini에게 전달한다.
-2.  **Gemini:** 전달받은 "작업 지시서"를 바탕으로, **구체적인 실행 계획(Action Plan)을 수립**하고, 각 단계를 어떻게 적용할지 사용자에게 확인받는다.
+**Phase 3: ?묒뾽 吏?쒖꽌 ?섎졊 諛??ㅽ뻾 怨꾪쉷 ?섎┰ (Receive & Plan)**
+1.  **User:** ?몃? LLM?쇰줈遺??理쒖쥌 **"?묒뾽 吏?쒖꽌"**瑜??섎졊?섏뿬 Gemini?먭쾶 ?꾨떖?쒕떎.
+2.  **Gemini:** ?꾨떖諛쏆? "?묒뾽 吏?쒖꽌"瑜?諛뷀깢?쇰줈, **援ъ껜?곸씤 ?ㅽ뻾 怨꾪쉷(Action Plan)???섎┰**?섍퀬, 媛??④퀎瑜??대뼸寃??곸슜?좎? ?ъ슜?먯뿉寃??뺤씤諛쏅뒗??
 
-**Phase 4: 계획 실행 (Execution)**
-1.  **Gemini:** 사용자에게 승인받은 실행 계획에 따라서만 실제 작업을 수행한다.
+**Phase 4: 怨꾪쉷 ?ㅽ뻾 (Execution)**
+1.  **Gemini:** ?ъ슜?먯뿉寃??뱀씤諛쏆? ?ㅽ뻾 怨꾪쉷???곕씪?쒕쭔 ?ㅼ젣 ?묒뾽???섑뻾?쒕떎.
 
-## 13) 멀티 에이전트 호환 (Coexistence)
-- 개요: 본 워크스페이스는 여러 CLI 에이전트(Gemini, Codex, 향후 Claude 등)가 공존하도록 설계되었습니다. 세부 운영은 `AGENTS.md`를 참조하세요.
-- 활성 에이전트 확인: `invoke agent.status`
-- 활성 에이전트 전환: `invoke agent.set --name gemini|codex`
-- 설정 파일: `.agents/config.json`의 `{"active": "gemini|codex"}` 값으로 관리됩니다.
-- 로깅: `scripts/runner.py`는 실행 로그/오류 기록 시 `AGENT=<name>` 프리픽스를 포함합니다.
-- 원칙 상속: Windows-first, Python 직접 호출(UTF-8), 레포 내부 작업 경계, 비밀 커밋 금지 규칙은 모든 에이전트에 동일 적용합니다.
-- **파일 수정 프로토콜 (File Modification Protocol)**:
-  - **Codex 전담**: 시스템 파일의 직접 수정은 원칙적으로 **Codex 에이전트**가 전담한다.
-  - **Gemini 역할**: Gemini는 파일 수정이 필요한 경우, 사용자에게 먼저 문제점과 수정 제안을 보고하고 **명시적 승인**을 받는다.
-  - **작업 요청**: 사용자의 승인 후, Gemini는 직접 수정하는 대신 `invoke agent.msg`를 사용하여 Codex에게 상세한 내용을 담은 **작업 요청 메시지**를 남긴다.
-- **교차 에이전트 메시징 (v0.1)**:
-  - **저장소**: `context/messages.jsonl` (JSON Lines, UTF-8)
-  - **필드**: `{ "ts": "UTC ISO", "from": "agent", "to": "agent|all", "tags": [], "body": "..." }`
-  - **명령어**:
-    - `invoke agent.msg --to <agent> --body "..."`: 메시지 전송
-    - `invoke agent.inbox --agent <agent>`: 메시지 수신 및 `.agents/inbox/<agent>.md` 갱신
-    - `invoke agent.read --agent <agent>`: 모든 메시지를 읽음으로 표시
-- 현재 상태: v0.1은 “스위칭/표기” 중심으로 동작하며, 태스크 동작은 기존과 동일합니다(필요 시 후속 버전에서 에이전트별 Provider 분기 예정).
-# 운영 업데이트 (v0.1.1)
+## 13) 硫???먯씠?꾪듃 ?명솚 (Coexistence)
+- 媛쒖슂: 蹂??뚰겕?ㅽ럹?댁뒪???щ윭 CLI ?먯씠?꾪듃(Gemini, Codex, ?ν썑 Claude ??媛 怨듭〈?섎룄濡??ㅺ퀎?섏뿀?듬땲?? ?몃? ?댁쁺? `AGENTS.md`瑜?李몄“?섏꽭??
+- ?쒖꽦 ?먯씠?꾪듃 ?뺤씤: `invoke agent.status`
+- ?쒖꽦 ?먯씠?꾪듃 ?꾪솚: `invoke agent.set --name gemini|codex`
+- ?ㅼ젙 ?뚯씪: `.agents/config.json`??`{"active": "gemini|codex"}` 媛믪쑝濡?愿由щ맗?덈떎.
+- 濡쒓퉭: `scripts/runner.py`???ㅽ뻾 濡쒓렇/?ㅻ쪟 湲곕줉 ??`AGENT=<name>` ?꾨━?쎌뒪瑜??ы븿?⑸땲??
+- ?먯튃 ?곸냽: Windows-first, Python 吏곸젒 ?몄텧(UTF-8), ?덊룷 ?대? ?묒뾽 寃쎄퀎, 鍮꾨? 而ㅻ컠 湲덉? 洹쒖튃? 紐⑤뱺 ?먯씠?꾪듃???숈씪 ?곸슜?⑸땲??
+- **?뚯씪 ?섏젙 ?꾨줈?좎퐳 (File Modification Protocol)**:
+  - **Codex ?꾨떞**: ?쒖뒪???뚯씪??吏곸젒 ?섏젙? ?먯튃?곸쑝濡?**Codex ?먯씠?꾪듃**媛 ?꾨떞?쒕떎.
+  - **Gemini ??븷**: Gemini???뚯씪 ?섏젙???꾩슂??寃쎌슦, ?ъ슜?먯뿉寃?癒쇱? 臾몄젣?먭낵 ?섏젙 ?쒖븞??蹂닿퀬?섍퀬 **紐낆떆???뱀씤**??諛쏅뒗??
+  - **?묒뾽 ?붿껌**: ?ъ슜?먯쓽 ?뱀씤 ?? Gemini??吏곸젒 ?섏젙?섎뒗 ???`invoke agent.msg`瑜??ъ슜?섏뿬 Codex?먭쾶 ?곸꽭???댁슜???댁? **?묒뾽 ?붿껌 硫붿떆吏**瑜??④릿??
+- **援먯감 ?먯씠?꾪듃 硫붿떆吏?(v0.1)**:
+  - **??μ냼**: `context/messages.jsonl` (JSON Lines, UTF-8)
+  - **?꾨뱶**: `{ "ts": "UTC ISO", "from": "agent", "to": "agent|all", "tags": [], "body": "..." }`
+  - **紐낅졊??*:
+    - `invoke agent.msg --to <agent> --body "..."`: 硫붿떆吏 ?꾩넚
+    - `invoke agent.inbox --agent <agent>`: 硫붿떆吏 ?섏떊 諛?`.agents/inbox/<agent>.md` 媛깆떊
+    - `invoke agent.read --agent <agent>`: 紐⑤뱺 硫붿떆吏瑜??쎌쓬?쇰줈 ?쒖떆
+- ?꾩옱 ?곹깭: v0.1? ?쒖뒪?꾩묶/?쒓린??以묒떖?쇰줈 ?숈옉?섎ŉ, ?쒖뒪???숈옉? 湲곗〈怨??숈씪?⑸땲???꾩슂 ???꾩냽 踰꾩쟾?먯꽌 ?먯씠?꾪듃蹂?Provider 遺꾧린 ?덉젙).
+# ?댁쁺 ?낅뜲?댄듃 (v0.1.1)
 
-- Fallback(Invoke 불가 시): Gemini가 레포에서 Invoke를 실행할 수 없으면 `context/messages.jsonl`에 한 줄 JSON을 추가해 요청을 남깁니다.
-  - 예: `{"ts":"2025-08-11T12:34:56Z","from":"gemini","to":"codex","tags":["task","context"],"body":"README 섹션 A 수정 요청"}`
-- 에이전트 라벨: `ACTIVE_AGENT='gemini'`를 설정해 세션 라벨을 구분합니다.
-- MCP(선택): Gemini CLI는 MCP 지원이 내장되어 있으나, 본 레포는 파일/Invoke 중심으로 운영합니다. MCP 설정은 각 CLI 사용자 환경에서만 관리하세요.
-## Self-Update Protocol(자가 업데이트)
-- 정책 참조: `docs/SELF_UPDATE_POLICY.md`에 주기/범위/안전장치가 정의되어 있습니다.
-- 허용 범위: 현재 단계(MVP)는 제안 생성까지만 허용합니다.
-  - 실행: `invoke auto.scan` → `invoke auto.propose`
-  - 산출물: `docs/proposals/auto_update_YYYYMMDD.md`
-- 적용 단계: 자동 적용은 보류(OFF)이며 수동 적용만 허용합니다.
-  - 리뷰 태스크/`invoke review_last` 및 `invoke git.commit_safe` 경유, 훅은 기본 OFF 유지.
+- Fallback(Invoke 遺덇? ??: Gemini媛 ?덊룷?먯꽌 Invoke瑜??ㅽ뻾?????놁쑝硫?`context/messages.jsonl`????以?JSON??異붽????붿껌???④퉩?덈떎.
+  - ?? `{"ts":"2025-08-11T12:34:56Z","from":"gemini","to":"codex","tags":["task","context"],"body":"README ?뱀뀡 A ?섏젙 ?붿껌"}`
+- ?먯씠?꾪듃 ?쇰꺼: `ACTIVE_AGENT='gemini'`瑜??ㅼ젙???몄뀡 ?쇰꺼??援щ텇?⑸땲??
+- MCP(?좏깮): Gemini CLI??MCP 吏?먯씠 ?댁옣?섏뼱 ?덉쑝?? 蹂??덊룷???뚯씪/Invoke 以묒떖?쇰줈 ?댁쁺?⑸땲?? MCP ?ㅼ젙? 媛?CLI ?ъ슜???섍꼍?먯꽌留?愿由ы븯?몄슂.
+## Self-Update Protocol(?먭? ?낅뜲?댄듃)
+- ?뺤콉 李몄“: `docs/SELF_UPDATE_POLICY.md`??二쇨린/踰붿쐞/?덉쟾?μ튂媛 ?뺤쓽?섏뼱 ?덉뒿?덈떎.
+- ?덉슜 踰붿쐞: ?꾩옱 ?④퀎(MVP)???쒖븞 ?앹꽦源뚯?留??덉슜?⑸땲??
+  - ?ㅽ뻾: `invoke auto.scan` ??`invoke auto.propose`
+  - ?곗텧臾? `docs/proposals/auto_update_YYYYMMDD.md`
+- ?곸슜 ?④퀎: ?먮룞 ?곸슜? 蹂대쪟(OFF)?대ŉ ?섎룞 ?곸슜留??덉슜?⑸땲??
+  - 由щ럭 ?쒖뒪??`invoke review_last` 諛?`invoke git.commit_safe` 寃쎌쑀, ?낆? 湲곕낯 OFF ?좎?.

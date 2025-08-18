@@ -1,0 +1,24 @@
+{
+  "pytest": {
+    "windows_venv": "powershell -Command \"& { .\\venv\\Scripts\\python.exe -m pytest -v }\"",
+    "windows_system": "python -m pytest -v",
+    "linux_venv": "./venv/bin/python -m pytest -v",
+    "linux_system": "python3 -m pytest -v"
+  },
+  "pip_install": {
+    "windows_venv": ".\\venv\\Scripts\\pip.exe install",
+    "windows_system": "pip install",
+    "linux_venv": "./venv/bin/pip install",
+    "linux_system": "pip3 install"
+  },
+  "python_run": {
+    "windows_venv": ".\\venv\\Scripts\\python.exe",
+    "windows_system": "python",
+    "linux_venv": "./venv/bin/python",
+    "linux_system": "python3"
+  },
+  "activate_venv": {
+    "windows": ".\\venv\\Scripts\\activate.bat",
+    "linux": "source ./venv/bin/activate"
+  }
+}

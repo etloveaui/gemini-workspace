@@ -1,0 +1,41 @@
+{
+  "common_errors": {
+    "pytest_not_found": {
+      "error_pattern": "/usr/bin/bash: line 1: pytest: command not found",
+      "description": "pytest 명령어를 직접 실행할 때 발생하는 오류",
+      "correct_command": "powershell -Command \"& { .\\venv\\Scripts\\python.exe -m pytest -v }\"",
+      "frequency": 5,
+      "last_seen": "2025-08-18T15:09:19.300762",
+      "environments": [
+        "Windows",
+        "venv"
+      ]
+    },
+    "python_module_not_found": {
+      "error_pattern": "No module named pytest",
+      "description": "가상환경에서 모듈을 찾을 수 없을 때",
+      "correct_command": ".\\venv\\Scripts\\python.exe -m pytest",
+      "frequency": 3,
+      "last_seen": "2025-08-18T15:09:19.300762",
+      "environments": [
+        "Windows",
+        "venv"
+      ]
+    },
+    "bash_command_in_windows": {
+      "error_pattern": "/usr/bin/bash: command not found",
+      "description": "Windows에서 Linux bash 명령어 사용",
+      "correct_command": "powershell 사용 또는 Windows 명령어로 변환",
+      "frequency": 4,
+      "last_seen": "2025-08-18T15:09:19.300762",
+      "environments": [
+        "Windows"
+      ]
+    }
+  },
+  "prevention_rules": {
+    "always_use_venv_python": "가상환경이 있으면 항상 .\\venv\\Scripts\\python.exe 사용",
+    "windows_powershell_wrapper": "Windows에서 복잡한 명령어는 powershell -Command로 감싸기",
+    "check_file_existence": "명령어 실행 전 대상 파일/디렉터리 존재 확인"
+  }
+}

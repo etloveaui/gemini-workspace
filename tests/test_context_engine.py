@@ -21,7 +21,7 @@ def temp_context_dir(tmp_path):
     context_dir.mkdir()
     index_file = context_dir / "index.json"
     index_data = {
-        "updated_at_utc": datetime.datetime.now(datetime.UTC).isoformat(),
+        "updated_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "docs": [
             {"path": "docs/HUB.md", "lines": 100, "sha1": "abc", "tags": ["Active Tasks", "Paused Tasks"]},
             {"path": "docs/tasks/gemini-self-upgrade/log.md", "lines": 200, "sha1": "def", "tags": ["System"]},

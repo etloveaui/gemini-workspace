@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ai-model-proxy": {
+      "command": "python",
+      "args": ["scripts/mcp_ai_proxy.py"],
+      "env": {
+        "PYTHONPATH": "scripts",
+        "AI_PROXY_DEBUG": "false"
+      }
+    }
+  }
+}
