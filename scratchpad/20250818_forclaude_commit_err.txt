@@ -1,8 +1,0 @@
-
-DŘ� ��h��� 0�|� 0���|� $�X�X��� t� resolve � �
-
-���� ���\� 0���|� ����X�$�t� 'wsl.exe --list --o
-
-$�X�X�$�t� 'wsl.exe --install <Distro>'|�  ���X�8���.
-ne' ����
-��X�X�$�t� 'wsl.exe --install <Distro>'|�  ���X�8���.

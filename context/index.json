@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2025-08-18T08:21:51.677455+00:00",
+  "updated_at_utc": "2025-08-19T01:21:52.045543+00:00",
   "docs": [
     {
       "path": "docs\\AI_MODEL_INTEGRATION_ANALYSIS.md",
@@ -38,7 +38,7 @@
     {
       "path": "docs\\encoding_fix_report.md",
       "lines": 60,
-      "sha1": "be1fbd291d86bc72ce8994fc363e851d378808eb",
+      "sha1": "249f23708deae52b371b625e4eaec464a3245677",
       "tags": []
     },
     {
@@ -60,15 +60,16 @@
     },
     {
       "path": "docs\\HUB.md",
-      "lines": 85,
-      "sha1": "eb80c632909fe5ca90ae0245572cbefb30dd5477",
+      "lines": 87,
+      "sha1": "e843de721c1a3d578a2ce4ea8b60d12a7fcd2708",
       "tags": [
+        "instructions",
         "log",
         "Test",
         "CLAUDE",
         "log",
-        "Claude",
         "log",
+        "Claude",
         "log",
         "log",
         "log",
@@ -411,6 +412,42 @@
       ]
     },
     {
+      "path": "docs\\tasks\\mcp_installation_plan.md",
+      "lines": 109,
+      "sha1": "1b99517edba6a68b77e18ac6c5b7bba4f2044483",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\system_cleanup_instructions_for_codex.md",
+      "lines": 96,
+      "sha1": "0f322c372fa9e1f1b669465c5143f929ebd5e476",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\URGENT_CODEX_\uc778\ucf54\ub529_\ub300\ub7c9_\ubcf5\uad6c_\uc9c0\uc2dc\uc11c.md",
+      "lines": 304,
+      "sha1": "0143170935dbebfacdfc304bba679be04fc8960d",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\tasks\\URGENT_system_encoding_cleanup_for_codex.md",
+      "lines": 124,
+      "sha1": "e891dfaeb7f20947291a47823cb015b8bc3e685a",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\URGENT_system_encoding_cleanup_for_codex_log.md",
+      "lines": 60,
+      "sha1": "b5308aab51ee9a2e654ee1fb540c6240c9339514",
+      "tags": []
+    },
+    {
       "path": "docs\\tasks\\100xfenok-floating-button-responsive-glitch\\log.md",
       "lines": 140,
       "sha1": "322623e78e638904e802c16c4f066fecfa6a5970",
@@ -426,8 +463,8 @@
     },
     {
       "path": "docs\\tasks\\100xfenok-generator-date-title-input-fix\\log.md",
-      "lines": 101,
-      "sha1": "04e7533c3266d4db7463e79727c6bf269cf3fe17",
+      "lines": 164,
+      "sha1": "77c4c749435740facb58279733901e06a1b2e93f",
       "tags": []
     },
     {

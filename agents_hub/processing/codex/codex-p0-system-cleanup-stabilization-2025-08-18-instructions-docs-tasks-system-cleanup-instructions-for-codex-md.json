@@ -1,0 +1,10 @@
+{
+  "id": "codex-p0-system-cleanup-stabilization-2025-08-18-instructions-docs-tasks-system-cleanup-instructions-for-codex-md",
+  "from": "codex",
+  "to": "codex",
+  "type": "task",
+  "title": "[CODEX-P0] System Cleanup & Stabilization (2025-08-18) - 시스템 정리 및 안정화 최우선 작업 [instructions](docs/tasks/system_cleanup_instructions_for_codex.md)",
+  "created_at": "2025-08-19T01:21:50.990338+00:00",
+  "status": "processing",
+  "claimed_at": "2025-08-19T01:21:50.990338+00:00"
+}
