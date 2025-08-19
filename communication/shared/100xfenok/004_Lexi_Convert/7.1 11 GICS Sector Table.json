@@ -1,0 +1,19 @@
+{
+  "metadata": {
+    "source_file": "7.1 11 GICS Sector Table.html",
+    "conversion_date": "2025-08-19T23:35:52.518835",
+    "converter": "TerminalXJSONConverter v1.0"
+  },
+  "sections": [
+    {
+      "title": "Main Content",
+      "level": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "content": "GICS sector performance on August 18, 2025 showed mixed results with seven sectors declining and four posting gains. Industrials led with a 0.39% advance, followed by Consumer Discretionary at 0.40% and Technology at 0.21%. Real Estate suffered the largest decline at -0.94%, while Materials, Communication Services, and Energy each fell approximately 0.60%.\n\n          Daily Performance and Key Drivers\n        \n\n\n\nSector\n\nETF\n\nDaily %\n\nYTD %\n\nKey Driver\n\nP/E TTM\n\n\nIndustrials\n\nXLI\n\n+0.39%\n\n+14.63%\n\nContinued earnings momentum from Q2 results\n\nMarket avg\n\nConsumer Discretionary\n\nXLY\n\n+0.40%\n\n+2.50%\n\nAI demand sustainability concerns ahead of key earnings\n\nMarket avg\n\nTechnology\n\nXLK\n\n+0.21%\n\n+14.51%\n\nMegacap tech consolidation after strong Q2 earnings beat\n\nAbove avg\n\nFinancials\n\nXLF\n\n+0.08%\n\n+8.63%\n\nBeneficiary of Q2 earnings outperformance vs forecasts\n\nBelow avg\n\nConsumer Staples\n\nXLP\n\n-0.13%\n\n+4.20%\n\nDefensive rotation amid economic uncertainty\n\nMarket avg\n\nHealth Care\n\nXLV\n\n-0.23%\n\n-1.22%\n\nEPS projection cuts since January estimates\n\nMarket avg\n\nUtilities\n\nXLU\n\n-0.43%\n\n+12.63%\n\nRate sensitivity despite defensive positioning\n\nAbove avg\n\nEnergy\n\nXLE\n\n-0.60%\n\n-0.71%\n\nLargest EPS downgrade since January (-15Pp)\n\nBelow avg\n\nMaterials\n\nXLB\n\n-0.58%\n\n+6.38%\n\nSignificant earnings downgrades (-10Pp from January)\n\nBelow avg\n\nCommunication Services\n\nXLC\n\n-0.61%\n\n+14.45%\n\nProfit-taking after strong Q2 outperformance\n\nMarket avg\n\nReal Estate\n\nXLRE\n\n-0.94%\n\n+0.66%\n\nInterest rate sensitivity offsetting earnings beats\n\nBelow avg\n\n\n\n51\n\n          Sector Rotation Themes\n        \nThe current market environment reflects a transition toward a \"Recovery\" phase, with the US Regime Indicator strengthening in July 2025 based on improvements in EPS revisions, GDP forecasts, and capacity utilization 2. This regime shift historically favors Value, Small Size, Quality, and Low Risk factors while penalizing Momentum and Growth strategies.Hedge fund positioning data reveals active rotation into Technology (+1.9%), Industrials (+0.6%), and Communication Services (+0.6%) during Q2 2025, while reducing Healthcare (-1.3%), Financials (-0.7%), and Consumer Staples (-0.7%) exposure 4. Despite this tactical shift, institutional investors maintain structural underweights in Technology relative to benchmarks, a trend persisting since 2017 due to megacap concentration concerns.\n\n          Valuation Context\n        \nValue remains historically cheap relative to Growth, trading at 0.56x forward P/E, nearly two standard deviations below historic averages 2. The Growth vs Value relative forward P/E ratio sits at 1.7x, approaching ex-COVID highs. The S&P 500 Risk Premium of 515 bps as of July 31, 2025 trades slightly above the long-term average of 507 bps, suggesting modest equity attractiveness despite elevated absolute valuations.Earnings momentum continues supporting equity performance, with S&P 500 EPS growth exceeding 10% in Q2 2025, surpassing both April and January forecasts 5. However, sector dispersion remains pronounced, with seven of eleven sectors experiencing EPS downgrades since January, led by Energy (-15Pp), Materials (-10Pp), and Healthcare (-5Pp) revisions."
+        }
+      ]
+    }
+  ]
+}
