@@ -18,6 +18,27 @@ class BackupManager:
         self.backup_dir = self.workspace / ".agents/backup"
         self.backup_dir.mkdir(exist_ok=True)
         
+        # 백업 주기 설정 (기본 30분)
+        self.backup_interval_minutes = 30
+        
+    def should_backup(self):
+        """백업이 필요한지 확인"""
+        last_backup = None
+        
+        # 가장 최근 백업 찾기
+        for backup_file in sorted(self.backup_dir.glob("backup_*.zip"), reverse=True):
+            last_backup = backup_file
+            break
+        
+        if not last_backup:
+            return True
+        
+        # 마지막 백업 시간 확인
+        backup_time = datetime.fromtimestamp(last_backup.stat().st_mtime)
+        now = datetime.now()
+        
+        return (now - backup_time).total_seconds() > (self.backup_interval_minutes * 60)
+    
     def create_backup(self):
         """백업 생성"""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

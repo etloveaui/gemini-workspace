@@ -1,0 +1,8 @@
+{
+  "id": "demo-task-1",
+  "priority": 1,
+  "assigned_agent": "codex",
+  "created_at": "2025-08-19T13:10:48.969211",
+  "status": "queued",
+  "data": {}
+}

@@ -6,3 +6,4 @@ rich
 prompt_toolkit
 requests
 pywin32
+psutil

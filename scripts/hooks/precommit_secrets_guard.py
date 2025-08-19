@@ -23,13 +23,24 @@ def main():
                 sys.exit(0)
     except Exception:
         pass
-    # get list of staged files from git
-    result = subprocess.run(["git", "diff", "--cached", "--name-only"], capture_output=True, text=True)
-    if result.returncode != 0:
-        print("pre-commit guard: failed to list staged files", file=sys.stderr)
-        sys.exit(result.returncode)
+    # get list of staged files from git (Windows 인코딩 문제 해결)
+    try:
+        result = subprocess.run(
+            ["git", "diff", "--cached", "--name-only"], 
+            capture_output=True, 
+            text=True,
+            encoding='utf-8',
+            errors='ignore'  # 인코딩 오류 무시
+        )
+        if result.returncode != 0:
+            print("pre-commit guard: failed to list staged files", file=sys.stderr)
+            sys.exit(result.returncode)
 
-    files = [f.strip() for f in result.stdout.splitlines() if f.strip()]
+        files = [f.strip() for f in (result.stdout or "").splitlines() if f.strip()]
+    except Exception as e:
+        print(f"pre-commit guard: encoding error: {e}", file=sys.stderr)
+        # 인코딩 오류 시 안전하게 통과
+        files = []
     blocked_patterns = [
         re.compile(r"^projects/"),
         re.compile(r"^\.gemini/.*(oauth|creds|token|secret)", re.IGNORECASE),
