@@ -1,7 +1,45 @@
 {
-  "active": "codex",
+  "active_agents": ["claude", "gemini", "codex"],
+  "concurrent_limit": 3,
+  "primary_supervisor": "claude",
   "hooks": {
     "enabled": true,
     "diff_confirm": true
+  },
+  "mcp_servers": {
+    "filesystem": {
+      "enabled": true,
+      "description": "파일시스템 전체 접근"
+    },
+    "context7": {
+      "enabled": true,
+      "free": true,
+      "description": "실시간 문서 검색"
+    },
+    "github": {
+      "enabled": true,
+      "free": true,
+      "description": "GitHub 리포지토리 관리"
+    },
+    "sqlite": {
+      "enabled": true,
+      "free": true,
+      "description": "로컬 데이터베이스 관리"
+    }
+  },
+  "natural_language": {
+    "enabled": true,
+    "command_suggestion": true,
+    "auto_execution": true
+  },
+  "backup": {
+    "enabled": true,
+    "interval_hours": 6,
+    "keep_versions": 10
+  },
+  "cross_platform": {
+    "portable": true,
+    "auto_setup": true,
+    "requirements_check": true
   }
 }

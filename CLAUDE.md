@@ -1,8 +1,10 @@
-# Claude Code 통합 가이드 (Multi-Agent Workspace)
+# Claude Code 통합 가이드 (Multi-Agent Workspace v2.0)
 
-이 문서는 Claude Code가 Multi-Agent Workspace (Gemini + Codex + Claude) 시스템에서 작업을 수행할 때 따라야 할 핵심 규칙과 절차를 정의합니다.
+이 문서는 Claude Code가 **차세대 멀티 에이전트 워크스페이스**에서 **총감독관**으로서 작업을 수행할 때 따라야 할 핵심 규칙과 절차를 정의합니다.
 
-**핵심 특징:** 이 워크스페이스는 Python Invoke 기반의 태스크 러너와 PowerShell 스크립트를 결합한 멀티 에이전트 환경으로, Gemini, Codex, Claude가 파일 기반 메시징 시스템을 통해 협업합니다.
+**핵심 특징:** 이 워크스페이스는 Python Invoke 기반의 태스크 러너와 Context7 MCP를 결합한 고도화된 멀티 에이전트 환경으로, Gemini, Codex, Claude가 **동시실행 가능한** 협업 시스템을 통해 병렬/직렬 작업을 수행합니다.
+
+**Claude의 역할:** 총감독관으로서 시스템 전체를 조율하고, 다른 에이전트들의 작업을 조직화하며, 최종 품질을 보장합니다.
 
 ---
 
@@ -22,10 +24,15 @@
 **4. 사용 언어**
 - **기본 언어:** 사용자와의 모든 상호작용은 **한국어**로 진행하는 것을 원칙으로 합니다.
 
-**5. Git 관리 폴더**
+**5. 멀티 에이전트 관리 구조**
 - **`scripts/`:** 유틸리티 스크립트 폴더로, Git에 의해 추적됩니다.
 - **`secrets/`:** 민감 정보 저장 폴더로, Git에 의해 추적되지 않습니다. (`.gitignore`에 포함)
 - **`docs/`:** 공유 작업 로그 폴더로, Gemini와 공동 사용합니다.
+- **`.agents/`:** 멀티 에이전트 시스템 관리 폴더
+  - **`locks/`:** 에이전트별 작업 잠금 파일
+  - **`queue/`:** 우선순위별 작업 큐 (P0~P3)
+  - **`context7_cache/`:** Context7 MCP 캐시
+  - **`multi_agent_manager.py`:** 동시실행 관리 시스템
 
 ---
 
