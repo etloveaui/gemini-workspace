@@ -1,0 +1,447 @@
+/*
+ * A1333.h
+ *
+ *  Created on: 2022. 2. 24.
+ *      Author: dell
+ */
+
+#ifndef BSW_EHAL_A1333_HAL_A1333_H_
+#define BSW_EHAL_A1333_HAL_A1333_H_
+
+#define A1333_SPI_TIMEOUT_CNT 	(10000)
+#define A1333_SPI_SYNC_TYPE		(0x1)
+#define A1333_SPI_ASYNC_TYPE	(0x0)
+
+#define A1333_REG_SHADOW_ADDR_EWA		(0x43) // Extended Write Shadow Address
+#define A1333_REG_SHADOW_ADDR_EWD_0		(0x44) // Extended Write Data High Shadow Address 0
+#define A1333_REG_SHADOW_ADDR_EWD_1		(0x45) // Extended Write Data High Shadow Address 1
+#define A1333_REG_SHADOW_ADDR_EWD_2		(0x46) // Extended Write Data Low Shadow Address 0
+#define A1333_REG_SHADOW_ADDR_EWD_3		(0x47) // Extended Write Data Low Shadow Address 1
+#define A1333_REG_SHADOW_ADDR_EWCS		(0x48) // Extended Write Control and Status
+
+#define A1333_REG_SHADOW_ADDR_ERA		(0x4B) // Extended Read Shadow Address
+#define A1333_REG_SHADOW_ADDR_ERCS		(0x4C) // Extended Read Control and Status Shadow Address
+#define A1333_REG_ADDR_ERCS				(0x0C) // Extended Read Control and Status Address
+#define A1333_REG_ADDR_ERDH				(0x0E) // Extended Read Data High Address
+#define A1333_REG_ADDR_ERDL				(0x10) // Extended Read Data Low Address
+
+#define A1333_REG_ADDR_KEY				(0x3C) // KEY register
+#define A1333_REG_SHADOW_ADDR_KEY		(0x7C) // KEY register
+
+#define A1333_REG_ADDR_CTRL_H			(0x1E) // Address 0x1E:0x1F (CTRL) Device Control
+#define A1333_REG_ADDR_CTRL_L			(0x1F) // Address 0x1E:0x1F (CTRL) Device Control
+#define A1333_REG_ADDR_CTRL_WRITEH		((A1333_REG_ADDR_CTRL_H) | (1 << 6)) // Address 0x1E:0x1F (CTRL) Device Control
+#define A1333_REG_ADDR_CTRL_WRITEL		((A1333_REG_ADDR_CTRL_L) | (1 << 6)) // Address 0x1E:0x1F (CTRL) Device Control
+
+//Read Only Register
+#define A1333_REG_ADDR_ANG_X20			(0x20) // Address 0x20:0x21 (ANG) Current Angle Reading (12 bits)
+#define A1333_REG_ADDR_STA				(0x22) // Address 0x22:0x23 (STA) Device Status
+
+#define A1333_REG_ADDR_ERR				(0x24) // Address 0x24:0x25 (ERR) Device Error Flags
+#define A1333_REG_ADDR_WARN				(0x26) // Address 0x26:0x27 (WARN) Device Warning Flags
+
+#define A1333_REG_ADDR_TSEN				(0x28) // Address 0x28:0x29 (TSEN) Temperature Sensor
+#define A1333_REG_ADDR_FIELD			(0x2A) // Address 0x2A:0x2B (FIELD) Field Strength (in gauss)
+#define A1333_REG_ADDR_TURNS			(0x2C) // Address 0x2C:0x2D (TURNS) Turns Counter
+#define A1333_REG_ADDR_HANG				(0x30) // Address 0x30:0x31 (HANG) Hysteresis Angle Value (12 bits)
+#define A1333_REG_ADDR_ANG15			(0x32) // Address 0x32:0x33 (ANG15) Current Angle Reading (15 bits)
+#define A1333_REG_ADDR_ZANG				(0x34) // Address 0x34:0x35 (ZANG) ZCD Angle
+
+//EEPROM
+#define A1333_REG_SHADOW_ADDR_PWE		(0x58) // PWM Error Enable Shadow Address
+#define A1333_REG_ADDR_PWE				(0x18) // Address 0x18 (PWE)PWM Error Enable
+
+#define A1333_REG_SHADOW_ADDR_ABI		(0x59) // ABI Control Shadow Address
+#define A1333_REG_ADDR_ABI				(0x19) // Address 0x19(ABI) ABI Control
+
+#define A1333_REG_SHADOW_ADDR_MSK		(0x5A) // Mask Bits Shadow Address
+#define A1333_REG_ADDR_MSK				(0x1A) // Address 0x1A (MSK) Mask Bits
+
+#define A1333_REG_SHADOW_ADDR_PWI		(0x5B) // PWM Interface control Shadow Address
+#define A1333_REG_ADDR_PWI				(0x1B) // Address 0x1B (PWI) PWM Interface Control
+
+#define A1333_REG_SHADOW_ADDR_ANG_X1C	(0x5C) // ANG Shadow Address
+#define A1333_REG_ADDR_ANG_X1C			(0x1C) // Address 0x1C (ANG)
+
+#define A1333_REG_SHADOW_ADDR_LPC		(0x5D) // LPC Shadow Address
+#define A1333_REG_ADDR_LPC				(0x1D) // Address 0x1D (LPC)
+
+#define A1333_REG_SHADOW_ADDR_COM		(0x5E) // COM Shadow Address
+#define A1333_REG_ADDR_COM				(0x1E) // Address 0x1E (COM)
+
+#define A1333_REG_ADDR_CUS				(0x1F) // Address 0x1F (CUST)
+
+#define EXCEPTION_LOG_MAX	(10U)
+
+typedef union{
+	uint16 halfword;
+	uint8 byte[2];
+}typA1333_Buffer;
+
+typedef struct{
+	uint16 first[EXCEPTION_LOG_MAX];
+	uint16 last[EXCEPTION_LOG_MAX];
+	uint16 first_count;
+	uint16 last_count;
+}typExcetionLog;
+
+typedef struct{
+	uint32 test_case;
+}typA1333_TestConfig;
+
+typedef struct{
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 CUL : 1;
+			uint16 unused1 : 7;
+			uint8 keycode;
+		}signal;
+	}A1333_KEY;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 INITIATE_SPECIAL : 8;
+			uint16 CLE : 1;
+			uint16 CLW : 1;
+			uint16 CLS : 1;
+			uint16 unused1 : 1;
+			uint16 SPECIAL : 4;
+		}signal;
+	}A1333_CTRL;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 ANGLE : 12;
+			uint16 P : 1;
+			uint16 UV : 1;
+			uint16 EF : 1;
+			uint16 unused1 : 1;
+		}signal;
+	}A1333_ANG_X20;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 AOK : 1;
+			uint16 BIP : 1;
+			uint16 CSTR : 1;
+			uint16 LBR : 1;
+			uint16 BDN : 1;
+			uint16 SDN : 1;
+			uint16 unused1 : 1;
+			uint16 ROT : 1;
+			uint16 DIE_ID : 2;
+			uint16 unused2 : 2;
+			uint16 magic_A_0 : 1;
+			uint16 magic_B_0 : 1;
+			uint16 magic_C_0 : 1;
+			uint16 magic_D_1 : 1;
+		}signal;
+	}A1333_STA;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 RST : 1;
+			uint16 MSL : 1;
+			uint16 UVA : 1;
+			uint16 UVD : 1;
+			uint16 OFE : 1;
+			uint16 EUE : 1;
+			uint16 ZIE : 1;
+			uint16 PLK : 1;
+			uint16 ABI : 1;
+			uint16 AVG : 1;
+			uint16 STF : 1;
+			uint16 WAR : 1;
+			uint16 magic_A_0 : 1;
+			uint16 magic_B_1 : 1;
+			uint16 magic_C_0 : 1;
+			uint16 magic_D_1 : 1;
+		}signal;
+	}A1333_ERR;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 TOV : 1;
+			uint16 MSH : 1;
+			uint16 BSY : 1;
+			uint16 TCW : 1;
+			uint16 SAT : 1;
+			uint16 ESE : 1;
+			uint16 TR : 1;
+			uint16 XEE : 1;
+			uint16 SRW : 1;
+			uint16 unused1 : 1;
+			uint16 CRC : 1;
+			uint16 IER : 1;
+			uint16 magic_A_1 : 1;
+			uint16 magic_B_1 : 1;
+			uint16 magic_C_0 : 1;
+			uint16 magic_D_1 : 1;
+		}signal;
+	}A1333_WARN;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 TEMPERATURE : 12;
+			uint16 magic_A_1 : 1;
+			uint16 magic_B_1 : 1;
+			uint16 magic_C_1 : 1;
+			uint16 magic_D_1 : 1;
+		}signal;
+	}A1333_TSEN;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 GAUSS : 12;
+			uint16 magic_A_0 : 1;
+			uint16 magic_B_1 : 1;
+			uint16 magic_C_1 : 1;
+			uint16 magic_D_1 : 1;
+		}signal;
+	}A1333_FIELD;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 TURNS : 12;
+			uint16 P : 1;
+			uint16 magic_A_0 : 1;
+			uint16 magic_B_1 : 1;
+			uint16 magic_C_1 : 1;
+		}signal;
+	}A1333_TURNS;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 ANGLE_HYS : 12;
+			uint16 P : 1;
+			uint16 UV : 1;
+			uint16 EF : 1;
+			uint16 unused1 : 1;
+		}signal;
+	}A1333_HANG;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 ANGLE_15 : 15;
+			uint16 unused1 : 1;
+		}signal;
+	}A1333_ANG15;
+
+	union{
+		uint16 halfword;
+		uint8 byte[2];
+		struct{
+			uint16 ANGLE_ZCD : 12;
+			uint16 P : 1;
+			uint16 UV : 1;
+			uint16 EF : 1;
+			uint16 unused1 : 1;
+		}signal;
+	}A1333_ZANG;
+
+	//EEPROM
+
+	union{
+		uint32 word;
+		uint16 halfword[2];
+		uint8 byte[4];
+		struct{
+			uint32 OFE : 1;
+			uint32 EUE : 1;
+			uint32 STF : 1;
+			uint32 PLK : 1;
+			uint32 ZIE : 1;
+			uint32 AVG : 1;
+			uint32 UV : 1;
+			uint32 MSL : 1;
+			uint32 ESE : 1;
+			uint32 SAT : 1;
+			uint32 MSH : 1;
+			uint32 TR : 1;
+			uint32 TOV : 1;
+			uint32 unused3 : 19;
+		}signal;
+	}A1333_PWE;
+
+	union{
+		uint32 word;
+		uint16 halfword[2];
+		uint8 byte[4];
+		struct{
+			uint32 RESOLUTION_PAIRS : 4;
+			uint32 UVW : 1;
+			uint32 IOE : 1;
+			uint32 PLH : 1;
+			uint32 WDH : 1;
+			uint32 INDEX_MODE : 2;
+			uint32 unused1 : 2;
+			uint32 AHE : 1;
+			uint32 unused2 : 2;
+			uint32 INV : 1;
+			uint32 ABI_SLEW_TIME : 6;
+			uint32 unused3 : 10;
+		}signal;
+	}A1333_ABI;
+
+	union{
+		uint32 word;
+		uint16 halfword[2];
+		uint8 byte[4];
+		struct{
+			uint32 RST : 1;
+			uint32 MSL : 1;
+			uint32 UVA : 1;
+			uint32 UVD : 1;
+			uint32 OFE : 1;
+			uint32 EUE : 1;
+			uint32 ZIE : 1;
+			uint32 PLK : 1;
+
+			uint32 ABI : 1;
+			uint32 AVG : 1;
+			uint32 STF : 1;
+			uint32 WAR : 1;
+			uint32 TOV : 1;
+			uint32 MSH : 1;
+			uint32 BSY : 1;
+			uint32 TCW : 1;
+
+			uint32 SAT : 1;
+			uint32 ESE : 1;
+			uint32 TR : 1;
+			uint32 XEE : 1;
+			uint32 SRW : 1;
+			uint32 unused1 : 1;
+			uint32 CRC : 1;
+			uint32 IER : 1;
+			uint32 unused2 : 8;
+		}signal;
+	}A1333_MSK;
+
+	union{
+		uint32 word;
+		uint16 halfword[2];
+		uint8 byte[4];
+		struct{
+			uint32 SC : 1;
+			uint32 S17 : 1;
+			uint32 unused1 : 1;
+			uint32 DM : 1;
+			uint32 unused2 : 8;
+			uint32 PES : 1;
+			uint32 PEO : 1;
+			uint32 PHE : 1;
+			uint32 unused3 : 1;
+			uint32 PWM_FREQ : 4;
+			uint32 PWM_BAND : 3;
+			uint32 PEN : 1;
+			uint32 unused4 : 8;
+		}signal;
+	}A1333_PWI;
+
+	union{
+		uint32 word;
+		uint16 halfword[2];
+		uint8 byte[4];
+		struct{
+			uint32 ZERO_OFFSET : 12;
+			uint32 HYSTERESIS : 6;
+			uint32 RO : 1;
+			uint32 RD : 1;
+			uint32 ORATE : 4;
+			uint32 unused1 : 8;
+		}signal;
+	}A1333_ANG_X1C;
+
+	union{
+		uint32 word;
+		uint16 halfword[2];
+		uint8 byte[4];
+		struct{
+			uint32 unused1 : 23;
+			uint32 T45 : 1;
+			uint32 unused2 : 8;
+		}signal;
+	}A1333_LPC;
+
+	union{
+		uint32 word;
+		uint16 halfword[2];
+		uint8 byte[4];
+		struct{
+			uint32 MAG_THRES_LO : 6;
+			uint32 MAG_THRES_HI : 6;
+			uint32 DHR : 1;
+			uint32 DST : 1;
+			uint32 unused1 : 4;
+			uint32 CSE : 1;
+			uint32 LBE : 1;
+			uint32 LOCK : 4;
+			uint32 unused2 : 8;
+		}signal;
+	}A1333_COM;
+
+	union{
+		uint32 word;
+		uint16 halfword[2];
+		uint8 byte[4];
+		struct{
+			uint32 Customer_EEPROM_Space : 24;
+			uint32 unused1 : 8;
+		}signal;
+	}A1333_CUST;
+
+}typA1333Register;
+
+typedef struct
+{
+	boolean write_flag;
+	boolean read_flag;
+	uint8 write_num;
+	uint8 read_num;
+}typA1333RegisterControl;
+
+typedef struct
+{
+	typA1333RegisterControl CtrlReg;
+	typA1333Register WriteReg;
+	typA1333Register ReadReg;
+}typA1333Panels;
+
+extern void A1333_Init(void);
+extern void A1333_Spi_Init(void);
+extern void A1333_Test_10ms(void);
+extern void A1333_Write_Register(void);
+extern void A1333_Read_Register(void);
+extern void A1333_Spi_WriteCtrl(void);
+extern void A1333_Spi_ReadErr(void);
+extern void A1333_Fault_Reset(void);
+extern void A1333_Spi_UnlockEepWrite(void);
+extern void A1333_SET_UP(void);
+
+extern typA1333Panels vA1333_Panels;
+extern typA1333Panels vA1333_Panels_bak;
+
+#endif /* BSW_EHAL_A1333_HAL_A1333_H_ */

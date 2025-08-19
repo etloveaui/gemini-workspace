@@ -1,0 +1,146 @@
+﻿,선행 ARS 제어기 BSW-ASW 인터페이스,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,BSW-ASW 인터페이스 리스트,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,Approval,,,,,,,,,,,,,,,.
+,,,작성,검토1,검토2,승인,,,,,,,,,,,
+,,,김도현,,,이지웅,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,Cooperation with,,,,,,,,,,,,,,,
+,,소속,,성명,,확인,,,,,,,,,,,
+,,제어SW개발팀,,김도현,,,,,,,,,,,,,
+,,제어SW개발팀,,박종찬,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,Document Information,,,,,,,,,,,,,,,,
+,작성 부서,,제어SW개발팀,,,,,,,,,,,,,,
+,문서 번호,,,,,,,,,,,,,,,,
+,문서 상태,,검토,,승인,,배포,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,배포처,,현대위아 제어SW개발팀,,,,,,,,,,,,,,
+,적용 시스템(차량),,선행 ARS,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,Revision History,,,,,,변경 범위 확인,V1.00,,,,,,,,,
+,버전,날짜,내용,,,,작성자,승인자,,,,,,,,,
+,V0.00,24.10.16,최초 신규 작성,,,,김도현 연구,,,,,,,,,,
+,V0.01,24.11.14,"최초 ABI API 작성
+ - 01_IF_BSW->ASW
+ - 02_IF_ASW->BSW",,,,구대관 책임,,,,,,,,,,
+,V0.02,24.12.02,"1. 누락 API 추가 작성
+ - ShrHWIA_Sns_Read_MotTmp
+ - ShrHWIA_SMPS_Enable
+ - ShrHWIA_Sns_Update_PstSns2
+
+2. API 이름 변경
+ - ShrHWIA_HV_OV_Read
+ - ShrHWIA_HV_OC_Read
+ - ShrHWIA_LV_OV_Read
+ - ShrHWIA_LV_OC_Read
+ - ShrHWIA_Sns_Read_PstSns1
+ - ShrHWIA_Sns_Read_PstSns2",,,,박종찬 연구,,,,,,,,,,
+,V0.03,24.12.13,"1. CAN Tx, Rx message API 수정",,,,박종찬 연구,,,,,,,,,,
+,V0.04,24.12.17,". Runnable 삭제
+. NvM count 삭제
+. LV OV, OC 삭제
+. 함수 구조 전면 수정
+※ GINT와 협의 중",,,,김도현 연구,,,,,,,,,,
+,V0.05,24.12.23,". ShrHWIA_GetSysTime 60MHz->100MHz 변경
+. ShrHWIA_BswCan_GetState_Timeout(uint8 msg_index)
+. ShrHWIA_BswCan_GetState_Busoff(uint8 Channel)
+. ShrHWIA_BswGpt_GetTBD_cbk(uint8 enc_ch)
+. ShrHWIA_BswSent_GetTBD_cbk
+. ShrHWIA_BswSent_GetTBD
+. ShrHWIA_BswPwm_ChOutEnable(uint8 PwmCh, uint8 PwmOutSt)
+. ShrHWIA_BswPwm_SetDutyCycle(uint8 ch, uint16 duty_cycle) 매개 변수 축소",,,,김도현 연구,,,,,,,,,,
+,V0.06,24.12.24,". RTE Name, Function, Variable 열 추가",,,,김도현 연구,,,,,,,,,,
+,V0.07,24.12.27,". RTE Name, Function, Variable 열 내용기입",,,,이준환 책임,,,,,,,,,,
+,V0.08,25.01.08,"1. API 추가
+. void ShrHWIA_BswAdc_Cbk_ISR(void)
+. void ShrHWIA_BswPwm_Cbk_ISR(void)
+. void ShrHWIA_Mod_FlsReprogram_Cbk(void)
+. void ShrHWIA_BswTask_Init(void)
+. void ShrHWIA_BswTask_Idle(void)
+. void ShrHWIA_BswTask_1ms(void)
+. void ShrHWIA_BswTask_10ms(void)
+. void ShrHWIA_BswTask_100ms(void)
+. void ShrHWIA_BswTask_2ms(void)
+. void ShrHWIA_BswTask_5ms(void)
+. void ShrHWIA_BswTask_20ms(void)
+. void ShrHWIA_BswTask_50ms(void)
+. uint8 ShrHWIA_BswDio_GetPin(uint8 ch)
+. ShrHWIA_HV_OC_Read
+. ShrHWIA_BswIcu_GetFrequency(uint8 ch)
+. ShrHWIA_BswIcu_GetDuty(uint8 ch)
+. ShrHWIA_BswAdc_GetPhyValue(uint8 ch)
+2. API 삭제
+. ShrHWIA_BswGpt_GetEncISignalLevel(uint8 enc_ch)
+3. Read Data Type 정의
+4. 3개 API : *Pwm*->*BswPwm* 으로 변경
+ShrHWIA_BswPwm_SetDeadTime(uint16 DeadTimeVal)
+ShrHWIA_BswPwm_Enable(uint8 EnableVal)
+ShrHWIA_BswPwm_SetPeriod",,,,김도현 연구,,,,,,,,,,
+,V0.09,25.01.10,"1. 'ShrHWIA_BswPwm_SetPeriod -> ShrHWIA_BswPwm_SetPeriod 변경
+2. 9개 Task *BswTask* -> IswHandler 로 변경
+void ShrHWIA_IswHandler_Init(void)
+void ShrHWIA_IswHandler_Idle(void)
+void ShrHWIA_IswHandler_1ms(void)
+void ShrHWIA_IswHandler_10ms(void)
+void ShrHWIA_IswHandler_100ms(void)
+void ShrHWIA_IswHandler_2ms(void)
+void ShrHWIA_IswHandler_5ms(void)
+void ShrHWIA_IswHandler_20ms(void)
+void ShrHWIA_IswHandler_50ms(void)",,,,김도현 연구,,,,,,,,,,
+,V0.10,25.02.25,"1. BSW SENT 추가 및 NvM symbol 변경
+typBswSent_StateType ShrHWIA_BswSent_GetGearPosition
+ShrHWIA_BswSent_Cbk
+ShrHWIA_BswNvM_ReadBlock
+ShrHWIA_BswNvM_WriteBlock
+typBswSys_Mcu_Reset ShrHWIA_BswSys_GetResetReason(void)",,,,김도현 연구,,,,,,,,,,
+,V0.11,25.03.13,"1. ICU Fault 시 Return 추가
+. ShrHWIA_BswIcu_GetFrequency(uint8 ch)
+. ShrHWIA_BswIcu_GetDuty(uint8 ch)",,,,김도현 연구,,,,,,,,,,
+,V0.12,25.04.14,". ShrHWIA_BswSent_Cbk, ShrHWIA_GetSysTime 삭제
+. ShrHWIA_BswGpt_GetEncISignalLevel(uint8 enc_ch) 삭제
+. ShrHWIA_BswSent_GetGearPosition 리턴 값 정의
+. ShrHWIA_BswSys_GetSysTime, ShrHWIA_BswSys_GetResetStatus, ShrHWIA_BswSys_McuReset 추가
+. ShrHWIA_BswNvM_WriteBlock, ShrHWIA_BswNvm_ReadBlock return 및 parameter 수정
+. ShrHWIA_BswIcu_GetFrequency(uint8 ch), ShrHWIA_BswIcu_GetDuty(uint8 ch) parameter 수정
+. ShrHWIA_BswDio_SetPin(uint8 ch, uint8 flag) parameter 수정
+. ShrHWIA_IswHandler_Init2(void) 추가
+'. ShrHWIA_BswAdc_GetPhyValue(uint8 ch) 파라미터 수정
+. ShrHWIA_BswCan_GetMsg(uint8 msg_index, uint8 *dlc, uint8 *data) 파라미터 수정
+. ShrHWIA_BswCan_SetMsg(uint8 msg_index, uint8 dlc, uint8 *data) 파리미터 수정
+. ShrHWIA_BswCan_GetState_Busoff(uint8 can_ch) 파라미터 수정
+. ShrHWIA_BswCan_GetState_Timeout(uint8 msg_index) 파라미터 수정
+. ShrHWIA_BswGpt_GetEncPulseCnt(uint8 enc_ch)파라미터 수정
+. ShrHWIA_BswGpt_GetEncDirection(uint8 enc_ch)파라미터 수정
+. ShrHWIA_BswNvm_ReadBlock(uint8 index, uint8* data)파라미터 수정
+. ShrHWIA_BswNvm_WriteBlock(uint8 index, uint8* data)파라미터 수정
+. ShrHWIA_BswPwm_SetDutyCycle(uint8 ch, uint16 duty_cycle)파라미터 수정
+. ShrHWIA_BswSent_GetGearPosition(uint16* sentdata) 리턴타입. 파라미터 수정
+. ShrHWIA_BswSys_GetResetReason(void) 리턴타입 수정
+. ShrHWIA_BswSys_GetSysTime(void)리턴타입 수정
+. ShrHWIA_BswWdg_Trigger 삭제 필요?
+. ShrHWIA_BswXXX_Set_PstSns2_Update 삭제
+. ShrHWIA_HV_OV_Read 삭제
+. 추후 배포 항목인 ShrHWIA_BswWdg_Trigger 관련 External->Internal로 수정
+. RTE Function 식별
+. ShrHWIA_BswAdc_GetPhyValue Define 매개변수 수정",,,,김도현 연구,,,,,,,,,,
+,V1.00,25.04.21,". ShrHWIA_HV_OC_Read 삭제 (ICU Fault Callback 함수 확인 가능)
+. ShrHWIA_BswIcu_Cbk_Fault 채널 추가 CURRENT_DC_OC / CURRENT_U_OC / CURRENT_W_OC
+. ShrHWIA_BswAdc_GetPhyValue 채널 추가 및 변경 시트 참조
+. ShrHWIA_BswDio_GetPin(uint8 ch) 채널 변경 및 추가
+. ShrHWIA_Current_Offset_Status_Read 상전류 Offset 감지 후 정상 범위 판정 status read 추가
+. ShrHWIA_BswDio_SetPin(uint8 ch, uint8 flag) 채널 변경 및 추가",,,,김도현 연구,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,"NOTICE: 
+Information contained in this document is classified Hyundai WIA Confidential Proprietary. No person outside the Hyundai WIA shall have access to the information contained in this document unless business needs dictate, otherwise. 
+It is the responsibility of the person knowing the information contained in this document to ensure confidentiality of information contained in it and preventing unauthorized access to this document at all times.",,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+,,,,,, ,,,,,,,,,,,

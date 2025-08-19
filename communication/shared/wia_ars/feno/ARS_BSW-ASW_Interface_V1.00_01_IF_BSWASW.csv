@@ -1,0 +1,195 @@
+선행 ARS BSW -> ASW Interface,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+Ver,ID,NO.,Component,ASW_RTE,Task,Return Type,Element Name,1st Parameter,2nd Parameter,3rd Parameter,Return,Read Data Type,Data Range,Unit,Init,Description,Note,Result
+V1.00,,1,BSW → ASW,"TBD
+(보호 로직 구현)","6.666us
+->ICU ISR",void,ShrHWIA_BswIcu_Cbk_Fault(uint8 fault_num),"#define	 BSWICU_FAULT_HVOV (0U)
+#define BSWICU_FAULT_IPM (1U)
+#define BSWICU_FAULT_INTERLOCK (2U)
+#define BSWICU_FAULT_CURR_U (3U)
+#define BSWICU_FAULT_CURR_W (4U)
+#define BSWICU_FAULT_CURR_HVB (5U)",,,,uint8,"0, 1",-,0,"■ Gpio_Read_SmpsUvlo 기능은 IPM의 Fault 검출 결과를 반환한다.
+- HW IPM Fault가 검출되지 않은 경우 0을 반환한다.
+- HW IPM Fault가 검출된 경우 1을 반환한다.
+■ Gpio_Read_IntlckSt 기능은 HW 인터락 상태를 반환한다.
+- HW 인터락 상황이 발생되지 않으면 0을 반환한다.
+- HW 인터락 상황이 발생되면 1을 반환한다.
+■ CURR_HVB, CURR_W, CURR_U 기능은 상태 검출 결과를 반환한다.
+- CURR_HVB, CURR_W, CURR_U가 검출되지 않은 경우 0을 반환한다.
+- CURR_HVB, CURR_W, CURR_U가 검출된 경우 1을 반환한다.","BswRs V1.4의 ShrHWIA_Gpio_Read_SmpsUvlo 대체 API
+
+HW IPM Fault Detection (0: Normal, 1: Fault)
+
+Interlock Status (0: Normal, 1: Interlock detected) 
+
+HW Over Current Detection (0: Normal, 1: Over Current)",OC 관련 2차샘플에 회로 추가
+V0.10,,2,BSW → ASW,"TBD
+(Calibration)",-,uint8,"ShrHWIA_BswNvm_ReadBlock(uint8 index, uint8* data)","#define BSWNVM_BLOCK_INDEX_0		(0U)
+#define BSWNVM_BLOCK_INDEX_1		(1U)
+#define BSWNVM_BLOCK_INDEX_2		(2U)
+#define BSWNVM_BLOCK_INDEX_3		(3U)",uint8* data,,,"uint8, uint8*","uint8 : 0, 255
+uint8 : 0, 255",-,0,■ NvM_EepRead 기능은 identifier에 저장된 데이터를 DataBufferPtr에 저장한다.,"■ Use Case
+Nvm_EepRead(식별자1, &freezeframe0[0]);   // freezeframe0[0] : 10
+Nvm_EepRead(식별자2, &freezeframe1[0]);   // freezeframe1[0] : 20
+Nvm_EepRead(식별자3, &freezeframe2[0]);   // freezeframe2[0] : 30",
+V1.00,,3,BSW → ASW,"Float Rte_IRead_SWC_AswCanTx_ExtIn_ADC_HV_Voltage(void)
+Float Rte_IRead_SWC_AswCanTx_ExtIn_ADC_LV_Voltage(void)
+Double Rte_IRead_SWC_AswCanTx_Adc_ExtIGBTTemp_Adc_ExtIGBTTemp(void)
+Double Rte_IRead_SWC_AswCanTx_Adc_ExtMotorTemp_Adc_ExtMotorTemp(void)
+Double Rte_IRead_SWC_AswCanTx_Adc_ExtPCBTemp_Adc_ExtPCBTemp(void)
+Float Rte_IRead_SWC_CddMotCtrl_ExtIn_ADC_IaRaw_Current(void)
+Float Rte_IRead_SWC_CddMotCtrl_ExtIn_ADC_IbRaw_Current(void)
+Float Rte_IRead_SWC_CddMotCtrl_ExtIn_ADC_IcRaw_Current(void)
+Float Rte_IRead_SWC_CddMotCtrl_ExtIn_ADC_HV_Voltage(void)
+Float Rte_IRead_SWC_AswFltMon_PWMloop_ExtIn_ADC_IaRaw_Current(void)
+Float Rte_IRead_SWC_AswFltMon_PWMloop_ExtIn_ADC_IbRaw_Current(void)
+Float Rte_IRead_SWC_AswFltMon_PWMloop_ExtIn_ADC_IcRaw_Current(void)
+Double Rte_IRead_SWC_AswFltMon_PWMloop_Adc_ExtIGBTTemp_Adc_ExtIGBTTemp(void)
+Double Rte_IRead_SWC_AswFltMon_PWMloop_Adc_ExtMotorTemp_Adc_ExtMotorTemp(void)
+Double Rte_IRead_SWC_AswFltMon_PWMloop_Adc_ExtPCBTemp_Adc_ExtPCBTemp(void)
+Float Rte_IRead_SWC_AswFltMon_PWMloop_ExtIn_ADC_HV_Voltage(void)",10ms,float,ShrHWIA_BswAdc_GetPhyValue(uint8 ch),"#define BSWADC_CH_SENS_CURR_U       (0U)
+#define BSWADC_CH_SENS_CURR_W      (1U)
+#define BSWADC_CH_SENS_HV             (2U)
+#define BSWADC_CH_SENS_CURR_DC    (3U)
+
+#define BSWADC_CH_SENS_VDD_15V    (4U)
+#define BSWADC_CH_SENS_VDD_5V0    (5U)
+#define BSWADC_CH_SENS_LV              (6U)
+#define BSWADC_CH_SENS_IG               (7U)
+#define BSWADC_CH_VUC_3V3              (8U)
+#define BSWADC_CH_VCOM_5V0           (9U)
+#define BSWADC_CH_VT1_5V0               (10U)
+#define BSWADC_CH_VT2_5V0               (11U)
+#define BSWADC_CH_VREF_5V0              (12U)
+
+#define BSWADC_CH_SENS_PCB_TEMP     (13U)
+#define BSWADC_CH_SENS_IPM_TEMP     (14U)
+#define BSWADC_CH_SENS_MOT_TEMP    (15U)",,,,uint8,,,,,,"하기의 4채널은 PWM Frequency 주기로 센싱되는 Value임
+#define BSWADC_CH_SENS_CURR_U		(0U)
+#define BSWADC_CH_SENS_CURR_V		(1U)
+#define BSWADC_CH_SENS_CURR_W		(2U)
+#define BSWADC_CH_SENS_HV		(3U)
+
+BSW Task ADC_Interrupt, 10ms, 100ms 에서 처리됨"
+V0.10,,4,BSW → ASW,UInt16 Rte_IRead_SWC_AswSeaPosSen_SENT_Ext_PulseCount_SENT_Ext_PulseCount(void),1ms,"typBswSent_StateType
+typedef enum{
+  BSW_SENT_STOP = 0x00U,
+  BSW_SENT_INITIALIZED = 0x1U,
+  BSW_SENT_RUNNING = 0x2U,
+  BSW_SENT_SYNCHRONIZED = 0x3U
+}typBswSent_StateType;",ShrHWIA_BswSent_GetGearPosition(uint16* sentdata),uint16* sentdata,,,"BSW_SENT_STOP = 0x00U,
+BSW_SENT_INITIALIZED = 0x1U,
+BSW_SENT_RUNNING = 0x2U,
+BSW_SENT_SYNCHRONIZED = 0x3U",uint16,,,,,,
+V0.11,,5,BSW → ASW,"TBD
+(모터 센서 오동작 검증에 사용할 수 있음)",,uint32,ShrHWIA_BswIcu_GetFrequency(uint8 ch),"#define BSWICU_CH_SENS1_PWM		(0U)
+#define BSWICU_CH_SENS2_PWM		(1U)",,,Fault 시 return 0xFFFFFFFF ,uint8,,,,,,"BSWICU_CH_SENS1_PWM 완료
+BSWICU_CH_SENS2_SENT 추후 배포
+
+WIA의 MR Sensor 출력 주파수에 보다 낮은 Task에 적용 필요함
+Test Code는 10ms에 Call되며, Gint의 MR 센서는 252Hz의 주파수를 가짐"
+V0.11,,6,BSW → ASW,Float Rte_IRead_SWC_AswMotPosSenInit_ExtIn_ICU_MotorSensor_duty(void),,uint16,ShrHWIA_BswIcu_GetDuty(uint8 ch),"#define BSWICU_CH_SENS1_PWM		(0U)
+#define BSWICU_CH_SENS2_PWM		(1U)",,,Fault 시 return 0xFFFF,uint8,,,,,,"BSWICU_CH_SENS1_PWM 완료
+BSWICU_CH_SENS2_SENT 추후 배포
+
+WIA의 MR Sensor 출력 주파수에 보다 낮은 Task에 적용 필요함
+Test Code는 10ms에 Call되며, Gint의 MR 센서는 252Hz의 주파수를 가짐"
+V0.08,,7,BSW → ASW,"Std_ReturnType Rte_Send_ExtOut_CAN_Rx_get_Caller_Mgs_ARSUpper_get_call(Double u)
+Std_ReturnType Rte_Send_ExtOut_CAN_Rx_get_Caller_Mgs_SEACtrl_get_call(Double u)",CallBack,uint8,"ShrHWIA_BswCan_GetMsg(uint8 msg_index, uint8 *dlc, uint8 *data)","#define BSWCAN_MSG_RX_INDEX_VPC_ARS_01_10ms		(0U) //Rx // 0x51C
+#define BSWCAN_MSG_RX_INDEX_SEA_ARS_01_1ms		(1U) //Rx // 0x51A
+#define BSWCAN_MSG_RX_INDEX_SEA_ARS_02_1ms		(2U) //Rx // 0x51B",,,,uint8,,,,,,
+V0.00,,8,BSW → ASW,"TBD
+(고장 진단 로직 구현)",,uint8,ShrHWIA_BswCan_GetState_Timeout(uint8 msg_index),"#define BSWCAN_MSG_RX_INDEX_VPC_ARS_01_10ms		(0U) //Rx // 0x51C
+#define BSWCAN_MSG_RX_INDEX_SEA_ARS_01_1ms		(1U) //Rx // 0x51A
+#define BSWCAN_MSG_RX_INDEX_SEA_ARS_02_1ms		(2U) //Rx // 0x51B",,,,uint8,,,,"■ 각 메시지 별 Timeout 상태를 읽어온다.
+CAN Timeout Status
+- Rx successful == 1
+- Rx unsuccessful == 0",,추후 배포
+V0.00,,9,BSW → ASW,"TBD
+(고장 진단 로직 구현)",,uint8,ShrHWIA_BswCan_GetState_Busoff(uint8 can_ch),"#define BSWCAN_CAN_CH0			(0U)",,,,uint8,,,,"■ CANFD Bus Off에 대한 상태를 반환한다.
+- Bus Off Error == 1
+- Bus Off Not Error == 0",,추후 배포
+V0.00,,10,BSW → ASW,UInt32 Rte_IRead_SWC_AswMotPosSenIndexInt_ExtIn_GPT_PulseCount(void),,uint32,ShrHWIA_BswGpt_GetEncPulseCnt(uint8 enc_ch),"#define BSWGPT_ENC_CH_SENS1	   (0U)",,,,uint8,,,,,,
+V0.00,,11,BSW → ASW,TBD,,boolean,ShrHWIA_BswGpt_GetEncDirection(uint8 enc_ch),"#define BSWGPT_ENC_CH_SENS1	   (0U)",,,,uint8,,,,,,
+V0.08,,12,BSW → ASW,SWC_AswMotPosSenIndexInt();,,void,ShrHWIA_BswGpt_GetEnc_I_ISR(uint8 enc_ch),"#define BSWGPT_ENC_CH_SENS1	   (0U)",,,,uint8,,,,motor cnt reset cbk,,
+V0.12,,13,BSW → ASW,"TBD
+(고장 진단 로직 구현)",TBD,"uint32
+0.01us/tick",ShrHWIA_BswSys_GetSysTime,,,,타이머 카운트 리턴,,-,us,-,"■ GetSysTime 기능은 타이머 카운트를 반환한다.
+- 타이머 카운트를 [us] 단위로 환산하여 사용하기 위한 타이머 주파수도 함께 제공해야 한다.","■ Use Case (100MHz 타이머 사용시: 0.01 곱하면 [us])
+
+TCntStrt = GetSysTime();
+ARSAsw();		              // 연산시간 측정할 코드
+TCntEnd = GetSysTime() - TCntStrt;
+ExecT = TimerCntEnd * 0.01 // 60MHz 타이머 사용 시: 0.01 곱하면 [us]",
+V0.12,,14,BSW → ASW,"TBD
+(고장 진단 로직 구현)",TBD,uint32,ShrHWIA_BswSys_GetResetStatus,,,,Reset Reason 레지스터 상태 리턴,,,,,,,
+V0.10,,15,BSW → ASW,"TBD
+(고장 진단 로직 구현)",TBD,typBswSys_Mcu_Reset;,ShrHWIA_BswSys_GetResetReason(void),,,,"  BSWSYS_MCU_ESR0_RESET        = 0x00U,      /* ESR0 reset     */
+  BSWSYS_MCU_ESR1_RESET        = 0x01U,      /* ESR1 reset     */
+  BSWSYS_MCU_SMU_RESET         = 0x02U,      /* SMU reset      */
+  BSWSYS_MCU_SW_RESET          = 0x03U,      /* Software reset */
+  BSWSYS_MCU_STM0_RESET        = 0x04U,      /* STM0 reset     */
+  BSWSYS_MCU_STM1_RESET        = 0x05U,      /* STM1 reset     */
+  BSWSYS_MCU_STM2_RESET        = 0x06U,      /* STM2 reset     */
+  BSWSYS_MCU_STM3_RESET        = 0x07U,      /* STM3 reset     */
+  BSWSYS_MCU_STM4_RESET        = 0x08U,      /* STM4 reset     */
+  BSWSYS_MCU_STM5_RESET        = 0x09U,      /* STM5 reset     */
+  BSWSYS_MCU_POWER_ON_RESET    = 0x0AU,      /* Power On reset */
+  BSWSYS_MCU_CB0_RESET         = 0x0BU,      /* CB0 reset      */
+  BSWSYS_MCU_CB1_RESET         = 0x0CU,      /* CB1 reset      */
+  BSWSYS_MCU_CB3_RESET         = 0x0DU,      /* CB3 reset      */
+  BSWSYS_MCU_EVRC_RESET        = 0x0EU,      /* EVRC Regulator Watchdog reset    */
+  BSWSYS_MCU_EVR33_RESET       = 0x0FU,      /* EVR33 Regulator Watchdog reset   */
+  BSWSYS_MCU_SUPPLY_WDOG_RESET = 0x10U,      /* Supply Watchdog reset            */
+  BSWSYS_MCU_STBYR_RESET       = 0x11U,      /* Standby Regulator Watchdog reset */
+  BSWSYS_MCU_LBIST_RESET       = 0x12U,      /* Reset from LBIST completion      */
+  BSWSYS_MCU_RESET_MULTIPLE    = 0xFEU,      /* Multiple Reset Reasons found     */
+  BSWSYS_MCU_RESET_UNDEFINED   = 0xFFU       /* Reset is undefined               */",void,,,,,,
+V0.08,,16,BSW → ASW,"	IswHandler_Adc_ISR();
+	IswHandler_ENC_A_ISR();
+	IswHandler_ICU_ENC_ISR();
+	IswHandler_PWM_ISR();
+	SWC_AswMotPosSen();
+	SWC_CddMotCtrl();
+	SWC_AswFltMon_PWMloop();",,void,ShrHWIA_BswAdc_Cbk_ISR(void),,,,,void,,,,,,
+V0.08,,17,BSW → ASW,TBD,,void,ShrHWIA_BswPwm_Cbk_ISR(void),,,,,void,,,,,,
+V0.08,,18,BSW → ASW,TBD,event,void,ShrHWIA_Mod_FlsReprogram_Cbk(void),,,,,void,,,,■ Mod_FlsReprogram 기능을 호출 시 리프로그래밍 모드 진입,,
+V0.09,,19,BSW → ASW,void ARS_Top_Init(void),,void,ShrHWIA_IswHandler_Init(void),,,,,void,,,,,,
+V0.12,,20,BSW → ASW,"TBD
+(ARS_Top_Init 변경에 필요 - 초기화 로직)",,,ShrHWIA_IswHandler_Init2(void),,,,,,,,,,,
+V0.09,,21,BSW → ASW,void DAC_OUT(void),,void,ShrHWIA_IswHandler_Idle(void),,,,,void,,,,,,
+V0.09,,22,BSW → ASW,"	SWC_AswSeaPosSen();
+	SWC_AswCanRx();
+	SWC_AswCanTx();	",,void,ShrHWIA_IswHandler_1ms(void),,,,,void,,,,,,
+V0.09,,23,BSW → ASW,"	SWC_AswMotPosSenInit();	
+	SWC_AswARSMdMng();
+	SWC_AswSeaCtrl();
+	Dummy_Trigger();",,void,ShrHWIA_IswHandler_10ms(void),,,,,void,,,,,,
+V0.09,,24,BSW → ASW,TBD,,void,ShrHWIA_IswHandler_100ms(void),,,,,void,,,,,,
+V0.09,,25,BSW → ASW,TBD,,void,ShrHWIA_IswHandler_2ms(void),,,,,void,,,,,,
+V0.09,,26,BSW → ASW,TBD,,void,ShrHWIA_IswHandler_5ms(void),,,,,void,,,,,,
+V0.09,,27,BSW → ASW,TBD,,void,ShrHWIA_IswHandler_20ms(void),,,,,void,,,,,,
+V0.09,,28,BSW → ASW,TBD,,void,ShrHWIA_IswHandler_50ms(void),,,,,void,,,,,,
+V1.00,,29,BSW → ASW,TBD,,uint8,ShrHWIA_BswDio_GetPin(uint8 ch),"#define BSWDIO_CH_TP158           	(0U)
+#define BSWDIO_CH_TP29         	  	(1U)
+#define BSWDIO_CH_TP31            (2U)
+#define BSWDIO_CH_TP48           	(3U)
+#define BSWDIO_CH_TP52           	(4U)
+#define BSWDIO_CH_TP2           	(5U)
+#define BSWDIO_CH_TP4           	(6U)
+#define BSWDIO_CH_TP20           	(7U)
+#define BSWDIO_CH_TP50           	(8U)
+#define BSWDIO_CH_TP51           	(9U)
+#define BSWDIO_CH_TP62           	(10U)
+#define BSWDIO_CH_TP65           	(11U)
+#define BSWDIO_CH_TP76           	(12U)
+#define BSWDIO_CH_TP77           	(13U)
+#define BSWDIO_CH_TP78           	(14U)
+#define BSWDIO_CH_TP98           	(15U)
+#define BSWDIO_CH_TP100          	(16U)
+#define BSWDIO_CH_TP53           	(17U)",,,"#define BSWDIO_FLAG_OFF   (0U)
+#define BSWDIO_FLAG_ON    (1U)",uint8,,,,,,
+V1.00,,30,BSW → ASW,TBD,,uint8,ShrHWIA_Current_Offset_Status_Read,,,,"#define BSWDIO_FLAG_OFF   (0U)
+#define BSWDIO_FLAG_ON    (1U)",uint8,,,,"■ 상전류 Offset 측정 후 
+- 정상 범위에 있을 경우 1을 반환
+- 비정상 범위에 있을 경우 0을 반환",,±0.40A 이하의 Offset을 만족할 경우 정상범위로 판단

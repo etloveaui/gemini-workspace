@@ -1,0 +1,96 @@
+﻿,선행 ARS ASW -> BSW Interface,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,Ver,ID,NO.,Component,ASW_RTE,Task,Return Type,Element Name,1st Parameter,2nd Parameter,3rd Parameter,Return,Write Data Type,Data Range,Unit,Init,Description,Note,Result
+,V0.00,,1,ASW → BSW,"TBD
+(현재 초기값 사용하고 있음, 추후 dead time 설정하도록 변경할 필요 있음.)",-,,ShrHWIA_BswPwm_SetDeadTime(uint16 DeadTimeVal),deadtime tick. (1 tick= 0.01us),,,,uint16,"0, 65535",-,-,■ Pwm_SetDeadTime 기능은 deadTime 입력에 따라서 3상 PWM의 Dead time을 설정한다.,,
+,V0.00,,2,ASW → BSW,void Rte_IWrite_SWC_CddMotCtrl_ExtOut_PWM_PwmEn(UInt8 u),6.666us,,ShrHWIA_BswPwm_Enable(uint8 EnableVal),"#define PWM_DISABLE	   (0U)
+#define PWM_ENABLE	   (1U)",,,,uint8,"0, 1",-,-,"■ Pwm_Enable 기능은 EnableFlg 입력에 따라서 3상 PWM 출력을 활성화/비활성화한다. 
+- EnableFlg: 0  3상 High-side, Low-side PWM 출력 비활성화
+- EnableFlg: 1  3상 High-side, Low-side PWM 출력 활성화",,
+,V0.08,,3,ASW → BSW,"TBD
+(interlock 처리에 사용할 수 있음)",-,void,"ShrHWIA_BswPwm_ChOutEnable(uint8 PwmCh, uint8 PwmOutSt, uint16 PwmOutVal)","#define PWM_CH_U	   (0U)
+#define PWM_CH_V	   (1U)
+#define PWM_CH_W	   (2U)","#define PWM_OUT_EnableLow_DisableHigh	   (0U)
+#define PWM_OUT_EnableHigh_DisableLow	   (1U)
+#define PWM_OUT_DISABLEHighLow	   (2U)",PwmOutVal : On channel의 tick,,"uint8, uint8, uint16","0, 1, 65535",-,-,"■ Pwm_ChOutEnable 기능은 EnaU, EnaV, EnaW 입력에 따라서 U, V, W 상 High-side Switch와 Low-side Switch의 PWM 출력을 활성화, 비활성화한다.
+- EnaU 입력이 0인 경우 U상 High-side PWM을 비활성화, Low-side PWM을 활성화한다.
+- EnaU 입력이 1인 경우 U상 High-side PWM을 활성화, Low-side PWM을 비활성화한다.
+- EnaU 입력이 2인 경우 U상 High-side PWM을 비활성화, Low-side PWM을 비활성화한다,
+- EnaV 입력이 0인 경우 V상 High-side PWM을 비활성화, Low-side PWM을 활성화한다.
+- EnaV 입력이 1인 경우 V상 High-side PWM을 활성화, Low-side PWM을 비활성화한다.
+- EnaV 입력이 2인 경우 V상 High-side PWM을 비활성화, Low-side PWM을 비활성화한다,
+- EnaW 입력이 0인 경우 W상 High-side PWM을 비활성화, Low-side PWM을 활성화한다.
+- EnaW 입력이 1인 경우 W상 High-side PWM을 활성화, Low-side PWM을 비활성화한다.
+- EnaW 입력이 2인 경우 W상 High-side PWM을 비활성화, Low-side PWM을 비활성화한다,",-,-
+,V0.12,,4,ASW → BSW,"TBD
+(보호 로직 구현)",-,void,ShrHWIA_BswSys_McuReset,,,,,void,-,-,-,■ Mode_McuReset 기능을 호출하면 MCU를 SW Reset 시킨다.,-,-
+,V0.10,,5,ASW → BSW,"TBD
+(calibration)",-,uint8,"ShrHWIA_BswNvm_WriteBlock(uint8 index, uint8* data)","#define BSWNVM_BLOCK_INDEX_0		(0U)
+#define BSWNVM_BLOCK_INDEX_1		(1U)
+#define BSWNVM_BLOCK_INDEX_2		(2U)
+#define BSWNVM_BLOCK_INDEX_3		(3U)",uint8* data,,,"uint8, uint8","uint8 : 0, 255
+uint8 : 0, 255",-,-,■ NvM_EepWrite 기능은 identifier와 DataBufferPtr을 입력 받아서 DataBufferPtr을 저장한다.,"■ Use Case
+result = Nvm_EepWrite(식별자1, &freezeframe0[0]);    // freezeframe0[0] : 10
+result = Nvm_EepWrite(식별자2, &freezeframe1[0]);    // freezeframe1[0] : 20
+result = Nvm_EepWrite(식별자3, &freezeframe2[0]);    // freezeframe2[0] : 30",
+,V0.00,,6,ASW → BSW,"Std_ReturnType Rte_Send_ExtOut_CAN_Tx_set_Caller_ARS_dev_01_10ms_Call(Double u)
+Std_ReturnType Rte_Send_ExtOut_CAN_Tx_set_Caller_ARS_dev_02_1ms_Call(Double u)
+Std_ReturnType Rte_Send_CanFD_Tx_Mgs_ARS_dev_03_10ms_set_call_CanFD_Tx_Mgs_ARS_dev_03_10ms_set_call (Double u)
+Std_ReturnType Rte_Send_CanFD_Tx_Mgs_ARS_dev_04_10ms_set_call_CanFD_Tx_Mgs_ARS_dev_04_10ms_set_call(Double u)",,uint8,"ShrHWIA_BswCan_SetMsg(uint8 msg_index, uint8 dlc, uint8 *data)","#define BSWCAN_MSG_TX_INDEX_ARS_dev_01_10ms		(0U) //Tx // 0x514 ->0x515 2025.04.01
+#define BSWCAN_MSG_TX_INDEX_ARS_dev_02_1ms		(1U) //Tx // 0x515 ->0x514 2025.04.01
+#define BSWCAN_MSG_TX_INDEX_ARS_dev_03_10ms		(2U) //Tx // 0x516
+#define BSWCAN_MSG_TX_INDEX_ARS_dev_04_10ms		(3U) //Tx // 0x517",,,,"uint8, uint8, uint8",,,,,,
+,V0.00,,7,ASW → BSW,"TBD
+(debugging)",10ms,void,"ShrHWIA_BswDac_SetValue(uint8 ch, float value, float max, float min)","#define BSWDAC_CH_1    (0U)
+#define BSWDAC_CH_2    (1U)
+#define BSWDAC_CH_3    (2U)
+#define BSWDAC_CH_4    (3U)",,,,"uint8, float, float",,,,,,
+,V1.00,,8,ASW → BSW,"TBD
+(debugging)",,void,"ShrHWIA_BswDio_SetPin(uint8 ch, uint8 flag)","#define BSWDIO_CH_TP158         	(0U)
+#define BSWDIO_CH_TP29         	  	(1U)
+#define BSWDIO_CH_TP31           (2U)
+#define BSWDIO_CH_TP48           	(3U)
+#define BSWDIO_CH_TP52           	(4U)
+#define BSWDIO_CH_TP2            	(5U)
+#define BSWDIO_CH_TP4            	(6U)
+#define BSWDIO_CH_TP20           	(7U)
+#define BSWDIO_CH_TP50           	(8U)
+#define BSWDIO_CH_TP51           	(9U)
+#define BSWDIO_CH_TP62           	(10U)
+#define BSWDIO_CH_TP65           	(11U)
+#define BSWDIO_CH_TP76           	(12U)
+#define BSWDIO_CH_TP77           	(13U)
+#define BSWDIO_CH_TP78           	(14U)
+#define BSWDIO_CH_TP98           	(15U)
+#define BSWDIO_CH_TP100          	(16U)
+#define BSWDIO_CH_TP53           	(17U)
+
+#define BSWDIO_FLAG_OFF           (0U)
+#define BSWDIO_FLAG_ON           (1U)","0 : Off
+1 : On",,,"uint8, uint8",,,,,,
+,V0.00,,9,ASW → BSW,"TBD
+(debugging)",,void,"ShrHWIA_BswDio_Set_LED_Indicate(uint16 on_time_cnt, uint16 off_time_cnt)",on time count in milisecond,on time count in milisecond,off time count in milisecond,,"uint16, uint16",,,,,,
+,V0.00,,10,ASW → BSW,"void Rte_IWrite_SWC_CddMotCtrl_ExtOut_PWM_PwmCompValU(UInt16 u) 
+void Rte_IWrite_SWC_CddMotCtrl_ExtOut_PWM_PwmCompValV(UInt16 u)
+void Rte_IWrite_SWC_CddMotCtrl_ExtOut_PWM_PwmCompValW(UInt16 u)",6.666us,void,"ShrHWIA_BswPwm_SetDutyCycle(uint8 ch, uint16 duty_cycle)","#define BSWPWM_CH_DRV_U (0U)
+#define BSWPWM_CH_DRV_V (1U)
+#define BSWPWM_CH_DRV_W (2U)",duty_cycle tick. (1 tick= 0.01us),,,"uint8, uint16",,,,,,
+,V0.09,,11,ASW → BSW,void Rte_IWrite_SWC_CddMotCtrl_ExtOut_PWM_PwmPrd(UInt16 u),,void,ShrHWIA_BswPwm_SetPeriod(uint32 PeriodVal),period tick. (1 tick= 0.01us),,,,uint32,,,,■ Pwm_SetPeriod 기능은 Prd 입력에 따라서 3상 PWM의 Period를 설정한다.,,
+,V0.08,,12,ASW → BSW,TBD,,void,ShrHWIA_BSWPwm_Output_Disable(void),,,,,void,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,

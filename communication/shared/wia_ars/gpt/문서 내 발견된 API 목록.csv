@@ -1,0 +1,13 @@
+,sheet,name
+0,00_문서정보,ShrHWIA_BswAdc_GetPhyValue
+1,00_문서정보,ShrHWIA_BswCan_GetMsg
+3,00_문서정보,ShrHWIA_BswCan_GetState_Busoff
+4,00_문서정보,ShrHWIA_BswCan_GetState_Timeout
+2,00_문서정보,ShrHWIA_BswCan_SetMsg
+5,00_문서정보,ShrHWIA_BswSys_GetResetReason
+6,01_IF_BSW->ASW,ShrHWIA_BswAdc_GetPhyValue
+7,01_IF_BSW->ASW,ShrHWIA_BswCan_GetMsg
+8,01_IF_BSW->ASW,ShrHWIA_BswCan_GetState_Busoff
+9,01_IF_BSW->ASW,ShrHWIA_BswCan_GetState_Timeout
+10,01_IF_BSW->ASW,ShrHWIA_BswSys_GetResetReason
+11,02_IF_ASW->BSW,ShrHWIA_BswCan_SetMsg

@@ -1,0 +1,73 @@
+Unnamed: 0,선행 ARS BSW -> ASW Interface,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,Unnamed: 11,Unnamed: 12,Unnamed: 13,Unnamed: 14,Unnamed: 15,Unnamed: 16,Unnamed: 17,Unnamed: 18,Unnamed: 19
+,,,,,,,,,,,,,,,,,,,
+,Ver,ID,NO.,Component,ASW_RTE,Task,Return Type,Element Name,1st Parameter,2nd Parameter,3rd Parameter,Return,Read Data Type,Data Range,Unit,Init,Description,Note,Result
+,1,,1,BSW → ASW,"TBD
+(보호 로직 구현)","6.666us
+->ICU ISR",void,ShrHWIA_BswIcu_Cbk_Fault(uint8 fault_num),"#define	 BSWICU_FAULT_HVOV (0U)
+#define BSWICU_FAULT_IPM (1U)
+#define BSWICU_FAULT_INTERLOCK (2U)
+#define BSWICU_FAULT_CURR_U (3U)
+#define BSWICU_FAULT_CURR_W (4U)
+#define BSWICU_FAULT_CURR_HVB (5U)",,,,uint8,"0, 1",-,0,"■ Gpio_Read_SmpsUvlo 기능은 IPM의 Fault 검출 결과를 반환한다.
+- HW IPM Fault가 검출되지 않은 경우 0을 반환한다.
+- HW IPM Fault가 검출된 경우 1을 반환한다.
+■ Gpio_Read_IntlckSt 기능은 HW 인터락 상태를 반환한다.
+- HW 인터락 상황이 발생되지 않으면 0을 반환한다.
+- HW 인터락 상황이 발생되면 1을 반환한다.
+■ CURR_HVB, CURR_W, CURR_U 기능은 상태 검출 결과를 반환한다.
+- CURR_HVB, CURR_W, CURR_U가 검출되지 않은 경우 0을 반환한다.
+- CURR_HVB, CURR_W, CURR_U가 검출된 경우 1을 반환한다.","BswRs V1.4의 ShrHWIA_Gpio_Read_SmpsUvlo 대체 API
+
+HW IPM Fault Detection (0: Normal, 1: Fault)
+
+Interlock Status (0: Normal, 1: Interlock detected) 
+
+HW Over Current Detection (0: Normal, 1: Over Current)",OC 관련 2차샘플에 회로 추가
+,0.1,,2,BSW → ASW,"TBD
+(Calibration)",-,uint8,"ShrHWIA_BswNvm_ReadBlock(uint8 index, uint8* data)","#define BSWNVM_BLOCK_INDEX_0		(0U)
+#define BSWNVM_BLOCK_INDEX_1		(1U)
+#define BSWNVM_BLOCK_INDEX_2		(2U)
+#define BSWNVM_BLOCK_INDEX_3		(3U)",uint8* data,,,"uint8, uint8*","uint8 : 0, 255
+uint8 : 0, 255",-,0,■ NvM_EepRead 기능은 identifier에 저장된 데이터를 DataBufferPtr에 저장한다.,"■ Use Case
+Nvm_EepRead(식별자1, &freezeframe0[0]);   // freezeframe0[0] : 10
+Nvm_EepRead(식별자2, &freezeframe1[0]);   // freezeframe1[0] : 20
+Nvm_EepRead(식별자3, &freezeframe2[0]);   // freezeframe2[0] : 30",
+,1,,3,BSW → ASW,"Float Rte_IRead_SWC_AswCanTx_ExtIn_ADC_HV_Voltage(void)
+Float Rte_IRead_SWC_AswCanTx_ExtIn_ADC_LV_Voltage(void)
+Double Rte_IRead_SWC_AswCanTx_Adc_ExtIGBTTemp_Adc_ExtIGBTTemp(void)
+Double Rte_IRead_SWC_AswCanTx_Adc_ExtMotorTemp_Adc_ExtMotorTemp(void)
+Double Rte_IRead_SWC_AswCanTx_Adc_ExtPCBTemp_Adc_ExtPCBTemp(void)
+Float Rte_IRead_SWC_CddMotCtrl_ExtIn_ADC_IaRaw_Current(void)
+Float Rte_IRead_SWC_CddMotCtrl_ExtIn_ADC_IbRaw_Current(void)
+Float Rte_IRead_SWC_CddMotCtrl_ExtIn_ADC_IcRaw_Current(void)
+Float Rte_IRead_SWC_CddMotCtrl_ExtIn_ADC_HV_Voltage(void)
+Float Rte_IRead_SWC_AswFltMon_PWMloop_ExtIn_ADC_IaRaw_Current(void)
+Float Rte_IRead_SWC_AswFltMon_PWMloop_ExtIn_ADC_IbRaw_Current(void)
+Float Rte_IRead_SWC_AswFltMon_PWMloop_ExtIn_ADC_IcRaw_Current(void)
+Double Rte_IRead_SWC_AswFltMon_PWMloop_Adc_ExtIGBTTemp_Adc_ExtIGBTTemp(void)
+Double Rte_IRead_SWC_AswFltMon_PWMloop_Adc_ExtMotorTemp_Adc_ExtMotorTemp(void)
+Double Rte_IRead_SWC_AswFltMon_PWMloop_Adc_ExtPCBTemp_Adc_ExtPCBTemp(void)
+Float Rte_IRead_SWC_AswFltMon_PWMloop_ExtIn_ADC_HV_Voltage(void)",10ms,float,ShrHWIA_BswAdc_GetPhyValue(uint8 ch),"#define BSWADC_CH_SENS_CURR_U       (0U)
+#define BSWADC_CH_SENS_CURR_W      (1U)
+#define BSWADC_CH_SENS_HV             (2U)
+#define BSWADC_CH_SENS_CURR_DC    (3U)
+
+#define BSWADC_CH_SENS_VDD_15V    (4U)
+#define BSWADC_CH_SENS_VDD_5V0    (5U)
+#define BSWADC_CH_SENS_LV              (6U)
+#define BSWADC_CH_SENS_IG               (7U)
+#define BSWADC_CH_VUC_3V3              (8U)
+#define BSWADC_CH_VCOM_5V0           (9U)
+#define BSWADC_CH_VT1_5V0               (10U)
+#define BSWADC_CH_VT2_5V0               (11U)
+#define BSWADC_CH_VREF_5V0              (12U)
+
+#define BSWADC_CH_SENS_PCB_TEMP     (13U)
+#define BSWADC_CH_SENS_IPM_TEMP     (14U)
+#define BSWADC_CH_SENS_MOT_TEMP    (15U)",,,,uint8,,,,,,"하기의 4채널은 PWM Frequency 주기로 센싱되는 Value임
+#define BSWADC_CH_SENS_CURR_U		(0U)
+#define BSWADC_CH_SENS_CURR_V		(1U)
+#define BSWADC_CH_SENS_CURR_W		(2U)
+#define BSWADC_CH_SENS_HV		(3U)
+
+BSW Task ADC_Interrupt, 10ms, 100ms 에서 처리됨"

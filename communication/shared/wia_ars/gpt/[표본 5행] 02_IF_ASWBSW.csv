@@ -1,0 +1,24 @@
+Unnamed: 0,선행 ARS ASW -> BSW Interface,Unnamed: 2,Unnamed: 3,Unnamed: 4,Unnamed: 5,Unnamed: 6,Unnamed: 7,Unnamed: 8,Unnamed: 9,Unnamed: 10,Unnamed: 11,Unnamed: 12,Unnamed: 13,Unnamed: 14,Unnamed: 15,Unnamed: 16,Unnamed: 17,Unnamed: 18,Unnamed: 19
+,,,,,,,,,,,,,,,,,,,
+,Ver,ID,NO.,Component,ASW_RTE,Task,Return Type,Element Name,1st Parameter,2nd Parameter,3rd Parameter,Return,Write Data Type,Data Range,Unit,Init,Description,Note,Result
+,0,,1,ASW → BSW,"TBD
+(현재 초기값 사용하고 있음, 추후 dead time 설정하도록 변경할 필요 있음.)",-,,ShrHWIA_BswPwm_SetDeadTime(uint16 DeadTimeVal),deadtime tick. (1 tick= 0.01us),,,,uint16,"0, 65535",-,-,■ Pwm_SetDeadTime 기능은 deadTime 입력에 따라서 3상 PWM의 Dead time을 설정한다.,,
+,0,,2,ASW → BSW,void Rte_IWrite_SWC_CddMotCtrl_ExtOut_PWM_PwmEn(UInt8 u),6.666us,,ShrHWIA_BswPwm_Enable(uint8 EnableVal),"#define PWM_DISABLE	   (0U)
+#define PWM_ENABLE	   (1U)",,,,uint8,"0, 1",-,-,"■ Pwm_Enable 기능은 EnableFlg 입력에 따라서 3상 PWM 출력을 활성화/비활성화한다. 
+- EnableFlg: 0  3상 High-side, Low-side PWM 출력 비활성화
+- EnableFlg: 1  3상 High-side, Low-side PWM 출력 활성화",,
+,0.08,,3,ASW → BSW,"TBD
+(interlock 처리에 사용할 수 있음)",-,void,"ShrHWIA_BswPwm_ChOutEnable(uint8 PwmCh, uint8 PwmOutSt, uint16 PwmOutVal)","#define PWM_CH_U	   (0U)
+#define PWM_CH_V	   (1U)
+#define PWM_CH_W	   (2U)","#define PWM_OUT_EnableLow_DisableHigh	   (0U)
+#define PWM_OUT_EnableHigh_DisableLow	   (1U)
+#define PWM_OUT_DISABLEHighLow	   (2U)",PwmOutVal : On channel의 tick,,"uint8, uint8, uint16","0, 1, 65535",-,-,"■ Pwm_ChOutEnable 기능은 EnaU, EnaV, EnaW 입력에 따라서 U, V, W 상 High-side Switch와 Low-side Switch의 PWM 출력을 활성화, 비활성화한다.
+- EnaU 입력이 0인 경우 U상 High-side PWM을 비활성화, Low-side PWM을 활성화한다.
+- EnaU 입력이 1인 경우 U상 High-side PWM을 활성화, Low-side PWM을 비활성화한다.
+- EnaU 입력이 2인 경우 U상 High-side PWM을 비활성화, Low-side PWM을 비활성화한다,
+- EnaV 입력이 0인 경우 V상 High-side PWM을 비활성화, Low-side PWM을 활성화한다.
+- EnaV 입력이 1인 경우 V상 High-side PWM을 활성화, Low-side PWM을 비활성화한다.
+- EnaV 입력이 2인 경우 V상 High-side PWM을 비활성화, Low-side PWM을 비활성화한다,
+- EnaW 입력이 0인 경우 W상 High-side PWM을 비활성화, Low-side PWM을 활성화한다.
+- EnaW 입력이 1인 경우 W상 High-side PWM을 활성화, Low-side PWM을 비활성화한다.
+- EnaW 입력이 2인 경우 W상 High-side PWM을 비활성화, Low-side PWM을 비활성화한다,",-,-

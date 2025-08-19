@@ -1,0 +1,912 @@
+/*
+ * A4918_HAL_spi.c
+ *
+ *  Created on: 2023. 3. 14.
+ *      Author: eunta
+ */
+#include "Dio.h"
+#include "EHAL/EhalDio/EhalDio.h"
+#include "CDrv/CDrvIfc_Bldc/CDrvIfc_Bldc.h"
+#include "A4918_HAL_spi.h"
+
+typA4918Panels vA4918_Panels;
+typA4918Panels vA4918_Panels_bak;
+
+uint32 vA4918_job_count;
+uint32 vA4918_seq_count;
+uint16 vA4918_SpiTxMsg;
+uint16 vA4918_SpiRxMsg;
+typA4918_TestConfig vA4918_TestConfig;
+
+///////////////////////////////////// SPI_FUNCTION ////////////////////////////////////////////////////////////////
+void A4918_JOB_Done(void)
+{
+	vA4918_job_count++;
+}
+
+void A4918_SEQ_Done(void)
+{
+	vA4918_seq_count++;
+}
+
+uint16 A4918_ParityGeneration(uint16 Data)
+{
+	uint16 n = 0;
+	while (Data)
+	{
+		Data &= Data-1;
+		++n;
+	}
+	while (n > 1)
+	{
+		n = n-2;
+	}
+	if(n == 1){
+		n=0;
+	}
+	else{
+		n=1;
+	}
+	return (n);
+} /*End of A4918_ParityGeneration()*/
+
+void A4918_Communication(uint8 Mode, uint8 Address, uint16 Data)
+{
+	uint32 spi_try_count = 0;
+	Spi_SeqResultType spi_seq_result;
+
+	vA4918_SpiTxMsg =(  (Mode << 10)	 |        /* Write command */
+			(Address << 11)  |        /* Address */
+			(Data) );   	          /* Data */
+
+	vA4918_SpiTxMsg |= A4918_ParityGeneration(vA4918_SpiTxMsg); /* Parity */
+	Spi_AsyncTransmit(SpiConf_SpiSequence_A4918_Seq);
+	while(spi_try_count < A4918_SPI_TIMEOUT_CNT){
+		spi_seq_result = Spi_GetSequenceResult(SpiConf_SpiSequence_A4918_Seq);
+		if(spi_seq_result == E_OK){
+			//do nothing
+			break;
+		}
+		else{
+			spi_try_count++;
+		}
+	}
+}
+
+void A4918_Spi_Write_Register(uint8 Address, uint16 Data)
+{
+	A4918_Communication(WRITE,Address,Data);
+	vA4918_Panels.ReadReg.A4918_STATUS.halfword = vA4918_SpiRxMsg;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////// A4918_FEATURE_API //////////////////////////////////////////////////////
+void A4918_Spi_Read_X00_CONFIG_0()
+{
+	A4918_Communication(READ,CONFIG0,0);
+	vA4918_Panels.ReadReg.A4918_X00_CONFIG_0.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X01_CONFIG_1()
+{
+	A4918_Communication(READ,CONFIG1,0);
+	vA4918_Panels.ReadReg.A4918_X01_CONFIG_1.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X02_CONFIG_2()
+{
+	A4918_Communication(READ,CONFIG2,0);
+	vA4918_Panels.ReadReg.A4918_X02_CONFIG_2.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X03_CONFIG_3()
+{
+	A4918_Communication(READ,CONFIG3,0);
+	vA4918_Panels.ReadReg.A4918_X03_CONFIG_3.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X04_CONFIG_4()
+{
+	A4918_Communication(READ,CONFIG4,0);
+	vA4918_Panels.ReadReg.A4918_X04_CONFIG_4.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X05_CONFIG_5()
+{
+	A4918_Communication(READ,CONFIG5,0);
+	vA4918_Panels.ReadReg.A4918_X05_CONFIG_5.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X06_CONFIG_6()
+{
+	A4918_Communication(READ,CONFIG6,0);
+	vA4918_Panels.ReadReg.A4918_X06_CONFIG_6.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X08_CONFIG_8()
+{
+	A4918_Communication(READ,CONFIG8,0);
+	vA4918_Panels.ReadReg.A4918_X08_CONFIG_8.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X09_CONFIG_9()
+{
+	A4918_Communication(READ,CONFIG9,0);
+	vA4918_Panels.ReadReg.A4918_X09_CONFIG_9.halfword = vA4918_SpiRxMsg;
+}
+
+
+void A4918_Spi_Read_X0A_CONFIG_10()
+{
+	A4918_Communication(READ,CONFIG10,0);
+	vA4918_Panels.ReadReg.A4918_X0A_CONFIG_10.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X0B_CONFIG_11()
+{
+	A4918_Communication(READ,CONFIG11,0);
+	vA4918_Panels.ReadReg.A4918_X0B_CONFIG_11.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X0C_CONFIG_12()
+{
+	A4918_Communication(READ,CONFIG12,0);
+	vA4918_Panels.ReadReg.A4918_X0C_CONFIG_12.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X0D_CONFIG_13()
+{
+	A4918_Communication(READ,CONFIG13,0);
+	vA4918_Panels.ReadReg.A4918_X0D_CONFIG_13.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X0E_CONFIG_14()
+{
+	A4918_Communication(READ,CONFIG14,0);
+	vA4918_Panels.ReadReg.A4918_X0E_CONFIG_14.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X0F_CONFIG_15()
+{
+	A4918_Communication(READ,CONFIG15,0);
+	vA4918_Panels.ReadReg.A4918_X0F_CONFIG_15.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X12_STOP_ON_FAULT_0()
+{
+	A4918_Communication(READ,STOP_ON_FAULT0,0);
+	vA4918_Panels.ReadReg.A4918_X12_STOP_ON_FAULT_0.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X13_STOP_ON_FAULT_1()
+{
+	A4918_Communication(READ,STOP_ON_FAULT1,0);
+	vA4918_Panels.ReadReg.A4918_X13_STOP_ON_FAULT_1.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X14_VERIFY_COMMAND_0()
+{
+	A4918_Communication(READ,VERIFY_COMMAND0,0);
+	vA4918_Panels.ReadReg.A4918_X14_VERIFY_COMMAND_0.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X15_VERIFY_COMMAND_1()
+{
+	A4918_Communication(READ,VERIFY_COMMAND1,0);
+	vA4918_Panels.ReadReg.A4918_X15_VERIFY_COMMAND_1.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X16_VERIFY_COMMAND_2()
+{
+	A4918_Communication(READ,VERIFY_COMMAND2,0);
+	vA4918_Panels.ReadReg.A4918_X16_VERIFY_COMMAND_2.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X17_VERIFY_RESULT_()
+{
+	A4918_Communication(READ,VERIFY_RESULT0,0);
+	vA4918_Panels.ReadReg.A4918_X17_VERIFY_RESULT_0.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X18_VERIFY_RESULT_1()
+{
+	A4918_Communication(READ,VERIFY_RESULT1,0);
+	vA4918_Panels.ReadReg.A4918_X18_VERIFY_RESULT_1.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X19_MASK_0()
+{
+	A4918_Communication(READ,MASK0,0);
+	vA4918_Panels.ReadReg.A4918_X19_MASK_0.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X1A_MASK_1()
+{
+	A4918_Communication(READ,MASK1,0);
+	vA4918_Panels.ReadReg.A4918_X1A_MASK_1.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X1B_MASK_2()
+{
+	A4918_Communication(READ,MASK2,0);
+	vA4918_Panels.ReadReg.A4918_X1B_MASK_2.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X1C_DIAG_0()
+{
+	A4918_Communication(READ,DIAG0,0);
+	vA4918_Panels.ReadReg.A4918_X1C_DIAG_0.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X1D_DIAG_1()
+{
+	A4918_Communication(READ,DIAG1,0);
+	vA4918_Panels.ReadReg.A4918_X1D_DIAG_1.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X1E_DIAG_2()
+{
+	A4918_Communication(READ,DIAG2,0);
+	vA4918_Panels.ReadReg.A4918_X1E_DIAG_2.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Read_X1F_CONTROL()
+{
+	A4918_Communication(READ,CONTROL,0);
+	vA4918_Panels.ReadReg.A4918_X1F_CONTROL.halfword = vA4918_SpiRxMsg;
+}
+
+void A4918_Spi_Write_X00_CONFIG_0()
+{
+	A4918_Spi_Write_Register(CONFIG0,vA4918_Panels.WriteReg.A4918_X00_CONFIG_0.halfword);
+}
+void A4918_Spi_Write_X01_CONFIG_1()
+{
+	A4918_Spi_Write_Register(CONFIG1,vA4918_Panels.WriteReg.A4918_X01_CONFIG_1.halfword);
+}
+void A4918_Spi_Write_X02_CONFIG_2()
+{
+	A4918_Spi_Write_Register(CONFIG2,vA4918_Panels.WriteReg.A4918_X02_CONFIG_2.halfword);
+}
+void A4918_Spi_Write_X03_CONFIG_3()
+{
+	A4918_Spi_Write_Register(CONFIG3,vA4918_Panels.WriteReg.A4918_X03_CONFIG_3.halfword);
+}
+void A4918_Spi_Write_X04_CONFIG_4()
+{
+	A4918_Spi_Write_Register(CONFIG4,vA4918_Panels.WriteReg.A4918_X04_CONFIG_4.halfword);
+}
+void A4918_Spi_Write_X05_CONFIG_5()
+{
+	A4918_Spi_Write_Register(CONFIG5,vA4918_Panels.WriteReg.A4918_X05_CONFIG_5.halfword);
+}
+void A4918_Spi_Write_X06_CONFIG_6()
+{
+	A4918_Spi_Write_Register(CONFIG6,vA4918_Panels.WriteReg.A4918_X06_CONFIG_6.halfword);
+}
+void A4918_Spi_Write_X08_CONFIG_8()
+{
+	A4918_Spi_Write_Register(CONFIG8,vA4918_Panels.WriteReg.A4918_X08_CONFIG_8.halfword);
+}
+void A4918_Spi_Write_X09_CONFIG_9()
+{
+	A4918_Spi_Write_Register(CONFIG9,vA4918_Panels.WriteReg.A4918_X09_CONFIG_9.halfword);
+}
+void A4918_Spi_Write_X0A_CONFIG_10()
+{
+	A4918_Spi_Write_Register(CONFIG10,vA4918_Panels.WriteReg.A4918_X0A_CONFIG_10.halfword);
+}
+void A4918_Spi_Write_X0B_CONFIG_11()
+{
+	A4918_Spi_Write_Register(CONFIG11,vA4918_Panels.WriteReg.A4918_X0B_CONFIG_11.halfword);
+}
+void A4918_Spi_Write_X0C_CONFIG_12()
+{
+	A4918_Spi_Write_Register(CONFIG12,vA4918_Panels.WriteReg.A4918_X0C_CONFIG_12.halfword);
+}
+void A4918_Spi_Write_X0D_CONFIG_13()
+{
+	A4918_Spi_Write_Register(CONFIG13,vA4918_Panels.WriteReg.A4918_X0D_CONFIG_13.halfword);
+}
+void A4918_Spi_Write_X0E_CONFIG_14()
+{
+	A4918_Spi_Write_Register(CONFIG14,vA4918_Panels.WriteReg.A4918_X0E_CONFIG_14.halfword);
+}
+void A4918_Spi_Write_X0F_CONFIG_15()
+{
+	A4918_Spi_Write_Register(CONFIG15,vA4918_Panels.WriteReg.A4918_X0F_CONFIG_15.halfword);
+}
+
+void A4918_Spi_Write_X12_STOP_ON_FAULT_0()
+{
+	A4918_Spi_Write_Register(STOP_ON_FAULT0,vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.halfword);
+}
+void A4918_Spi_Write_X13_STOP_ON_FAULT_1()
+{
+	A4918_Spi_Write_Register(STOP_ON_FAULT1,vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.halfword);
+}
+
+void A4918_Spi_Write_X14_VERIFY_COMMAND_0()
+{
+	A4918_Spi_Write_Register(VERIFY_COMMAND0,vA4918_Panels.WriteReg.A4918_X14_VERIFY_COMMAND_0.halfword);
+}
+void A4918_Spi_Write_X15_VERIFY_COMMAND_1()
+{
+	A4918_Spi_Write_Register(VERIFY_COMMAND1,vA4918_Panels.WriteReg.A4918_X15_VERIFY_COMMAND_1.halfword);
+}
+void A4918_Spi_Write_X16_VERIFY_COMMAND_2()
+{
+	A4918_Spi_Write_Register(VERIFY_COMMAND2,vA4918_Panels.WriteReg.A4918_X16_VERIFY_COMMAND_2.halfword);
+}
+
+void A4918_Spi_Write_X19_MASK_0()
+{
+	A4918_Spi_Write_Register(MASK0,vA4918_Panels.WriteReg.A4918_X19_MASK_0.halfword);
+}
+void A4918_Spi_Write_X1A_MASK_1()
+{
+	A4918_Spi_Write_Register(MASK1,vA4918_Panels.WriteReg.A4918_X1A_MASK_1.halfword);
+}
+void A4918_Spi_Write_X1B_MASK_2()
+{
+	A4918_Spi_Write_Register(MASK2,vA4918_Panels.WriteReg.A4918_X1B_MASK_2.halfword);
+}
+
+void A4918_Spi_Write_X1F_CONTROL()
+{
+	A4918_Spi_Write_Register(CONTROL,vA4918_Panels.WriteReg.A4918_X1F_CONTROL.halfword);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////// A4918_READ_WRITE_API /////////////////////////////////////////////////
+void A4918_Read_Register(void)
+{
+	switch(vA4918_Panels.CtrlReg.read_num)
+	{
+		case 0: // case 1 to case 7: Executed sequentially in Task
+			A4918_Spi_Read_X00_CONFIG_0();
+			A4918_Spi_Read_X01_CONFIG_1();
+			A4918_Spi_Read_X02_CONFIG_2();
+			A4918_Spi_Read_X03_CONFIG_3();
+			A4918_Spi_Read_X04_CONFIG_4();
+			A4918_Spi_Read_X05_CONFIG_5();
+			vA4918_Panels.CtrlReg.read_num = 1;
+			break;
+		case 1:
+			A4918_Spi_Read_X06_CONFIG_6();
+			A4918_Spi_Read_X08_CONFIG_8();
+			A4918_Spi_Read_X09_CONFIG_9();
+			A4918_Spi_Read_X0A_CONFIG_10();
+			A4918_Spi_Read_X0B_CONFIG_11();
+			vA4918_Panels.CtrlReg.read_num = 2;
+			break;
+		case 2:
+			A4918_Spi_Read_X0C_CONFIG_12();
+			A4918_Spi_Read_X0D_CONFIG_13();
+			A4918_Spi_Read_X0E_CONFIG_14();
+			A4918_Spi_Read_X0F_CONFIG_15();
+			A4918_Spi_Read_X12_STOP_ON_FAULT_0();
+			vA4918_Panels.CtrlReg.read_num = 3;
+			break;
+		case 3:
+			A4918_Spi_Read_X13_STOP_ON_FAULT_1();
+			A4918_Spi_Read_X14_VERIFY_COMMAND_0();
+			A4918_Spi_Read_X15_VERIFY_COMMAND_1();
+			A4918_Spi_Read_X16_VERIFY_COMMAND_2();
+			A4918_Spi_Read_X17_VERIFY_RESULT_();
+			A4918_Spi_Read_X18_VERIFY_RESULT_1();
+			vA4918_Panels.CtrlReg.read_num = 4;
+			break;
+		case 4:
+			A4918_Spi_Read_X19_MASK_0();
+			A4918_Spi_Read_X1A_MASK_1();
+			A4918_Spi_Read_X1B_MASK_2();
+			A4918_Spi_Read_X1C_DIAG_0();
+			A4918_Spi_Read_X1D_DIAG_1();
+			A4918_Spi_Read_X1E_DIAG_2();
+			A4918_Spi_Read_X1F_CONTROL();
+			vA4918_Panels.CtrlReg.read_num = 5;
+			break;
+		case 5:
+			vA4918_Panels.CtrlReg.read_num = 6;
+			break;
+		case 6:
+			vA4918_Panels.CtrlReg.read_flag	= FALSE;
+			vA4918_Panels.CtrlReg.read_num	= 0;
+			break;
+		default:
+			break;
+	}
+}
+
+void A4918_Write_Register(void)
+{
+	switch(vA4918_Panels.CtrlReg.write_num)
+	{
+		case 0: // case 1 to case 7: Repeatedly executed in Task_10ms
+			A4918_Spi_Write_X00_CONFIG_0();
+			A4918_Spi_Write_X01_CONFIG_1();
+			A4918_Spi_Write_X02_CONFIG_2();
+			A4918_Spi_Write_X03_CONFIG_3();
+			A4918_Spi_Write_X04_CONFIG_4();
+			vA4918_Panels.CtrlReg.write_num = 1;
+			break;
+		case 1:
+			A4918_Spi_Write_X05_CONFIG_5();
+			A4918_Spi_Write_X06_CONFIG_6();
+			A4918_Spi_Write_X08_CONFIG_8();
+			A4918_Spi_Write_X09_CONFIG_9();
+			A4918_Spi_Write_X0A_CONFIG_10();
+			vA4918_Panels.CtrlReg.write_num = 2;
+			break;
+		case 2:
+			A4918_Spi_Write_X0B_CONFIG_11();
+			A4918_Spi_Write_X0C_CONFIG_12();
+			A4918_Spi_Write_X0D_CONFIG_13();
+			A4918_Spi_Write_X0E_CONFIG_14();
+			A4918_Spi_Write_X0F_CONFIG_15();
+			vA4918_Panels.CtrlReg.write_num = 3;
+			break;
+		case 3:
+			A4918_Spi_Write_X12_STOP_ON_FAULT_0();
+			A4918_Spi_Write_X13_STOP_ON_FAULT_1();
+			A4918_Spi_Write_X14_VERIFY_COMMAND_0();
+			A4918_Spi_Write_X15_VERIFY_COMMAND_1();
+			A4918_Spi_Write_X16_VERIFY_COMMAND_2();
+			vA4918_Panels.CtrlReg.write_num = 4;
+			break;
+		case 4:
+			A4918_Spi_Write_X19_MASK_0();
+			A4918_Spi_Write_X1A_MASK_1();
+			A4918_Spi_Write_X1B_MASK_2();
+			A4918_Spi_Write_X1F_CONTROL();
+			vA4918_Panels.CtrlReg.write_num = 5;
+			break;
+		case 5:
+			vA4918_Panels.CtrlReg.write_num = 6;
+			break;
+		case 6:
+			vA4918_Panels.CtrlReg.write_flag	= FALSE;
+			vA4918_Panels.CtrlReg.read_flag		= TRUE;
+			vA4918_Panels.CtrlReg.write_num		= 0;
+			break;
+		default:
+			break;
+	}
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////// A4918_INIT /////////////////////////////////////////////////////////////
+void A4918_SET_UP(void)
+{
+	vA4918_Panels.WriteReg.A4918_X00_CONFIG_0.signal.DBM			= 0;	//0 : Bootstrap Active
+	vA4918_Panels.WriteReg.A4918_X00_CONFIG_0.signal.OCQ			= 0;	//0 : Debounce or 1: Blanking
+	vA4918_Panels.WriteReg.A4918_X00_CONFIG_0.signal.DT				= 4;	//4 : 0.2us Dead Time
+
+	vA4918_Panels.WriteReg.A4918_X01_CONFIG_1.signal.OCT			= 8;	//8 : 67.5A OCP
+	vA4918_Panels.WriteReg.A4918_X01_CONFIG_1.signal.TOC			= 15;	//15 : 7.5us OCQ_Time
+
+	vA4918_Panels.WriteReg.A4918_X02_CONFIG_2.signal.VDQ			= 0;	//0 : Debounce or 1: Blanking
+	vA4918_Panels.WriteReg.A4918_X02_CONFIG_2.signal.TVD			= 63;	//16 : 6.3us VDQ_Time
+
+	vA4918_Panels.WriteReg.A4918_X03_CONFIG_3.signal.VTL			= 63;	//6 : 0.3V Low Desat (8 : 0.4V)
+
+	vA4918_Panels.WriteReg.A4918_X04_CONFIG_4.signal.VTB			= 1;	//1 : 4.0V VBRG UVP
+	vA4918_Panels.WriteReg.A4918_X04_CONFIG_4.signal.VTH			= 6;	//6 : 0.3V High Desat (NOT_USED)
+
+	vA4918_Panels.WriteReg.A4918_X05_CONFIG_5.signal.AOL			= 0;	//0 : Disable (ON state Load TEST) (NOT_USED)
+	vA4918_Panels.WriteReg.A4918_X05_CONFIG_5.signal.OLI			= 1;	//0 : -70uA, 1 : -400uA (Load TEST Current)
+	vA4918_Panels.WriteReg.A4918_X05_CONFIG_5.signal.DOO			= 1;	//1 : Disable (OFF state Load TEST)
+	vA4918_Panels.WriteReg.A4918_X05_CONFIG_5.signal.OLT			= 15;	//8 : 0.225V open-load threshold voltage (NOT_USED)
+
+	vA4918_Panels.WriteReg.A4918_X06_CONFIG_6.signal.EWD			= 0;	//1 : Enable watchdog monitor.
+	vA4918_Panels.WriteReg.A4918_X06_CONFIG_6.signal.VRG			= 1;	//1 : 11V (gate drive voltage)
+
+	vA4918_Panels.WriteReg.A4918_X08_CONFIG_8.signal.THR			= 2;	//2 : 150ns
+	vA4918_Panels.WriteReg.A4918_X08_CONFIG_8.signal.THF			= 2;	//0 : 0ns
+	vA4918_Panels.WriteReg.A4918_X09_CONFIG_9.signal.IHR1			= 4;	//4 : -20mA
+	vA4918_Panels.WriteReg.A4918_X09_CONFIG_9.signal.IHF1			= 4;	//0 : Max
+	vA4918_Panels.WriteReg.A4918_X0A_CONFIG_10.signal.IHR2			= 4;	//4 : -20mA
+	vA4918_Panels.WriteReg.A4918_X0A_CONFIG_10.signal.IHF2			= 4;	//0 : Max
+
+	vA4918_Panels.WriteReg.A4918_X0B_CONFIG_11.signal.TLR			= 2;	//0 : 0ns
+	vA4918_Panels.WriteReg.A4918_X0B_CONFIG_11.signal.TLF			= 2;	//0 : 0ns
+	vA4918_Panels.WriteReg.A4918_X0C_CONFIG_12.signal.ILR1			= 4;	//0 : Max
+	vA4918_Panels.WriteReg.A4918_X0C_CONFIG_12.signal.ILF1			= 4;	//0 : Max
+	vA4918_Panels.WriteReg.A4918_X0D_CONFIG_13.signal.ILR2			= 4;	//0 : Max
+	vA4918_Panels.WriteReg.A4918_X0D_CONFIG_13.signal.ILF2			= 4;	//0 : Max
+
+	vA4918_Panels.WriteReg.A4918_X0E_CONFIG_14.signal.SAO			= 9;	//9 : 1V (Amp Offset)
+	vA4918_Panels.WriteReg.A4918_X0E_CONFIG_14.signal.S3C			= 0;	//0 : Amp Offset CAL
+	vA4918_Panels.WriteReg.A4918_X0E_CONFIG_14.signal.S2C			= 0;	//0 : Amp Offset CAL
+	vA4918_Panels.WriteReg.A4918_X0E_CONFIG_14.signal.S1C			= 0;	//0 : Amp Offset CAL
+	vA4918_Panels.WriteReg.A4918_X0F_CONFIG_15.signal.S3G			= 2;	//2 : 20 (Amp GAIN)
+	vA4918_Panels.WriteReg.A4918_X0F_CONFIG_15.signal.S2G			= 2;	//2 : 20 (Amp GAIN)
+	vA4918_Panels.WriteReg.A4918_X0F_CONFIG_15.signal.S1G			= 2;	//2 : 20 (Amp GAIN)
+
+	/*Gate Drive Enable or disable at Error Status (Used = 1, Not_Used = 0) */
+	vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FOT		= 1;	//Overtemperature
+	vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FTW		= 0;	//Temperature Warning (NOT_USED)
+	vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FBRG	= 1;	//VBRG disconnect
+	vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FLSS	= 1;	//LSS disconnect
+	vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FSE		= 1;	//Serial error
+	vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FVLU	= 1;	//Logic I/O Regulator Undervoltage
+	vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FVLO	= 1;	//Logic Terminal Overvoltage
+	vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FOC		= 1;	//Overcurrent
+	vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FDSO	= 1;	//VDS Overvoltage
+	vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FGSU	= 1;	//VGS Undervoltage
+	vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVBU	= 1;	//Bootstrap Undervoltage
+	vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVRO	= 1;	//VREG Overvoltage
+	vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVRU	= 1;	//VREG Undervoltage
+	vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVSO	= 1;	//VBB Overvoltage
+	vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVSU	= 1;	//VBB Undervoltage
+
+	/* Protection_MASK (Used = 0, Not_Used = 1) */
+	vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.AHU				= 0;		//U_HIGH_VGS_UNDER
+	vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.ALU				= 0;		//U_LOW_VGS_UNDER
+	vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.BHU				= 0;		//V_HIGH_VGS_UNDER
+	vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.BLU				= 0;		//V_LOW_VGS_UNDER
+	vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.CHU				= 0;		//W_HIGH_VGS_UNDER
+	vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.CLU				= 0;		//W_LOW_VGS_UNDER
+
+	vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.LAD				= 0;		//LSS_Disconnect_A
+	vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.LBD				= 0;		//LSS_Disconnect_B
+	vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.LCD				= 0;		//LSS_Disconnect_C
+
+	vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.AHO				= 1;		//U_HIGH_VDS_OVER (NOT_USED)
+	vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.ALO				= 0;		//U_LOW_VDS_OVER
+	vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.BHO				= 1;		//V_HIGH_VDS_OVER (NOT_USED)
+	vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.BLO				= 0;		//V_LOW_VDS_OVER
+	vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.CHO				= 1;		//W_HIGH_VDS_OVER (NOT_USED)
+	vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.CLO				= 0;		//W_LOW_VDS_OVER
+
+	vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.VBR				= 0;		//VBRG_disconnect
+	vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.VRO				= 0;		//VREG_OVER
+	vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.VRU				= 0;		//VREG_UNDER
+	vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.BSU				= 0;		//Bootstrap undervoltage
+	vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.TempW			= 1;		//Temperature warning (NOT_USED)
+	vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.VLO				= 0;		//Logic overvoltage
+	vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.VLU				= 0;		//Logic regulator undervoltage
+	vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.VS				= 0;		//VBB out of range
+
+	vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.AH				= 0;		//0 : Phase A, High-side gate drive
+	vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.AL				= 0;		//0 : Phase A, Low-side gate drive
+	vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.BH				= 0;		//0 : Phase B, High-side gate drive
+	vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.BL				= 0;		//0 : Phase B, Low-side gate drive
+	vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.CH				= 0;		//0 : Phase C, High-side gate drive
+	vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.CL				= 0;		//0 : Phase C, Low-side gate drive
+	vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.DG				= 0;		//0 : Fault PIN Usage – LOW TRUE
+	vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.DSR				= 0;		//0 : Disable Serial Reset
+
+	/* Write */
+	A4918_Spi_Write_X00_CONFIG_0();
+	A4918_Spi_Write_X01_CONFIG_1();
+	A4918_Spi_Write_X02_CONFIG_2();
+	A4918_Spi_Write_X03_CONFIG_3();
+	A4918_Spi_Write_X04_CONFIG_4();
+	A4918_Spi_Write_X05_CONFIG_5();
+	A4918_Spi_Write_X06_CONFIG_6();
+	A4918_Spi_Write_X08_CONFIG_8();
+	A4918_Spi_Write_X09_CONFIG_9();
+	A4918_Spi_Write_X0A_CONFIG_10();
+	A4918_Spi_Write_X0B_CONFIG_11();
+	A4918_Spi_Write_X0C_CONFIG_12();
+	A4918_Spi_Write_X0D_CONFIG_13();
+	A4918_Spi_Write_X0E_CONFIG_14();
+	A4918_Spi_Write_X0F_CONFIG_15();
+	A4918_Spi_Write_X12_STOP_ON_FAULT_0();
+	A4918_Spi_Write_X13_STOP_ON_FAULT_1();
+	A4918_Spi_Write_X14_VERIFY_COMMAND_0();
+	A4918_Spi_Write_X15_VERIFY_COMMAND_1();
+	A4918_Spi_Write_X16_VERIFY_COMMAND_2();
+	A4918_Spi_Write_X19_MASK_0();
+	A4918_Spi_Write_X1A_MASK_1();
+	A4918_Spi_Write_X1B_MASK_2();
+	A4918_Spi_Write_X1F_CONTROL();
+	/* Read */
+	A4918_Spi_Read_X00_CONFIG_0();
+	A4918_Spi_Read_X01_CONFIG_1();
+	A4918_Spi_Read_X02_CONFIG_2();
+	A4918_Spi_Read_X03_CONFIG_3();
+	A4918_Spi_Read_X04_CONFIG_4();
+	A4918_Spi_Read_X05_CONFIG_5();
+	A4918_Spi_Read_X06_CONFIG_6();
+	A4918_Spi_Read_X08_CONFIG_8();
+	A4918_Spi_Read_X09_CONFIG_9();
+	A4918_Spi_Read_X0A_CONFIG_10();
+	A4918_Spi_Read_X0B_CONFIG_11();
+	A4918_Spi_Read_X0C_CONFIG_12();
+	A4918_Spi_Read_X0D_CONFIG_13();
+	A4918_Spi_Read_X0E_CONFIG_14();
+	A4918_Spi_Read_X0F_CONFIG_15();
+	A4918_Spi_Read_X12_STOP_ON_FAULT_0();
+	A4918_Spi_Read_X13_STOP_ON_FAULT_1();
+	A4918_Spi_Read_X14_VERIFY_COMMAND_0();
+	A4918_Spi_Read_X15_VERIFY_COMMAND_1();
+	A4918_Spi_Read_X16_VERIFY_COMMAND_2();
+	A4918_Spi_Read_X17_VERIFY_RESULT_();
+	A4918_Spi_Read_X18_VERIFY_RESULT_1();
+	A4918_Spi_Read_X19_MASK_0();
+	A4918_Spi_Read_X1A_MASK_1();
+	A4918_Spi_Read_X1B_MASK_2();
+	A4918_Spi_Read_X1F_CONTROL();
+	/* INIT_ERR_GET */
+	A4918_Spi_Read_X1C_DIAG_0();
+	A4918_Spi_Read_X1D_DIAG_1();
+	A4918_Spi_Read_X1E_DIAG_2();
+	/* INIT_ERR_RESET */
+	A4918_Spi_Read_X1C_DIAG_0();
+	A4918_Spi_Read_X1D_DIAG_1();
+	A4918_Spi_Read_X1E_DIAG_2();
+
+	Dio_WriteChannel(EHAL_A4918_RESET,HIGH);
+}
+
+void A4918_Spi_Init(void)
+{
+	Std_ReturnType spi_return;
+//	spi_return = Spi_SetupEB(SpiConf_SpiChannel_A4918_CH, (Spi_DataType *)&vA4918_SpiTxMsg, (Spi_DataType *)&vA4918_SpiRxMsg, 1);
+}
+
+void A4918_Init(void)
+{
+	A4918_Spi_Init();
+
+//	/* Init_For Vreg_Error_Reset */
+//	Dio_WriteChannel(EHAL_A4918_RESET,LOW);
+//	CDrvIfc_Bldc_Delay_001us(1000);
+//	Dio_WriteChannel(EHAL_A4918_RESET,HIGH);
+
+	//variable initialize
+	vA4918_Panels.CtrlReg.write_num			= 0;
+	vA4918_Panels.CtrlReg.read_num			= 0;
+	vA4918_Panels.CtrlReg.write_flag		= FALSE;
+	vA4918_Panels.CtrlReg.read_flag			= FALSE;
+
+	A4918_SET_UP();
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////// NOT_USED ///////////////////////////////////////////////////////////
+void A4918_Test_10ms(void)
+{
+	switch(vA4918_TestConfig.test_case)
+	{
+	case 0:
+		//do nothing
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 1:
+		vA4918_Panels.WriteReg.A4918_X00_CONFIG_0.signal.DBM  		   = 0;
+		vA4918_Panels.WriteReg.A4918_X00_CONFIG_0.signal.DT   		   = 0;
+		vA4918_Panels.WriteReg.A4918_X00_CONFIG_0.signal.OCQ  		   = 0;
+		A4918_Spi_Write_X00_CONFIG_0();
+		A4918_Spi_Read_X00_CONFIG_0();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 2:
+		vA4918_Panels.WriteReg.A4918_X01_CONFIG_1.signal.OCT 		   = 0;
+		vA4918_Panels.WriteReg.A4918_X01_CONFIG_1.signal.TOC 		   = 0;
+		A4918_Spi_Write_X01_CONFIG_1();
+		A4918_Spi_Read_X01_CONFIG_1();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 3:
+		vA4918_Panels.WriteReg.A4918_X02_CONFIG_2.signal.TVD 		   = 0;
+		vA4918_Panels.WriteReg.A4918_X02_CONFIG_2.signal.VDQ		   = 0;
+		A4918_Spi_Write_X02_CONFIG_2();
+		A4918_Spi_Read_X02_CONFIG_2();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 4:
+		vA4918_Panels.WriteReg.A4918_X03_CONFIG_3.signal.VTL		   = 0;
+		A4918_Spi_Write_X03_CONFIG_3();
+		A4918_Spi_Read_X03_CONFIG_3();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 5:
+		vA4918_Panels.WriteReg.A4918_X04_CONFIG_4.signal.VTB 		   = 0;
+		vA4918_Panels.WriteReg.A4918_X04_CONFIG_4.signal.VTH 		   = 0;
+		A4918_Spi_Write_X04_CONFIG_4();
+		A4918_Spi_Read_X04_CONFIG_4();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 6:
+		vA4918_Panels.WriteReg.A4918_X05_CONFIG_5.signal.AOL 		   = 0;
+		vA4918_Panels.WriteReg.A4918_X05_CONFIG_5.signal.DOO 		   = 0;
+		vA4918_Panels.WriteReg.A4918_X05_CONFIG_5.signal.OLI 		   = 0;
+		vA4918_Panels.WriteReg.A4918_X05_CONFIG_5.signal.OLT 		   = 0;
+		A4918_Spi_Write_X05_CONFIG_5();
+		A4918_Spi_Read_X05_CONFIG_5();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 7:
+		vA4918_Panels.WriteReg.A4918_X06_CONFIG_6.signal.EWD           = 0;
+		vA4918_Panels.WriteReg.A4918_X06_CONFIG_6.signal.VRG           = 0;
+		A4918_Spi_Write_X06_CONFIG_6();
+		A4918_Spi_Read_X06_CONFIG_6();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 8:
+		vA4918_Panels.WriteReg.A4918_X08_CONFIG_8.signal.THF           = 0;
+		vA4918_Panels.WriteReg.A4918_X08_CONFIG_8.signal.THR           = 0;
+		A4918_Spi_Write_X08_CONFIG_8();
+		A4918_Spi_Read_X08_CONFIG_8();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 9:
+		vA4918_Panels.WriteReg.A4918_X09_CONFIG_9.signal.IHF1          = 0;
+		vA4918_Panels.WriteReg.A4918_X09_CONFIG_9.signal.IHR1          = 0;
+		A4918_Spi_Write_X09_CONFIG_9();
+		A4918_Spi_Read_X09_CONFIG_9();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 10:
+		vA4918_Panels.WriteReg.A4918_X0A_CONFIG_10.signal.IHF2         = 0;
+		vA4918_Panels.WriteReg.A4918_X0A_CONFIG_10.signal.IHR2         = 0;
+		A4918_Spi_Write_X0A_CONFIG_10();
+		A4918_Spi_Read_X0A_CONFIG_10();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 11:
+		vA4918_Panels.WriteReg.A4918_X0B_CONFIG_11.signal.TLF          = 0;
+		vA4918_Panels.WriteReg.A4918_X0B_CONFIG_11.signal.TLR          = 0;
+		A4918_Spi_Write_X0B_CONFIG_11();
+		A4918_Spi_Read_X0B_CONFIG_11();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 12:
+		vA4918_Panels.WriteReg.A4918_X0C_CONFIG_12.signal.ILF1         = 0;
+		vA4918_Panels.WriteReg.A4918_X0C_CONFIG_12.signal.ILR1         = 0;
+		A4918_Spi_Write_X0C_CONFIG_12();
+		A4918_Spi_Read_X0C_CONFIG_12();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 13:
+		vA4918_Panels.WriteReg.A4918_X0D_CONFIG_13.signal.ILF2         = 0;
+		vA4918_Panels.WriteReg.A4918_X0D_CONFIG_13.signal.ILR2         = 0;
+		A4918_Spi_Write_X0D_CONFIG_13();
+		A4918_Spi_Read_X0D_CONFIG_13();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 14:
+		vA4918_Panels.WriteReg.A4918_X0E_CONFIG_14.signal.S1C          = 0;
+		vA4918_Panels.WriteReg.A4918_X0E_CONFIG_14.signal.S2C          = 0;
+		vA4918_Panels.WriteReg.A4918_X0E_CONFIG_14.signal.S3C          = 0;
+		vA4918_Panels.WriteReg.A4918_X0E_CONFIG_14.signal.SAO          = 0;
+		A4918_Spi_Write_X0E_CONFIG_14();
+		A4918_Spi_Read_X0E_CONFIG_14();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 15:
+		vA4918_Panels.WriteReg.A4918_X0F_CONFIG_15.signal.S1G          = 0;
+		vA4918_Panels.WriteReg.A4918_X0F_CONFIG_15.signal.S2G          = 0;
+		vA4918_Panels.WriteReg.A4918_X0F_CONFIG_15.signal.S3G          = 0;
+		A4918_Spi_Write_X0F_CONFIG_15();
+		A4918_Spi_Read_X0F_CONFIG_15();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 16:
+		vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FBRG   = 0;
+		vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FLSS   = 0;
+		vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FOT    = 0;
+		vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FSE    = 0;
+		vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FTW    = 0;
+		vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FVLO   = 0;
+		vA4918_Panels.WriteReg.A4918_X12_STOP_ON_FAULT_0.signal.FVLU   = 0;
+		A4918_Spi_Write_X12_STOP_ON_FAULT_0();
+		A4918_Spi_Read_X12_STOP_ON_FAULT_0();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 17:
+		vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FDSO   = 0;
+		vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FGSU   = 0;
+		vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FOC    = 0;
+		vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVBU   = 0;
+		vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVRO   = 0;
+		vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVRU   = 0;
+		vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVSO   = 0;
+		vA4918_Panels.WriteReg.A4918_X13_STOP_ON_FAULT_1.signal.FVSU   = 0;
+		A4918_Spi_Write_X13_STOP_ON_FAULT_1();
+		A4918_Spi_Read_X13_STOP_ON_FAULT_1();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 18:
+		vA4918_Panels.WriteReg.A4918_X14_VERIFY_COMMAND_0.signal.YBU   = 0;
+		vA4918_Panels.WriteReg.A4918_X14_VERIFY_COMMAND_0.signal.YDO   = 0;
+		vA4918_Panels.WriteReg.A4918_X14_VERIFY_COMMAND_0.signal.YGU   = 0;
+		vA4918_Panels.WriteReg.A4918_X14_VERIFY_COMMAND_0.signal.YLO   = 0;
+		vA4918_Panels.WriteReg.A4918_X14_VERIFY_COMMAND_0.signal.YRO   = 0;
+		vA4918_Panels.WriteReg.A4918_X14_VERIFY_COMMAND_0.signal.YRU   = 0;
+		vA4918_Panels.WriteReg.A4918_X14_VERIFY_COMMAND_0.signal.YSO   = 0;
+		vA4918_Panels.WriteReg.A4918_X14_VERIFY_COMMAND_0.signal.YSU   = 0;
+		A4918_Spi_Write_X14_VERIFY_COMMAND_0();
+		A4918_Spi_Read_X14_VERIFY_COMMAND_0();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 19:
+		vA4918_Panels.WriteReg.A4918_X15_VERIFY_COMMAND_1.signal.YLU   = 0;
+		vA4918_Panels.WriteReg.A4918_X15_VERIFY_COMMAND_1.signal.YO1   = 0;
+		vA4918_Panels.WriteReg.A4918_X15_VERIFY_COMMAND_1.signal.YO2   = 0;
+		vA4918_Panels.WriteReg.A4918_X15_VERIFY_COMMAND_1.signal.YOC   = 0;
+		vA4918_Panels.WriteReg.A4918_X15_VERIFY_COMMAND_1.signal.YOL   = 0;
+		vA4918_Panels.WriteReg.A4918_X15_VERIFY_COMMAND_1.signal.YOP   = 0;
+		vA4918_Panels.WriteReg.A4918_X15_VERIFY_COMMAND_1.signal.YPH   = 0;
+		vA4918_Panels.WriteReg.A4918_X15_VERIFY_COMMAND_1.signal.YPL   = 0;
+		A4918_Spi_Write_X15_VERIFY_COMMAND_1();
+		A4918_Spi_Read_X15_VERIFY_COMMAND_1();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 20:
+		vA4918_Panels.WriteReg.A4918_X16_VERIFY_COMMAND_2.signal.YBR   = 0;
+		vA4918_Panels.WriteReg.A4918_X16_VERIFY_COMMAND_2.signal.YLS   = 0;
+		vA4918_Panels.WriteReg.A4918_X16_VERIFY_COMMAND_2.signal.YOT   = 0;
+		vA4918_Panels.WriteReg.A4918_X16_VERIFY_COMMAND_2.signal.YTW   = 0;
+		A4918_Spi_Write_X16_VERIFY_COMMAND_2();
+		A4918_Spi_Read_X16_VERIFY_COMMAND_2();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 21:
+		vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.AHU             = 0;
+		vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.ALU             = 0;
+		vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.BHU             = 0;
+		vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.BLU             = 0;
+		vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.CHU             = 0;
+		vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.CLU             = 0;
+		vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.LAD             = 0;
+		vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.LBD             = 0;
+		vA4918_Panels.WriteReg.A4918_X19_MASK_0.signal.LCD             = 0;
+		A4918_Spi_Write_X19_MASK_0();
+		A4918_Spi_Read_X19_MASK_0();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 22:
+		vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.AHO             = 0;
+		vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.ALO             = 0;
+		vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.BHO             = 0;
+		vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.BLO             = 0;
+		vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.CHO             = 0;
+		vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.CLO             = 0;
+		vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.VBR             = 0;
+		vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.VRO             = 0;
+		vA4918_Panels.WriteReg.A4918_X1A_MASK_1.signal.VRU             = 0;
+		A4918_Spi_Write_X1A_MASK_1();
+		A4918_Spi_Read_X1A_MASK_1();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 23:
+		vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.BSU             = 0;
+		vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.TempW           = 0;
+		vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.VLO             = 0;
+		vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.VLU             = 0;
+		vA4918_Panels.WriteReg.A4918_X1B_MASK_2.signal.VS              = 0;
+		A4918_Spi_Write_X1B_MASK_2();
+		A4918_Spi_Read_X1B_MASK_2();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 24:
+		vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.AH             = 0;
+		vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.AL             = 0;
+		vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.BH             = 0;
+		vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.BL             = 0;
+		vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.CH             = 0;
+		vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.CL             = 0;
+		vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.DG             = 0;
+		vA4918_Panels.WriteReg.A4918_X1F_CONTROL.signal.DSR            = 0;
+		A4918_Spi_Write_X1F_CONTROL();
+		A4918_Spi_Read_X1F_CONTROL();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	case 25:
+		A4918_Spi_Read_X17_VERIFY_RESULT_();
+		A4918_Spi_Read_X18_VERIFY_RESULT_1();
+		A4918_Spi_Read_X1C_DIAG_0();
+		A4918_Spi_Read_X1D_DIAG_1();
+		A4918_Spi_Read_X1E_DIAG_2();
+		vA4918_TestConfig.test_case = 0;
+		break;
+	default:
+		break;
+	}
+}
+/////////////////////////////////////////////////////////////////////////////////////////////

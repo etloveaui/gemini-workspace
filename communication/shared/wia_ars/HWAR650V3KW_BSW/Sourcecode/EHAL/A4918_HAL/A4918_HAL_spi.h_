@@ -1,0 +1,1010 @@
+/*
+ * A4918_HAL_spi.h
+ *
+ *  Created on: 2023. 3. 14.
+ *      Author: eunta
+ */
+
+#ifndef A4918_HAL_SPI_H_
+#define A4918_HAL_SPI_H_
+
+/*******************************************************************************
+ **                      Includes                                              **
+ *******************************************************************************/
+#include <integration/TargetIntegration/TC36xA/_Reg/IfxGtm_reg.h>
+#include "Platform_Types.h"
+#include "Spi.h"
+//#include "Pwm_17_Gtm_Cfg.h"
+//#include "Pwm_17_Gtm.h"
+//#include "EHAL/EhalPwm/EhalPwm.h"
+//#include "Adc_Cfg.h"
+//#include "Adc.h"
+//#include "Icu_17_GtmCcu6_Cfg.h"
+//#include "Icu_17_GtmCcu6.h"
+//#include "EHAL/EhalAdc/EhalAdc.h"
+//#include "EHAL/EhalDio/EhalDio.h"
+//#include "EHAL/CAN_HAL/CAN_HAL.h"
+//#include "TSW/Tsw.h"
+//#include "Dio.h"
+//#include "Gpt.h"
+//#include "Gpt_Cfg.h"
+
+//****************************************************************************
+// @TLF35584 Function Mode definitions
+//****************************************************************************
+#define WRITE ((uint8)0x1U)
+#define READ  ((uint8)0x0U)
+
+//****************************************************************************
+// @TLF35584 Register definitions
+//****************************************************************************
+/* Configuration Registers:
+ * Thirteen registers are used to configure the operating parameters of the A4918. */
+#define CONFIG0      	    ((uint8)0x00U)   /* Config 0: Bridge timing settings */
+#define CONFIG1         	((uint8)0x01U)   /* Config 1: Bridge monitor setting */
+#define CONFIG2            	((uint8)0x02U)   /* Config 2: Bridge monitor setting */
+#define CONFIG3            	((uint8)0x03U)   /* Config 3: Bridge monitor setting */
+#define CONFIG4    	       	((uint8)0x04U)   /* Config 4: Bridge monitor setting */
+#define CONFIG5     	   	((uint8)0x05U)   /* Config 5: Bridge monitor setting */
+#define CONFIG6            	((uint8)0x06U)   /* Config 6: Bridge monitor setting */
+#define CONFIG8            	((uint8)0x08U)   /* Config 8: Gate drive control (high-side timing): */
+#define CONFIG9            	((uint8)0x09U)   /* Config 9: Gate drive control (high-side I1 current): */
+#define CONFIG10           	((uint8)0x0AU)   /* Config 10: Gate drive control (high-side I2 current): */
+#define CONFIG11           	((uint8)0x0BU)   /* Config 11: Gate drive control (low-side timing): */
+#define CONFIG12           	((uint8)0x0CU)   /* Config 12: Gate drive control (low-side I1 current): */
+#define CONFIG13           	((uint8)0x0DU)   /* Config 13: Gate drive control (low side I2 current): */
+#define CONFIG14           	((uint8)0x0EU)   /* Config 14: Sense amplifier offset: */
+#define CONFIG15           	((uint8)0x0FU)   /* Config 15: Sense amplifier gain: */
+
+/* Stop-On Fault Registers:
+ * Two registers to control whether gate drive outputs are to remain
+ * enabled or be disabled in response to faults. See diagnostics section for further detail of fault actions.*/
+#define	STOP_ON_FAULT0      ((uint8)0x12U)   /* Stop on Fault 0: */
+#define STOP_ON_FAULT1      ((uint8)0x13U)   /* Stop on Fault 1: */
+
+/* Verification Registers:
+ * Four registers are used to manage the system and diagnostic verification features. */
+#define VERIFY_COMMAND0     ((uint8)0x14U)   /* Verify Command 0: */
+#define VERIFY_COMMAND1     ((uint8)0x15U)   /* Verify Command 1: */
+#define VERIFY_COMMAND2     ((uint8)0x16U)   /* Verify Command 2: */
+#define VERIFY_RESULT0      ((uint8)0x17U)   /* Verify Result 0 (read only): */
+#define VERIFY_RESULT1      ((uint8)0x18U)   /* Verify Result 1 (read only): */
+
+/* Mask Registers:
+ * Three mask registers allow individual diagnostics to be disabled.
+ * If a bit is set to one in the mask registers, then the corresponding
+ * diagnostic will be completely disabled. No fault states for the disabled diagnostic will be generated,
+ * no fault flags or diagnostic bits will be set, and no action will be taken if the corresponding
+ * fault conditions are present.*/
+#define MASK0      		    ((uint8)0x19U)   /* Mask 0: */
+#define MASK1           	((uint8)0x1AU)   /* Mask 1: */
+#define MASK2               ((uint8)0x1BU)   /* Mask 2: */
+
+/* Diagnostic Registers:
+ * In addition to the read-only status register, three read-only diagnostic registers
+ * provide detailed diagnostic management and reporting. When DSR = 0,
+ * any bits set in a diagnostic register are reset on completion of a successful read of that register.
+ * When DSR = 1, the register will not be reset. Reading one diagnostic register will not affect
+ * the fault bits in any other register. Reading the status register will not affect fault bits in any diagnostic register.*/
+#define DIAG0               ((uint8)0x1CU)   /* Diagnostic 0 (read only): */
+#define DIAG1               ((uint8)0x1DU)   /* Diagnostic 1 (read only): */
+#define DIAG2               ((uint8)0x1EU)   /* Diagnostic 2 (read only): */
+
+/* Control Register:
+ * The Control register contains one control bit for each MOSFET and some system function settings.*/
+#define CONTROL             ((uint8)0x1FU)   /* Control Register */
+
+#define A4918_SPI_TIMEOUT_CNT 	(10000)
+
+//****************************************************************************
+// @Typedefs
+//****************************************************************************
+typedef struct
+{
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 DT		: 6;
+	 			uint16 unused2	: 1;
+	 			uint16 OCQ		: 1;
+	 			uint16 DBM		: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X00_CONFIG_0;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 TOC		: 5;
+	 			uint16 OCT		: 4;
+	 			uint16 unused2	: 6;
+	 		}signal;
+	 	}A4918_X01_CONFIG_1;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 TVD		: 6;
+	 			uint16 unused2	: 2;
+	 			uint16 VDQ		: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X02_CONFIG_2;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 VTL		: 6;
+	 			uint16 unused2	: 3;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X03_CONFIG_3;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 VTH		: 6;
+	 			uint16 unused2	: 1;
+	 			uint16 VTB		: 2;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X04_CONFIG_4;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 OLT		: 4;
+	 			uint16 unused2	: 2;
+	 			uint16 DOO		: 1;
+	 			uint16 OLI		: 1;
+	 			uint16 AOL		: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X05_CONFIG_5;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 unused2	: 7;
+	 			uint16 VRG		: 1;
+	 			uint16 EWD		: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X06_CONFIG_6;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 THF		: 4;
+	 			uint16 THR		: 4;
+	 			uint16 unused2	: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X08_CONFIG_8;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 IHF1		: 4;
+	 			uint16 IHR1		: 4;
+	 			uint16 unused2	: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X09_CONFIG_9;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 IHF2		: 4;
+	 			uint16 IHR2		: 4;
+	 			uint16 unused2	: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X0A_CONFIG_10;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 TLF		: 4;
+	 			uint16 TLR		: 4;
+	 			uint16 unused2	: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X0B_CONFIG_11;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 ILF1		: 4;
+	 			uint16 ILR1		: 4;
+	 			uint16 unused2	: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X0C_CONFIG_12;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 ILF2		: 4;
+	 			uint16 ILR2		: 4;
+	 			uint16 unused2	: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X0D_CONFIG_13;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 SAO		: 4;
+	 			uint16 unused2	: 2;
+	 			uint16 S1C		: 1;
+	 			uint16 S2C		: 1;
+	 			uint16 S3C		: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X0E_CONFIG_14;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 S1G		: 3;
+	 			uint16 S2G		: 3;
+	 			uint16 S3G		: 3;
+	 			uint16 unused2	: 6;
+	 		}signal;
+	 	}A4918_X0F_CONFIG_15;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 unused2	: 1;
+	 			uint16 FVLO		: 1;
+	 			uint16 FVLU		: 1;
+	 			uint16 FSE		: 1;
+	 			uint16 unused3	: 1;
+	 			uint16 FLSS		: 1;
+	 			uint16 FBRG		: 1;
+	 			uint16 FTW		: 1;
+	 			uint16 FOT		: 1;
+	 			uint16 unused4	: 6;
+	 		}signal;
+	 	}A4918_X12_STOP_ON_FAULT_0;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 FVSU		: 1;
+	 			uint16 FVSO		: 1;
+	 			uint16 FVRU		: 1;
+	 			uint16 FVRO		: 1;
+	 			uint16 FVBU		: 1;
+	 			uint16 FGSU		: 1;
+	 			uint16 FDSO		: 1;
+	 			uint16 unused2	: 1;
+	 			uint16 FOC		: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X13_STOP_ON_FAULT_1;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1 : 1;
+	 			uint16 YGU : 1;
+	 			uint16 YSU : 1;
+	 			uint16 YSO : 1;
+	 			uint16 YLO : 1;
+	 			uint16 YBU : 1;
+	 			uint16 YRU : 1;
+	 			uint16 YRO : 1;
+	 			uint16 YDO : 1;
+	 			uint16 unused2 : 1;
+	 			uint16 unused3 : 6;
+	 		}signal;
+	 	}A4918_X14_VERIFY_COMMAND_0;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 YO2		: 1;
+	 			uint16 YO1		: 1;
+	 			uint16 YOP		: 2;
+	 			uint16 YOL		: 1;
+	 			uint16 YLU		: 1;
+	 			uint16 YOC		: 1;
+	 			uint16 YPL		: 1;
+	 			uint16 YPH		: 1;
+	 			uint16 unused2	: 6;
+	 		}signal;
+	 	}A4918_X15_VERIFY_COMMAND_1;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 unused2	: 5;
+	 			uint16 YLS		: 1;
+	 			uint16 YBR		: 1;
+	 			uint16 YOT		: 1;
+	 			uint16 YTW		: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X16_VERIFY_COMMAND_2;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 ALU		: 1;
+	 			uint16 AHU		: 1;
+	 			uint16 BLU		: 1;
+	 			uint16 BHU		: 1;
+	 			uint16 CLU		: 1;
+	 			uint16 CHU		: 1;
+	 			uint16 LAD		: 1;
+	 			uint16 LBD		: 1;
+	 			uint16 LCD		: 1;
+	 			uint16 unused2	: 6;
+	 		}signal;
+	 	}A4918_X19_MASK_0;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 ALO		: 1;
+	 			uint16 AHO		: 1;
+	 			uint16 BLO		: 1;
+	 			uint16 BHO		: 1;
+	 			uint16 CLO		: 1;
+	 			uint16 CHO		: 1;
+	 			uint16 VBR		: 1;
+	 			uint16 VRU		: 1;
+	 			uint16 VRO		: 1;
+	 			uint16 unused2	: 6;
+	 		}signal;
+	 	}A4918_X1A_MASK_1;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 unused2	: 4;
+	 			uint16 VLU		: 1;
+	 			uint16 TempW	: 1;
+	 			uint16 BSU		: 1;
+	 			uint16 VLO		: 1;
+	 			uint16 VS		: 1;
+	 			uint16 unused3	: 6;
+	 		}signal;
+	 	}A4918_X1B_MASK_2;
+
+	 	union{
+	 		uint16 halfword;
+	 		struct{
+	 			uint16 unused1	: 1;
+	 			uint16 AL		: 1;
+	 			uint16 AH		: 1;
+	 			uint16 BL		: 1;
+	 			uint16 BH		: 1;
+	 			uint16 CL		: 1;
+	 			uint16 CH		: 1;
+	 			uint16 DSR		: 1;
+	 			uint16 DG		: 2;
+	 			uint16 unused2	: 6;
+	 		}signal;
+	 	}A4918_X1F_CONTROL;
+}typA4918WriteRegister;
+
+typedef struct
+{
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 DT : 6;
+			uint16 unused2 : 1;
+			uint16 OCQ : 1;
+			uint16 DBM : 1;
+			uint16 TW : 1;
+			uint16 OT : 1;
+			uint16 EE : 1;
+			uint16 SE : 1;
+			uint16 POR : 1;
+			uint16 FF : 1;
+		}signal;
+	}A4918_X00_CONFIG_0;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 TOC : 5;
+			uint16 OCT : 4;
+			uint16 TW : 1;
+			uint16 OT : 1;
+			uint16 EE : 1;
+			uint16 SE : 1;
+			uint16 POR : 1;
+			uint16 FF : 1;
+		}signal;
+	}A4918_X01_CONFIG_1;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 TVD : 6;
+			uint16 unused2 : 2;
+			uint16 VDQ : 1;
+			uint16 TW : 1;
+			uint16 OT : 1;
+			uint16 EE : 1;
+			uint16 SE : 1;
+			uint16 POR : 1;
+			uint16 FF : 1;
+		}signal;
+	}A4918_X02_CONFIG_2;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 VTL : 6; /* */
+			uint16 unused2 : 3;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X03_CONFIG_3;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 VTH : 6; /* */
+			uint16 unused2 : 1;
+			uint16 VTB : 2; /* */
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X04_CONFIG_4;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 OTL : 4; /* */
+			uint16 unused2 : 2;
+			uint16 DOO : 1; /* */
+			uint16 OLI : 1; /* */
+			uint16 AOL : 1; /* */
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X05_CONFIG_5;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 unused2 : 7;
+			uint16 VRG : 1; /* */
+			uint16 EWD : 1; /* */
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X06_CONFIG_6;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 THF : 4; /* */
+			uint16 THR : 4; /* */
+			uint16 unused2 : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X08_CONFIG_8;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 IHF1 : 4; /* */
+			uint16 IHR1 : 4; /* */
+			uint16 unused2 : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X09_CONFIG_9;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 IHF2 : 4; /* */
+			uint16 IHR2 : 4; /* */
+			uint16 unused2 : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X0A_CONFIG_10;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 TLF : 4; /* */
+			uint16 TLR : 4; /* */
+			uint16 unused2 : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X0B_CONFIG_11;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 ILF1 : 4; /* */
+			uint16 ILR1 : 4; /* */
+			uint16 unused2 : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X0C_CONFIG_12;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 ILF2 : 4; /* */
+			uint16 ILR2 : 4; /* */
+			uint16 unused2 : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X0D_CONFIG_13;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 SAO : 4; /* */
+			uint16 unused2 : 2; /* */
+			uint16 S1C : 1;
+			uint16 S2C : 1;
+			uint16 S3C : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X0E_CONFIG_14;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 S1G : 3; /* */
+			uint16 S2G : 3; /* */
+			uint16 S3G : 3; /* */
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X0F_CONFIG_15;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 unused2 : 1;
+			uint16 FVLO : 1;
+			uint16 FVLU : 1;
+			uint16 FSE : 1;
+			uint16 unused3 : 1;
+			uint16 FLSS : 1;
+			uint16 FBRG : 1;
+			uint16 FTW : 1;
+			uint16 FOT : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X12_STOP_ON_FAULT_0;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 FVSU : 1;
+			uint16 FVSO : 1;
+			uint16 FVRU : 1;
+			uint16 FVRO : 1;
+			uint16 FVBU : 1;
+			uint16 FGSU : 1;
+			uint16 FDSO : 1;
+			uint16 unused2 : 1;
+			uint16 FOC : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X13_STOP_ON_FAULT_1;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 YGU : 1;
+			uint16 YSU : 1;
+			uint16 YSO : 1;
+			uint16 YLO : 1;
+			uint16 YBU : 1;
+			uint16 YRU : 1;
+			uint16 YRO : 1;
+			uint16 YDO : 1;
+			uint16 unused2 : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X14_VERIFY_COMMAND_0;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 YO2 : 1;
+			uint16 YO1 : 1;
+			uint16 YOP : 2;
+			uint16 YOL : 1;
+			uint16 YLU : 1;
+			uint16 YOC : 1;
+			uint16 YPL : 1;
+			uint16 YPH : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X15_VERIFY_COMMAND_1;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 unused2 : 5;
+			uint16 YLS : 1;
+			uint16 YBR : 1;
+			uint16 YOT : 1;
+			uint16 YTW : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X16_VERIFY_COMMAND_2;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 unused2 : 4;
+			uint16 PAD : 1;
+			uint16 PBD : 1;
+			uint16 PCD : 1;
+			uint16 unused3 : 2;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X17_VERIFY_RESULT_0;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 S1D : 1;
+			uint16 S2D : 1;
+			uint16 S3D : 1;
+			uint16 SAS : 1;
+			uint16 SBS : 1;
+			uint16 SCS : 1;
+			uint16 GDO : 1;
+			uint16 unused2 : 2;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X18_VERIFY_RESULT_1;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 ALU : 1;
+			uint16 AHU : 1;
+			uint16 BLU : 1;
+			uint16 BHU : 1;
+			uint16 CLU : 1;
+			uint16 CHU : 1;
+			uint16 LAD : 1;
+			uint16 LBD : 1;
+			uint16 LCD : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X19_MASK_0;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 ALO : 1;
+			uint16 AHO : 1;
+			uint16 BLO : 1;
+			uint16 BHO : 1;
+			uint16 CLO : 1;
+			uint16 CHO : 1;
+			uint16 VBR : 1;
+			uint16 VRU : 1;
+			uint16 VRO : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X1A_MASK_1;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 unused2 : 4;
+			uint16 VLU : 1;
+			uint16 TempW : 1;
+			uint16 BSU : 1;
+			uint16 VLO : 1;
+			uint16 VS : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X1B_MASK_2;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 ALU : 1;
+			uint16 AHU : 1;
+			uint16 BLU : 1;
+			uint16 BHU : 1;
+			uint16 CLU : 1;
+			uint16 CHU : 1;
+			uint16 LAD : 1;
+			uint16 LBD : 1;
+			uint16 LCD : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X1C_DIAG_0;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 ALO : 1;
+			uint16 AHO : 1;
+			uint16 BLO : 1;
+			uint16 BHO : 1;
+			uint16 CLO : 1;
+			uint16 CHO : 1;
+			uint16 VBR : 1;
+			uint16 VRU : 1;
+			uint16 VRO : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X1D_DIAG_1;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 OL : 1;
+			uint16 OC1 : 1;
+			uint16 OC2 : 1;
+			uint16 OC3 : 1;
+			uint16 VSU : 1;
+			uint16 VSO : 1;
+			uint16 VA : 1;
+			uint16 VB : 1;
+			uint16 VC : 1;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X1E_DIAG_2;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 AL : 1;
+			uint16 AH : 1;
+			uint16 BL : 1;
+			uint16 BH : 1;
+			uint16 CL : 1;
+			uint16 CH : 1;
+			uint16 DSR : 1;
+			uint16 DG : 2;
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_X1F_CONTROL;
+
+	union{
+		uint16 halfword;
+		struct{
+			uint16 unused1 : 1;
+			uint16 DSO : 1;	//VDS overvoltage
+			uint16 GSU : 1;	//VGS undervoltage
+			uint16 BSU : 1;	//Bootstrap undervoltage
+			uint16 LDF : 1;	//Load fault
+			uint16 VLU : 1;	//Logic I/O regulator undervoltage
+			uint16 VR : 1;	//VREG out of range
+			uint16 ETO : 1;	//ENABLE watchdog timeout
+			uint16 VLO : 1;	//Logic terminal overvoltage
+			uint16 VS : 1;	//VBB out of range
+			uint16 TW : 1;	//High temperature warning
+			uint16 OT : 1;	//Overtemperature
+			uint16 EE : 1;	//EEPROM Error
+			uint16 SE : 1;	//Serial Error
+			uint16 POR : 1;	//Power-on-reset
+			uint16 FF : 1;	//Status register flag
+		}signal;
+	}A4918_STATUS;
+}typA4918ReadRegister;
+
+typedef struct
+{
+	boolean write_flag;
+	boolean read_flag;
+	uint8 write_num;
+	uint8 read_num;
+}typA4918RegisterControl;
+
+typedef struct
+{
+	typA4918RegisterControl CtrlReg;
+	typA4918WriteRegister WriteReg;
+	typA4918ReadRegister ReadReg;
+}typA4918Panels;
+
+typedef struct{
+	uint32 test_case;
+}typA4918_TestConfig;
+
+extern typA4918Panels vA4918_Panels;
+extern typA4918Panels vA4918_Panels_bak;
+
+extern void A4918_Init(void);
+extern void A4918_Spi_Init(void);
+extern void A4918_SET_UP(void);
+extern void A4918_Write_Register(void);
+extern void A4918_Read_Register(void);
+extern void A4918_Spi_Read_X1C_DIAG_0(void);
+extern void A4918_Spi_Read_X1D_DIAG_1(void);
+extern void A4918_Spi_Read_X1E_DIAG_2(void);
+
+#endif /* A4918_HAL_SPI_H_ */
