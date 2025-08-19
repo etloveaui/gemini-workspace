@@ -1,0 +1,12 @@
+Generate Button
+<button class="flex items-center justify-center bg-[#000000] text-[rgba(245,245,245,1)] px-[24px] py-[8px] rounded-[4px] text-[16px] font-[500] disabled:opacity-20 min-w-[119px] min-h-[40px]">Generate</button>
+
+네트워크에서 상시 호출
+https://theterminalx.com/api/projectx.ProjectXService/GetGeneralValue
+data:application/grpc-web+proto;base64,AAAAAACAAAAAIGdycGMtc3RhdHVzOjANCmdycGMtbWVzc2FnZTpPSw0K
+
+Generate Button 활성화중 활성화 뺐을떄.
+https://theterminalx.com/enterprise?contact=true&_rsc=1rzc0
+
+Generate Button 눌렀을떄
+data:application/grpc-web+proto;base64,AAAAAEgJAAAAAAAkkEASD2FwcGxpY2F0aW9uL3BkZhosMTBfMTAweF9EYWlseV9XcmFwX015X1NvdXJjZXNfMl8yMDI1MDcwOS5wZGaAAAAAIGdycGMtc3RhdHVzOjANCmdycGMtbWVzc2FnZTpPSw0K

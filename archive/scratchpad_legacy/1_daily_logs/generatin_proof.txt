@@ -1,0 +1,9 @@
+Generating 증거.
+
+
+//*[@id="root"]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div[3]/div[1]
+<div>Generating your report (it may take up to 5 minutes).</div>
+
+
+//*[@id="root"]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div[3]
+<div class="flex flex-col gap-[16px] text-[16px] font-[300] text-[rgba(0,0,0,1)]"><div>Generating your report (it may take up to 5 minutes).</div><div>Feel free to leave this page – all your work will be autosaved in My Archive.</div></div>
