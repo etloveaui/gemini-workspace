@@ -34,8 +34,8 @@
   },
   "backup": {
     "enabled": true,
-    "interval_hours": 6,
-    "keep_versions": 10
+    "interval_minutes": 30,
+    "keep_versions": 20
   },
   "cross_platform": {
     "portable": true,
