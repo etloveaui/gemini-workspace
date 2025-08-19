@@ -17,6 +17,27 @@
 - 대화형 프롬프트 회피: `invoke commit_safe --skip-diff-confirm` 또는 `SKIP_DIFF_CONFIRM=1` 설정을 사용합니다.
   - 외부 GUI 툴(Sourcetree 등) 사용 시 권장: 훅 비활성(`invoke git.set-hooks --off`).
 
+## 🚨 CRITICAL: Project Independence Rules
+⚠️ **절대 준수 사항** - 프로젝트 전체가 망가질 수 있습니다!
+
+### 🔒 Projects 폴더 독립성
+- `projects/` 아래의 **모든 폴더는 독립적인 Git 리포지토리**
+- **절대로** root workspace Git에 포함하면 안됨
+- 각 프로젝트는 자체 `.git` 폴더를 가짐
+
+### 🚫 금지 행위
+1. `git add projects/` 실행 금지
+2. projects 내 파일을 메인 워크스페이스 Git에 추가 금지
+3. projects 폴더 내용을 메인 .gitignore에 추가 시도 금지
+4. projects 내 독립 프로젝트를 메인 브랜치에 merge 시도 금지
+
+### ✅ 올바른 작업 방식
+1. **프로젝트 작업 시**: `cd projects/100xFenok` 후 해당 Git에서 작업
+2. **독립 커밋**: 각 프로젝트 폴더에서 `git commit`, `git push`
+3. **메인 워크스페이스**: 오직 시스템/에이전트 관련 파일만 관리
+
+---
+
 ## 2) 디렉터리·추적 정책
 - **`.gemini/`**: 설정·로컬 비밀 보관 위치.  
   - **커밋 금지**: `*.creds*.json`, `*oauth*.*`, 토큰류는 **로컬 전용(local-only)** 으로 보관하고 커밋하지 않는다.  

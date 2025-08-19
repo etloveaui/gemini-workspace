@@ -1,0 +1,10 @@
+{
+  "id": "mcp-filesystem-github-sqlite",
+  "from": "codex",
+  "to": "codex",
+  "type": "task",
+  "title": "✅ 무료 MCP 서버 통합 (filesystem, github, sqlite)",
+  "created_at": "2025-08-19T05:22:19.689366+00:00",
+  "status": "processing",
+  "claimed_at": "2025-08-19T05:22:19.689366+00:00"
+}

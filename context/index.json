@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2025-08-19T01:21:52.045543+00:00",
+  "updated_at_utc": "2025-08-19T07:28:05.774958+00:00",
   "docs": [
     {
       "path": "docs\\AI_MODEL_INTEGRATION_ANALYSIS.md",
@@ -60,15 +60,15 @@
     },
     {
       "path": "docs\\HUB.md",
-      "lines": 87,
-      "sha1": "e843de721c1a3d578a2ce4ea8b60d12a7fcd2708",
+      "lines": 110,
+      "sha1": "7842a96524c1d15b920150d6a8d02190e09dea6d",
       "tags": [
-        "instructions",
-        "log",
         "Test",
         "CLAUDE",
         "log",
-        "log",
+        "instructions",
+        "Test",
+        "CLAUDE",
         "Claude",
         "log",
         "log",
@@ -114,6 +114,12 @@
       "tags": []
     },
     {
+      "path": "docs\\ROOT_FILES_ORGANIZATION.md",
+      "lines": 53,
+      "sha1": "1dd9545d62fe1bff3371dc899868287f84b794e3",
+      "tags": []
+    },
+    {
       "path": "docs\\SELF_UPDATE_POLICY.md",
       "lines": 35,
       "sha1": "0bcd204298c3565d8a178964426e93ad01f1f4c6",
@@ -126,9 +132,63 @@
       "tags": []
     },
     {
+      "path": "docs\\architecture\\MULTI_AGENT_WORKSPACE_BLUEPRINT.md",
+      "lines": 156,
+      "sha1": "dcc5dc6f25a63b99c0c0c919dd9423cc64b48661",
+      "tags": [
+        "agent",
+        "priority",
+        "task",
+        "x",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\archive\\AGENTS_legacy.md",
+      "lines": 35,
+      "sha1": "abd6475681780c0d6b0cfe00b7274f0d50a594ff",
+      "tags": [
+        "priority",
+        "agent",
+        "function"
+      ]
+    },
+    {
+      "path": "docs\\archive\\README_PATCH.md",
+      "lines": 20,
+      "sha1": "d64fc8644063b976510999477c4739db6c3f8d8d",
+      "tags": []
+    },
+    {
       "path": "docs\\debug\\[P0]Debug_20.md",
       "lines": 47,
       "sha1": "e74be51cda781d908a10cece3919e6b78ace3dd3",
+      "tags": []
+    },
+    {
+      "path": "docs\\integration\\CLAUDE_INTEGRATION.md",
+      "lines": 251,
+      "sha1": "c80b084933d83ffea2c787656b679aca30cf4221",
+      "tags": [
+        "Claude",
+        "Gemini",
+        "Codex"
+      ]
+    },
+    {
+      "path": "docs\\integration\\MCP_\uc5f0\ub3d9_\uac00\uc774\ub4dc.md",
+      "lines": 144,
+      "sha1": "165008b149e659fcb20183225bc1aea3bb630501",
       "tags": []
     },
     {
@@ -160,35 +220,6 @@
       "lines": 46,
       "sha1": "57c26325d7b61a59d1c0deed19af4f2136788aeb",
       "tags": []
-    },
-    {
-      "path": "docs\\proposals\\claude_encoding_investigation_report.md",
-      "lines": 32,
-      "sha1": "5fc08589d62d954b0ca261c61fbadb1c26ce6de6",
-      "tags": []
-    },
-    {
-      "path": "docs\\proposals\\claude_encoding_investigation_request.md",
-      "lines": 97,
-      "sha1": "5bcea941465e3a06dbc59be15e7401f367caa858",
-      "tags": [
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " "
-      ]
     },
     {
       "path": "docs\\proposals\\gemini_pytest_cleanup_report.md",
@@ -412,6 +443,12 @@
       ]
     },
     {
+      "path": "docs\\setup\\SETUP_COMPLETE.md",
+      "lines": 129,
+      "sha1": "46c7b65818cf16331616ccb965872e27e3d13a92",
+      "tags": []
+    },
+    {
       "path": "docs\\tasks\\mcp_installation_plan.md",
       "lines": 109,
       "sha1": "1b99517edba6a68b77e18ac6c5b7bba4f2044483",
@@ -436,15 +473,15 @@
       ]
     },
     {
-      "path": "docs\\tasks\\URGENT_system_encoding_cleanup_for_codex.md",
-      "lines": 124,
-      "sha1": "e891dfaeb7f20947291a47823cb015b8bc3e685a",
+      "path": "docs\\tools\\VSCode_\uc0ac\uc6a9\ubc95.md",
+      "lines": 135,
+      "sha1": "445ad2213eb41fa1d1fbbffde046670e5fa6a708",
       "tags": []
     },
     {
-      "path": "docs\\tasks\\URGENT_system_encoding_cleanup_for_codex_log.md",
-      "lines": 60,
-      "sha1": "b5308aab51ee9a2e654ee1fb540c6240c9339514",
+      "path": "docs\\WORKLOG\\2025-08-14__codex.md",
+      "lines": 24,
+      "sha1": "bf43c530596e0e6eb4dc369737aa9bcb54bd6a83",
       "tags": []
     },
     {
@@ -737,12 +774,6 @@
         "System",
         "Initial Setup"
       ]
-    },
-    {
-      "path": "docs\\WORKLOG\\2025-08-14__codex.md",
-      "lines": 24,
-      "sha1": "bf43c530596e0e6eb4dc369737aa9bcb54bd6a83",
-      "tags": []
     }
   ]
 }
