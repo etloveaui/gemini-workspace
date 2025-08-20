@@ -1,0 +1,881 @@
+/*
+ * A1333.c
+ *
+ *  Created on: 2022. 2. 24.
+ *      Author: dell
+ */
+
+#include <EHAL/A1333_HAL/A1333.h_>
+#include "Platform_Types.h"
+#include "Spi.h"
+#include "CDrv/CDrvIfc_Bldc/CDrvIfc_Bldc.h"
+
+uint32 vA1333_job_count;
+uint32 vA1333_seq_count;
+typA1333_Buffer vA1333_TxBuf;
+typA1333_Buffer vA1333_RxBuf;
+typExcetionLog vA1333_ExceptLog;
+typA1333_TestConfig vA1333_TestConfig;
+
+typA1333Panels vA1333_Panels;
+typA1333Panels vA1333_Panels_bak;
+
+///////////////////////////////////// SPI_FUNCTION ////////////////////////////////////////////////////////////////
+void A1333_SetExceptionLog(uint16 except_code)
+{
+	if(vA1333_ExceptLog.first_count<EXCEPTION_LOG_MAX)
+	{
+		vA1333_ExceptLog.first[vA1333_ExceptLog.first_count] = except_code;
+		vA1333_ExceptLog.first_count++;
+		vA1333_ExceptLog.last[vA1333_ExceptLog.last_count%EXCEPTION_LOG_MAX] = except_code;
+		vA1333_ExceptLog.last_count++;
+	}
+	else
+	{
+		vA1333_ExceptLog.last[vA1333_ExceptLog.last_count%EXCEPTION_LOG_MAX] = except_code;
+		vA1333_ExceptLog.last_count++;
+	}
+}
+
+void A1333_JOB_Done(void)
+{
+	vA1333_job_count++;
+}
+
+void A1333_SEQ_Done(void)
+{
+	vA1333_seq_count++;
+}
+
+void A1333_Spi_WriteSingleReg(uint8 RegAddr, uint8 Value, uint8 sync_type)
+{
+	Spi_SeqResultType spi_seq_result;
+	uint32 spi_try_count = 0;
+
+	spi_seq_result = Spi_GetSequenceResult(SpiConf_SpiSequence_A1333_Seq);
+
+	if(spi_seq_result == SPI_SEQ_OK)
+	{
+		vA1333_TxBuf.byte[0] = Value;
+		vA1333_TxBuf.byte[1] = RegAddr;
+		vA1333_RxBuf.byte[0] = 0;
+		vA1333_RxBuf.byte[1] = 0;
+
+		if(Spi_AsyncTransmit(SpiConf_SpiSequence_A1333_Seq) != E_OK)			A1333_SetExceptionLog(1000);
+		else{}
+
+		if(sync_type == A1333_SPI_SYNC_TYPE)
+		{
+			while(spi_try_count < A1333_SPI_TIMEOUT_CNT)
+			{
+				spi_seq_result = Spi_GetSequenceResult(SpiConf_SpiSequence_A1333_Seq);
+
+				if(spi_seq_result == E_OK)						break;
+				else											spi_try_count++;
+			}
+
+			if(spi_try_count >= A1333_SPI_TIMEOUT_CNT)	A1333_SetExceptionLog(1001);
+			else{}
+		}
+	}
+	else if(spi_seq_result == SPI_SEQ_PENDING)
+	{
+		A1333_SetExceptionLog(1002);
+	}
+	else if(spi_seq_result == SPI_SEQ_FAILED)
+	{
+		A1333_SetExceptionLog(1003);
+	}
+	else if(spi_seq_result == SPI_SEQ_CANCELED)
+	{
+		A1333_SetExceptionLog(1004);
+	}
+	else
+	{
+		A1333_SetExceptionLog(1005);
+	}
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////// A1333_FEATURE_API //////////////////////////////////////////////////
+void A1333_Spi_UnlockEepWrite(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_KEY, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_KEY, 0x27, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_KEY, 0x81, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_KEY, 0x1F, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_KEY, 0x77, A1333_SPI_SYNC_TYPE);
+}
+
+void A1333_Spi_WriteCtrl(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_CTRL_WRITEH, vA1333_Panels.WriteReg.A1333_CTRL.byte[1], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_CTRL_WRITEL, vA1333_Panels.WriteReg.A1333_CTRL.byte[0], A1333_SPI_SYNC_TYPE);
+//	vA1333_Panels.ReadReg.A1333_CTRL.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_WritePWE(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWA, A1333_REG_SHADOW_ADDR_PWE, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_0, vA1333_Panels.WriteReg.A1333_PWE.byte[3], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_1, vA1333_Panels.WriteReg.A1333_PWE.byte[2], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_2, vA1333_Panels.WriteReg.A1333_PWE.byte[1], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_3, vA1333_Panels.WriteReg.A1333_PWE.byte[0], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x80, A1333_SPI_SYNC_TYPE);							// Start Write
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);							// read EWCS one time
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);
+	//check EWCS again
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																	// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+	}
+}
+
+void A1333_Spi_WriteABI(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWA, A1333_REG_SHADOW_ADDR_ABI, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_0, vA1333_Panels.WriteReg.A1333_ABI.byte[3], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_1, vA1333_Panels.WriteReg.A1333_ABI.byte[2], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_2, vA1333_Panels.WriteReg.A1333_ABI.byte[1], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_3, vA1333_Panels.WriteReg.A1333_ABI.byte[0], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x80, A1333_SPI_SYNC_TYPE); // Start Write
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);							// read EWCS one time
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);
+	//check EWCS again
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																	// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+	}
+}
+
+void A1333_Spi_WriteMSK(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWA, A1333_REG_SHADOW_ADDR_MSK, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_0, vA1333_Panels.WriteReg.A1333_MSK.byte[3], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_1, vA1333_Panels.WriteReg.A1333_MSK.byte[2], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_2, vA1333_Panels.WriteReg.A1333_MSK.byte[1], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_3, vA1333_Panels.WriteReg.A1333_MSK.byte[0], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x80, A1333_SPI_SYNC_TYPE);		// Start Write
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);							// read EWCS one time
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);
+	//check EWCS again
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																	// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+	}
+}
+
+void A1333_Spi_WritePWI(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWA, A1333_REG_SHADOW_ADDR_PWI, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_0, vA1333_Panels.WriteReg.A1333_PWI.byte[3], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_1, vA1333_Panels.WriteReg.A1333_PWI.byte[2], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_2, vA1333_Panels.WriteReg.A1333_PWI.byte[1], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_3, vA1333_Panels.WriteReg.A1333_PWI.byte[0], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x80, A1333_SPI_SYNC_TYPE);						// Start Write
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);							// read EWCS one time
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);
+	//check EWCS again
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																	// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+	}
+}
+
+void A1333_Spi_WriteANG_X1C(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWA, A1333_REG_ADDR_ANG_X1C, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_0, vA1333_Panels.WriteReg.A1333_ANG_X1C.byte[3], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_1, vA1333_Panels.WriteReg.A1333_ANG_X1C.byte[2], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_2, vA1333_Panels.WriteReg.A1333_ANG_X1C.byte[1], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_3, vA1333_Panels.WriteReg.A1333_ANG_X1C.byte[0], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x80, A1333_SPI_SYNC_TYPE);						// Start Write
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);							// read EWCS one time
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);
+	//check EWCS again
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																	// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+	}
+}
+
+void A1333_Spi_WriteLPC(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWA, A1333_REG_SHADOW_ADDR_LPC, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_0, vA1333_Panels.WriteReg.A1333_LPC.byte[3], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_1, vA1333_Panels.WriteReg.A1333_LPC.byte[2], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_2, vA1333_Panels.WriteReg.A1333_LPC.byte[1], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_3, vA1333_Panels.WriteReg.A1333_LPC.byte[0], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x80, A1333_SPI_SYNC_TYPE);							// Start Write
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);							// read EWCS one time
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);
+	//check EWCS again
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																	// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+	}
+}
+
+void A1333_Spi_WriteCOM(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWA, A1333_REG_SHADOW_ADDR_COM, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_0, vA1333_Panels.WriteReg.A1333_COM.byte[3], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_1, vA1333_Panels.WriteReg.A1333_COM.byte[2], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_2, vA1333_Panels.WriteReg.A1333_COM.byte[1], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWD_3, vA1333_Panels.WriteReg.A1333_COM.byte[0], A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x80, A1333_SPI_SYNC_TYPE);							// Start Write
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);							// read EWCS one time
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);
+	//check EWCS again
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																	// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_EWCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+	}
+}
+
+void A1333_Spi_ReadKey(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_KEY, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);					// Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_KEY.halfword = vA1333_RxBuf.halfword;
+}
+
+
+void A1333_Spi_ReadCtrl(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_CTRL_H, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_CTRL.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadAng_X20(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ANG_X20, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_ANG_X20.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadSta(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_STA, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_STA.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadErr(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERR, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_ERR.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadWarn(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_WARN, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_WARN.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadTsen(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_TSEN, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_TSEN.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadField(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_FIELD, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_FIELD.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadTurns(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_TURNS, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_TURNS.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadHang(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_HANG, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_HANG.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadAng15(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ANG15, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_ANG15.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadZang(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ZANG, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive Err Byte
+	vA1333_Panels.ReadReg.A1333_ZANG.halfword = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadPWE(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERA, A1333_REG_SHADOW_ADDR_PWE, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERCS, 0x80, A1333_SPI_SYNC_TYPE); // Start Read
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive ERCS Byte
+
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)							// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive ERCS Byte
+	}
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDH, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive ERDH Byte
+	vA1333_Panels.ReadReg.A1333_PWE.halfword[1] = vA1333_RxBuf.halfword;
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDL, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE); // Read consecutive ERDL Byte
+	vA1333_Panels.ReadReg.A1333_PWE.halfword[0] = vA1333_RxBuf.halfword;
+}
+
+
+void A1333_Spi_ReadABI(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERA, A1333_REG_SHADOW_ADDR_ABI, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERCS, 0x80, A1333_SPI_SYNC_TYPE); // Start Read
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);						// Read consecutive ERCS Byte
+
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)										 // mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);					// Read consecutive ERCS Byte
+	}
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDH, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);						// Read consecutive ERDH Byte
+	vA1333_Panels.ReadReg.A1333_ABI.halfword[1] = vA1333_RxBuf.halfword;
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDL, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);						// Read consecutive ERDL Byte
+	vA1333_Panels.ReadReg.A1333_ABI.halfword[0] = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadMSK(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERA, A1333_REG_SHADOW_ADDR_MSK, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERCS, 0x80, A1333_SPI_SYNC_TYPE);		// Start Read
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);								// Read consecutive ERCS Byte
+
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)												 // mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);							// Read consecutive ERCS Byte
+	}
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDH, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);								// Read consecutive ERDH Byte
+	vA1333_Panels.ReadReg.A1333_MSK.halfword[1] = vA1333_RxBuf.halfword;
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDL, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);								// Read consecutive ERDL Byte
+	vA1333_Panels.ReadReg.A1333_MSK.halfword[0] = vA1333_RxBuf.halfword;
+}
+
+
+void A1333_Spi_ReadPWI(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERA, A1333_REG_SHADOW_ADDR_PWI, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERCS, 0x80, A1333_SPI_SYNC_TYPE);						// Start Read
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);											// Read consecutive ERCS Byte
+	}
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDH, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERDH Byte
+	vA1333_Panels.ReadReg.A1333_PWI.halfword[1] = vA1333_RxBuf.halfword;
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDL, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERDL Byte
+	vA1333_Panels.ReadReg.A1333_PWI.halfword[0] = vA1333_RxBuf.halfword;
+}
+
+
+
+void A1333_Spi_ReadANG_X1C(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERA, A1333_REG_ADDR_ANG_X1C, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERCS, 0x80, A1333_SPI_SYNC_TYPE);						// Start Read
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);											// Read consecutive ERCS Byte
+	}
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDH, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERDH Byte
+	vA1333_Panels.ReadReg.A1333_ANG_X1C.halfword[1] = vA1333_RxBuf.halfword;
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDL, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERDL Byte
+	vA1333_Panels.ReadReg.A1333_ANG_X1C.halfword[0] = vA1333_RxBuf.halfword;
+}
+
+
+void A1333_Spi_ReadLPC(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERA, A1333_REG_SHADOW_ADDR_LPC, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERCS, 0x80, A1333_SPI_SYNC_TYPE);							// Start Read
+
+	//read ERCS one time
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);													// Read consecutive ERCS Byte
+
+	//check ERCS again
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																	// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+	}
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDH, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);													// Read consecutive ERDH Byte
+	vA1333_Panels.ReadReg.A1333_LPC.halfword[1] = vA1333_RxBuf.halfword;
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDL, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);													// Read consecutive ERDL Byte
+	vA1333_Panels.ReadReg.A1333_LPC.halfword[0] = vA1333_RxBuf.halfword;
+}
+
+void A1333_Spi_ReadCOM(void)
+{
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERA, A1333_REG_SHADOW_ADDR_COM, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(A1333_REG_SHADOW_ADDR_ERCS, 0x80, A1333_SPI_SYNC_TYPE);							// Start Read
+
+	//read ERCS one time
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);													// Read consecutive ERCS Byte
+
+	//check ERCS again
+	while(vA1333_RxBuf.byte[1]&0x01 != 0x01)																	// mask rdn bit
+	{
+		A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERCS, 0x00, A1333_SPI_SYNC_TYPE);
+		A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);												// Read consecutive ERCS Byte
+	}
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDH, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);													// Read consecutive ERDH Byte
+	vA1333_Panels.ReadReg.A1333_COM.halfword[1] = vA1333_RxBuf.halfword;
+
+	A1333_Spi_WriteSingleReg(A1333_REG_ADDR_ERDL, 0x00, A1333_SPI_SYNC_TYPE);
+	A1333_Spi_WriteSingleReg(0x00, 0x00, A1333_SPI_SYNC_TYPE);													// Read consecutive ERDL Byte
+	vA1333_Panels.ReadReg.A1333_COM.halfword[0] = vA1333_RxBuf.halfword;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////// A1333_READ_WRITE_API ///////////////////////////////////////////////
+void A1333_Read_Register(void)
+{
+	switch(vA1333_Panels.CtrlReg.read_num)
+	{
+		case 0:
+			A1333_Spi_ReadKey();			//LOCK Status and Clear
+			A1333_Spi_ReadCtrl();			//Special - Action Define, Action Status, Warn Clear, Error Clear, Init_Special_action
+			vA1333_Panels.CtrlReg.read_num = 1;
+			break;
+		case 1:
+			A1333_Spi_ReadAng15();			//SPI_15bit_Angle_Out
+			A1333_Spi_ReadSta();			//Device_Status
+			vA1333_Panels.CtrlReg.read_num = 2;
+			break;
+		case 2:
+			A1333_Spi_ReadErr();			//Device_Error
+			A1333_Spi_ReadWarn();			//Device_Warning
+			vA1333_Panels.CtrlReg.read_num = 3;
+			break;
+		case 3:
+			A1333_Spi_ReadTsen();			//Temperature
+			A1333_Spi_ReadField();			//Gauss
+			vA1333_Panels.CtrlReg.read_num = 4;
+			break;
+		case 4:
+			A1333_Spi_ReadTurns();			//Turns
+			A1333_Spi_ReadAng_X20();		//12bit_Angle
+			A1333_Spi_ReadHang();			//Hysterysis
+			vA1333_Panels.CtrlReg.read_num = 5;
+			break;
+		case 5:
+			A1333_Spi_ReadZang();			//ZCD
+			A1333_Spi_ReadPWE();			//Error_status, PWM_OUT_Read or SPI_Read
+			vA1333_Panels.CtrlReg.read_num = 6;
+			break;
+		case 6:
+			A1333_Spi_ReadABI();			//ABI or UVW Out Select, ABI Hysterisis_Enable, I_Pulse Position and Width, Osilator Error Check, PLL loss Error Check, ABI/UVW Out Enable
+			A1333_Spi_ReadMSK();			//Error bit mask
+			vA1333_Panels.CtrlReg.read_num = 7;
+			break;
+		case 7:
+			A1333_Spi_ReadPWI();			//PWM_Enable, PWM_Freq Set, PW
+			A1333_Spi_ReadANG_X1C();
+			vA1333_Panels.CtrlReg.read_num = 8;
+			break;
+		case 8:
+			A1333_Spi_ReadLPC();
+			A1333_Spi_ReadCOM();
+			vA1333_Panels.CtrlReg.read_num = 9;
+			break;
+		case 9:
+			vA1333_Panels.CtrlReg.read_flag = FALSE;
+			vA1333_Panels.CtrlReg.read_num = 0;
+			break;
+		default:
+			break;
+	}
+}
+
+void A1333_Write_Register(void)
+{
+	switch(vA1333_Panels.CtrlReg.write_num)
+	{
+		case 0:
+			A1333_Spi_UnlockEepWrite();													//UNLOCK
+			A1333_Spi_WriteABI();
+			vA1333_Panels.CtrlReg.write_num = 1;
+			break;
+		case 1:
+			A1333_Spi_WritePWI();
+			A1333_Spi_WriteANG_X1C();
+			vA1333_Panels.CtrlReg.write_num = 2;
+			break;
+		case 2:
+			A1333_Spi_WriteLPC();
+			A1333_Spi_WriteMSK();
+			vA1333_Panels.CtrlReg.write_num = 3;
+			break;
+		case 3:
+			A1333_Spi_WritePWE();
+			A1333_Spi_WriteCOM();
+			vA1333_Panels.CtrlReg.write_num = 4;
+			break;
+		case 4:
+			A1333_Spi_WriteCtrl();
+
+			vA1333_Panels.WriteReg.A1333_CTRL.signal.CLS = FALSE;
+			vA1333_Panels.WriteReg.A1333_CTRL.signal.CLW = FALSE;
+			vA1333_Panels.WriteReg.A1333_CTRL.signal.CLE = FALSE;
+
+			vA1333_Panels.CtrlReg.write_num		= 0;
+			vA1333_Panels.CtrlReg.write_flag	= FALSE;
+			vA1333_Panels.CtrlReg.read_flag		= TRUE;
+			break;
+		default:
+			break;
+	}
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////// A1333_INIT ///////////////////////////////////////////////
+void A1333_Fault_Reset(void)
+{
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLW = TRUE;
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLE = TRUE;
+	A1333_Spi_WriteCtrl();
+	A1333_Spi_ReadErr();
+	A1333_Spi_ReadWarn();
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLW = FALSE;
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLE = FALSE;
+}
+
+void A1333_SET_UP(void)
+{
+	vA1333_Panels.WriteReg.A1333_ABI.word						= 0;
+	vA1333_Panels.WriteReg.A1333_ABI.signal.ABI_SLEW_TIME		= 8;			//Slew Limiting 1.125us (=(N+1) * 125ns)
+	vA1333_Panels.WriteReg.A1333_ABI.signal.INV					= 0;			// ABI & UVW Inverting Out
+	vA1333_Panels.WriteReg.A1333_ABI.signal.AHE					= 0;			// ABI Hysteresis Enable
+	vA1333_Panels.WriteReg.A1333_ABI.signal.INDEX_MODE			= 0;			// I pulse Width Setting
+	vA1333_Panels.WriteReg.A1333_ABI.signal.WDH					= 0;			// 1 : ABI All High Out at Oscillator Error
+	vA1333_Panels.WriteReg.A1333_ABI.signal.PLH					= 0;			// 1 : ABI All High Out at PLL Error
+	vA1333_Panels.WriteReg.A1333_ABI.signal.IOE					= 1;			// ABI/UVW Out Enable (ABI.UVW bit only one selection)
+	vA1333_Panels.WriteReg.A1333_ABI.signal.UVW					= 0;			// 0 : ABI, 1 : UVW
+	vA1333_Panels.WriteReg.A1333_ABI.signal.RESOLUTION_PAIRS	= 6;			// 0 : pole pair setting 6 (=n+1), 7 pole pairs
+
+	vA1333_Panels.WriteReg.A1333_PWI.word						= 0;
+	vA1333_Panels.WriteReg.A1333_PWI.signal.PEN					= 1;			//1 : PWM_OUT Enable
+	vA1333_Panels.WriteReg.A1333_PWI.signal.PWM_BAND			= 2;			//PWM_FREQUENCY = 2000Hz
+	vA1333_Panels.WriteReg.A1333_PWI.signal.PWM_FREQ			= 6;			//
+	vA1333_Panels.WriteReg.A1333_PWI.signal.PHE					= 1;			//Hysteresis Enable
+	vA1333_Panels.WriteReg.A1333_PWI.signal.PEO					= 1;			//1 : Sensor Error to PWM OUT Enable
+	vA1333_Panels.WriteReg.A1333_PWI.signal.PES					= 1;			//0 : All Error PWM OUT(address Check), 1 : PWM Frequency (Half) & Duty (Error Inform)
+	vA1333_Panels.WriteReg.A1333_PWI.signal.DM					= 1;			//1: MANCHESTER_NOT_USED
+	vA1333_Panels.WriteReg.A1333_PWI.signal.S17					= 0;			//Ignore bit
+	vA1333_Panels.WriteReg.A1333_PWI.signal.SC					= 0;			//1 : CRC Monitor
+
+	vA1333_Panels.WriteReg.A1333_ANG_X1C.word					= 0;
+	vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.ORATE			= 12;			//0.512ms Update rate (2^n = us) Max 12 = 4096Samples)
+	vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.RD				= 0;			//One die 0 default
+	vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.RO				= 0;			//0 : CW, Increase, 1 : CCW, Increase
+	vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.HYSTERESIS		= 1;			//Hysteresis 0.264 (=0.022/per) Max 63 = 1.386degree
+	vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.ZERO_OFFSET		= 0;			//Zero Offset (Not Used)
+
+	vA1333_Panels.WriteReg.A1333_LPC.word						= 0;
+	vA1333_Panels.WriteReg.A1333_LPC.signal.T45					= 0;			//0 : Turn_Counter 180degree, 1 : Turn_Counter 45degree
+
+	/* MASK_ERR_WARNING_USAGE 0: USED, 1 : NOT_USED */
+	vA1333_Panels.WriteReg.A1333_MSK.word						= 0;
+	vA1333_Panels.WriteReg.A1333_MSK.signal.IER					= 1;			//WARNING : SPI_Interface						(NOT_USED)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.CRC					= 1;			//WARNING : CRC									(NOT_USED)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.SRW					= 1;			//WARNING : ABI_Slew_Rate						(NOT_USED)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.XEE					= 1;			//WARNING : Extended SPI_Interface				(NOT_USED)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.TR					= 0;			//WARNING : Temperature_Range
+	vA1333_Panels.WriteReg.A1333_MSK.signal.ESE					= 0;			//WARNING : EEPROM_soft (Only EEPROM Load Time)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.SAT					= 0;			//WARNING : Signal_Path_Error (Weak Field so on..)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.TCW					= 1;			//WARNING : Turn Counter (Large Angle Change)	(NOT_USED)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.BSY					= 1;			//WARNING : Extended Access Error				(NOT_USED)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.MSH					= 0;			//WARNING : Flux_Thres_Over
+	vA1333_Panels.WriteReg.A1333_MSK.signal.TOV					= 1;			//WARNING : Turncount_Overflow					(NOT_USED)
+
+	vA1333_Panels.WriteReg.A1333_MSK.signal.WAR					= 0;			//ERROR : Warn_Unmask
+	vA1333_Panels.WriteReg.A1333_MSK.signal.STF					= 0;			//ERROR : Self_Test_Fail
+	vA1333_Panels.WriteReg.A1333_MSK.signal.AVG					= 0;			//ERROR : Angle_AVG_Fail (HIGH Speed..)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.ABI					= 1;			//ERROR : ABI_integrity							(NOT_USED)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.PLK					= 0;			//ERROR : PLL_lost_lock
+	vA1333_Panels.WriteReg.A1333_MSK.signal.ZIE					= 0;			//ERROR : ZCP_intergrity (Magnet_Miss)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.EUE					= 0;			//ERROR : EEPROM_Uncorrect (Only EEPROM Load Time)
+	vA1333_Panels.WriteReg.A1333_MSK.signal.OFE					= 0;			//ERROR : Oscillator_Frequency_Error
+	vA1333_Panels.WriteReg.A1333_MSK.signal.UVD					= 0;			//ERROR : VCC_Undervoltage	3.6 ~ 3.9V
+	vA1333_Panels.WriteReg.A1333_MSK.signal.UVA					= 0;			//ERROR : Analog_Output_Voltage
+	vA1333_Panels.WriteReg.A1333_MSK.signal.MSL					= 0;			//ERROR : Flux_low
+	vA1333_Panels.WriteReg.A1333_MSK.signal.RST					= 0;			//ERROR : Reset_Occur (registers are re-initialized)
+
+	vA1333_Panels.WriteReg.A1333_PWE.word						= 0x0FFF;		//TOV_Error_NOT_USED
+
+	vA1333_Panels.WriteReg.A1333_COM.word						= 0;
+	vA1333_Panels.WriteReg.A1333_COM.signal.LOCK				= 0;			//(0011 : PLL_&_EEPRO_Lock, 1100 : EEPRO_Lock)
+	vA1333_Panels.WriteReg.A1333_COM.signal.LBE					= 1;			//1 : Enable, Power-up Logic BIST enable.
+	vA1333_Panels.WriteReg.A1333_COM.signal.CSE					= 1;			//1 : Enable, Power-up CVH self-test enable.
+	vA1333_Panels.WriteReg.A1333_COM.signal.DST					= 0;			//0 : No Prevent Self-Test, Disable Self-test initiation from the serial register.
+	vA1333_Panels.WriteReg.A1333_COM.signal.DHR					= 0;			//0 : No Prevent Hard Reset, Disable Hard reset from the serial register.
+	vA1333_Panels.WriteReg.A1333_COM.signal.MAG_THRES_HI		= 25;			//Magnetic threshold high value.(1 = 32G, Max 63)
+	vA1333_Panels.WriteReg.A1333_COM.signal.MAG_THRES_LO		= 2;			//Magnetic threshold high value.(1 = 16G, Max 63)
+
+	vA1333_Panels.WriteReg.A1333_CTRL.halfword					= 0;
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.SPECIAL			= 0;			//0 : No action (specific actions)
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLS				= 1;			//SDN,BDN_Clear
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLW				= 1;			//WARNNING_Clear, Return_0
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLE				= 1;			//ERROR_Clear, Return_0
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.INITIATE_SPECIAL	= 0;			//specific actions start, Return_0
+}
+
+void A1333_Spi_Init(void)
+{
+	Std_ReturnType spi_return;
+
+	spi_return = Spi_SetupEB(SpiConf_SpiChannel_A1333_CH, (Spi_DataType*) &vA1333_TxBuf.halfword, (Spi_DataType*) &vA1333_RxBuf.halfword, 1U);
+}
+
+void A1333_Init(void)
+{
+	A1333_Spi_Init();
+
+	//variable initialize
+	vA1333_Panels.CtrlReg.write_num		= 0;
+	vA1333_Panels.CtrlReg.read_num		= 0;
+	vA1333_Panels.CtrlReg.write_flag	= FALSE;
+	vA1333_Panels.CtrlReg.read_flag		= FALSE;
+
+	A1333_SET_UP();
+	/* Write */
+	A1333_Spi_UnlockEepWrite();			//UNLOCK
+	A1333_Spi_WritePWE();
+	A1333_Spi_WriteABI();
+	A1333_Spi_WriteMSK();
+	A1333_Spi_WritePWI();
+	A1333_Spi_WriteANG_X1C();
+	A1333_Spi_WriteLPC();
+	A1333_Spi_WriteCOM();
+	A1333_Spi_WriteCtrl();
+
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLS = 0;
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLW = 0;
+	vA1333_Panels.WriteReg.A1333_CTRL.signal.CLE = 0;
+
+	vA1333_Panels.CtrlReg.read_flag		= TRUE;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////// NOT_USED /////////////////////////////////////////////////////////
+void A1333_Test_10ms(void)
+{
+	switch(vA1333_TestConfig.test_case)
+	{
+		case 0 :
+			//do nothing
+			vA1333_TestConfig.test_case = 0;
+			break;
+			//case 1 ~ case 5: Write & Read Test
+		case 1:
+			vA1333_Panels.WriteReg.A1333_PWE.signal.AVG                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.ESE                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.EUE                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.MSH                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.MSL                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.OFE                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.PLK                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.SAT                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.STF                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.TOV                 = 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.TR 					= 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.UV 					= 0;
+			vA1333_Panels.WriteReg.A1333_PWE.signal.ZIE					= 0;
+			A1333_Spi_WritePWE();
+			A1333_Spi_ReadPWE();			//Error_status, PWM_OUT_Read or SPI_Read
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 2:
+			vA1333_Panels.WriteReg.A1333_ABI.signal.ABI_SLEW_TIME		= 8;			//Slew Limiting 1.125us (=(N+1) * 125ns)
+			vA1333_Panels.WriteReg.A1333_ABI.signal.INV					= 0;			// ABI & UVW Inverting Out
+			vA1333_Panels.WriteReg.A1333_ABI.signal.AHE					= 1;			// ABI Hysteresis Enable
+			vA1333_Panels.WriteReg.A1333_ABI.signal.INDEX_MODE			= 0;			// I pulse Width Setting
+			vA1333_Panels.WriteReg.A1333_ABI.signal.WDH					= 0;			// 1 : ABI All High Out at Oscillator Error
+			vA1333_Panels.WriteReg.A1333_ABI.signal.PLH					= 0;			// 1 : ABI All High Out at PLL Error
+			vA1333_Panels.WriteReg.A1333_ABI.signal.IOE					= 1;			// ABI/UVW Out Enable (ABI.UVW bit only one selection)
+			vA1333_Panels.WriteReg.A1333_ABI.signal.UVW					= 0;			// 0 : ABI, 1 : UVW
+			vA1333_Panels.WriteReg.A1333_ABI.signal.RESOLUTION_PAIRS	= 6;			// 0 : pole pair setting 6 (=n+1), 7 pole pairs
+			A1333_Spi_WriteABI();
+			A1333_Spi_ReadABI();			//ABI or UVW Out Select, ABI Hysterisis_Enable, I_Pulse Position and Width, Osilator Error Check, PLL loss Error Check, ABI/UVW Out Enable
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 3:
+			vA1333_Panels.WriteReg.A1333_MSK.signal.ABI                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.AVG                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.BSY                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.CRC                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.ESE                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.EUE                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.IER                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.MSH                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.MSL                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.OFE                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.PLK                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.RST                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.SAT                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.SRW                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.STF                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.TCW                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.TOV                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.TR                  = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.UVA                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.UVD                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.WAR                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.XEE                 = 0;
+			vA1333_Panels.WriteReg.A1333_MSK.signal.ZIE	 	            = 0;
+			A1333_Spi_WriteMSK();
+			A1333_Spi_ReadMSK();			//Error bit mask
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 4:
+			vA1333_Panels.WriteReg.A1333_PWI.signal.PEN					= 1;			//1 : PWM_OUT Enable
+			vA1333_Panels.WriteReg.A1333_PWI.signal.PWM_BAND			= 2;			//PWM_FREQUENCY = 2000Hz
+			vA1333_Panels.WriteReg.A1333_PWI.signal.PWM_FREQ			= 6;			//
+			vA1333_Panels.WriteReg.A1333_PWI.signal.PHE					= 1;			//Hysteresis Enable
+			vA1333_Panels.WriteReg.A1333_PWI.signal.PEO					= 1;			//1 : Sensor Error to PWM OUT Enable
+			vA1333_Panels.WriteReg.A1333_PWI.signal.PES					= 1;			//0 : All Error PWM OUT(address Check), 1 : PWM Frequency (Half) & Duty (Error Inform)
+			vA1333_Panels.WriteReg.A1333_PWI.signal.DM					= 1;			//1: MANCHESTER_NOT_USED
+			vA1333_Panels.WriteReg.A1333_PWI.signal.S17					= 0;			//Ignore bit
+			vA1333_Panels.WriteReg.A1333_PWI.signal.SC					= 0;			//1 : CRC Monitor
+			A1333_Spi_WritePWI();
+			A1333_Spi_ReadPWI();			//PWM_Enable, PWM_Freq Set, PW
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 5:
+			vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.ORATE			= 12;			//0.512ms Update rate (2^n = us) Max 12 = 4096Samples)
+			vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.RD				= 0;			//One die 0 default
+			vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.RO				= 0;			//0 : CW, Increase, 1 : CCW, Increase
+			vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.HYSTERESIS		= 12;			//Hysteresis 0.264 (=0.022/per) Max 63 = 1.386degree
+			vA1333_Panels.WriteReg.A1333_ANG_X1C.signal.ZERO_OFFSET		= 0;			//Zero Offset (Not Used)
+			A1333_Spi_WriteANG_X1C();
+			A1333_Spi_ReadANG_X1C();
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 6:
+			vA1333_Panels.WriteReg.A1333_LPC.signal.T45					= 0;			//0 : Turn_Counter 180degree, 1 : Turn_Counter 45degree
+			A1333_Spi_WriteLPC();
+			A1333_Spi_ReadLPC();
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 7:
+			A1333_Spi_ReadKey();			//LOCK Status and Clear
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 8:
+			A1333_Spi_ReadCtrl();			//Special - Action Define, Action Status, Warn Clear, Error Clear, Init_Special_action
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 9:
+			A1333_Spi_ReadAng15();			//SPI_15bit_Angle_Out
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 10:
+			A1333_Spi_ReadSta();			//Device_Status
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 11:
+			A1333_Spi_ReadErr();			//Device_Error
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 12:
+			A1333_Spi_ReadWarn();			//Device_Warning
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 13:
+			A1333_Spi_ReadTsen();			//Temperature
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 14:
+			A1333_Spi_ReadField();			//Gauss
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 15:
+			A1333_Spi_ReadTurns();			//Turns
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 16:
+			A1333_Spi_ReadHang();			//Hysterysis
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 17:
+			A1333_Spi_ReadZang();			//ZCD
+			vA1333_TestConfig.test_case = 0;
+			break;
+		case 18:
+			A1333_Spi_ReadCOM();
+			vA1333_TestConfig.test_case = 0;
+			break;
+		default:
+			break;
+	}
+}
+///////////////////////////////////////////////////////////////////////////////////////////
