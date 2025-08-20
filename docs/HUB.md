@@ -23,7 +23,7 @@
 
 #### Phase 1: 운영 마찰 제거 (0-6개월) - "안정화"
 - [CLAUDE-P0] 표준화 패키지 개발 (2025-08-20~) - GitHub Actions, PowerShell 래퍼, 설정 템플릿 [log](docs/tasks/phase1-standardization-package/log.md)
-- [CLAUDE-P0] Preflight Doctor v2.0 고도화 (2025-08-20~) - 환경 검증 자동화, 문제 예측, 자동 수정 [log](docs/tasks/phase1-preflight-doctor-v2/log.md)
+- ✅ [CLAUDE-P0] Preflight Doctor v2.0 고도화 완료 (2025-08-20) - 환경 검증 자동화, 문제 예측, 자동 수정 구현 [log](docs/tasks/phase1-preflight-doctor-v2/log.md)
 - [CLAUDE-P0] 사용자 경험 개선 (2025-08-20~) - 진입 장벽 70% 감소, 설정 자동화 [log](docs/tasks/phase1-user-experience/log.md)
 
 #### Phase 2: 지능형 자동화 (6-18개월) - "혁신"
@@ -39,6 +39,7 @@
 - [Test] Fix 15 failing pytest tests - 테스트 환경 수정 필요
 - ✅ 설정 시스템 통합 (3개 에이전트 통합 관리)
 - [CLAUDE] 100xfenok-generator-date-title-input-fix (2025-08-18) - TerminalX 리다이렉션 문제 해결 중 [log](docs/tasks/100xfenok-generator-date-title-input-fix/log.md)
+- ⚠️ [CLAUDE-P1] 100xFenok 커밋 89ffd82 재검토 필요 - 완료 표시되었으나 실제 개선 없음, 원복 후 재작업 필요
 - [CLAUDE-P0] ✅ Multi-Agent Workspace v2.0 구축 완료 (2025-08-19) - 차세대 멀티 에이전트 시스템 완성
 - ✅ 통합 CLI (ma.py/ma.bat)
 - [CODEX-P0] System Cleanup & Stabilization (2025-08-18) - 시스템 정리 및 안정화 최우선 작업 [instructions](docs/tasks/system_cleanup_instructions_for_codex.md)
