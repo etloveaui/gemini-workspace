@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2025-08-19T07:28:05.774958+00:00",
+  "updated_at_utc": "2025-08-20T01:09:56.236001+00:00",
   "docs": [
     {
       "path": "docs\\AI_MODEL_INTEGRATION_ANALYSIS.md",
@@ -42,6 +42,12 @@
       "tags": []
     },
     {
+      "path": "docs\\gemini_pro_vs_flash_comparison.md",
+      "lines": 104,
+      "sha1": "38bbc62690f3673ef1786dafa58f3beee78e4a51",
+      "tags": []
+    },
+    {
       "path": "docs\\HELP.md",
       "lines": 294,
       "sha1": "5d8b1180698a9f1036327526babca319af57c7d1",
@@ -61,7 +67,7 @@
     {
       "path": "docs\\HUB.md",
       "lines": 110,
-      "sha1": "7842a96524c1d15b920150d6a8d02190e09dea6d",
+      "sha1": "d02eb73a89cdcb9f17afa7c4ec30d27a35784d50",
       "tags": [
         "Test",
         "CLAUDE",
@@ -485,6 +491,18 @@
       "tags": []
     },
     {
+      "path": "docs\\tasks\\100xfenok-automation-complete\\log.md",
+      "lines": 210,
+      "sha1": "356ed81d611851095416646a008c548f95f1a52d",
+      "tags": []
+    },
+    {
+      "path": "docs\\tasks\\100xfenok-automation-session2\\session_completion_log.md",
+      "lines": 116,
+      "sha1": "57ab5ee85d9c31e00edf4d1315765c9b3310cbd0",
+      "tags": []
+    },
+    {
       "path": "docs\\tasks\\100xfenok-floating-button-responsive-glitch\\log.md",
       "lines": 140,
       "sha1": "322623e78e638904e802c16c4f066fecfa6a5970",
@@ -555,6 +573,36 @@
         "EN",
         "TD"
       ]
+    },
+    {
+      "path": "docs\\tasks\\ars-interface-v101-update\\action_plan.md",
+      "lines": 113,
+      "sha1": "29e2272a8f005d7c105c2531af661b79d5c2ebbd",
+      "tags": [
+        "x",
+        "x",
+        "x",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\tasks\\ars-interface-v101-update\\precise_changes_analysis.md",
+      "lines": 149,
+      "sha1": "bc4deaa4aec76f22bf0f5cd96b59dede4ed4b9ed",
+      "tags": []
     },
     {
       "path": "docs\\tasks\\claude-system-integration\\action_plan.md",

@@ -1,0 +1,69 @@
+﻿선행 ARS ASW -> BSW Interface,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+Ver,ID,NO.,Component,BSW_RTE,Task,Return Type,Element Name,1st Parameter,2nd Parameter,3rd Parameter,Return,Write Data Type,Data Range,Unit,Init,Description,Note,Result
+V1.00,,1,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswCan_SetMsg(uint8 msg_index uint8 dlc uint8 *data),"#define BSWCAN_MSG_TX_INDEX_MEAS_01_1ms			(0U) //Tx 0x401
+#define BSWCAN_MSG_TX_INDEX_MEAS_01_5ms			(1U) //Tx 0x402
+#define BSWCAN_MSG_TX_INDEX_MEAS_02_5ms			(2U) //Tx 0x403
+#define BSWCAN_MSG_TX_INDEX_MEAS_01_10ms		(3U) //Tx 0x404
+#define BSWCAN_MSG_TX_INDEX_MEAS_02_10ms		(4U) //Tx 0x405
+#define BSWCAN_MSG_TX_INDEX_ARS_dev_01_1ms		(5U) //Tx Front: 0x21, Rear: 0x22",dlc,data,상태값,"0: 송신 성공
+1: 송신 실패",무,CAN 메시지 송신,측정 데이터 전송 채널 확장,TBD
+V1.00,,2,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswDac_SetPhyValue(uint8 ch float value),"#define BSWDAC_CH_CURR_CMD_REF 	(0U)",value,,상태값,"0: 설정 성공
+1: 설정 실패",mA,DAC 물리값 설정,전류 기준값 출력,TBD
+V1.00,,3,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswDio_Set(uint8 ch uint8 value),"#define BSWDIO_CH_OUTPUT_PIN_A		(0U)
+#define BSWDIO_CH_OUTPUT_PIN_B		(1U)
+#define BSWDIO_CH_OUTPUT_PIN_C		(2U)
+#define BSWDIO_CH_OUTPUT_PIN_D		(3U)
+#define BSWDIO_CH_OUTPUT_NUM_TOTAL	(4U)",value,,상태값,"0: 설정 성공
+1: 설정 실패",무,디지털 출력 설정,4개 핀 제어,TBD
+V1.00,,4,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswGpt_SetCallback(uint8 timer_id void* callback),timer_id,callback,,상태값,"0: 설정 성공
+1: 설정 실패",무,타이머 콜백 설정,타이머 인터럽트 처리,TBD
+V1.00,,5,ASW → BSW,"TBD
+(신호 분석 필요)",10ms,uint8,ShrHWIA_BswNvm_Write(uint8* data uint16 length),,data,length,상태값,"0: 성공
+1: 실패",무,NVM 데이터 쓰기,비휘발성 메모리 쓰기,TBD
+V1.00,,6,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswPwm_SetDuty(uint8 ch uint8 duty),"#define BSWPWM_CH_GATE_U		(0U)
+#define BSWPWM_CH_GATE_V		(1U)
+#define BSWPWM_CH_GATE_W		(2U)",duty,,상태값,"0: 설정 성공
+1: 설정 실패",%,PWM 듀티비 설정,3상 PWM 제어,TBD
+V1.00,,7,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswPwm_SetFreq(uint8 ch uint16 freq),상동,freq,,상태값,"0: 설정 성공
+1: 설정 실패",Hz,PWM 주파수 설정,3상 PWM 주파수 제어,TBD
+V1.00,,8,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswSys_SetWatchdog(uint8 enable),enable,,,,상태값,"0: 비활성화
+1: 활성화",무,Watchdog 설정,시스템 안전성 제어,TBD
+V1.00,,9,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswTest_Start(uint8 test_id),"#define BSWTEST_ID_RAM			(0U)
+#define BSWTEST_ID_FLASH		(1U)
+#define BSWTEST_ID_CPU			(2U)
+#define BSWTEST_ID_WATCHDOG		(3U)",,,,상태값,"0: 시작 성공
+1: 시작 실패",무,셀프 테스트 시작,시스템 자가진단 실행,TBD
+V1.00,,10,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswXcp_SendResponse(uint8* data uint16 length),,data,length,상태값,"0: 송신 성공
+1: 송신 실패",무,XCP 응답 송신,디버깅 데이터 전송,TBD
+V1.00,,11,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_IswHandler_SetPriority(uint8 handler_id uint8 priority),"#define ISWHANDLER_ID_1MS		(0U)
+#define ISWHANDLER_ID_10MS		(1U)
+#define ISWHANDLER_ID_100MS		(2U)",priority,,상태값,"0: 설정 성공
+1: 설정 실패",무,핸들러 우선순위 설정,태스크 스케줄링 제어,TBD
+V1.00,,12,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_IswHandler_EnableInterrupt(uint8 interrupt_id),interrupt_id,,,,상태값,"0: 활성화 성공
+1: 활성화 실패",무,인터럽트 활성화,인터럽트 제어,TBD
+V1.01,,13,ASW → BSW,"TBD
+(신호 분석 필요)",Init,uint8,ShrHWIA_BswSys_SetTargetAxle(uint8 axle_type),"#define BSWSYS_AXLE_UNDEFINED	(0U)
+#define BSWSYS_AXLE_FRONT		(1U)
+#define BSWSYS_AXLE_REAR		(2U)",,,,상태값,"0: 설정 성공
+1: 설정 실패",무,타겟 액슬 설정,시스템 구성 제어,NEW
+V1.01,,14,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswSys_ShutdownRequest(),TBD,,,,상태값,"0: 요청 성공
+1: 요청 거부",무,시스템 셧다운 요청,안전한 시스템 종료 (IG ON시 무동작),NEW
+V1.01,,15,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswCan_SetTimeoutMax(uint8 msg_index uint16 timeout_max),msg_index,timeout_max,,상태값,"0: 설정 성공
+1: 설정 실패",ms,CAN 타임아웃 동적 설정,메시지별 타임아웃 제어,NEW
+V1.01,,16,ASW → BSW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswCan_SetCh0CanDisable(uint8 disable),disable,,,,상태값,"0: 활성화
+1: 비활성화",무,CAN CH0 송신 제어,채널별 CAN 제어,NEW

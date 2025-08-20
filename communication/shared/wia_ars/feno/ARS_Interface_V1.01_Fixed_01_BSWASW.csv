@@ -1,0 +1,137 @@
+﻿선행 ARS BSW -> ASW Interface,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+Ver,ID,NO.,Component,ASW_RTE,Task,Return Type,Element Name,1st Parameter,2nd Parameter,3rd Parameter,Return,Read Data Type,Data Range,Unit,Init,Description,Note,Result
+V1.00,,1,BSW → ASW,"TBD
+(신호 분석 필요)","6.666us
+->ICU ISR",void,ShrHWIA_BswIcu_Cbk_Fault(uint8 fault_num),"#define	 BSWICU_FAULT_HVOV (0U)
+#define BSWICU_FAULT_IPM (1U)
+#define BSWICU_FAULT_INTERLOCK (2U)
+#define BSWICU_FAULT_CURR_U (3U)
+#define BSWICU_FAULT_CURR_W (4U)
+#define BSWICU_FAULT_CURR_DC (5U)
+#define BSWICU_FAULT_OVTEMP_IGBT (6U)
+#define BSWICU_FAULT_OVTEMP_MTR (7U)",,,,fault,,무,fault 원인을 ASW에 전달,"HVOV, IPM fault등 HW fault가 발생했을시 이를 SW로 알려주는 API.",TBD
+V1.00,,2,BSW → ASW,"TBD
+(신호 분석 필요)",6.666us,void,ShrHWIA_BswAdc_Cbk_CalibDone(),TBD,,,,,,무,전류 캘리브레이션 완료를 알림,전류 센서 캘리브레이션 완료시 호출,TBD
+V1.00,,3,BSW → ASW,"TBD
+(신호 분석 필요)",6.666us,void,ShrHWIA_BswSys_Cbk_CanWakeup(),TBD,,,,,,무,CAN Wakeup 신호 전달,CAN 통신으로 시스템이 깨어날 때 호출,TBD
+V1.00,,4,BSW → ASW,"TBD
+(신호 분석 필요)",10ms,float,ShrHWIA_BswAdc_GetPhyValue(uint8 ch),"#define BSWADC_CH_SENS_CURR_U_RAW	(0U)
+#define BSWADC_CH_SENS_CURR_W_RAW	(1U)
+#define BSWADC_CH_SENS_CURR_DC_RAW	(2U)
+#define BSWADC_CH_SENS_HV			(3U)
+#define BSWADC_CH_VCC_15V			(4U)
+#define BSWADC_CH_VUC_LV			(5U)
+#define BSWADC_CH_VUC_IG			(6U)
+#define BSWADC_CH_VUC_12V_IO		(7U)
+#define BSWADC_CH_VUC_5V0			(8U)
+#define BSWADC_CH_SENS_TEMP_PCB		(9U)
+#define BSWADC_CH_SENS_TEMP_IPM		(10U)
+#define BSWADC_CH_SENS_TEMP_MTR		(11U)
+#define BSWADC_CH_DIGITAL_VOLT_A	(12U)
+#define BSWADC_CH_DIGITAL_VOLT_B	(13U)
+#define BSWADC_CH_DIGITAL_VOLT_C	(14U)
+#define BSWADC_CH_DIGITAL_VOLT_D	(15U)
+#define BSWADC_CH_NUM_TOTAL			(16U)",,,,ADC 물리값,채널에 따라 다름,대기 전압/온도값,ADC 물리값 반환,16개 채널 지원,TBD
+V1.00,,5,BSW → ASW,"TBD
+(신호 분석 필요)",10ms,uint8,ShrHWIA_BswCan_GetMsg(uint8 msg_index uint8 *dlc uint8 *data),"#define BSWCAN_MSG_RX_INDEX_MVPC_ARS_01_1ms		(0U) //Rx // 0x20
+#define BSWCAN_MSG_RX_INDEX_ROUTING_01_10ms		(1U) //Rx // 0x27
+#define BSWCAN_MSG_RX_INDEX_ROUTING_01_20ms		(2U) //Rx // 0x26
+#define BSWCAN_MSG_RX_INDEX_ROUTING_01_200ms	(3U) //Rx // 0x25",dlc,data,return,상태값,"0: 정상수신
+1: 메시지 없음
+2: 타임아웃",무,CAN 메시지 수신,RX 메시지 4개 채널 지원,TBD
+V1.00,,6,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswCan_GetState_Busoff(uint8 can_ch),"#define BSWCAN_CAN_CH0			(0U)
+#define BSWCAN_CAN_CH1			(1U)",,,,상태값,"0: Normal
+1: Busoff",무,CAN Busoff 상태 확인,듀얼 CAN 채널 지원,TBD
+V1.00,,7,BSW → ASW,"TBD
+(신호 분석 필요)",10ms,float,ShrHWIA_BswSent_GetGearPosition(),TBD,,,,기어위치,P/R/N/D 값,무,SENT 기어 위치 값,기어 센서에서 SENT로 수신,TBD
+V1.00,,8,BSW → ASW,"TBD
+(신호 분석 필요)",10ms,uint8,ShrHWIA_BswDac_GetPhyValue(uint8 ch),"#define BSWDAC_CH_NUM_TOTAL		(1U)
+#define BSWDAC_CH_CURR_CMD_REF 	(0U)",,,,DAC 물리값,전류 기준값,mA,DAC 출력 값 반환,1개 채널 지원,TBD
+V1.00,,9,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint16,ShrHWIA_BswDio_Get(uint8 ch),"#define BSWDIO_CH_INPUT_PIN_A		(0U)
+#define BSWDIO_CH_INPUT_PIN_B		(1U)
+#define BSWDIO_CH_INPUT_PIN_C		(2U)
+#define BSWDIO_CH_INPUT_PIN_D		(3U)
+#define BSWDIO_CH_INPUT_NUM_TOTAL	(4U)",,,,디지털 입력,0/1,무,디지털 입력 값,4개 핀 지원,TBD
+V1.00,,10,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint32,ShrHWIA_BswGpt_GetTime(),TBD,,,,타이머 값,us,us,마이크로초 타이머,고해상도 타이머,TBD
+V1.00,,11,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswIcu_GetFreq(uint8 ch),"#define BSWICU_CH_ENC_A			(0U)
+#define BSWICU_CH_ENC_B			(1U)
+#define BSWICU_CH_ENC_Z			(2U)
+#define BSWICU_CH_NUM_TOTAL		(3U)",,,,주파수,Hz,Hz,ICU 주파수 측정,엔코더 3채널 지원,TBD
+V1.00,,12,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint32,ShrHWIA_BswIcu_GetCounter(uint8 ch),상동,,,,카운터 값,count,count,ICU 카운터 값,엔코더 카운터,TBD
+V1.00,,13,BSW → ASW,"TBD
+(신호 분석 필요)",10ms,uint8,ShrHWIA_BswNvm_Read(uint8* data uint16 length),,data,length,상태값,"0: 성공
+1: 실패",무,NVM 데이터 읽기,비휘발성 메모리 읽기,TBD
+V1.00,,14,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswPwm_GetDuty(uint8 ch),"#define BSWPWM_CH_NUM_TOTAL		(3U)
+#define BSWPWM_CH_GATE_U		(0U)
+#define BSWPWM_CH_GATE_V		(1U)
+#define BSWPWM_CH_GATE_W		(2U)",,,,듀티비,%,%,PWM 듀티비 반환,3상 PWM 지원,TBD
+V1.00,,15,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint16,ShrHWIA_BswPwm_GetFreq(uint8 ch),상동,,,,주파수,Hz,Hz,PWM 주파수 반환,3상 PWM 주파수,TBD
+V1.00,,16,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswSys_GetBootReason(),TBD,,,,부팅 이유,"0: Power On
+1: Watchdog
+2: Exception",무,시스템 부팅 이유,재시작 원인 확인,TBD
+V1.00,,17,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswSys_GetState(),TBD,,,,시스템 상태,"0: Init
+1: Normal
+2: Fault",무,시스템 현재 상태,시스템 상태 모니터링,TBD
+V1.00,,18,BSW → ASW,"TBD
+(신호 분석 필요)",100ms,float,ShrHWIA_BswSys_GetVccVoltage(),TBD,,,,전압,V,V,공급 전압 측정,시스템 전원 전압,TBD
+V1.00,,19,BSW → ASW,"TBD
+(신호 분석 필요)",100ms,float,ShrHWIA_BswSys_GetTemperature(),TBD,,,,온도,°C,°C,MCU 온도 측정,시스템 온도 모니터링,TBD
+V1.00,,20,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswTest_GetResult(uint8 test_id),"#define BSWTEST_ID_RAM			(0U)
+#define BSWTEST_ID_FLASH		(1U)
+#define BSWTEST_ID_CPU			(2U)
+#define BSWTEST_ID_WATCHDOG		(3U)",,,,테스트 결과,"0: Pass
+1: Fail
+2: Running",무,셀프 테스트 결과,시스템 자가진단,TBD
+V1.00,,21,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_BswXcp_GetConnectionState(),TBD,,,,연결 상태,"0: Disconnected
+1: Connected",무,XCP 연결 상태,디버깅 연결 확인,TBD
+V1.00,,22,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_IswHandler_GetState(),TBD,,,,핸들러 상태,"0: Idle
+1: Active
+2: Error",무,ISW 핸들러 상태,인터럽트 서비스 상태,TBD
+V1.00,,23,BSW → ASW,"TBD
+(신호 분석 필요)",1000ms,uint32,ShrHWIA_IswHandler_GetCallCount(uint8 handler_id),"#define ISWHANDLER_ID_1MS		(0U)
+#define ISWHANDLER_ID_10MS		(1U)
+#define ISWHANDLER_ID_100MS		(2U)",,,,호출 횟수,count,count,핸들러 호출 횟수,성능 모니터링,TBD
+V1.00,,24,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_IswHandler_GetMaxExecTime(uint8 handler_id),상동,,,,실행 시간,us,us,최대 실행 시간,성능 분석,TBD
+V1.00,,25,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint16,ShrHWIA_IswHandler_GetStackUsage(),TBD,,,,스택 사용량,%,%,스택 사용률,메모리 모니터링,TBD
+V1.00,,26,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_IswHandler_GetQueueDepth(uint8 queue_id),"#define ISWHANDLER_QUEUE_HIGH_PRIO	(0U)
+#define ISWHANDLER_QUEUE_LOW_PRIO	(1U)",,,,큐 깊이,count,count,메시지 큐 사용량,시스템 부하 확인,TBD
+V1.00,,27,BSW → ASW,"TBD
+(신호 분석 필요)",100ms,uint8,ShrHWIA_IswHandler_GetCpuUsage(),TBD,,,,CPU 사용률,%,%,전체 CPU 사용률,성능 모니터링,TBD
+V1.00,,28,BSW → ASW,"TBD
+(신호 분석 필요)",10ms,uint8,ShrHWIA_IswHandler_GetMemoryUsage(),TBD,,,,메모리 사용률,%,%,전체 메모리 사용률,메모리 모니터링,TBD
+V1.00,,29,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_IswHandler_CheckIntegrity(),TBD,,,,무결성 상태,"0: OK
+1: Error",무,시스템 무결성 확인,시스템 안정성 확인,TBD
+V1.00,,30,BSW → ASW,"TBD
+(신호 분석 필요)",1ms,uint8,ShrHWIA_IswHandler_GetLastError(),TBD,,,,에러 코드,"0: No Error
+1~255: Error Code",무,마지막 에러 정보,에러 진단,TBD
+V1.01,,31,BSW → ASW,"TBD
+(신호 분석 필요)",10ms,uint8,ShrHWIA_BswAdc_GetCurrentCalibStatus(),TBD,,,,캘리브레이션 상태,"0: 진행중
+1: 성공
+2: 실패",무,전류 캘리브레이션 상태,전류 센서 진단 강화,NEW
+V1.01,,32,BSW → ASW,"TBD
+(신호 분석 필요)",10ms,uint8,ShrHWIA_BswAdc_GetMotorTempErrStatus(),TBD,,,,에러 상태,"0: 정상
+1: 에러",무,모터 온도 센서 에러 상태,온도 센서 진단 강화,NEW
+V1.01,,33,BSW → ASW,"TBD
+(신호 분석 필요)",10ms,uint8,ShrHWIA_BswSent_GetSlowChannel(uint8 msgId uint8* data uint32* timestamp),22개 ID 지원,data,timestamp,상태값,"0: 성공
+1: 실패",무,SENT Slow Channel 데이터,22개 ID 지원으로 확장,NEW
+V1.01,,34,BSW → ASW,"TBD
+(신호 분석 필요)",100ms,float,ShrHWIA_BswSys_GetCpuLoad(),TBD,,,,CPU 사용률,0.0~100.0,%,CPU 사용률 측정,시스템 성능 모니터링,NEW
+V1.01,,35,BSW → ASW,"TBD
+(신호 분석 필요)",Init,void,ShrHWIA_IswHandler_Init3(),TBD,,,,무,무,무,3차 초기화 함수,고급 기능 활성화,NEW
