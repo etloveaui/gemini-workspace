@@ -1,0 +1,165 @@
+# 🎯 표준 GitHub Actions 워크플로 템플릿 v1.0
+# 멀티 에이전트 워크스페이스용 표준화된 CI/CD
+
+name: Standard Multi-Agent Workflow
+
+# 🔧 트리거 설정 (표준화)
+on:
+  workflow_dispatch:  # 수동 실행 보장 (필수)
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: false
+        default: 'production'
+        type: choice
+        options:
+        - development
+        - staging
+        - production
+      skip_tests:
+        description: 'Skip test execution'
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches: [ main, develop ]
+    # 경로 최소화 - 과도한 글롭 패턴 방지
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+  pull_request:
+    branches: [ main ]
+
+# 🔒 권한 설정 (보안 강화)
+permissions:
+  contents: read
+  actions: read
+  checks: write
+  pull-requests: write
+  # 필요시 추가: issues: write, deployments: write
+
+# 🌍 환경 변수 (표준화)
+env:
+  PYTHON_VERSION: '3.12'
+  NODE_VERSION: '20'
+  WORKSPACE_ENCODING: 'utf-8'
+
+jobs:
+  # 📋 환경 검증 (Preflight Doctor v2.0 활용)
+  preflight-check:
+    runs-on: windows-latest
+    name: 🏥 Environment Validation
+    outputs:
+      python-version: ${{ steps.setup.outputs.python-version }}
+      workspace-ready: ${{ steps.doctor.outputs.workspace-ready }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python
+        id: setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Preflight Doctor v2.0
+        id: doctor
+        shell: pwsh
+        run: |
+          try {
+            $result = python scripts/doctor.py
+            echo "workspace-ready=true" >> $env:GITHUB_OUTPUT
+            Write-Host "✅ Preflight check passed" -ForegroundColor Green
+          } catch {
+            echo "workspace-ready=false" >> $env:GITHUB_OUTPUT
+            Write-Host "❌ Preflight check failed: $_" -ForegroundColor Red
+            exit 1
+          }
+
+  # 🧪 테스트 실행 
+  test:
+    needs: preflight-check
+    if: needs.preflight-check.outputs.workspace-ready == 'true' && !inputs.skip_tests
+    runs-on: windows-latest
+    name: 🧪 Test Execution
+    strategy:
+      matrix:
+        test-group: [unit, integration, system]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ needs.preflight-check.outputs.python-version }}
+
+      - name: Install test dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-xdist
+
+      - name: Run ${{ matrix.test-group }} tests
+        shell: pwsh
+        run: |
+          # Windows 인코딩 문제 해결
+          $env:PYTHONIOENCODING = "utf-8"
+          $env:PYTHONUTF8 = "1"
+          
+          # 테스트 실행 (그룹별)
+          switch ("${{ matrix.test-group }}") {
+            "unit" { pytest tests/unit/ -v --cov=src --cov-report=xml }
+            "integration" { pytest tests/integration/ -v --tb=short }
+            "system" { pytest tests/system/ -v --tb=line }
+          }
+
+      - name: Upload coverage reports
+        if: matrix.test-group == 'unit'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+
+  # 🚀 배포 (조건부)
+  deploy:
+    needs: [preflight-check, test]
+    if: github.ref == 'refs/heads/main' && needs.preflight-check.outputs.workspace-ready == 'true'
+    runs-on: windows-latest
+    name: 🚀 Deployment
+    environment: ${{ inputs.environment || 'production' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to ${{ inputs.environment || 'production' }}
+        shell: pwsh
+        run: |
+          Write-Host "🚀 Deploying to ${{ inputs.environment || 'production' }}" -ForegroundColor Cyan
+          # 배포 로직을 여기에 추가
+          
+  # 📊 결과 알림
+  notify:
+    needs: [preflight-check, test, deploy]
+    if: always()
+    runs-on: windows-latest
+    name: 📊 Notification
+    steps:
+      - name: Workflow Summary
+        shell: pwsh
+        run: |
+          $status = "${{ needs.deploy.result }}" -eq "success" ? "✅ SUCCESS" : "❌ FAILED"
+          Write-Host "🎯 Workflow completed: $status" -ForegroundColor $(if ($status.Contains("SUCCESS")) { "Green" } else { "Red" })
+          
+          # 에이전트 로깅 (선택사항)
+          if (Test-Path "logs/") {
+            $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+            "$timestamp - GitHub Actions: $status" | Out-File -Append -FilePath "logs/workflow.log"
+          }
