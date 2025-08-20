@@ -18,6 +18,23 @@
 - **[P2] System Optimization & UX Refinement:** `scratchpad/Gemini-Self-Upgrade/Plan/[P2]Plan_O3.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_Gemini.md`, `scratchpad/Gemini-Self-Upgrade/[P1-2] ORDER BLOCK C_S_O3.md`
 
 ## Active Tasks
+
+### 🚀 멀티 에이전트 워크스페이스 발전 로드맵 2025-2027 (청사진 기반)
+
+#### Phase 1: 운영 마찰 제거 (0-6개월) - "안정화"
+- [CLAUDE-P0] 표준화 패키지 개발 (2025-08-20~) - GitHub Actions, PowerShell 래퍼, 설정 템플릿 [log](docs/tasks/phase1-standardization-package/log.md)
+- [CLAUDE-P0] Preflight Doctor v2.0 고도화 (2025-08-20~) - 환경 검증 자동화, 문제 예측, 자동 수정 [log](docs/tasks/phase1-preflight-doctor-v2/log.md)
+- [CLAUDE-P0] 사용자 경험 개선 (2025-08-20~) - 진입 장벽 70% 감소, 설정 자동화 [log](docs/tasks/phase1-user-experience/log.md)
+
+#### Phase 2: 지능형 자동화 (6-18개월) - "혁신"
+- [CLAUDE-P1] 디스패처 에이전트 구현 - 자연어→작업분류→에이전트할당 시스템 [log](docs/tasks/phase2-dispatcher-agent/log.md)
+- [CLAUDE-P1] 에이전트 간 협업 시스템 - 작업 위임, 실시간 상태 공유, 품질 검증 [log](docs/tasks/phase2-agent-collaboration/log.md)
+- [CLAUDE-P1] 스마트 테스트 생성기 - 커버리지 기반 자동 테스트 생성 [log](docs/tasks/phase2-smart-test-generator/log.md)
+
+#### Phase 3: 예측적 시스템 (18-36개월) - "진화"
+- [CLAUDE-P2] 예측적 문제 감지 시스템 - 코드 품질 모니터링, 이슈 사전 감지 [log](docs/tasks/phase3-predictive-monitoring/log.md)
+- [CLAUDE-P2] 적응형 워크플로우 - 사용자 패턴 학습, 개인화 환경 [log](docs/tasks/phase3-adaptive-workflow/log.md)
+- [CLAUDE-P2] 완전 자율 프로젝트 관리 - 생명주기 자동 관리, 품질 게이트 [log](docs/tasks/phase3-autonomous-pm/log.md)
 - [P-AGENT] Repeated Modification Failures (for GEMINI) - 에이전트 파일 수정 실패 문제 해결 필요
 - [Test] Fix 15 failing pytest tests - 테스트 환경 수정 필요
 - ✅ 설정 시스템 통합 (3개 에이전트 통합 관리)
