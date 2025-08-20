@@ -1,0 +1,15 @@
+{
+  "task_id": "20250820_222645_fd138e76",
+  "from_agent": "claude",
+  "to_agent": "gemini",
+  "created_at": "2025-08-20T22:26:45.419347",
+  "priority": "P2",
+  "status": "pending",
+  "title": "reports 폴더 분석 및 정리",
+  "description": "reports 폴더의 감사 파일들을 분석하고 아카이브 방안을 제시해주세요",
+  "requirements": [],
+  "expected_output": "",
+  "deadline": "",
+  "context": {},
+  "resources": []
+}
