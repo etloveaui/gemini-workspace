@@ -3,6 +3,20 @@
 ## 🎯 목적 및 범위
 본 문서는 Codex 에이전트가 멀티 에이전트 워크스페이스에서 코딩, 디버깅, 최적화 작업을 수행할 때 따라야 할 핵심 규칙입니다.
 
+## ⚠️ 세션 시작 필수 체크
+- **📋 필수 읽기**: `docs/CODEX_CHECKLIST.md` (매 세션 시작시)
+- **🏠 현재 작업**: `docs/HUB.md` 확인
+
+## 🤖 에이전트 간 소통 시스템
+
+**중요**: 모든 AI 에이전트 간 소통은 **파일 기반 비동기 시스템**을 사용합니다.
+
+- **📋 상세 가이드**: `docs/AGENT_COMMUNICATION_SYSTEM.md`
+- **🚀 빠른 시작**: `communication/shared/COMMUNICATION_GUIDE.md`
+- **🔧 실시간 감지**: `scripts/watch_file.py` 워처 스크립트 활용
+
+**Codex 전용 폴더**: `communication/codex/`
+
 ---
 
 ## 🚨 CRITICAL: Project Independence Rules  

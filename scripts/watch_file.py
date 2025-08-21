@@ -5,9 +5,9 @@
 Lightweight file change watcher (polling, stdlib-only).
 
 Usage (Windows, venv recommended):
-  venv\Scripts\python.exe scripts\watch_file.py <path> [--recursive] [--interval 1.0]
+  venv\\Scripts\\python.exe scripts\\watch_file.py <path> [--recursive] [--interval 1.0]
                                             [--include *.py --exclude *.log]
-                                            [--log-file logs\watch_file.log]
+                                            [--log-file logs\\watch_file.log]
 
 Notes:
   - Uses polling (no external deps). Checks mtime/size; hashes only on mtime change.

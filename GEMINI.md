@@ -3,6 +3,20 @@
 ## 0) 목적/범위
 본 문서는 이 워크스페이스의 **운영 표준**이다. 목표는 **재현성**, **보안**, **신속한 인수인계**다. 모든 규정은 Windows 환경과 Python/Invoke 중심으로 정의한다.
 
+## ⚠️ 세션 시작 필수 체크
+- **📋 필수 읽기**: `docs/GEMINI_CHECKLIST.md` (매 세션 시작시)
+- **🏠 현재 작업**: `docs/HUB.md` 확인
+
+## 🤖 에이전트 간 소통 시스템
+
+**중요**: 모든 AI 에이전트 간 소통은 **파일 기반 비동기 시스템**을 사용합니다.
+
+- **📋 상세 가이드**: `docs/AGENT_COMMUNICATION_SYSTEM.md`
+- **🚀 빠른 시작**: `communication/shared/COMMUNICATION_GUIDE.md`
+- **🔧 실시간 감지**: `scripts/watch_file.py` 워처 스크립트 활용
+
+**Gemini 전용 폴더**: `communication/gemini/`
+
 ## 1) 운영 원칙 (Windows-first)
 - **Python 경로**: venv가 있으면 `%REPO%/venv/Scripts/python.exe`, 없으면 `sys.executable`.
 - **셸/인코딩**: PowerShell 래핑 금지, 파이썬 프로세스 **직접 호출**. 표준 I/O는 **UTF-8** 고정.

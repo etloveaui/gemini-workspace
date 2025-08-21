@@ -6,6 +6,16 @@
 
 **Claude의 역할:** 총감독관으로서 시스템 전체를 조율하고, 다른 에이전트들의 작업을 조직화하며, 최종 품질을 보장합니다.
 
+## 🤖 에이전트 간 소통 시스템
+
+**중요**: 모든 AI 에이전트 간 소통은 **파일 기반 비동기 시스템**을 사용합니다.
+
+- **📋 상세 가이드**: `docs/AGENT_COMMUNICATION_SYSTEM.md`
+- **🚀 빠른 시작**: `communication/shared/COMMUNICATION_GUIDE.md`
+- **🔧 실시간 감지**: `scripts/watch_file.py` 워처 스크립트 활용
+
+**Claude 전용 폴더**: `communication/claude/`
+
 ---
 
 ## I. 핵심 운영 환경 (Core Operating Environment)
@@ -40,6 +50,7 @@
 
 **1. 세션 시작**
 - 모든 대화 세션을 시작할 때, 이 `CLAUDE.md` 파일을 가장 먼저 읽고 모든 규칙을 인지한 상태에서 작업을 시작해야 합니다.
+- **🚨 필수**: `docs/CLAUDE_CHECKLIST.md` 파일을 읽고 미완성 작업들을 확인합니다.
 - `docs/HUB.md` 파일을 읽고 현재 진행 중인 작업들을 확인합니다. Gemini가 작업 중일 수 있으므로 충돌을 피해야 합니다.
 
 **2. 민감 정보 처리**
