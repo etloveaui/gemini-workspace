@@ -1,0 +1,61 @@
+{
+  "UnicodeDecodeError": {
+    "description": "문자 인코딩 문제",
+    "common_causes": [
+      "Windows에서 cp949와 UTF-8 인코딩 충돌",
+      "파일 인코딩 설정 문제"
+    ],
+    "solutions": [
+      "파일을 UTF-8로 저장 후 다시 시도",
+      "환경변수 PYTHONIOENCODING=utf-8 설정",
+      "subprocess 호출 시 encoding='utf-8' 추가"
+    ],
+    "prevention": "프로젝트 전체를 UTF-8로 설정 (.editorconfig, .vscode/settings.json)",
+    "urgency": "medium"
+  },
+  "ModuleNotFoundError": {
+    "description": "모듈을 찾을 수 없음",
+    "common_causes": [
+      "필요한 패키지가 설치되지 않음",
+      "가상환경이 활성화되지 않음",
+      "Python 경로 문제"
+    ],
+    "solutions": [
+      "pip install [패키지명] 실행",
+      "가상환경 활성화: venv\\Scripts\\activate (Windows)",
+      "requirements.txt 확인 후 pip install -r requirements.txt"
+    ],
+    "prevention": "requirements.txt 파일 관리, 가상환경 사용",
+    "urgency": "high"
+  },
+  "FileNotFoundError": {
+    "description": "파일을 찾을 수 없음",
+    "common_causes": [
+      "파일 경로가 잘못됨",
+      "파일이 존재하지 않음",
+      "권한 문제"
+    ],
+    "solutions": [
+      "파일 경로 다시 확인",
+      "파일이 실제로 존재하는지 확인",
+      "상대경로 대신 절대경로 사용"
+    ],
+    "prevention": "Path 객체 사용, exists() 확인",
+    "urgency": "medium"
+  },
+  "PermissionError": {
+    "description": "권한 부족",
+    "common_causes": [
+      "관리자 권한 필요",
+      "파일이 다른 프로그램에서 사용중",
+      "읽기 전용 파일"
+    ],
+    "solutions": [
+      "관리자 권한으로 실행",
+      "파일을 사용중인 프로그램 종료",
+      "파일 속성에서 읽기 전용 해제"
+    ],
+    "prevention": "적절한 권한 설정, 파일 잠금 확인",
+    "urgency": "high"
+  }
+}

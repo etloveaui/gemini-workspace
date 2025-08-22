@@ -1,0 +1,5 @@
+{
+  "claude": "claude --model gpt-4",
+  "codex": "codex --suggest",
+  "gemini": "gemini --conservative"
+}

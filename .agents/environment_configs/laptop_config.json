@@ -1,0 +1,21 @@
+{
+  "name": "노트북 환경",
+  "settings": {
+    "backup_interval": 2400,
+    "log_level": "WARN",
+    "auto_commit": false,
+    "token_limit_warning": 0.6,
+    "sync_enabled": false,
+    "performance_mode": "battery_saver"
+  },
+  "vscode_settings": {
+    "terminal.integrated.fontSize": 12,
+    "editor.fontSize": 12,
+    "workbench.colorTheme": "Light+ (default light)"
+  },
+  "shortcuts": {
+    "claude": "claude --model claude-3-haiku",
+    "codex": "codex --suggest",
+    "gemini": "gemini --efficient"
+  }
+}

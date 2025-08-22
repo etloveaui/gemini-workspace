@@ -1,0 +1,13 @@
+feat(cli): unify CLI outputs; add background runner
+
+- Standardize outputs (===, numbered list, key=value) in:
+  doctor_v3.py, environment_checker.py, environment_detector.py,
+  quick_help.py, onboarding.py, simple_monitor.py, runner.py,
+  quickstart.py, token_optimizer.py, dashboard.py, usage_limit_monitor.py
+- Add scripts/run_background.py (UTF-8, hidden window, background logs)
+- Add scripts/logs_cleanup.ps1 (archive *.log >3 days)
+- Update docs/HUB.md with completion summary
+- Add docs/SESSION_LOG_20250822.md (session summary)
+
+Test: 23 passed, 8 skipped (pytest)
+

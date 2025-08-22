@@ -1,0 +1,21 @@
+{
+  "name": "집 환경",
+  "settings": {
+    "backup_interval": 3600,
+    "log_level": "DEBUG",
+    "auto_commit": true,
+    "token_limit_warning": 0.8,
+    "sync_enabled": true,
+    "performance_mode": "performance"
+  },
+  "vscode_settings": {
+    "terminal.integrated.fontSize": 16,
+    "editor.fontSize": 16,
+    "workbench.colorTheme": "Monokai"
+  },
+  "shortcuts": {
+    "claude": "claude --model gpt-4o",
+    "codex": "codex --auto-edit",
+    "gemini": "gemini --creative"
+  }
+}

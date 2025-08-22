@@ -1,0 +1,21 @@
+{
+  "name": "회사 환경",
+  "settings": {
+    "backup_interval": 1800,
+    "log_level": "INFO",
+    "auto_commit": false,
+    "token_limit_warning": 0.7,
+    "sync_enabled": true,
+    "performance_mode": "balanced"
+  },
+  "vscode_settings": {
+    "terminal.integrated.fontSize": 14,
+    "editor.fontSize": 14,
+    "workbench.colorTheme": "Dark+ (default dark)"
+  },
+  "shortcuts": {
+    "claude": "claude --model gpt-4",
+    "codex": "codex --suggest",
+    "gemini": "gemini --conservative"
+  }
+}
