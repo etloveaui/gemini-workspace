@@ -43,3 +43,7 @@ usage.db*
 # Block local CLAUDE configs
 .claude*/
 
+# Environment sync files (ZIP packages)
+sync_package/*.zip
+environment_sync_*.zip
+
