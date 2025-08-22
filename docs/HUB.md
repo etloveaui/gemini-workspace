@@ -302,3 +302,28 @@ __lastSession__
 - **Next Step**: 시스템 안정화 및 정리 작업 (우선순위: 인코딩 문제 해결) 후 [P2-UX] UX Refinement
 - Emergency wrapper toggle + health_check automation
 - Hub split and SQLite VACUUM pipeline
+
+## Active Projects
+
+### 100xFenok
+- 상태: Active
+- 담당 에이전트: Claude(설계), Codex(구현), Gemini(대량 작업)
+- 진행도: Active(유지보수/확장)
+- 태스크 허브:
+  - `docs/tasks/100xfenok-automation-complete/`
+  - `docs/tasks/100xfenok-automation-session2/`
+  - `docs/tasks/100xfenok-floating-button-responsive-glitch/`
+  - `docs/tasks/100xfenok-telegram-notification/`
+- 커뮤니케이션 참조:
+  - `communication/claude/archive/20250819_100xfenok_automation_project.md`
+
+### 100xFenok-generator
+- 상태: Active
+- 담당 에이전트: Claude(설계), Codex(구현), Gemini(대량 작업)
+- 진행도: Active(유지보수/확장)
+- 태스크 허브:
+  - `docs/tasks/100xfenok-generator-dev/`
+  - `docs/tasks/100xfenok-generator-data-cleanup/`
+  - `docs/tasks/100xfenok-generator-date-title-input-fix/`
+- 커뮤니케이션 참조:
+  - 관련 진행 내역은 `communication/` 하위 세션 문서에 기록됨
