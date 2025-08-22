@@ -1,0 +1,38 @@
+{
+  "system": {
+    "timestamp": "2025-08-22T22:47:59.388513",
+    "hostname": "ETk-DESKTOP",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "processor": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
+    "python_version": "3.12.5",
+    "user": "etlov",
+    "working_directory": "C:\\Users\\etlov\\multi-agent-workspace",
+    "local_ip": "192.168.0.8"
+  },
+  "environment": {
+    "is_company": true,
+    "is_home": false,
+    "is_laptop": false,
+    "location_hints": [
+      "company_desktop",
+      "likely_company"
+    ],
+    "available_drives": [
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "Z"
+    ],
+    "software_hints": [
+      "git_installed"
+    ]
+  },
+  "confidence": {
+    "company": 110,
+    "home": 0,
+    "laptop": 0
+  }
+}

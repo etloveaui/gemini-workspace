@@ -1,0 +1,25 @@
+{
+  "created": "2025-08-22T17:31:47.340324",
+  "files": [
+    ".vscode/tasks.json",
+    ".vscode/settings.json",
+    ".env",
+    ".editorconfig",
+    ".gitattributes",
+    ".gemini/context_policy.yaml",
+    "scripts/cli_style.py",
+    "MULTI_ENVIRONMENT_SYNC_GUIDE.md"
+  ],
+  "hashes": {
+    ".vscode/tasks.json": "ea1f8625e3290377ee295457274b5ee8",
+    ".vscode/settings.json": "ce4cfb1b2c385aeb173744d5f9d89c0a",
+    ".env": "363d4a74a335aaf1cb3aea60b2bdc6c1",
+    ".editorconfig": "beebff63149cfd47c63b784a8707cbc1",
+    ".gitattributes": "d4d44be29b3a07a5d2c85ebbe1033b8b",
+    ".gemini/context_policy.yaml": "d44b3c2fc78a6bcfe8033ad2b147b574",
+    "scripts/cli_style.py": "e6fee415f47fc2e582a05550ea1122f2",
+    "MULTI_ENVIRONMENT_SYNC_GUIDE.md": "c1fdca07fb02194f610245e9e40f226f"
+  },
+  "hostname": "DESKTOP-SEISHAI",
+  "user": "eunta"
+}

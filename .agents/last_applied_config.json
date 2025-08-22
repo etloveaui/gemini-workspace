@@ -1,7 +1,7 @@
 {
   "environment": "company",
   "config_name": "회사 환경",
-  "applied_at": "2025-08-22T18:05:40.228948",
+  "applied_at": "2025-08-22T23:00:47.434271",
   "settings": {
     "backup_interval": 1800,
     "log_level": "INFO",

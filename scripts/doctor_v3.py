@@ -26,8 +26,16 @@ class DoctorV3:
         
         # 진단 데이터베이스
         self.diagnosis_db = self.root / ".agents" / "diagnosis_history.db"
-        self.diagnosis_db.parent.mkdir(exist_ok=True, parents=True)
-        self._init_diagnosis_db()
+        try:
+            self.diagnosis_db.parent.mkdir(exist_ok=True, parents=True)
+            self._init_diagnosis_db()
+        except (PermissionError, FileNotFoundError) as e:
+            # 권한 문제 시 임시 디렉토리 사용
+            import tempfile
+            temp_dir = Path(tempfile.gettempdir()) / "multi_agent_workspace" / "diagnosis"
+            temp_dir.mkdir(exist_ok=True, parents=True)
+            self.diagnosis_db = temp_dir / "diagnosis_history.db"
+            self._init_diagnosis_db()
     
     def _init_diagnosis_db(self):
         """진단 이력 데이터베이스 초기화"""
@@ -319,7 +327,13 @@ class DoctorV3:
     def _save_diagnosis_report(self, fixes_applied: List[str], optimizations: List[Dict]) -> str:
         """진단 보고서 저장"""
         reports_dir = self.root / "reports"
-        reports_dir.mkdir(exist_ok=True)
+        try:
+            reports_dir.mkdir(exist_ok=True)
+        except (PermissionError, FileNotFoundError):
+            # 권한 문제 시 임시 디렉토리 사용
+            import tempfile
+            reports_dir = Path(tempfile.gettempdir()) / "multi_agent_workspace" / "reports"
+            reports_dir.mkdir(exist_ok=True, parents=True)
         
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         report_file = reports_dir / f"doctor_v3_{timestamp}.json"

@@ -12,7 +12,7 @@ from datetime import datetime
 
 class SettingsSync:
     def __init__(self):
-        self.root = Path("C:/Users/eunta/multi-agent-workspace")
+        self.root = Path(__file__).resolve().parent.parent
         self.sync_files = [
             # VS Code 설정
             ".vscode/tasks.json",
