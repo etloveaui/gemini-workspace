@@ -1,0 +1,10 @@
+{
+  "id": "claude-p2-log-docs-tasks-phase3-adaptive-workflow-log-md",
+  "from": "codex",
+  "to": "codex",
+  "type": "task",
+  "title": "[CLAUDE-P2] 적응형 워크플로우 - 사용자 패턴 학습, 개인화 환경 [log](docs/tasks/phase3-adaptive-workflow/log.md)",
+  "created_at": "2025-08-22T04:56:46.005527+00:00",
+  "status": "processing",
+  "claimed_at": "2025-08-22T04:56:46.005527+00:00"
+}

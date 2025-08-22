@@ -5,7 +5,6 @@ To https://github.com/etloveaui/100xFenok
  ! [remote rejected] main -> main (refusing to allow an OAuth App to create or update workflow `.github/workflows/telegram-notify.yml` without `workflow` scope)
 error: failed to push some refs to 'https://github.com/etloveaui/100xFenok'
 
-
 Completed with errors, see above.
 ## 100xFenok Push Quick Fix (Short)
 
@@ -34,15 +33,3 @@ Actions 연동 확인(텔레그램)
 - 워크플로 위치: 해당 저장소 루트 `.github/workflows/telegram-notify.yml`
 - 시크릿: `TELEGRAM_BOT_TOKEN` 존재
 - 트리거: 대상 HTML 변경 후 push 또는 Actions → Run workflow
-
-
-
-git -c diff.mnemonicprefix=false -c core.quotepath=false --no-optional-locks push -v --tags origin main:main
-POST git-receive-pack (768 bytes)
-Pushing to https://github.com/etloveaui/100xFenok
-To https://github.com/etloveaui/100xFenok
- ! [remote rejected] main -> main (refusing to allow an OAuth App to create or update workflow `.github/workflows/telegram-notify.yml` without `workflow` scope)
-error: failed to push some refs to 'https://github.com/etloveaui/100xFenok'
-
-
-Completed with errors, see above.

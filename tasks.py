@@ -337,7 +337,9 @@ def clean_cli(c):
 @task
 def doctor(c):
     '''"""TODO: Add docstring."""'''
-    run_command('doctor', [VENV_PYTHON, 'scripts/doctor.py'], check=False)
+    result = run_command('doctor', [VENV_PYTHON, 'scripts/doctor.py'], check=False)
+    _safe_console_print(result.stdout)
+    _safe_console_print(result.stderr)
 
 @task
 def quickstart(c):

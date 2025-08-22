@@ -1,0 +1,40 @@
+{
+  "system": {
+    "timestamp": "2025-08-22T14:25:54.196978",
+    "hostname": "DESKTOP-SEISHAI",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "processor": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel",
+    "python_version": "3.13.6",
+    "user": "eunta",
+    "working_directory": "C:\\Users\\eunta\\multi-agent-workspace",
+    "local_ip": "192.168.0.140"
+  },
+  "environment": {
+    "is_company": true,
+    "is_home": false,
+    "is_laptop": false,
+    "location_hints": [
+      "company_desktop",
+      "likely_company",
+      "business_hours"
+    ],
+    "available_drives": [
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "J"
+    ],
+    "software_hints": [
+      "office_suite",
+      "git_installed"
+    ]
+  },
+  "confidence": {
+    "company": 140,
+    "home": 0,
+    "laptop": 0
+  }
+}

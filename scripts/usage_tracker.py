@@ -18,7 +18,7 @@ def log_usage(task_name: str, event_type: str, command: str = None, returncode: 
             pass
         # usage_tracker.py가 runner.py의 스키마를 따르도록 수정
         cursor.execute("""
-        CREATE TABLE IF NOT EXISTS usage (
+        CREATE TABLE IF NOT EXISTS usage_log (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             timestamp TEXT NOT NULL,
             task_name TEXT NOT NULL,
@@ -30,7 +30,7 @@ def log_usage(task_name: str, event_type: str, command: str = None, returncode: 
         )
         """)
         cursor.execute("""
-        INSERT INTO usage (timestamp, task_name, event_type, command, returncode, stdout, stderr)
+        INSERT INTO usage_log (timestamp, task_name, event_type, command, returncode, stdout, stderr)
         VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (timestamp, task_name, event_type, command, returncode, stdout, stderr))
         conn.commit()

@@ -5,7 +5,6 @@ status: pending|in_progress|completed|blocked
 tags: [태그1, 태그2, 태그3]
 created: YYYY-MM-DD HH:MM
 updated: YYYY-MM-DD HH:MM
----
 
 # [세션 제목]
 
@@ -28,8 +27,6 @@ updated: YYYY-MM-DD HH:MM
 
 [필요한 배경 정보, 제약사항, 참고사항 등]
 
----
-
 ## 📊 진행 상황
 
 ### [YYYY-MM-DD HH:MM] 시작
@@ -43,8 +40,6 @@ updated: YYYY-MM-DD HH:MM
 ### [YYYY-MM-DD HH:MM] 완료
 - 모든 목표 달성
 - 결과: [요약]
-
----
 
 ## 🎉 결과
 

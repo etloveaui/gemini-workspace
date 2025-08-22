@@ -66,7 +66,7 @@ def check_token_usage() -> Tuple[bool, str]:
         
         conn = sqlite3.connect(str(usage_db))
         cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM usage_log WHERE date >= date('now', '-7 days')")
+        cursor.execute("SELECT COUNT(*) FROM usage_log WHERE timestamp >= date('now', '-7 days')")
         recent_usage = cursor.fetchone()[0]
         conn.close()
         
@@ -124,7 +124,9 @@ def save_diagnosis_report(report: List, fixes_applied: List) -> str:
     return str(report_file)
 
 def main():
-    print("🏥 Preflight Doctor v2.0 시작 - 멀티 에이전트 워크스페이스 진단\n")
+    print("=== Preflight Doctor v2.0 ===")
+    print("멀티 에이전트 워크스페이스 진단")
+    print("===")
     
     # Python 버전 검증 (고급)
     py_version = sys.version_info
@@ -188,47 +190,43 @@ def main():
             except Exception as e:
                 print(f"  ❌ {fix_name} 수정 실패: {e}")
     
-    # 결과 출력 (향상된 형태)
-    print("\n📊 진단 결과:")
-    print("=" * 50)
+    # 결과 출력 (단순 텍스트 형식)
+    print("\n=== 진단 결과 ===")
     
     critical_fails = [r for r in REPORT if r[0] == "[FAIL]" and r[3] == "CRITICAL"]
     high_fails = [r for r in REPORT if r[0] == "[FAIL]" and r[3] == "HIGH"]
     medium_fails = [r for r in REPORT if r[0] == "[FAIL]" and r[3] == "MEDIUM"]
     passes = [r for r in REPORT if r[0] == "[PASS]"]
     
-    for status, name, hint, severity in REPORT:
-        icon = "🔴" if status == "[FAIL]" else "🟢"
-        sev_icon = {"CRITICAL": "🚨", "HIGH": "⚠️", "MEDIUM": "💡", "ERROR": "❌"}.get(severity, "")
-        
-        line = f"{icon} {name}"
+    for idx, (status, name, hint, severity) in enumerate(REPORT, start=1):
+        # Include status token for test visibility (no emojis, simple text)
+        line = f"{idx}) {status} {name}"
         if status == "[FAIL]":
-            line += f" {sev_icon} → {hint}"
+            line += f" - {severity}: {hint}"
         print(line)
     
     # 보고서 저장
     report_file = save_diagnosis_report(REPORT, fixes_applied)
     
-    print("\n" + "=" * 50)
-    print(f"📋 상세 보고서: {report_file}")
+    print("\n=== 보고서 ===")
+    print(f"파일: {report_file}")
     
     # 최종 판정
     if critical_fails:
-        print(f"🚨 치명적 문제 {len(critical_fails)}개 발견! 즉시 해결 필요")
+        print(f"CRITICAL FAILURES: {len(critical_fails)} - 즉시 해결 필요")
         sys.exit(2)
     elif high_fails:
-        print(f"⚠️  중요 문제 {len(high_fails)}개 발견. 해결 권장")
+        print(f"HIGH ISSUES: {len(high_fails)} - 해결 권장")
         sys.exit(1)
     elif medium_fails:
-        print(f"💡 권장 개선사항 {len(medium_fails)}개 있음")
-        print(f"🎉 전체 {len(passes + medium_fails)}개 검사 중 핵심 기능 정상")
+        print(f"MEDIUM SUGGESTIONS: {len(medium_fails)}개")
+        print(f"OK: 핵심 기능 정상, 총 검사 {len(passes + medium_fails)}")
         sys.exit(0)
     else:
-        print(f"🎉 완벽! {len(passes)}개 항목 모두 통과")
+        print(f"ALL PASS: {len(passes)} 항목 통과")
         if fixes_applied:
-            print(f"🔧 자동 수정 {len(fixes_applied)}개 항목 완료")
+            print(f"AUTO FIXES: {len(fixes_applied)} 적용")
         sys.exit(0)
 
 if __name__ == "__main__":
     main()
-

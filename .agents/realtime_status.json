@@ -1,0 +1,21 @@
+{
+  "last_updated": "2025-08-22T14:42:07.768198",
+  "agents": [
+    {
+      "agent": "claude",
+      "status": "assigned",
+      "current_task": "\uc2dc\uc2a4\ud15c \ubaa8\ub2c8\ud130\ub9c1",
+      "started_at": "2025-08-22T14:42:07.760804",
+      "last_heartbeat": "2025-08-22T14:42:07.760804",
+      "priority": 2
+    }
+  ],
+  "active_locks": [
+    {
+      "agent": "claude",
+      "resource": "docs/HUB.md",
+      "timestamp": "2025-08-22T14:40:57.602718",
+      "priority": 0
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "claude-p0-2025-08-20-github-actions-windows-log-docs-tasks-phase1-standardization-package-log-md",
+  "from": "codex",
+  "to": "codex",
+  "type": "task",
+  "title": "✅ [CLAUDE-P0] 표준화 패키지 개발 완료 (2025-08-20) - GitHub Actions 템플릿, Windows 래퍼, 환경 진단 도구 [log](docs/tasks/phase1-standardization-package/log.md)",
+  "created_at": "2025-08-22T04:56:46.001034+00:00",
+  "status": "processing",
+  "claimed_at": "2025-08-22T04:56:46.001034+00:00"
+}

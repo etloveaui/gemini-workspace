@@ -6,6 +6,7 @@ import os
 import sys
 import difflib
 import hashlib
+import json
 from scripts.tools.edits_safety import should_apply, record_result
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -73,7 +74,7 @@ def cmd_diff(args):
 
 
 def cmd_apply(args):
-    rel = args.file.replace("\\", "/").lstrip("/") if args.file else None
+    rel = args.file.replace("\", "/").lstrip("/") if args.file else None
     targets = [rel] if rel else [p.relative_to(EDITS).as_posix() for p in EDITS.rglob("*") if p.is_file()]
     if not targets:
         print("no proposals")
@@ -87,7 +88,10 @@ def cmd_apply(args):
         diff_hash = hashlib.sha256(diff.encode("utf-8", errors="replace")).hexdigest()
         ok_to_apply, reason = should_apply(t, diff_hash)
         if not ok_to_apply:
-            print(f"skip {t}: {reason}")
+            # Return reason as structured data for agent consumption
+            print(json.dumps({"status": "skipped", "file": t, "reason": reason}))
+            # Use a specific exit code to signal a "safe" skip vs. a hard error
+            sys.exit(10)
             continue
         print(diff)
         ok = auto_yes

@@ -1,0 +1,23 @@
+{
+  "auto_backup_enabled": true,
+  "backup_interval_minutes": 30,
+  "max_backups_to_keep": 10,
+  "compression_enabled": true,
+  "exclude_patterns": [
+    "*.tmp",
+    "*.log",
+    "__pycache__",
+    "node_modules",
+    ".git",
+    "venv",
+    "*.pyc",
+    ".agents/cache"
+  ],
+  "priority_dirs": [
+    "scripts",
+    "docs",
+    "communication",
+    "secrets"
+  ],
+  "max_file_size_mb": 100
+}

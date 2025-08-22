@@ -1,0 +1,10 @@
+{
+  "id": "claude-p0-preflight-doctor-v2-0-2025-08-20-log-docs-tasks-phase1-preflight-doctor-v2-log-md",
+  "from": "codex",
+  "to": "codex",
+  "type": "task",
+  "title": "✅ [CLAUDE-P0] Preflight Doctor v2.0 고도화 완료 (2025-08-20) - 환경 검증 자동화, 문제 예측, 자동 수정 구현 [log](docs/tasks/phase1-preflight-doctor-v2/log.md)",
+  "created_at": "2025-08-22T04:56:46.001762+00:00",
+  "status": "processing",
+  "claimed_at": "2025-08-22T04:56:46.001762+00:00"
+}

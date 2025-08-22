@@ -1,0 +1,10 @@
+{
+  "id": "claude-p2-log-docs-tasks-phase3-predictive-monitoring-log-md",
+  "from": "codex",
+  "to": "codex",
+  "type": "task",
+  "title": "[CLAUDE-P2] 예측적 문제 감지 시스템 - 코드 품질 모니터링, 이슈 사전 감지 [log](docs/tasks/phase3-predictive-monitoring/log.md)",
+  "created_at": "2025-08-22T04:56:46.004933+00:00",
+  "status": "processing",
+  "claimed_at": "2025-08-22T04:56:46.004933+00:00"
+}

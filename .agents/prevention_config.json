@@ -1,0 +1,23 @@
+{
+  "auto_prevention_enabled": true,
+  "disk_space_threshold": 85,
+  "project_size_threshold_mb": 1000,
+  "git_changes_threshold": 15,
+  "memory_threshold": 85,
+  "prevention_actions": {
+    "disk_space": [
+      "cleanup_temp",
+      "archive_old_logs"
+    ],
+    "project_bloat": [
+      "compress_backups",
+      "cleanup_duplicates"
+    ],
+    "git_accumulation": [
+      "suggest_commit"
+    ],
+    "memory_high": [
+      "restart_services"
+    ]
+  }
+}

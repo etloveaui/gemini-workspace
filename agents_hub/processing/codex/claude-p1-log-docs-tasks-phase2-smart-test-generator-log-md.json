@@ -1,0 +1,10 @@
+{
+  "id": "claude-p1-log-docs-tasks-phase2-smart-test-generator-log-md",
+  "from": "codex",
+  "to": "codex",
+  "type": "task",
+  "title": "[CLAUDE-P1] 스마트 테스트 생성기 - 커버리지 기반 자동 테스트 생성 [log](docs/tasks/phase2-smart-test-generator/log.md)",
+  "created_at": "2025-08-22T04:56:46.004352+00:00",
+  "status": "processing",
+  "claimed_at": "2025-08-22T04:56:46.004352+00:00"
+}
