@@ -13,12 +13,12 @@ Tips for getting started:
  │ ✔  Shell invoke start (`invoke start`를 실행하여 작업 환경을 …  │
  │                                                                 │
                                  │
- │    args=['C:\\Users\\eunta\\multi-agent-workspace\\v            │
+ │    args=['C:\\Users\\etlov\\multi-agent-workspace\\v            │
                                  │
  │    '-m', 'invoke', 'hub.sync'],                                 │
                │sers\\eunta\\multi-agent-workspace'
                               │ote]
- │    args=['C:\\Users\\eunta\\multi-agent-workspace\\v            │
+ │    args=['C:\\Users\\etlov\\multi-agent-workspace\\v            │
                                  │
                        │ask.autopromote'],
                │sers\\eunta\\multi-agent-workspace'
@@ -28,7 +28,7 @@ Tips for getting started:
                                         │
                                  │
                                          │
- │    args=['C:\\Users\\eunta\\multi-agent-workspace\\v            │
+ │    args=['C:\\Users\\etlov\\multi-agent-workspace\\v            │
                                  │
  │    'scripts/doctor.py'],                                        │
                │sers\\eunta\\multi-agent-workspace'

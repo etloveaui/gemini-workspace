@@ -77,8 +77,8 @@ bc.close()      # 브라우저 종료
 
 ## 📂 작업 파일들
 
-- `C:\Users\eunta\multi-agent-workspace\projects\100xFenok-generator\browser_controller.py` (새로 생성)
-- `C:\Users\eunta\multi-agent-workspace\projects\100xFenok-generator\real_terminalx_generator.py` (수정됨)
+- `C:\Users\etlov\multi-agent-workspace\projects\100xFenok-generator\browser_controller.py` (새로 생성)
+- `C:\Users\etlov\multi-agent-workspace\projects\100xFenok-generator\real_terminalx_generator.py` (수정됨)
 - `communication/claude/archive/` (정리된 어제 프롬프트들)
 
 ## 💡 핵심 인사이트

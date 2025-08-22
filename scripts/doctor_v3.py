@@ -361,7 +361,7 @@ class DoctorV3:
         
         return str(report_file)
 
-def run_doctor_v3(root_path: str = "C:/Users/eunta/multi-agent-workspace") -> Dict:
+def run_doctor_v3(root_path: str = "C:/Users/etlov/multi-agent-workspace") -> Dict:
     """Doctor v3.0 실행"""
     doctor = DoctorV3(root_path)
     return doctor.run_comprehensive_diagnosis()

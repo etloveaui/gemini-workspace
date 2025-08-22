@@ -321,17 +321,17 @@ class TokenOptimizer:
 # 편의 함수들
 def optimize_text(text: str, max_length: int = 2000) -> str:
     """텍스트 빠른 최적화"""
-    optimizer = TokenOptimizer("C:/Users/eunta/multi-agent-workspace")
+    optimizer = TokenOptimizer("C:/Users/etlov/multi-agent-workspace")
     return optimizer.compress_context(text, max_length)
 
 def cleanup_communication_folder() -> Dict[str, int]:
     """통신 폴더 빠른 정리"""
-    optimizer = TokenOptimizer("C:/Users/eunta/multi-agent-workspace")
+    optimizer = TokenOptimizer("C:/Users/etlov/multi-agent-workspace")
     return optimizer.optimize_communication_files()
 
 if __name__ == "__main__":
     from cli_style import header, section, kv, item
-    optimizer = TokenOptimizer("C:/Users/eunta/multi-agent-workspace")
+    optimizer = TokenOptimizer("C:/Users/etlov/multi-agent-workspace")
 
     print(header("Token Optimizer"))
 

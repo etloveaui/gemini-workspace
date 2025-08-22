@@ -240,7 +240,7 @@ class AgentCoordinator:
 # 전역 인스턴스
 coordinator = None
 
-def get_coordinator(root_path: str = "C:/Users/eunta/multi-agent-workspace") -> AgentCoordinator:
+def get_coordinator(root_path: str = "C:/Users/etlov/multi-agent-workspace") -> AgentCoordinator:
     """싱글톤 코디네이터 인스턴스 반환"""
     global coordinator
     if coordinator is None:

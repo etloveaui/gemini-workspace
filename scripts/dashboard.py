@@ -251,7 +251,7 @@ class SystemDashboard:
 def show_dashboard():
     """대시보드 빠른 표시"""
     print(section("Dashboard"))
-    dashboard = SystemDashboard("C:/Users/eunta/multi-agent-workspace")
+    dashboard = SystemDashboard("C:/Users/etlov/multi-agent-workspace")
     print(dashboard.generate_dashboard())
 
 if __name__ == "__main__":

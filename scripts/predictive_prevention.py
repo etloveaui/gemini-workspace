@@ -325,7 +325,7 @@ class PredictivePrevention:
         with open(self.log_file, 'a', encoding='utf-8') as f:
             f.write(json.dumps(log_entry, ensure_ascii=False) + '\n')
 
-def run_predictive_prevention(root_path: str = "C:/Users/eunta/multi-agent-workspace"):
+def run_predictive_prevention(root_path: str = "C:/Users/etlov/multi-agent-workspace"):
     """예측적 방지 실행"""
     prevention = PredictivePrevention(root_path)
     return prevention.run_predictive_analysis()

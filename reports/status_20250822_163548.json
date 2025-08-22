@@ -1,6 +1,6 @@
 {
   "timestamp": "2025-08-22 16:35:48",
-  "workspace_path": "C:\\Users\\eunta\\multi-agent-workspace",
+  "workspace_path": "C:\\Users\\etlov\\multi-agent-workspace",
   "key_files": {
     "CLAUDE.md": true,
     "GEMINI.md": true,
@@ -11,6 +11,6 @@
   },
   "recent_activity": {
     "git_available": false,
-    "latest_report": "C:\\Users\\eunta\\multi-agent-workspace\\reports\\environment_diagnosis_20250822_163503.json"
+    "latest_report": "C:\\Users\\etlov\\multi-agent-workspace\\reports\\environment_diagnosis_20250822_163503.json"
   }
 }

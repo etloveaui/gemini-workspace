@@ -12,7 +12,7 @@ import glob
 
 class AutoStatusUpdater:
     def __init__(self):
-        self.root = Path("C:/Users/eunta/multi-agent-workspace")
+        self.root = Path("C:/Users/etlov/multi-agent-workspace")
         self.hub_file = self.root / "docs" / "HUB.md"
         self.comm_dir = self.root / "communication"
         self.reports_dir = self.root / "reports"

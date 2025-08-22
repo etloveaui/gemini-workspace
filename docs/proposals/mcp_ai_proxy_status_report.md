@@ -136,9 +136,9 @@ Claude Desktop에서 MCP 서버를 사용하려면 다음 설정 필요:
   "mcpServers": {
     "ai-model-proxy": {
       "command": "python",
-      "args": ["C:\\Users\\eunta\\multi-agent-workspace\\scripts\\mcp_ai_proxy.py"],
+      "args": ["C:\\Users\\etlov\\multi-agent-workspace\\scripts\\mcp_ai_proxy.py"],
       "env": {
-        "PYTHONPATH": "C:\\Users\\eunta\\multi-agent-workspace\\scripts"
+        "PYTHONPATH": "C:\\Users\\etlov\\multi-agent-workspace\\scripts"
       }
     }
   }

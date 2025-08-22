@@ -12,7 +12,7 @@
 사용자로부터 다음 작업들이 **승인**되었습니다:
 
 ### 1. 🗂️ claude_code 폴더 삭제
-- **위치**: `C:\Users\eunta\multi-agent-workspace\claude_code\`
+- **위치**: `C:\Users\etlov\multi-agent-workspace\claude_code\`
 - **이유**: 불필요한 중복 폴더로 시스템 혼란 야기
 - **방법**: Python `shutil.rmtree()` 사용 권장 (Windows 안정성)
 
@@ -44,7 +44,7 @@ import shutil
 from pathlib import Path
 
 # 1. claude_code 폴더 삭제
-claude_code_path = Path("C:/Users/eunta/multi-agent-workspace/claude_code")
+claude_code_path = Path("C:/Users/etlov/multi-agent-workspace/claude_code")
 if claude_code_path.exists():
     try:
         shutil.rmtree(claude_code_path)
@@ -53,7 +53,7 @@ if claude_code_path.exists():
         print(f"[오류] 삭제 실패: {e}")
 
 # 2. *.bak 파일 스캔 및 정리
-workspace = Path("C:/Users/eunta/multi-agent-workspace")
+workspace = Path("C:/Users/etlov/multi-agent-workspace")
 bak_files = list(workspace.glob("**/*.bak"))
 for bak_file in bak_files:
     print(f"백업 파일 발견: {bak_file}")

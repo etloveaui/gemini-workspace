@@ -1,0 +1,150 @@
+{
+  "version": "3.0",
+  "timestamp": "20250822_232924",
+  "status": "warning",
+  "checks": [
+    {
+      "status": "[PASS]",
+      "name": "Python >= 3.10",
+      "hint": "현재: 3.12",
+      "severity": "medium"
+    },
+    {
+      "status": "[FAIL]",
+      "name": "가상환경 활성화",
+      "hint": "venv 활성화 필요",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "Git 설치됨",
+      "hint": "git 명령어 사용 가능",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "Invoke 설치됨",
+      "hint": "invoke 명령어 사용 가능",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "Python 설치됨",
+      "hint": "python 명령어 사용 가능",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "핵심 디렉토리: docs",
+      "hint": "필수 디렉토리",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "핵심 디렉토리: scripts",
+      "hint": "필수 디렉토리",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "핵심 디렉토리: communication",
+      "hint": "필수 디렉토리",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "핵심 디렉토리: .agents",
+      "hint": "필수 디렉토리",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "에이전트 설정: CLAUDE.md",
+      "hint": "설정 파일 필요",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "에이전트 설정: GEMINI.md",
+      "hint": "설정 파일 필요",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "에이전트 설정: AGENTS.md",
+      "hint": "설정 파일 필요",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "통신 폴더: claude",
+      "hint": "에이전트 통신 디렉토리",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "통신 폴더: gemini",
+      "hint": "에이전트 통신 디렉토리",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "통신 폴더: codex",
+      "hint": "에이전트 통신 디렉토리",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "실시간 협업 시스템",
+      "hint": "협업 시스템 파일",
+      "severity": "medium"
+    },
+    {
+      "status": "[PASS]",
+      "name": "토큰 최적화 시스템",
+      "hint": "토큰 절약 시스템",
+      "severity": "medium"
+    }
+  ],
+  "performance_metrics": {
+    "cpu_percent": 20.7,
+    "memory_percent": 47.8,
+    "disk_usage": 28.4,
+    "project_size_mb": 152.2139654159546,
+    "total_files": 6065,
+    "git_changes": 66
+  },
+  "predictions": [
+    {
+      "type": "git_accumulation",
+      "severity": "low",
+      "message": "Git 변경사항 과도 누적",
+      "confidence": 60
+    },
+    {
+      "type": "token_usage",
+      "severity": "medium",
+      "message": "토큰 사용량 증가 예상",
+      "confidence": 75
+    }
+  ],
+  "optimizations": [
+    {
+      "type": "organization",
+      "priority": "medium",
+      "action": "파일 구조 정리",
+      "expected_benefit": "탐색 속도 향상"
+    }
+  ],
+  "auto_fixes_applied": [
+    "빈 디렉토리 18개 제거",
+    "파일 권한 정상 확인"
+  ],
+  "summary": {
+    "total_checks": 17,
+    "passed": 16,
+    "failed": 1,
+    "predictions": 2,
+    "fixes_applied": 2
+  }
+}

@@ -10,7 +10,7 @@ from pathlib import Path
 
 def clean_claude_communication():
     """Claude communication 폴더 정리"""
-    base_path = Path("C:/Users/eunta/multi-agent-workspace/communication/claude")
+    base_path = Path("C:/Users/etlov/multi-agent-workspace/communication/claude")
     archive_path = base_path / "archive"
     
     # Archive 폴더 생성

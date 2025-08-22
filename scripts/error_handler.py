@@ -11,7 +11,7 @@ from datetime import datetime
 
 class SmartErrorHandler:
     def __init__(self):
-        self.root = Path("C:/Users/eunta/multi-agent-workspace")
+        self.root = Path("C:/Users/etlov/multi-agent-workspace")
         self.solutions_db = self.root / "docs" / "errors" / "solutions_db.json"
         self.error_log = self.root / "logs" / "errors.log"
         

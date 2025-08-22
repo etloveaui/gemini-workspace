@@ -50,12 +50,12 @@
 ### 3.3. 실행 스크립트 (Windows cmd)
 ```batch
 REM 1. 비어있는 scratchpad/deprecated 폴더 삭제
-rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\scratchpad\deprecated"
+rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\scratchpad\deprecated"
 
 REM 2. archive 내 scratchpad 아카이브 폴더 삭제
-rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\archive\scratchpad_20250819_134637"
-rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\archive\scratchpad_final_cleanup_20250819"
-rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\archive\scratchpad_legacy"
+rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\archive\scratchpad_20250819_134637"
+rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\archive\scratchpad_final_cleanup_20250819"
+rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\archive\scratchpad_legacy"
 
 REM 3. 검색된 백업/레거시 파일 삭제 (경로 확인 후 실행)
 REM    주의: 아래 경로는 예시이며, 실제 파일 경로를 확인 후 실행해야 합니다.
@@ -68,14 +68,14 @@ REM    archive\scratchpad_final_cleanup_20250819\1_daily_logs\HUB_backup_before_
 REM    archive\scratchpad_legacy\1_daily_logs\HUB_backup_before_P0_Debug_17.md
 REM    docs\archive\AGENTS_legacy.md
 
-REM    del "C:\Users\eunta\multi-agent-workspace\communication\claude\20250819_prompt2.md.bak"
-REM    del "C:\Users\eunta\multi-agent-workspace\communication\Memo.md.bak"
-REM    del "C:\Users\eunta\multi-agent-workspace\communication\codex\archive\20250819_prompt.md.bak"
-REM    del "C:\Users\eunta\multi-agent-workspace\communication\codex\archive\quick_template.md.bak"
-REM    del "C:\Users\eunta\multi-agent-workspace\archive\scratchpad_20250819_134637\1_daily_logs\HUB_backup_before_P0_Debug_17.md"
-REM    del "C:\Users\eunta\multi-agent-workspace\archive\scratchpad_final_cleanup_20250819\1_daily_logs\HUB_backup_before_P0_Debug_17.md"
-REM    del "C:\Users\eunta\multi-agent-workspace\archive\scratchpad_legacy\1_daily_logs\HUB_backup_before_P0_Debug_17.md"
-REM    del "C:\Users\eunta\multi-agent-workspace\docs\archive\AGENTS_legacy.md"
+REM    del "C:\Users\etlov\multi-agent-workspace\communication\claude\20250819_prompt2.md.bak"
+REM    del "C:\Users\etlov\multi-agent-workspace\communication\Memo.md.bak"
+REM    del "C:\Users\etlov\multi-agent-workspace\communication\codex\archive\20250819_prompt.md.bak"
+REM    del "C:\Users\etlov\multi-agent-workspace\communication\codex\archive\quick_template.md.bak"
+REM    del "C:\Users\etlov\multi-agent-workspace\archive\scratchpad_20250819_134637\1_daily_logs\HUB_backup_before_P0_Debug_17.md"
+REM    del "C:\Users\etlov\multi-agent-workspace\archive\scratchpad_final_cleanup_20250819\1_daily_logs\HUB_backup_before_P0_Debug_17.md"
+REM    del "C:\Users\etlov\multi-agent-workspace\archive\scratchpad_legacy\1_daily_logs\HUB_backup_before_P0_Debug_17.md"
+REM    del "C:\Users\etlov\multi-agent-workspace\docs\archive\AGENTS_legacy.md"
 ```
 
 ---

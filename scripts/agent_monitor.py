@@ -231,7 +231,7 @@ class AgentMonitor:
             self.file_observer.join()
         print("🔍 모니터링 중지됨")
 
-def start_agent_monitoring(root_path: str = "C:/Users/eunta/multi-agent-workspace"):
+def start_agent_monitoring(root_path: str = "C:/Users/etlov/multi-agent-workspace"):
     """에이전트 모니터링 시작"""
     try:
         monitor = AgentMonitor(root_path)
@@ -264,7 +264,7 @@ if __name__ == "__main__":
         # watchdog 없이 간단한 모니터링
         print("📁 간단 모니터링 모드 (파일 존재 확인)")
         
-        comm_dir = Path("C:/Users/eunta/multi-agent-workspace/communication")
+        comm_dir = Path("C:/Users/etlov/multi-agent-workspace/communication")
         while True:
             for agent in ["claude", "gemini", "codex"]:
                 agent_dir = comm_dir / agent

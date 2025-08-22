@@ -1,38 +1,18 @@
 {
   "system": {
-    "timestamp": "2025-08-22T22:47:59.388513",
+    "timestamp": "2025-08-22 23:27:00.781732",
     "hostname": "ETk-DESKTOP",
     "platform": "Windows-10-10.0.19045-SP0",
-    "processor": "AMD64 Family 25 Model 33 Stepping 2, AuthenticAMD",
-    "python_version": "3.12.5",
     "user": "etlov",
     "working_directory": "C:\\Users\\etlov\\multi-agent-workspace",
     "local_ip": "192.168.0.8"
   },
-  "environment": {
-    "is_company": true,
-    "is_home": false,
-    "is_laptop": false,
-    "location_hints": [
-      "company_desktop",
-      "likely_company"
-    ],
-    "available_drives": [
-      "C",
-      "D",
-      "E",
-      "G",
-      "H",
-      "I",
-      "Z"
-    ],
-    "software_hints": [
-      "git_installed"
-    ]
+  "paths": {
+    "workspace_root": "C:\\Users\\etlov\\multi-agent-workspace",
+    "user_home": "C:\\Users\\etlov",
+    "temp_dir": "C:\\Users\\etlov\\AppData\\Local\\Temp\\multi_agent_workspace\\ETk-DESKTOP-etlov",
+    "reports_dir": "C:\\Users\\etlov\\multi-agent-workspace\\reports",
+    "logs_dir": "C:\\Users\\etlov\\multi-agent-workspace\\logs"
   },
-  "confidence": {
-    "company": 110,
-    "home": 0,
-    "laptop": 0
-  }
+  "environment_id": "ETk-DESKTOP-etlov"
 }

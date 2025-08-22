@@ -219,7 +219,7 @@ dispatched_by: SmartDispatcher
 # 편의 함수들
 def quick_dispatch(title: str, description: str, priority: int = 2) -> str:
     """빠른 작업 할당"""
-    dispatcher = SmartDispatcher("C:/Users/eunta/multi-agent-workspace")
+    dispatcher = SmartDispatcher("C:/Users/etlov/multi-agent-workspace")
     
     task = {
         "title": title,
@@ -243,7 +243,7 @@ if __name__ == "__main__":
         {"title": "시스템 모니터링", "description": "토큰 사용량 추적", "priority": 2}
     ]
     
-    dispatcher = SmartDispatcher("C:/Users/eunta/multi-agent-workspace")
+    dispatcher = SmartDispatcher("C:/Users/etlov/multi-agent-workspace")
     
     for task in test_tasks:
         agent = dispatcher.dispatch_task(task)
