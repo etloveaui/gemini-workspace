@@ -10,6 +10,12 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 from rich.syntax import Syntax
+try:
+    # When imported as package 'scripts.runner'
+    from .cli_style import header, kv
+except ImportError:
+    # When executed as a standalone script
+    from cli_style import header, kv
 from . import agent_manager
 
 console = Console()
@@ -116,7 +122,12 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
     env["PYTHONUTF8"] = "1"
 
     agent = agent_manager.get_active_agent()
-    console.print(f"[bold green][RUN:{task_name}][agent={agent}][/bold green] args={args!r}, cwd={str(effective_cwd)!r}")
+    print(header(f"RUN {task_name}"))
+    print(kv("agent", agent))
+    print(kv("args", args))
+    print(kv("cwd", str(effective_cwd)))
+    # Token for tests and tooling
+    print(f"[RUN:{task_name}]")
 
     try:
         cp = subprocess.run(
@@ -145,16 +156,14 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
             error_message=error_message,
             db_path=db_path
         )
-        console.print(Panel(
-            Text(f"Command failed with exit code {e.returncode}.\n\n[bold red]Stderr:[/bold red]\n{e.stderr}\n\n[bold yellow]Stdout:[/bold yellow]\n{e.stdout}", style="red"),
-            title=f"[bold red]Error in {task_name}[/bold red]",
-            border_style="red"
-        ))
-        console.print(Panel(
-            Text("Possible solutions: Check the command syntax, ensure all dependencies are installed, or verify file paths.", style="cyan"),
-            title="[bold cyan]Suggested Solutions[/bold cyan]",
-            border_style="cyan"
-        ))
+        print("=== ERROR ===")
+        print(kv("task", task_name))
+        print(kv("returncode", e.returncode))
+        print("Stderr:")
+        print(e.stderr)
+        print("Stdout:")
+        print(e.stdout)
+        print("HINT: check syntax, dependencies, and file paths")
         raise
     except FileNotFoundError as e:
         error_type = "FileNotFoundError"
@@ -170,14 +179,9 @@ def run_command(task_name: str, args: list[str], cwd=None, check=True, db_path: 
             error_message=error_message,
             db_path=db_path
         )
-        console.print(Panel(
-            Text(f"Command not found: {e.strerror}.\n\n[bold red]Error Message:[/bold red]\n{e.strerror}", style="red"),
-            title=f"[bold red]Error in {task_name}[/bold red]",
-            border_style="red"
-        ))
-        console.print(Panel(
-            Text("Possible solutions: Ensure the command is correctly spelled and is in your system's PATH. If it's a script, verify its existence and permissions.", style="cyan"),
-            title="[bold cyan]Suggested Solutions[/bold cyan]",
-            border_style="cyan"
-        ))
+        print("=== ERROR ===")
+        print(kv("task", task_name))
+        print("Command not found:")
+        print(e.strerror)
+        print("HINT: verify PATH, spelling, existence, permissions")
         raise

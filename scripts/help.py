@@ -1,5 +1,6 @@
 import sys
 import os
+from cli_style import header, section, kv
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -18,6 +19,9 @@ def main():
         sys.exit(1)
 
     if section_arg == "all":
+        print(header("HELP - all"))
+        print(kv("source", help_file_path))
+        print("===")
         print(content)
     else:
         # Split content by "## " to get sections. The first element will be content before the first section.
@@ -41,8 +45,10 @@ def main():
                 break
 
         if found_section_content:
+            print(header(f"HELP - {section_arg}"))
             print(found_section_content)
         else:
+            print(header("HELP - section not found"))
             print(f"Error: Section '{section_arg}' not found.")
             print("Available sections (case-insensitive):")
             for sec_title in available_sections:

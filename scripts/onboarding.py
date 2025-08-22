@@ -1,23 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""🌟 멀티 에이전트 워크스페이스 온보딩 시스템 - 신규 사용자 가이드"""
+"""멀티 에이전트 워크스페이스 온보딩 시스템 - 신규 사용자 가이드 (단순 텍스트 출력)"""
 
 import sys
 import os
 from pathlib import Path
+from cli_style import header, section, item, kv
 
 sys.stdout.reconfigure(encoding='utf-8')
 
 def welcome_message():
     """환영 메시지 및 시스템 소개"""
-    print("🌟 멀티 에이전트 워크스페이스에 오신 것을 환영합니다!")
-    print("=" * 60)
-    print()
-    print("🎯 이 시스템은 Claude, Gemini, Codex 3개 AI 에이전트가")
-    print("   협업하여 개발 작업을 수행하는 고도화된 워크스페이스입니다.")
-    print()
-    print("🚀 5분 만에 시작할 수 있습니다!")
-    print()
+    print(header("Onboarding"))
+    print(kv("Intro", "Claude, Gemini, Codex 협업 워크스페이스"))
+    print(kv("Getting Started", "5분 내 시작 가능"))
+    print("===")
 
 def step_by_step_guide():
     """단계별 설정 가이드"""
@@ -54,14 +51,14 @@ def step_by_step_guide():
         }
     ]
     
-    print("📋 단계별 설정 가이드:")
-    print("-" * 40)
+    print(section("Step-by-step Guide"))
     
     for step in steps:
-        print(f"\n{step['title']}")
-        print(f"  📝 {step['description']}")
-        print(f"  ⌨️  명령어: {step['command']}")
-        print(f"  ✨ 예상 결과: {step['expected']}")
+        print()
+        print(step['title'])
+        print(kv('Description', step['description']))
+        print(kv('Command', step['command']))
+        print(kv('Expected', step['expected']))
     
     print()
 
@@ -90,36 +87,30 @@ def common_issues():
         }
     ]
     
-    print("🔧 자주 발생하는 문제 해결:")
-    print("-" * 40)
+    print(section("Common Issues"))
     
     for issue in issues:
-        print(f"\n❌ {issue['problem']}")
-        print(f"  💡 해결책: {issue['solution']}")
-        print(f"  📝 설명: {issue['description']}")
+        print()
+        print(section(issue['problem']))
+        print(kv('Solution', issue['solution']))
+        print(kv('Note', issue['description']))
     
     print()
 
 def next_steps():
     """다음 단계 안내"""
-    print("🎯 이제 시작할 준비가 되었습니다!")
-    print("-" * 40)
-    print()
-    print("📚 추가 학습 자료:")
-    print("  • docs/HELP.md - 상세 도움말")
-    print("  • CLAUDE.md, GEMINI.md, AGENTS.md - 각 에이전트 설정 가이드")
-    print("  • docs/HUB.md - 현재 진행 프로젝트 현황")
-    print()
-    print("🚀 첫 번째 작업 추천:")
-    print("  1. python scripts/doctor.py로 시스템 상태 확인")
-    print("  2. 간단한 질문으로 Claude 에이전트 테스트")
-    print("  3. docs/HUB.md에서 관심 있는 프로젝트 확인")
-    print()
-    print("💬 도움이 필요하면:")
-    print("  • python scripts/quick_help.py troubleshoot")
-    print("  • communication/ 폴더의 각 에이전트별 가이드 참고")
-    print()
-    print("🎉 멀티 에이전트 워크스페이스와 함께 즐거운 개발하세요!")
+    print(header("Next Steps"))
+    print(section("Resources"))
+    print(item(1, "docs/HELP.md - 상세 도움말"))
+    print(item(2, "CLAUDE.md, GEMINI.md, AGENTS.md - 에이전트 설정"))
+    print(item(3, "docs/HUB.md - 프로젝트 현황"))
+    print(section("Try This"))
+    print(item(1, "python scripts/doctor.py"))
+    print(item(2, "python claude.py '현재 워크스페이스 상태'"))
+    print(item(3, "docs/HUB.md 검토"))
+    print(section("Help"))
+    print(item(1, "python scripts/quick_help.py troubleshoot"))
+    print(item(2, "communication/ 각 에이전트 가이드 확인"))
 
 def main():
     """메인 온보딩 함수"""

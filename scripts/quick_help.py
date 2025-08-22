@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""🚀 빠른 도움말 시스템 - 멀티 에이전트 워크스페이스용 사용자 경험 개선"""
+"""빠른 도움말 시스템 - 멀티 에이전트 워크스페이스용 사용자 경험 개선 (단순 텍스트 출력)"""
 
 import sys
 import os
+from datetime import datetime
+from pathlib import Path
+from cli_style import header, section, item, kv
 import json
 from pathlib import Path
 from datetime import datetime
@@ -83,42 +86,45 @@ TROUBLESHOOTING = {
 
 def show_quick_guide(topic: str = None):
     """빠른 가이드 표시"""
-    print("🚀 멀티 에이전트 워크스페이스 - 빠른 도움말\n")
+    print(header("Quick Help"))
     
     if not topic or topic == 'all':
-        print("📋 주요 명령어:")
+        print(section("Commands"))
         for cmd, info in QUICK_COMMANDS.items():
-            print(f"\n💡 {info['description']}:")
+            print()
+            print(kv("Description", info['description']))
             for command in info['commands']:
-                print(f"  {command}")
-        
-        print(f"\n🔧 문제 해결: python scripts/quick_help.py troubleshoot")
-        print(f"📊 현재 상태: python scripts/quick_help.py status")
+                print(item(1, command))
+        print()
+        print(kv("Troubleshoot", "python scripts/quick_help.py troubleshoot"))
+        print(kv("Status", "python scripts/quick_help.py status"))
         
     elif topic in QUICK_COMMANDS:
         cmd_info = QUICK_COMMANDS[topic]
-        print(f"💡 {cmd_info['description']}:")
+        print(section("Topic"))
+        print(kv("Description", cmd_info['description']))
         for command in cmd_info['commands']:
-            print(f"  {command}")
+            print(item(1, command))
     else:
-        print(f"❌ 알 수 없는 주제: {topic}")
-        print(f"💡 사용 가능한 주제: {', '.join(QUICK_COMMANDS.keys())}")
+        print(section("Unknown Topic"))
+        print(kv("topic", topic))
+        print(kv("available", ", ".join(QUICK_COMMANDS.keys())))
 
 def show_troubleshooting():
     """문제 해결 가이드 표시"""
-    print("🔧 자주 발생하는 문제 해결 가이드\n")
+    print(header("Troubleshooting"))
     
     for problem, info in TROUBLESHOOTING.items():
-        print(f"❌ {problem}:")
-        print(f"  증상: {', '.join(info['symptoms'])}")
-        print(f"  해결책:")
+        print(section(problem))
+        print(kv("Symptoms", ', '.join(info['symptoms'])))
+        print(kv("Solutions", ""))
         for solution in info['solutions']:
-            print(f"    • {solution}")
+            print(item(1, solution))
         print()
 
 def show_status():
     """현재 워크스페이스 상태 표시"""
-    print("📊 워크스페이스 현재 상태\n")
+    print(header("Workspace Status"))
     
     workspace_root = Path(__file__).parent.parent
     
@@ -140,15 +146,15 @@ def show_status():
         'secrets/my_sensitive_data.md': '민감 정보'
     }
     
+    print(section("Key Files"))
     for file_path, description in key_files.items():
         full_path = workspace_root / file_path
         exists = full_path.exists()
-        icon = "✅" if exists else "❌"
         status['key_files'][file_path] = exists
-        print(f"  {icon} {description}: {file_path}")
+        print(item(1, f"{description}: {file_path} - {'OK' if exists else 'MISSING'}"))
     
     # 최근 활동 확인
-    print(f"\n📈 최근 활동:")
+    print(section("Recent Activity"))
     
     # Git 최근 커밋
     try:
@@ -156,13 +162,13 @@ def show_status():
         result = subprocess.run(['git', 'log', '--oneline', '-3'], 
                               capture_output=True, text=True, cwd=workspace_root)
         if result.returncode == 0:
-            print(f"  🔄 최근 커밋:")
+            print(kv("Recent commits", ""))
             for line in result.stdout.strip().split('\n')[:3]:
                 if line:
-                    print(f"    {line}")
+                    print(item(1, line))
         status['recent_activity']['git_available'] = True
     except Exception:
-        print(f"  ❌ Git 히스토리 조회 실패")
+        print(kv("Git history", "ERROR"))
         status['recent_activity']['git_available'] = False
     
     # 보고서 파일 확인
@@ -171,7 +177,7 @@ def show_status():
         report_files = list(reports_dir.glob('*.json'))
         if report_files:
             latest_report = max(report_files, key=os.path.getctime)
-            print(f"  📋 최신 보고서: {latest_report.name}")
+            print(kv("Latest report", latest_report.name))
             status['recent_activity']['latest_report'] = str(latest_report)
     
     # 상태 저장
@@ -181,7 +187,8 @@ def show_status():
     with open(status_file, 'w', encoding='utf-8') as f:
         json.dump(status, f, ensure_ascii=False, indent=2)
     
-    print(f"\n📋 상세 상태 보고서: {status_file}")
+    print(section("Report"))
+    print(kv("File", status_file))
 
 def main():
     """메인 함수"""
@@ -200,9 +207,10 @@ def main():
     elif command == 'all':
         show_quick_guide('all')
     else:
-        print(f"❌ 알 수 없는 명령어: {command}")
-        print(f"\n사용법: python scripts/quick_help.py [명령어]")
-        print(f"명령어: {', '.join(['all', 'troubleshoot', 'status'] + list(QUICK_COMMANDS.keys()))}")
+        print(section("Unknown Command"))
+        print(kv("command", command))
+        print(kv("usage", "python scripts/quick_help.py [명령어]"))
+        print(kv("commands", ', '.join(['all', 'troubleshoot', 'status'] + list(QUICK_COMMANDS.keys()))))
 
 if __name__ == "__main__":
     main()

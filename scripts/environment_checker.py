@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""🔍 환경 차이 진단 도구 - 집/회사 환경 차이점 분석"""
+"""환경 차이 진단 도구 - 집/회사 환경 차이점 분석 (단순 텍스트 출력)"""
 
 import os
 import sys
@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any
+from cli_style import header, section, item, kv
 
 def get_git_config() -> Dict[str, str]:
     """Git 설정 정보 수집"""
@@ -193,7 +194,7 @@ def main():
         sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
         sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
     
-    print("🔍 멀티 에이전트 워크스페이스 환경 진단 시작\n")
+    print(header("Environment Diagnosis"))
     
     # 데이터 수집
     diagnosis_data = {
@@ -207,29 +208,33 @@ def main():
     }
     
     # 결과 출력
-    print(f"🏠 감지된 환경: {diagnosis_data['environment_type'].upper()}")
-    print(f"🖥️  시스템: {diagnosis_data['system_info']['platform']}")
-    print(f"🐍 Python: {diagnosis_data['system_info']['python_version'].split()[0]}")
-    print(f"📧 Git 사용자: {diagnosis_data['git_config'].get('user.name', 'NOT_SET')} <{diagnosis_data['git_config'].get('user.email', 'NOT_SET')}>")
+    print(section("Summary"))
+    print(kv("Environment", diagnosis_data['environment_type'].upper()))
+    print(kv("System", diagnosis_data['system_info']['platform']))
+    print(kv("Python", diagnosis_data['system_info']['python_version'].split()[0]))
+    print(kv("Git User", f"{diagnosis_data['git_config'].get('user.name', 'NOT_SET')} <{diagnosis_data['git_config'].get('user.email', 'NOT_SET')} >"))
     
     # 차이점 분석
     differences = analyze_differences(diagnosis_data)
     if differences:
-        print("\n⚠️  감지된 차이점:")
+        print(section("Differences"))
         for category, diffs in differences.items():
             if diffs:
-                print(f"  {category}:")
+                print(kv("Category", category))
+                idx = 1
                 for key, diff in diffs.items():
-                    print(f"    {key}: {diff['current']} (예상: {diff['expected']})")
+                    print(item(idx, f"{key}: current={diff['current']} expected={diff['expected']}"))
+                    idx += 1
     
     # 권장사항
     recommendations = generate_recommendations(diagnosis_data)
     if recommendations:
-        print("\n💡 개선 권장사항:")
+        print(section("Recommendations"))
         for i, rec in enumerate(recommendations, 1):
-            print(f"  {i}. {rec}")
+            print(item(i, rec))
     else:
-        print("\n✅ 환경 설정이 최적화되어 있습니다")
+        print(section("Recommendations"))
+        print("OK: 환경 설정 최적화")
     
     # 보고서 저장
     reports_dir = Path(__file__).parent.parent / 'reports'
@@ -239,12 +244,13 @@ def main():
     with open(report_file, 'w', encoding='utf-8') as f:
         json.dump(diagnosis_data, f, ensure_ascii=False, indent=2)
     
-    print(f"\n📋 상세 보고서: {report_file}")
+    print(section("Report"))
+    print(kv("File", report_file))
     
     # Windows 래퍼 사용 안내
-    print("\n🔧 Windows 환경 최적화:")
-    print("  scripts/windows_wrapper.ps1 -Command encoding-check")
-    print("  scripts/windows_wrapper.ps1 -Command git-commit -Message 'message'")
+    print(section("Windows Tips"))
+    print(item(1, "scripts/windows_wrapper.ps1 -Command encoding-check"))
+    print(item(2, "scripts/windows_wrapper.ps1 -Command git-commit -Message 'message'"))
 
 if __name__ == "__main__":
     main()

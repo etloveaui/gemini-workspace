@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Claude 사용량 제한 모니터링 시스템
+Claude 사용량 제한 모니터링 시스템 (단순 텍스트 출력)
 - 토큰 사용량 추적 및 제한 임박 시 경고
 - API 호출 빈도 모니터링
 - 사용량 패턴 분석 및 최적화 제안
@@ -12,6 +12,7 @@ import json
 import time
 import sqlite3
 from datetime import datetime, timedelta
+from cli_style import header, section, item, kv
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -338,14 +339,12 @@ def main():
     
     if args.status:
         status = monitor.get_current_status()
-        print("\n📊 Claude 사용량 현재 상태")
-        print("="*40)
-        print(f"시간당 메시지: {status['current_usage']['messages_hour']}/{status['limits']['messages_per_hour']} ({status['percentages']['messages_hour']:.1f}%)")
-        print(f"시간당 토큰:   {status['current_usage']['tokens_hour']:,}/{status['limits']['tokens_per_hour']:,} ({status['percentages']['tokens_hour']:.1f}%)")
-        print(f"일일 메시지:   {status['current_usage']['messages_day']}/{status['limits']['messages_per_day']} ({status['percentages']['messages_day']:.1f}%)")
-        print(f"일일 토큰:     {status['current_usage']['tokens_day']:,}/{status['limits']['tokens_per_day']:,} ({status['percentages']['tokens_day']:.1f}%)")
-        print(f"경고 레벨:     {status['warning_level'].upper()}")
-        print("="*40)
+        print(header("Usage Status"))
+        print(kv("messages/hour", f"{status['current_usage']['messages_hour']}/{status['limits']['messages_per_hour']} ({status['percentages']['messages_hour']:.1f}%)"))
+        print(kv("tokens/hour", f"{status['current_usage']['tokens_hour']:,}/{status['limits']['tokens_per_hour']:,} ({status['percentages']['tokens_hour']:.1f}%)"))
+        print(kv("messages/day", f"{status['current_usage']['messages_day']}/{status['limits']['messages_per_day']} ({status['percentages']['messages_day']:.1f}%)"))
+        print(kv("tokens/day", f"{status['current_usage']['tokens_day']:,}/{status['limits']['tokens_per_day']:,} ({status['percentages']['tokens_day']:.1f}%)"))
+        print(kv("warning", status['warning_level'].upper()))
     
     elif args.record:
         tool_name, tokens_str, time_str = args.record
@@ -353,21 +352,26 @@ def main():
             tokens = int(tokens_str)
             exec_time = float(time_str)
             monitor.record_usage(tool_name, tokens, exec_time)
-            print(f"사용량 기록 완료: {tool_name} ({tokens} 토큰, {exec_time}초)")
+            print(header("Record Usage"))
+            print(kv("tool", tool_name))
+            print(kv("tokens", tokens))
+            print(kv("exec_time_s", exec_time))
         except ValueError:
-            print("오류: 토큰수와 실행시간은 숫자여야 합니다.")
+            print(header("ERROR"))
+            print("토큰수와 실행시간은 숫자여야 합니다.")
     
     else:
         # 기본: 보고서 생성
         report = monitor.generate_usage_report(args.report)
-        print(report)
-        
-        # 파일로도 저장
+        # 요약 출력 (콘솔)
+        print(header("Usage Report"))
+        print(kv("days", args.report))
+        # 파일로 저장
         report_file = monitor.workspace_path / "docs" / "usage_report.md"
         report_file.parent.mkdir(exist_ok=True)
         with open(report_file, 'w', encoding='utf-8') as f:
             f.write(report)
-        print(f"\n📄 보고서 저장됨: {report_file}")
+        print(kv("saved", report_file))
 
 if __name__ == "__main__":
     main()

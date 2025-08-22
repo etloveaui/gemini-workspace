@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Preflight Doctor v3.0 - AI 기반 예측 진단 시스템
+Preflight Doctor v3.0 - AI 기반 예측 진단 시스템 (단순 텍스트 출력)
 - 문제 예측 및 사전 감지
-- 자동 수정 범위 확대  
+- 자동 수정 범위 확대
 - 성능 최적화 제안
 - 멀티 에이전트 환경 특화
 """
@@ -55,7 +55,8 @@ class DoctorV3:
     
     def run_comprehensive_diagnosis(self) -> Dict:
         """포괄적 진단 실행"""
-        print("🏥 Preflight Doctor v3.0 - AI 예측 진단 시작\n")
+        from cli_style import header
+        print(header("Preflight Doctor v3.0"))
         
         # 1. 기본 시스템 체크
         self._basic_system_checks()
@@ -134,17 +135,19 @@ class DoctorV3:
             except:
                 self.performance_metrics["git_changes"] = -1
             
-            print(f"📊 성능 메트릭 수집 완료:")
-            print(f"   CPU: {self.performance_metrics['cpu_percent']:.1f}%")
-            print(f"   메모리: {self.performance_metrics['memory_percent']:.1f}%")
-            print(f"   프로젝트 크기: {self.performance_metrics['project_size_mb']:.1f}MB")
+            from cli_style import section, kv
+            print(section("Performance Metrics"))
+            print(kv("CPU", f"{self.performance_metrics['cpu_percent']:.1f}%"))
+            print(kv("Memory", f"{self.performance_metrics['memory_percent']:.1f}%"))
+            print(kv("Project Size", f"{self.performance_metrics['project_size_mb']:.1f}MB"))
             
         except Exception as e:
-            print(f"⚠️ 성능 메트릭 수집 실패: {e}")
+            print(f"WARN: 성능 메트릭 수집 실패: {e}")
     
     def _predictive_analysis(self):
         """예측적 문제 분석"""
-        print("\n🔮 예측적 문제 감지 중...")
+        from cli_style import section, kv
+        print(section("Predictive Analysis"))
         
         # 1. 디스크 공간 예측
         if self.performance_metrics.get("disk_usage", 0) > 80:
@@ -183,7 +186,7 @@ class DoctorV3:
                 "confidence": 75
             })
         
-        print(f"   🎯 {len(self.predictions)}개 잠재적 문제 예측됨")
+        print(kv("predictions", len(self.predictions)))
     
     def _multi_agent_checks(self):
         """멀티 에이전트 환경 특화 체크"""
@@ -247,7 +250,8 @@ class DoctorV3:
         """자동 수정 실행"""
         fixes_applied = []
         
-        print("\n🔧 자동 수정 실행 중...")
+        from cli_style import section
+        print(section("Auto Fixes"))
         
         # 1. 간단한 정리 작업
         try:
@@ -349,11 +353,11 @@ def run_doctor_v3(root_path: str = "C:/Users/eunta/multi-agent-workspace") -> Di
     return doctor.run_comprehensive_diagnosis()
 
 if __name__ == "__main__":
+    from cli_style import header, kv
     result = run_doctor_v3()
-    
-    print(f"\n🏥 Doctor v3.0 진단 완료!")
-    print(f"📊 전체 상태: {result['status']}")
-    print(f"🔧 자동 수정: {result['fixes_applied']}개")
-    print(f"🔮 예측 분석: {result['predictions']}개")
-    print(f"⚡ 최적화 제안: {result['optimizations']}개")
-    print(f"📋 상세 보고서: {result['report_file']}")
+    print(header("Doctor v3.0 Done"))
+    print(kv("status", result['status']))
+    print(kv("fixes_applied", result['fixes_applied']))
+    print(kv("predictions", result['predictions']))
+    print(kv("optimizations", result['optimizations']))
+    print(kv("report", result['report_file']))

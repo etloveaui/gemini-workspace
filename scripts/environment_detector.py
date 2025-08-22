@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-환경 감지 시스템 - 토큰을 절약하면서 작업 위치 파악
+환경 감지 시스템 - 토큰을 절약하면서 작업 위치 파악 (단순 텍스트 출력)
 집/회사/노트북 등 여러 위치에서 작업할 때 자동으로 환경을 감지
 """
 import os
@@ -9,6 +9,7 @@ import socket
 import json
 from pathlib import Path
 from datetime import datetime
+from cli_style import header, section, item, kv
 
 def detect_environment():
     """현재 작업 환경을 감지하고 기록"""
@@ -125,7 +126,8 @@ def save_environment_profile():
     with open(profile_file, 'w', encoding='utf-8') as f:
         json.dump(env_data, f, indent=2, ensure_ascii=False)
     
-    print(f"✅ 환경 프로필 저장: {profile_file}")
+    print(header("Environment Profile"))
+    print(kv("Saved", profile_file))
     return env_data
 
 def get_current_environment_summary():
@@ -147,10 +149,10 @@ def get_current_environment_summary():
 if __name__ == "__main__":
     # 환경 감지 및 저장
     profile = save_environment_profile()
-    
+
     # 간단한 요약 출력
     summary = get_current_environment_summary()
-    print("\n📍 현재 환경 요약:")
-    print(f"   위치 추정: {summary['location']} (신뢰도: {summary['confidence']}%)")
-    print(f"   호스트명: {summary['hostname']}")
-    print(f"   시간: {summary['time']}")
+    print(section("Environment Summary"))
+    print(kv("Location", f"{summary['location']} ({summary['confidence']}%)"))
+    print(kv("Hostname", summary['hostname']))
+    print(kv("Time", summary['time']))
