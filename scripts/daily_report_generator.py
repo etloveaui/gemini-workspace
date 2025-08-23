@@ -119,8 +119,13 @@ def fix_past_day_issues():
     # 오늘 날짜로 파일 생성
     today_file = generate_daily_file("claude", days_ago=0)
     
+    # 다른 에이전트들도 동일하게 생성
+    gemini_today = generate_daily_file("gemini", days_ago=0)
+    codex_today = generate_daily_file("codex", days_ago=0)
+    
     print("[OK] Past Day 문제 해결 완료!")
-    return [yesterday_file, today_file]
+    print("[OK] 모든 에이전트용 daily_work.md 생성 완료!")
+    return [yesterday_file, today_file, gemini_today, codex_today]
 
 def main():
     """메인 실행 함수"""
