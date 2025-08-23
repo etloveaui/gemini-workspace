@@ -2,12 +2,11 @@
   "projectRoot": ".",
   "servers": {
     "filesystem": {
-      "enabled": false,
-      "command": "python",
-      "args": ["-m", "mcp_filesystem"],
-      "env": {
-        "PROJECT_ROOT": "${PROJECT_ROOT}"
-      }
+      "enabled": true,
+      "command": "python", 
+      "args": ["${PROJECT_ROOT}/src/ai_integration/mcp_servers/filesystem_server.py"],
+      "env": {},
+      "description": "프로젝트 파일시스템 안전 접근"
     },
     "brave-search": {
       "enabled": false,
@@ -15,13 +14,29 @@
       "args": ["-y", "@mcp/brave", "--stdio"],
       "env": {
         "BRAVE_API_KEY": "${BRAVE_API_KEY}"
-      }
+      },
+      "description": "Brave 검색 엔진 통합 (API 키 필요)"
     },
     "desktop-commander": {
       "enabled": false,
       "command": "python",
       "args": ["-m", "mcp_desktop"],
-      "env": {}
+      "env": {},
+      "description": "데스크톱 자동화 도구"
+    },
+    "workspace": {
+      "enabled": true,
+      "command": "python",
+      "args": ["${PROJECT_ROOT}/src/ai_integration/mcp_servers/workspace_server.py"],
+      "env": {},
+      "description": "워크스페이스 컨텍스트 및 에이전트 상태"
+    },
+    "sqlite": {
+      "enabled": false,
+      "command": "python",
+      "args": ["-m", "mcp_sqlite", "--db-path", "${PROJECT_ROOT}/usage.db"],
+      "env": {},
+      "description": "SQLite 데이터베이스 연결 (별도 설치 필요)"
     }
   }
 }

@@ -4,8 +4,7 @@ from pathlib import Path
 
 # Optional MCP python SDK (if installed)
 try:
-    from mcp import ClientSession
-    from mcp.transport.stdio import StdioServerParameters, stdio_client
+    from mcp import ClientSession, StdioServerParameters, stdio_client
     HAVE_MCP = True
 except Exception:
     HAVE_MCP = False
@@ -78,26 +77,86 @@ async def connect_all():
         cmd, args, env = params
         server = StdioServerParameters(command=cmd, args=args, env=env)
         try:
-            (read, write) = await stdio_client(server)
-            session = ClientSession(read, write)
-            await session.initialize()
-            tools = await session.list_tools()
-            sessions[name] = (session, {t.name: t for t in tools.tools})
-            print(f"[mcp_client] connected: {name} ({len(tools.tools)} tools)")
+            # 실제 MCP 서버 연결 구현
+            transport = StdioServerParameters(command=cmd, args=args, env=env)
+            
+            # stdio_client를 컨텍스트 매니저 없이 직접 사용
+            import asyncio
+            import subprocess
+            
+            # 프로세스 실행
+            process = await asyncio.create_subprocess_exec(
+                cmd, *args,
+                env=env,
+                stdin=asyncio.subprocess.PIPE,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            
+            # MCP 클라이언트 세션 생성 (올바른 방식)
+            session = ClientSession(process.stdout, process.stdin)
+            
+            # 초기화 및 도구 목록 조회
+            try:
+                await asyncio.wait_for(session.initialize(), timeout=5.0)
+                tools_response = await asyncio.wait_for(session.list_tools(), timeout=5.0)
+                
+                # 도구 목록 구성
+                tools_dict = {}
+                if hasattr(tools_response, 'tools'):
+                    for tool in tools_response.tools:
+                        tools_dict[tool.name] = {
+                            "name": tool.name,
+                            "description": getattr(tool, 'description', ''),
+                            "schema": getattr(tool, 'inputSchema', {})
+                        }
+                
+                sessions[name] = (session, tools_dict)
+                print(f"[mcp_client] connected: {name} ({len(tools_dict)} tools)", file=sys.stderr)
+                
+            except asyncio.TimeoutError:
+                # 타임아웃 시 프로세스 정리
+                process.terminate()
+                await process.wait()
+                raise Exception("연결 타임아웃")
+                
         except Exception as e:
             print(f"[mcp_client] {name} 연결 실패: {e}", file=sys.stderr)
     return sessions
 
 async def call_tool(session, tool_name: str, args: dict | None = None):
+    """실제 MCP 도구 호출"""
     args = args or {}
-    res = await session.call_tool(tool_name, arguments=args)
-    parts = []
-    for c in res.content or []:
-        if getattr(c, "type", "") == "text":
-            parts.append(getattr(c, "text", ""))
-        elif isinstance(c, dict) and c.get("type") == "text":
-            parts.append(c.get("text") or "")
-    return "\n".join(p for p in parts if p).strip()
+    
+    if session is None:
+        return "[ERROR] MCP 세션이 연결되지 않았습니다"
+    
+    try:
+        # MCP 도구 호출
+        import asyncio
+        result = await asyncio.wait_for(
+            session.call_tool(tool_name, arguments=args), 
+            timeout=10.0
+        )
+        
+        # 응답 처리
+        if hasattr(result, 'content') and result.content:
+            parts = []
+            for content in result.content:
+                if hasattr(content, 'text'):
+                    parts.append(content.text)
+                elif isinstance(content, dict) and 'text' in content:
+                    parts.append(content['text'])
+                elif isinstance(content, str):
+                    parts.append(content)
+            return "\n".join(parts) if parts else str(result)
+        else:
+            return str(result)
+            
+    except asyncio.TimeoutError:
+        return "[ERROR] MCP 도구 호출 타임아웃"
+    except Exception as e:
+        return f"[ERROR] MCP 도구 호출 실패: {e}"
 
 def read_file_direct(path: str) -> str:
     p = (REPO_ROOT / path).resolve()
