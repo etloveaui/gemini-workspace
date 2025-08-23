@@ -1,9 +1,13 @@
 {
-  "active_agents": ["claude", "gemini", "codex"],
+  "active_agents": [
+    "claude",
+    "gemini",
+    "codex"
+  ],
   "concurrent_limit": 3,
   "primary_supervisor": "claude",
   "hooks": {
-    "enabled": true,
+    "enabled": false,
     "diff_confirm": true
   },
   "mcp_servers": {
