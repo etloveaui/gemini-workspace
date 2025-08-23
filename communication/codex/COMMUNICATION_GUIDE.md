@@ -9,8 +9,6 @@
 - **디버깅 마스터**: 복잡한 버그 수정, 성능 튜닝
 - **품질 관리**: 코드 리뷰, 테스팅, 리팩토링
 
----
-
 ## 📁 **Communication 폴더 사용법**
 
 ### **파일 구조**
@@ -22,13 +20,10 @@ communication/codex/
 ├── algorithms.md        ← 알고리즘 구현
 ├── testing.md          ← 테스트 작업
 └── templates/          ← 표준 템플릿
-```
 
 ### **파일명 규칙**
 - `YYYYMMDD_작업유형.md` (예: `20250819_performance_fix.md`)
 - **작업 유형**: `review`, `debug`, `optimize`, `implement`, `test`
-
----
 
 ## 📝 **워크플로우 (토큰 최적화)**
 
@@ -40,15 +35,8 @@ communication/codex/
 - 현재 성능: 2.3초
 - 목표 성능: 1.0초 이하
 - 대상 파일: src/database.py:145-210
-```
 
 ### **Step 2: Codex 응답 (같은 파일에)**
-```markdown
-## 새 요청 (14:30)
-- 요청: database.py 쿼리 성능 50% 개선
-- 현재 성능: 2.3초  
-- 목표 성능: 1.0초 이하
-- 대상 파일: src/database.py:145-210
 
 **Codex 분석 결과:**
 - 병목점 식별: N+1 쿼리 문제, 인덱스 부재
@@ -59,21 +47,15 @@ communication/codex/
 
 ## 추가 요청 (15:45)
 - 요청: [새로운 요청]
-```
-
----
 
 ## 💻 **Codex 전용 템플릿**
 
 ### **버그 수정 템플릿**
-```markdown
----
 agent: codex
 priority: P0|P1|P2
 status: pending
 created: YYYY-MM-DD HH:MM
 bug_type: logic|memory|performance|security
----
 
 # 버그 수정: [제목]
 
@@ -92,7 +74,6 @@ bug_type: logic|memory|performance|security
 - **관련 코드**: 
 ```python
 # 문제가 있는 코드
-```
 
 ## 🔧 해결 방법
 - **수정 전략**: 
@@ -104,10 +85,8 @@ bug_type: logic|memory|performance|security
 - [ ] 회귀 테스트 통과  
 - [ ] 성능 영향 확인
 - [ ] 코드 리뷰 완료
-```
 
 ### **성능 최적화 템플릿**
-```markdown
 # 성능 최적화: [제목]
 
 ## 📊 현재 성능 지표
@@ -123,9 +102,6 @@ bug_type: logic|memory|performance|security
   - 원인: 
   
 - **병목점 2**: 
-  - 위치: `파일명:라인`  
-  - 비중: %
-  - 원인: 
 
 ## ⚡ 최적화 전략
 1. **알고리즘 개선**: 
@@ -138,31 +114,22 @@ bug_type: logic|memory|performance|security
 - **개선 비율**: %
 - **메모리 사용량**: 
 - **안정성 검증**: ✅/❌
-```
-
----
 
 ## 🤝 **다른 에이전트와의 협업**
 
 ### **Claude에게 전달**
 전체 아키텍처 수정이나 설계 변경이 필요할 때:
-```markdown
 @Claude: 아키텍처 검토 요청
 - 현재 문제: [성능/구조적 문제]
 - 제안 사항: [구체적 개선안]
 - 영향 범위: [관련 모듈들]
-```
 
 ### **Gemini에게 전달**
 대량 코드 변환이나 반복 작업이 필요할 때:
-```markdown
 @Gemini: 대량 리팩토링 요청
 - 변환 규칙: old_pattern → new_pattern
 - 대상 파일: 00개 파일
 - 예외 조건: [특별 처리 규칙]
-```
-
----
 
 ## 🚀 **Codex만의 강점 활용**
 
@@ -170,8 +137,6 @@ bug_type: logic|memory|performance|security
 2. **알고리즘 최적화**: 복잡도 개선과 효율성 극대화
 3. **코드 품질**: 가독성, 유지보수성, 확장성 향상
 4. **테스트 전략**: 포괄적인 테스트 케이스 설계
-
----
 
 ## 📋 **중요 규칙**
 
@@ -185,8 +150,6 @@ bug_type: logic|memory|performance|security
 - `projects/` 폴더를 메인 워크스페이스 Git에 포함
 - 대량 반복 작업 (→ Gemini에게 전달)
 - 전체 시스템 아키텍처 변경 (→ Claude에게 전달)
-
----
 
 ## 🔧 **코드 품질 체크리스트**
 
@@ -203,7 +166,5 @@ bug_type: logic|memory|performance|security
 3. **I/O 및 네트워크 최적화**  
 4. **메모리 사용량 최적화**
 5. **코드 수준 미세 최적화**
-
----
 
 **🎯 Codex의 목표: 최고 품질의 코드로 시스템 안정성과 성능 극대화!**

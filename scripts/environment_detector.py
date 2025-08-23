@@ -41,16 +41,20 @@ def detect_environment():
     
     hostname = system_info["hostname"].lower()
     
-    # 호스트명으로 환경 추정
-    if any(word in hostname for word in ['desktop', 'pc', 'work', 'office']):
+    # 호스트명으로 환경 추정 (명시적 키워드만)
+    if any(word in hostname for word in ['work', 'office', 'corp', 'company']):
         environment_hints["is_company"] = True
-        environment_hints["location_hints"].append("company_desktop")
+        environment_hints["location_hints"].append("company_host")
     elif any(word in hostname for word in ['laptop', 'book', 'mobile']):
         environment_hints["is_laptop"] = True
         environment_hints["location_hints"].append("laptop")
-    elif any(word in hostname for word in ['home', 'personal']):
+    elif any(word in hostname for word in ['home', 'personal']) or hostname.startswith('etk-'):
         environment_hints["is_home"] = True
-        environment_hints["location_hints"].append("home")
+        environment_hints["location_hints"].append("home_host")
+    elif 'desktop' in hostname:
+        # desktop은 개인용일 가능성 높음
+        environment_hints["is_home"] = True
+        environment_hints["location_hints"].append("home_desktop")
     
     # 드라이브 구성으로 추정 (Windows)
     if platform.system() == "Windows":
@@ -60,9 +64,10 @@ def detect_environment():
                 drives.append(letter)
         environment_hints["available_drives"] = drives
         
-        # 회사 환경은 보통 더 많은 드라이브가 마운트됨
-        if len(drives) > 3:
-            environment_hints["location_hints"].append("likely_company")
+        # 드라이브 수는 환경 판단에 사용하지 않음 (개인용도 많을 수 있음)
+        # 특정 네트워크 드라이브나 패턴이 있을 때만 회사로 판단
+        if any(d in drives for d in ['Z', 'Y', 'X']) and len(drives) > 5:
+            environment_hints["location_hints"].append("network_drives")
     
     # 설치된 소프트웨어로 추정
     software_hints = []
@@ -73,10 +78,17 @@ def detect_environment():
     
     environment_hints["software_hints"] = software_hints
     
-    # 현재 시간으로 추정 (업무 시간대면 회사일 가능성)
-    current_hour = datetime.now().hour
-    if 9 <= current_hour <= 18:
+    # 시간대 + 요일 체크 (평일 업무시간만 회사 힌트)
+    now = datetime.now()
+    current_hour = now.hour
+    is_weekday = now.weekday() < 5  # 0=월요일, 4=금요일
+    
+    if is_weekday and 9 <= current_hour <= 18:
         environment_hints["location_hints"].append("business_hours")
+    elif not is_weekday:
+        environment_hints["location_hints"].append("weekend_hours")
+    elif current_hour < 9 or current_hour > 18:
+        environment_hints["location_hints"].append("off_hours")
     
     result = {
         "system": system_info,
@@ -87,7 +99,7 @@ def detect_environment():
     return result
 
 def calculate_confidence(hints):
-    """환경 추정 신뢰도 계산"""
+    """환경 추정 신뢰도 계산 (개선된 알고리즘)"""
     confidence = {
         "company": 0,
         "home": 0,
@@ -95,19 +107,28 @@ def calculate_confidence(hints):
     }
     
     for hint in hints["location_hints"]:
-        if "company" in hint or "business" in hint:
-            confidence["company"] += 30
-        if "home" in hint:
+        if "company" in hint or "business_hours" in hint:
+            confidence["company"] += 20  # 낮춤
+        elif "network_drives" in hint:
+            confidence["company"] += 40  # 네트워크 드라이브는 강한 신호
+        elif "home" in hint or "weekend_hours" in hint or "off_hours" in hint:
             confidence["home"] += 30
-        if "laptop" in hint:
+        elif "laptop" in hint:
             confidence["laptop"] += 40
     
+    # 명시적 플래그는 강한 가중치
     if hints["is_company"]:
-        confidence["company"] += 50
+        confidence["company"] += 60
     if hints["is_home"]:
-        confidence["home"] += 50
+        confidence["home"] += 60
     if hints["is_laptop"]:
         confidence["laptop"] += 50
+    
+    # 상호배타적 조정 (집과 회사는 동시에 높을 수 없음)
+    if confidence["home"] > confidence["company"] + 20:
+        confidence["company"] = max(0, confidence["company"] - 20)
+    elif confidence["company"] > confidence["home"] + 20:
+        confidence["home"] = max(0, confidence["home"] - 20)
     
     return confidence
 

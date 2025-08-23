@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-08-23T12:49:34.069889",
+  "duplicates_found": 18,
+  "temp_files_cleaned": 0,
+  "duplicate_details": [
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\communication\\Memo.md",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\communication\\Gemini_Web.md"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\daily-wrap-system\\___interactions.js",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\logs\\os_command_audit.txt"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\data\\YYYY-MM-DD-data.json",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\logs\\os_command_audit.txt"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\data\\metadata\\2025-08-23.json",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\data\\metadata\\2025-08-22.json"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\Briefing\\_agent-prompts\\100x-wrap-agent.md",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\_agent-prompts\\100x-wrap-agent.md"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\Briefing\\_agent-prompts\\100x-wrap-correction.md",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\_agent-prompts\\100x-wrap-correction.md"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\Briefing\\_agent-prompts\\wrap-generate-prompt.txt",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\_agent-prompts\\wrap-generate-prompt.txt"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\data\\metadata\\2025-08-03.json",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\data\\metadata\\2025-08-01.json"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\_agent-prompts\\100x-index-agent.md",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\_agent-prompts\\100x-index-agent.md"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\_agent-prompts\\index-update-prompt.txt",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\_agent-prompts\\index-update-prompt.txt"
+    }
+  ],
+  "temp_files_removed": []
+}

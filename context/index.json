@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2025-08-22T08:58:47.255287+00:00",
+  "updated_at_utc": "2025-08-23T03:51:21.609785+00:00",
   "docs": [
     {
       "path": "docs\\AGENT_COMMUNICATION_SYSTEM.md",
@@ -60,6 +60,12 @@
       ]
     },
     {
+      "path": "docs\\CLI_ADVANCED_COOKBOOK.md",
+      "lines": 168,
+      "sha1": "45a1e6b50ad7f78f0e4ccff8655899c1cbe62de5",
+      "tags": []
+    },
+    {
       "path": "docs\\CLI_OFFICIAL_GUIDES.md",
       "lines": 175,
       "sha1": "06c33740943a4437f6a613bcc597764e44b6bf08",
@@ -67,20 +73,9 @@
     },
     {
       "path": "docs\\CODEX_CHECKLIST.md",
-      "lines": 107,
-      "sha1": "fa6bbb12b84598b2170d304be71f4bddc2e4e025",
+      "lines": 29,
+      "sha1": "1102ca5b12890f2cf770130b72b98d30b4e6ad44",
       "tags": [
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
         " ",
         " ",
         " ",
@@ -108,7 +103,7 @@
     {
       "path": "docs\\encoding_fix_report.md",
       "lines": 60,
-      "sha1": "249f23708deae52b371b625e4eaec464a3245677",
+      "sha1": "e0a1ca7ae2fef280b135583a662d1698ee3cb144",
       "tags": []
     },
     {
@@ -161,43 +156,9 @@
     },
     {
       "path": "docs\\HUB.md",
-      "lines": 136,
-      "sha1": "54afbd207ae7960d8b6bdd48dcdf4809dad09325",
-      "tags": [
-        "CLAUDE",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "instructions",
-        "Test",
-        "CLAUDE",
-        "Claude",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "Codex",
-        "log",
-        "log",
-        "log",
-        "log",
-        "Codex",
-        "log"
-      ]
+      "lines": 14,
+      "sha1": "337c96e88d0d55919e28156f5cb8a9ae05a8391f",
+      "tags": []
     },
     {
       "path": "docs\\hub_modified.md",
@@ -253,6 +214,12 @@
       "path": "docs\\SESSION_LOG_20250821.md",
       "lines": 151,
       "sha1": "6278500d6bd64fa7ea1f27d5683fe0ba3041de75",
+      "tags": []
+    },
+    {
+      "path": "docs\\SESSION_LOG_20250822.md",
+      "lines": 46,
+      "sha1": "c6bc43f27ca1b129833ce25749f112b4cad201a2",
       "tags": []
     },
     {
@@ -418,7 +385,7 @@
     {
       "path": "docs\\proposals\\mcp_ai_proxy_status_report.md",
       "lines": 168,
-      "sha1": "9d325bcc0bf158015dec2822ceb596046104dc4f",
+      "sha1": "39931ef32f7ae0d1e0c3d2986cf949b902d1484f",
       "tags": []
     },
     {
@@ -569,15 +536,21 @@
       "tags": []
     },
     {
+      "path": "docs\\tasks\\cli_cookbook_phase2_research.md",
+      "lines": 31,
+      "sha1": "a7998b2f2d3d1c9c258ffaa4a5baf353ce6e15f1",
+      "tags": []
+    },
+    {
       "path": "docs\\tasks\\mcp_installation_plan.md",
       "lines": 109,
-      "sha1": "1b99517edba6a68b77e18ac6c5b7bba4f2044483",
+      "sha1": "02005db773c0f0aa9b1a2b9f8a3a4fa1461a8679",
       "tags": []
     },
     {
       "path": "docs\\tasks\\system_cleanup_instructions_for_codex.md",
       "lines": 96,
-      "sha1": "0f322c372fa9e1f1b669465c5143f929ebd5e476",
+      "sha1": "fb2d411acb401bfc62f7d3e288aa96e46636b229",
       "tags": []
     },
     {

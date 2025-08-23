@@ -1,0 +1,69 @@
+{
+  "timestamp": "2025-08-23T12:49:17.316834",
+  "duplicates_found": 18,
+  "temp_files_cleaned": 491,
+  "duplicate_details": [
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\communication\\Memo.md",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\communication\\Gemini_Web.md"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\daily-wrap-system\\___interactions.js",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\logs\\os_command_audit.txt"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\data\\YYYY-MM-DD-data.json",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\logs\\os_command_audit.txt"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\data\\metadata\\2025-08-23.json",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\data\\metadata\\2025-08-22.json"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\Briefing\\_agent-prompts\\100x-wrap-agent.md",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\_agent-prompts\\100x-wrap-agent.md"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\Briefing\\_agent-prompts\\100x-wrap-correction.md",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\_agent-prompts\\100x-wrap-correction.md"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\Briefing\\_agent-prompts\\wrap-generate-prompt.txt",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\daily-wrap\\_agent-prompts\\wrap-generate-prompt.txt"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\data\\metadata\\2025-08-03.json",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\data\\metadata\\2025-08-01.json"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\_agent-prompts\\100x-index-agent.md",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\_agent-prompts\\100x-index-agent.md"
+    },
+    {
+      "file1": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x Briefing\\_agent-prompts\\index-update-prompt.txt",
+      "file2": "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok\\100x\\_agent-prompts\\index-update-prompt.txt"
+    }
+  ],
+  "temp_files_removed": [
+    "C:\\Users\\etlov\\multi-agent-workspace\\.agents\\__pycache__\\context7_mcp.cpython-312.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok-generator\\__pycache__\\html_extractor.cpython-312.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok-generator\\__pycache__\\json_converter.cpython-312.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok-generator\\__pycache__\\main_generator.cpython-312.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\100xFenok-generator\\__pycache__\\report_manager.cpython-312.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\converters\\__pycache__\\common.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\converters\\__pycache__\\epub_converter.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\converters\\__pycache__\\exporters.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\converters\\__pycache__\\file_merger.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\converters\\__pycache__\\html_converter.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\converters\\__pycache__\\pdf_converter.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\converters\\__pycache__\\__init__.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\ui\\__pycache__\\advanced_tab.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\ui\\__pycache__\\basic_tab.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\ui\\__pycache__\\main_app.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\ui\\__pycache__\\merger_tab.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\ui\\__pycache__\\__init__.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\utils\\__pycache__\\json_encoder.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\utils\\__pycache__\\module_checker.cpython-310.pyc",
+    "C:\\Users\\etlov\\multi-agent-workspace\\projects\\Python_Lexi_Convert\\utils\\__pycache__\\text_utils.cpython-310.pyc"
+  ]
+}
