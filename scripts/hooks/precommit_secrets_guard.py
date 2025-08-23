@@ -55,7 +55,7 @@ def main():
                 break
 
     if violations:
-        print("\U0001f6d1 Commit blocked by pre-commit guard. The following files are disallowed:", file=sys.stderr)
+        print("[BLOCKED] Commit blocked by pre-commit guard. The following files are disallowed:", file=sys.stderr)
         for path in violations:
             print(f" - {path}", file=sys.stderr)
         print("\nRemove these files from the commit or adjust .gitignore before committing.", file=sys.stderr)

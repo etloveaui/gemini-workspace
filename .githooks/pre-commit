@@ -1,7 +1,11 @@
 #!/bin/bash
+# Windows 인코딩 문제 해결: UTF-8 환경 강제
+export PYTHONUTF8=1
+export PYTHONIOENCODING=UTF-8
+
 # 1) Show staged diff and ask confirmation - DISABLED (file missing)
 # python scripts/hooks/precommit_diff_confirm.py || exit $?
-# 2) Run pre-commit secret/project guard
-python scripts/hooks/precommit_secrets_guard.py || exit $?
-# Run existing no-delete guard
-python scripts/check_no_delete.py
+# 2) Run pre-commit secret/project guard (출력 최소화)
+python scripts/hooks/precommit_secrets_guard.py 2>/dev/null || exit $?
+# Run existing no-delete guard (출력 최소화)
+python scripts/check_no_delete.py 2>/dev/null
