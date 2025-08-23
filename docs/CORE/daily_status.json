@@ -1,0 +1,65 @@
+{
+  "last_check": "2025-08-24T01:42:44.132583",
+  "reports": {
+    "gemini_pytest_cleanup_report.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\gemini_pytest_cleanup_report.md",
+      "modified": "2025-08-18T20:59:29.887187",
+      "status": "completed",
+      "size": 5051
+    },
+    "gemini_terminal_optimization_report.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\gemini_terminal_optimization_report.md",
+      "modified": "2025-08-18T20:59:29.888187",
+      "status": "completed",
+      "size": 2975
+    },
+    "mcp_ai_proxy_status_report.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\mcp_ai_proxy_status_report.md",
+      "modified": "2025-08-22T23:28:37.924371",
+      "status": "completed",
+      "size": 5243
+    },
+    "pytest_cleanup_report.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\pytest_cleanup_report.md",
+      "modified": "2025-08-18T20:59:29.890187",
+      "status": "completed",
+      "size": 4433
+    },
+    "pytest_final_report.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\pytest_final_report.md",
+      "modified": "2025-08-18T20:59:29.890187",
+      "status": "completed",
+      "size": 3540
+    },
+    "system_analysis_report_agent_integration.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\system_analysis_report_agent_integration.md",
+      "modified": "2025-08-18T20:59:29.891187",
+      "status": "completed",
+      "size": 6172
+    },
+    "system_analysis_report_core_architecture.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\system_analysis_report_core_architecture.md",
+      "modified": "2025-08-18T20:59:29.892188",
+      "status": "completed",
+      "size": 6056
+    },
+    "system_analysis_report_security_quality.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\system_analysis_report_security_quality.md",
+      "modified": "2025-08-18T20:59:29.892188",
+      "status": "completed",
+      "size": 5938
+    },
+    "system_analysis_report_state_management.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\system_analysis_report_state_management.md",
+      "modified": "2025-08-18T20:59:29.892188",
+      "status": "completed",
+      "size": 6241
+    },
+    "system_analysis_report_usability_maintainability.md": {
+      "path": "C:\\Users\\etlov\\multi-agent-workspace\\docs\\proposals\\system_analysis_report_usability_maintainability.md",
+      "modified": "2025-08-18T20:59:29.893187",
+      "status": "completed",
+      "size": 5379
+    }
+  }
+}
