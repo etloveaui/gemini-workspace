@@ -1,0 +1,41 @@
+{
+  "date": "2025-08-25",
+  "per_agent": {
+    "codex": {
+      "events": 0,
+      "estimated_tokens": 0
+    },
+    "gemini": {
+      "events": 0,
+      "estimated_tokens": 0
+    },
+    "claude": {
+      "events": 0,
+      "estimated_tokens": 0
+    },
+    "unknown": {
+      "events": 4,
+      "estimated_tokens": 20
+    }
+  },
+  "overall": {
+    "events": 4,
+    "estimated_tokens": 20
+  },
+  "row_count": 4,
+  "health": {
+    "status": "ok",
+    "tables": {
+      "usage": {
+        "exists": true,
+        "count": 60,
+        "latest": "2025-08-22T04:56:44.951740+00:00"
+      },
+      "usage_log": {
+        "exists": true,
+        "count": 7,
+        "latest": "2025-08-25T06:45:52.601075+00:00"
+      }
+    }
+  }
+}
