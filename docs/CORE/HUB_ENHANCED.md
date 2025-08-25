@@ -14,8 +14,20 @@
 
 ### 🟡 P1 (높음)
 - **[P1-CTX7]** Context7 MCP 통합 실제 구현 - **미완성**
-- **[P1-TOKEN]** 토큰 모니터링 시스템 구축 - **미완성**
+- **[P1-TOKEN]** 토큰 모니터링 시스템 구축 - **진행 중**
 - **[P1-BACKUP]** 자동 백업 시스템 스케줄링 - **미완성**
+
+<!-- P1-TOKEN:BEGIN -->
+
+- Date: 2025-08-25
+- Overall: ok  
+  (warn>=200,000, critical>=300,000)
+  - claude: events=2 est_tokens=46 status=ok
+  - codex: events=0 est_tokens=0 status=ok
+  - gemini: events=0 est_tokens=0 status=ok
+  - unknown: events=9 est_tokens=83 status=ok
+
+<!-- P1-TOKEN:END -->
 
 ---
 

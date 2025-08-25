@@ -10,6 +10,11 @@ import json
 import sys
 sys.path.append(str(Path(__file__).parent))
 from cli_style import header, kv, status_line
+try:
+    from usage_logging import record_event
+except Exception:
+    def record_event(*args, **kwargs):
+        pass
 
 ROOT = Path(__file__).resolve().parent.parent
 HUB_FILE = ROOT / "docs" / "HUB_ENHANCED.md"
@@ -160,8 +165,12 @@ class RealtimeAgentSync:
         """실시간 동기화 시작"""
         print(header("에이전트 실시간 동기화 시작"))
         print("Ctrl+C로 중단할 수 있습니다.")
-        
+
         self.running = True
+        try:
+            record_event(task_name="realtime_agent_sync", event_type="start", command="start_realtime_sync")
+        except Exception:
+            pass
         
         # 백그라운드 스레드 시작
         file_watcher = threading.Thread(target=self.watch_agent_files)
@@ -185,6 +194,10 @@ class RealtimeAgentSync:
         except KeyboardInterrupt:
             print("\n🛑 실시간 동기화를 중단합니다.")
             self.running = False
+            try:
+                record_event(task_name="realtime_agent_sync", event_type="stopped", command="start_realtime_sync")
+            except Exception:
+                pass
 
 def main():
     """메인 실행"""
@@ -211,6 +224,10 @@ def main():
     else:
         # 한번만 동기화
         sync.sync_hub_file()
+        try:
+            record_event(task_name="realtime_agent_sync", event_type="one_shot", command="sync_hub_file")
+        except Exception:
+            pass
 
 if __name__ == "__main__":
     main()

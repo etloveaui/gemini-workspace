@@ -18,6 +18,14 @@ from typing import Dict, Any, Optional
 # Add the workspace root to Python path
 WORKSPACE_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(WORKSPACE_ROOT))
+try:
+    from scripts.usage_logging import record_event  # when executed as module
+except Exception:
+    try:
+        from usage_logging import record_event  # when executed as script
+    except Exception:
+        def record_event(*args, **kwargs):
+            pass
 
 class ClaudeIntegration:
     """Claude Code integration utilities for the Multi-Agent Workspace"""
@@ -192,8 +200,10 @@ def main():
     """Main function for testing Claude integration"""
     print("Claude Code Integration Test")
     print("=" * 50)
-    
+
     integration = ClaudeIntegration()
+    # Log start
+    record_event(task_name="claude_integration", event_type="start", command="claude_integration.main")
     
     # Test integration features
     print("\n1. Setting Claude as active agent...")
@@ -219,6 +229,8 @@ def main():
     )
     
     print("\nClaude integration test completed!")
+    # Log complete
+    record_event(task_name="claude_integration", event_type="complete", command="claude_integration.main")
 
 if __name__ == "__main__":
     main()

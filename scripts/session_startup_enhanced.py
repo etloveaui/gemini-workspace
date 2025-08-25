@@ -13,11 +13,20 @@ import json
 
 # 환경 경로 관리 시스템 사용
 from environment_path_manager import get_workspace_path
+try:
+    from usage_logging import record_event
+except Exception:
+    def record_event(*args, **kwargs):
+        pass
 from claude_comm_cleaner import clean_all_communications
 
 def session_startup_complete():
     """완전한 세션 시작 프로세스"""
     print("🚀 Claude Code 세션 시작 자동화 v2.0")
+    try:
+        record_event(task_name="session_startup_enhanced", event_type="start", command="session_startup_complete")
+    except Exception:
+        pass
     print(f"⏰ 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
     
@@ -115,13 +124,18 @@ def session_startup_complete():
     print("   - run_full_status_check()")
     print("=" * 60)
     
-    return {
+    result = {
         "status": "complete",
         "timestamp": datetime.now().isoformat(),
         "files_checked": len(file_status),
         "monitoring_active": "error" not in monitoring_results,
         "updates_checked": "error" not in update_results
     }
+    try:
+        record_event(task_name="session_startup_enhanced", event_type="complete", command="session_startup_complete")
+    except Exception:
+        pass
+    return result
 
 def verify_critical_files() -> dict:
     """중요 파일들 존재 확인"""

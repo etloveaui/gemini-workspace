@@ -8,6 +8,11 @@ import json
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
+try:
+    from usage_logging import record_event
+except Exception:
+    def record_event(*args, **kwargs):
+        pass
 
 class AgentTaskDispatcher:
     """에이전트 작업 자동 배정 시스템"""
@@ -215,6 +220,7 @@ class AgentTaskDispatcher:
     
     def dispatch_task(self, task_description: str) -> str:
         """작업 배정 실행"""
+        record_event(task_name="agent_task_dispatcher", event_type="start", command=task_description)
         assignment = self.create_task_assignment(task_description)
         
         # Communication 폴더에 배정 문서 생성
@@ -254,7 +260,15 @@ class AgentTaskDispatcher:
 ---
 🤖 **자동 생성됨** - Claude Agent Task Dispatcher
 """
-            
+            try:
+                record_event(task_name=f"dispatch_{agent}", event_type="assigned", command=task_id)
+            except Exception:
+                pass
+        try:
+            record_event(task_name="agent_task_dispatcher", event_type="complete", command=assignment["task_id"])
+        except Exception:
+            pass
+        
             # 폴더 생성 및 파일 작성
             comm_file.parent.mkdir(parents=True, exist_ok=True)
             with open(comm_file, 'w', encoding='utf-8') as f:

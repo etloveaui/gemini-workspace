@@ -6,6 +6,11 @@ import sys
 import os
 from pathlib import Path
 from cli_style import header, section, item, kv
+try:
+    from usage_logging import record_event
+except Exception:
+    def record_event(*args, **kwargs):
+        pass
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -15,6 +20,10 @@ def welcome_message():
     print(kv("Intro", "Claude, Gemini, Codex 협업 워크스페이스"))
     print(kv("Getting Started", "5분 내 시작 가능"))
     print("===")
+    try:
+        record_event(task_name="onboarding", event_type="welcome", command="welcome_message")
+    except Exception:
+        pass
 
 def step_by_step_guide():
     """단계별 설정 가이드"""

@@ -18,6 +18,11 @@ import subprocess
 sys.path.append(str(Path(__file__).parent))
 from fix_encoding_all import setup_utf8_encoding
 setup_utf8_encoding()
+try:
+    from usage_logging import record_event
+except Exception:
+    def record_event(*args, **kwargs):
+        pass
 
 class AutoMonitoringSystem:
     """자동 모니터링 및 업데이트 시스템"""
@@ -75,6 +80,10 @@ class AutoMonitoringSystem:
     
     def scan_for_changes(self) -> Dict[str, Any]:
         """워크스페이스 변경사항 스캔"""
+        try:
+            record_event(task_name="auto_monitoring_system", event_type="scan_start", command="scan_for_changes")
+        except Exception:
+            pass
         changes = {
             "new_files": [],
             "modified_files": [],
@@ -109,6 +118,10 @@ class AutoMonitoringSystem:
         # 자동 통합 제안 생성
         changes["integration_suggestions"] = self._generate_integration_suggestions(changes)
         
+        try:
+            record_event(task_name="auto_monitoring_system", event_type="scan_complete", command=f"new={len(changes['new_files'])},mod={len(changes['modified_files'])}")
+        except Exception:
+            pass
         return changes
     
     def _is_new_file(self, file_path: Path) -> bool:
@@ -192,6 +205,10 @@ class AutoMonitoringSystem:
     
     def health_check_comprehensive(self) -> Dict[str, Any]:
         """종합적인 시스템 건강도 체크"""
+        try:
+            record_event(task_name="auto_monitoring_system", event_type="health_start", command="health_check_comprehensive")
+        except Exception:
+            pass
         health = {
             "overall_status": "healthy",
             "components": {},
@@ -261,6 +278,10 @@ class AutoMonitoringSystem:
         if health["performance_metrics"]["cache_size"] > 10 * 1024 * 1024:  # 10MB
             health["recommendations"].append("캐시 정리 권장")
         
+        try:
+            record_event(task_name="auto_monitoring_system", event_type="health_complete", command=f"status={health['overall_status']}")
+        except Exception:
+            pass
         return health
     
     # === 자동 제안 시스템 ===
