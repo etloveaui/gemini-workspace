@@ -3,7 +3,7 @@
 본 체크리스트는 매 세션 시작 시 Codex 에이전트가 반드시 확인해야 할 항목입니다.
 
 ## 세션 시작 체크
-- [ ] docs/HUB.md 최신 상태 확인
+- [ ] docs/CORE/HUB_ENHANCED.md 최신 상태 확인
 - [ ] communication/ 구조 및 권한 확인
 - [ ] scripts/watch_file.py 워처 실행 가능 여부 확인
 - [ ] venv 존재 여부 및 파이썬 경로 확인

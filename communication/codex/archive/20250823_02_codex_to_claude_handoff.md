@@ -13,7 +13,7 @@
 ## 현재 구현 요약(스캐폴딩)
 - 문서/가이드
   - `docs/CODEX_CHECKLIST.md`: 세션 시작/작업 전·중·후 체크리스트
-  - `docs/HUB.md`: 중앙 허브(우선순위/작업 로그)
+  - `docs/CORE/HUB_ENHANCED.md`: 중앙 허브(우선순위/작업 로그)
   - `docs/AGENT_COMMUNICATION_SYSTEM.md`: 파일 기반 커뮤니케이션 시스템 개요
   - `communication/shared/COMMUNICATION_GUIDE.md`: 빠른 시작/템플릿/인코딩 트러블슈팅
   - `docs/USAGE.md`: 실행/테스트/로그 경로 안내
@@ -35,7 +35,7 @@
 1) 운영자는 PowerShell에서 venv 준비 → `scripts/start_watchers.ps1 -PromptFile <지정경로>` 실행(숨김 가능)
 2) 사용자(또는 타 에이전트)가 프롬프트 파일에 지시사항 저장
 3) `monitor_prompt.py`가 이벤트/본문을 로그로 기록, Codex가 이를 기준으로 작업 수행
-4) 결과/결정은 `communication/codex/YYYYMMDD_xx_*.md`와 `docs/HUB.md`에 반영
+4) 결과/결정은 `communication/codex/YYYYMMDD_xx_*.md`와 `docs/CORE/HUB_ENHANCED.md`에 반영
 
 ## 현재 상태
 - 코드/문서/스크립트 모두 루트 워크스페이스에 배치 완료.

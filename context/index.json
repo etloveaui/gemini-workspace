@@ -1,16 +1,11 @@
 {
-  "updated_at_utc": "2025-08-23T03:51:21.609785+00:00",
+  "updated_at_utc": "2025-08-25T06:43:52.498364+00:00",
   "docs": [
     {
       "path": "docs\\AGENT_COMMUNICATION_SYSTEM.md",
-      "lines": 156,
-      "sha1": "406153f86eb32aef2b8cb355460321b6314959d3",
-      "tags": [
-        " ",
-        " ",
-        " ",
-        " "
-      ]
+      "lines": 23,
+      "sha1": "e645def27c8b5ed7c78a27ac68cb3e4e32b0ad75",
+      "tags": []
     },
     {
       "path": "docs\\AI_MODEL_INTEGRATION_ANALYSIS.md",
@@ -41,25 +36,6 @@
       ]
     },
     {
-      "path": "docs\\CLAUDE_CHECKLIST.md",
-      "lines": 68,
-      "sha1": "e60d7051fdaea26eb7b412e9a8f643e443e8826a",
-      "tags": [
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " "
-      ]
-    },
-    {
       "path": "docs\\CLI_ADVANCED_COOKBOOK.md",
       "lines": 168,
       "sha1": "45a1e6b50ad7f78f0e4ccff8655899c1cbe62de5",
@@ -72,29 +48,6 @@
       "tags": []
     },
     {
-      "path": "docs\\CODEX_CHECKLIST.md",
-      "lines": 29,
-      "sha1": "1102ca5b12890f2cf770130b72b98d30b4e6ad44",
-      "tags": [
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " "
-      ]
-    },
-    {
       "path": "docs\\EMERGENCY_MODE.md",
       "lines": 56,
       "sha1": "079d07f7805e7f9a19b04c828a781df50d9c94a9",
@@ -103,7 +56,7 @@
     {
       "path": "docs\\encoding_fix_report.md",
       "lines": 60,
-      "sha1": "e0a1ca7ae2fef280b135583a662d1698ee3cb144",
+      "sha1": "249f23708deae52b371b625e4eaec464a3245677",
       "tags": []
     },
     {
@@ -111,25 +64,6 @@
       "lines": 57,
       "sha1": "17bcf7e902741c41bf027787e21955fb96eb9896",
       "tags": []
-    },
-    {
-      "path": "docs\\GEMINI_CHECKLIST.md",
-      "lines": 84,
-      "sha1": "801762f7a3fd1b77f1a410e191c0ec88d775e4f0",
-      "tags": [
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " ",
-        " "
-      ]
     },
     {
       "path": "docs\\gemini_pro_vs_flash_comparison.md",
@@ -155,10 +89,23 @@
       ]
     },
     {
-      "path": "docs\\HUB.md",
-      "lines": 14,
-      "sha1": "337c96e88d0d55919e28156f5cb8a9ae05a8391f",
-      "tags": []
+      "path": "docs\\HUB_ENHANCED.md",
+      "lines": 171,
+      "sha1": "d9a178bab68a29544915dc822dcddddc63ed2b27",
+      "tags": [
+        "CLAUDE",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "instructions",
+        "Test"
+      ]
     },
     {
       "path": "docs\\hub_modified.md",
@@ -229,6 +176,12 @@
       "tags": []
     },
     {
+      "path": "docs\\USAGE.md",
+      "lines": 22,
+      "sha1": "b6dd375536d030ac95cbdde72c45489fd398ec3a",
+      "tags": []
+    },
+    {
       "path": "docs\\architecture\\MULTI_AGENT_WORKSPACE_BLUEPRINT.md",
       "lines": 156,
       "sha1": "dcc5dc6f25a63b99c0c0c919dd9423cc64b48661",
@@ -254,6 +207,59 @@
       "path": "docs\\archive\\README_PATCH.md",
       "lines": 20,
       "sha1": "d64fc8644063b976510999477c4739db6c3f8d8d",
+      "tags": []
+    },
+    {
+      "path": "docs\\CORE\\AGENTS_CHECKLIST.md",
+      "lines": 128,
+      "sha1": "c837573c67fc318add23eb4e9f59aba51ad9e5bf",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\CORE\\HUB_ENHANCED.md",
+      "lines": 139,
+      "sha1": "6f795b5bf6a45848504c6f9512cbc8388f0aa86b",
       "tags": []
     },
     {
@@ -306,6 +312,18 @@
       "path": "docs\\proposals\\auto_update_20250818.md",
       "lines": 46,
       "sha1": "57c26325d7b61a59d1c0deed19af4f2136788aeb",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\dependency_vulnerability_scan.md",
+      "lines": 25,
+      "sha1": "32f88df8bb2d2d6a425cefa0e281d59fd99ad7ea",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\doc_organization_analysis_request.md",
+      "lines": 24,
+      "sha1": "81f60bb35623f2535893b21d8ed6ff6daafe628e",
       "tags": []
     },
     {
@@ -383,6 +401,12 @@
       ]
     },
     {
+      "path": "docs\\proposals\\github_actions_optimization_analysis.md",
+      "lines": 32,
+      "sha1": "b52ef83d76b769c65042e6962c2ad74d37162b39",
+      "tags": []
+    },
+    {
       "path": "docs\\proposals\\mcp_ai_proxy_status_report.md",
       "lines": 168,
       "sha1": "39931ef32f7ae0d1e0c3d2986cf949b902d1484f",
@@ -416,6 +440,12 @@
       "path": "docs\\proposals\\pytest_progress_update.md",
       "lines": 60,
       "sha1": "176a9568d3d63a03ce1a21e22446cfdc63ac4b64",
+      "tags": []
+    },
+    {
+      "path": "docs\\proposals\\Request_for_Codex_100xFenok_Analysis.md",
+      "lines": 30,
+      "sha1": "53eb680f1b40f9e14525b67283c0b6e7579c4e39",
       "tags": []
     },
     {
@@ -486,6 +516,12 @@
       "tags": []
     },
     {
+      "path": "docs\\proposals\\root_py_code_quality_analysis.md",
+      "lines": 33,
+      "sha1": "c020dfdba5f87346fd32ec0e1253deb85eb7f500",
+      "tags": []
+    },
+    {
       "path": "docs\\proposals\\system_analysis_report_agent_integration.md",
       "lines": 52,
       "sha1": "7532c303bf840fbc81c7503cd76a69723995febe",
@@ -530,9 +566,76 @@
       ]
     },
     {
+      "path": "docs\\REFERENCE\\LEGACY_CLAUDE_CHECKLIST.md",
+      "lines": 68,
+      "sha1": "e60d7051fdaea26eb7b412e9a8f643e443e8826a",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\REFERENCE\\LEGACY_CODEX_CHECKLIST.md",
+      "lines": 29,
+      "sha1": "1102ca5b12890f2cf770130b72b98d30b4e6ad44",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\REFERENCE\\LEGACY_GEMINI_CHECKLIST.md",
+      "lines": 84,
+      "sha1": "801762f7a3fd1b77f1a410e191c0ec88d775e4f0",
+      "tags": [
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\REFERENCE\\LEGACY_HUB.md",
+      "lines": 14,
+      "sha1": "74b4878de1371d0556997896f35db187c878c0ef",
+      "tags": []
+    },
+    {
       "path": "docs\\setup\\SETUP_COMPLETE.md",
       "lines": 129,
-      "sha1": "46c7b65818cf16331616ccb965872e27e3d13a92",
+      "sha1": "283456841d4216a9a95886757682a3d2559d51d2",
       "tags": []
     },
     {
@@ -544,19 +647,19 @@
     {
       "path": "docs\\tasks\\mcp_installation_plan.md",
       "lines": 109,
-      "sha1": "02005db773c0f0aa9b1a2b9f8a3a4fa1461a8679",
+      "sha1": "1b99517edba6a68b77e18ac6c5b7bba4f2044483",
       "tags": []
     },
     {
       "path": "docs\\tasks\\system_cleanup_instructions_for_codex.md",
       "lines": 96,
-      "sha1": "fb2d411acb401bfc62f7d3e288aa96e46636b229",
+      "sha1": "0f322c372fa9e1f1b669465c5143f929ebd5e476",
       "tags": []
     },
     {
       "path": "docs\\tasks\\URGENT_CODEX_\uc778\ucf54\ub529_\ub300\ub7c9_\ubcf5\uad6c_\uc9c0\uc2dc\uc11c.md",
       "lines": 304,
-      "sha1": "0143170935dbebfacdfc304bba679be04fc8960d",
+      "sha1": "ac3979996d0f7207202f6a49ffc3ec9ae3eaea4a",
       "tags": [
         " ",
         " ",
@@ -575,55 +678,6 @@
       "path": "docs\\WORKLOG\\2025-08-14__codex.md",
       "lines": 24,
       "sha1": "bf43c530596e0e6eb4dc369737aa9bcb54bd6a83",
-      "tags": []
-    },
-    {
-      "path": "docs\\tasks\\100xfenok-automation-complete\\log.md",
-      "lines": 210,
-      "sha1": "356ed81d611851095416646a008c548f95f1a52d",
-      "tags": []
-    },
-    {
-      "path": "docs\\tasks\\100xfenok-automation-session2\\session_completion_log.md",
-      "lines": 116,
-      "sha1": "57ab5ee85d9c31e00edf4d1315765c9b3310cbd0",
-      "tags": []
-    },
-    {
-      "path": "docs\\tasks\\100xfenok-floating-button-responsive-glitch\\log.md",
-      "lines": 140,
-      "sha1": "322623e78e638904e802c16c4f066fecfa6a5970",
-      "tags": []
-    },
-    {
-      "path": "docs\\tasks\\100xfenok-generator-data-cleanup\\log.md",
-      "lines": 51,
-      "sha1": "ad40106a0aa76b227941fd2547d6e63e04f822af",
-      "tags": [
-        "Project"
-      ]
-    },
-    {
-      "path": "docs\\tasks\\100xfenok-generator-date-title-input-fix\\log.md",
-      "lines": 164,
-      "sha1": "77c4c749435740facb58279733901e06a1b2e93f",
-      "tags": []
-    },
-    {
-      "path": "docs\\tasks\\100xfenok-generator-dev\\log.md",
-      "lines": 61,
-      "sha1": "89c0dadb90256e06f28023daa24c134f8c2ce677",
-      "tags": [
-        "Project",
-        "Initial Setup",
-        "Project Plan",
-        "Code Analysis"
-      ]
-    },
-    {
-      "path": "docs\\tasks\\100xfenok-telegram-notification\\log.md",
-      "lines": 176,
-      "sha1": "6ee456265710ba9e148d597a4bd8d6831ae029f5",
       "tags": []
     },
     {
@@ -708,21 +762,6 @@
       ]
     },
     {
-      "path": "docs\\tasks\\codex-powershell-ux-fix\\log.md",
-      "lines": 60,
-      "sha1": "49807825b166c875d8a9a7514a31562ab8066eb4",
-      "tags": []
-    },
-    {
-      "path": "docs\\tasks\\codex-terminal-output-wrap\\log.md",
-      "lines": 33,
-      "sha1": "4258d8df2a4a8ccdf4898bf690e2efff769a9d77",
-      "tags": [
-        "Codex",
-        "Console"
-      ]
-    },
-    {
       "path": "docs\\tasks\\core-hub-auto-commit-reliability\\log.md",
       "lines": 49,
       "sha1": "5c77f67e39835935be3b34b3ae20a2daa9369112",
@@ -733,16 +772,6 @@
       "lines": 55,
       "sha1": "944372ced2dc3a9ea8c6388e36e6ea2f0448dcd4",
       "tags": []
-    },
-    {
-      "path": "docs\\tasks\\encoding-hardening\\log.md",
-      "lines": 29,
-      "sha1": "5dbe163742b2616070d6e9c013846a0f46228c50",
-      "tags": [
-        "Console",
-        "Console",
-        "Console"
-      ]
     },
     {
       "path": "docs\\tasks\\file-agent-framework-upgrade\\log.md",
@@ -817,39 +846,6 @@
       "tags": []
     },
     {
-      "path": "docs\\tasks\\phase1-preflight-doctor-v2\\log.md",
-      "lines": 222,
-      "sha1": "a66def0b041539493b8436ab3916ddfc943240e8",
-      "tags": [
-        "PASS",
-        "WARN",
-        "FAIL",
-        "x",
-        "x",
-        "x"
-      ]
-    },
-    {
-      "path": "docs\\tasks\\phase1-standardization-package\\log.md",
-      "lines": 160,
-      "sha1": "b75cdf478dfdff774f4f88b36008803d525acf34",
-      "tags": [
-        "x",
-        "x",
-        " "
-      ]
-    },
-    {
-      "path": "docs\\tasks\\phase1-user-experience\\log.md",
-      "lines": 229,
-      "sha1": "cf2e4a493507ac54658046e8b46dfac722994fd5",
-      "tags": [
-        "x",
-        "x",
-        " "
-      ]
-    },
-    {
       "path": "docs\\tasks\\phase2-agent-collaboration\\log.md",
       "lines": 230,
       "sha1": "3b6ef40d5b709f633f6a27044c601a3d723c6b02",
@@ -904,18 +900,6 @@
       ]
     },
     {
-      "path": "docs\\tasks\\pre-commit-hook-alternative\\log.md",
-      "lines": 14,
-      "sha1": "4ec22cce247a5c3e861d9b84ad02ed1a4b384545",
-      "tags": []
-    },
-    {
-      "path": "docs\\tasks\\pre-commit-hook-troubleshooting\\log.md",
-      "lines": 107,
-      "sha1": "0ca93a0fecc9a76ee2198c5e618f08041170116b",
-      "tags": []
-    },
-    {
       "path": "docs\\tasks\\secret-management-setup\\log.md",
       "lines": 14,
       "sha1": "bbbf0a5aa7195103b0b742f436683f36f897b02a",
@@ -929,15 +913,6 @@
       "lines": 90,
       "sha1": "deda593c8f38f82c87713caab5038bab433f6061",
       "tags": []
-    },
-    {
-      "path": "docs\\tasks\\system-docs-revamp\\log.md",
-      "lines": 14,
-      "sha1": "2b76d84f35d2683a7bf51a0a12b8d45e2e5b7f6d",
-      "tags": [
-        "System",
-        "Initial Setup"
-      ]
     },
     {
       "path": "docs\\tasks\\terminalx-ui-analysis\\log.md",
@@ -995,7 +970,135 @@
       "tags": []
     },
     {
-      "path": "docs\\tasks\\workspace-setup\\log.md",
+      "path": "docs\\archive\\tasks\\100xfenok-automation-complete\\log.md",
+      "lines": 210,
+      "sha1": "356ed81d611851095416646a008c548f95f1a52d",
+      "tags": []
+    },
+    {
+      "path": "docs\\archive\\tasks\\100xfenok-automation-session2\\session_completion_log.md",
+      "lines": 116,
+      "sha1": "7b17b339faea6dcca4a123ab1e089955ff3c0821",
+      "tags": []
+    },
+    {
+      "path": "docs\\archive\\tasks\\100xfenok-floating-button-responsive-glitch\\log.md",
+      "lines": 140,
+      "sha1": "322623e78e638904e802c16c4f066fecfa6a5970",
+      "tags": []
+    },
+    {
+      "path": "docs\\archive\\tasks\\100xfenok-generator-data-cleanup\\log.md",
+      "lines": 51,
+      "sha1": "ad40106a0aa76b227941fd2547d6e63e04f822af",
+      "tags": [
+        "Project"
+      ]
+    },
+    {
+      "path": "docs\\archive\\tasks\\100xfenok-generator-date-title-input-fix\\log.md",
+      "lines": 164,
+      "sha1": "77c4c749435740facb58279733901e06a1b2e93f",
+      "tags": []
+    },
+    {
+      "path": "docs\\archive\\tasks\\100xfenok-generator-dev\\log.md",
+      "lines": 61,
+      "sha1": "89c0dadb90256e06f28023daa24c134f8c2ce677",
+      "tags": [
+        "Project",
+        "Initial Setup",
+        "Project Plan",
+        "Code Analysis"
+      ]
+    },
+    {
+      "path": "docs\\archive\\tasks\\100xfenok-telegram-notification\\log.md",
+      "lines": 176,
+      "sha1": "6ee456265710ba9e148d597a4bd8d6831ae029f5",
+      "tags": []
+    },
+    {
+      "path": "docs\\archive\\tasks\\codex-powershell-ux-fix\\log.md",
+      "lines": 60,
+      "sha1": "49807825b166c875d8a9a7514a31562ab8066eb4",
+      "tags": []
+    },
+    {
+      "path": "docs\\archive\\tasks\\codex-terminal-output-wrap\\log.md",
+      "lines": 33,
+      "sha1": "4258d8df2a4a8ccdf4898bf690e2efff769a9d77",
+      "tags": [
+        "Codex",
+        "Console"
+      ]
+    },
+    {
+      "path": "docs\\archive\\tasks\\encoding-hardening\\log.md",
+      "lines": 29,
+      "sha1": "5dbe163742b2616070d6e9c013846a0f46228c50",
+      "tags": [
+        "Console",
+        "Console",
+        "Console"
+      ]
+    },
+    {
+      "path": "docs\\archive\\tasks\\phase1-preflight-doctor-v2\\log.md",
+      "lines": 222,
+      "sha1": "a66def0b041539493b8436ab3916ddfc943240e8",
+      "tags": [
+        "PASS",
+        "WARN",
+        "FAIL",
+        "x",
+        "x",
+        "x"
+      ]
+    },
+    {
+      "path": "docs\\archive\\tasks\\phase1-standardization-package\\log.md",
+      "lines": 160,
+      "sha1": "b75cdf478dfdff774f4f88b36008803d525acf34",
+      "tags": [
+        "x",
+        "x",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\archive\\tasks\\phase1-user-experience\\log.md",
+      "lines": 229,
+      "sha1": "cf2e4a493507ac54658046e8b46dfac722994fd5",
+      "tags": [
+        "x",
+        "x",
+        " "
+      ]
+    },
+    {
+      "path": "docs\\archive\\tasks\\pre-commit-hook-alternative\\log.md",
+      "lines": 14,
+      "sha1": "4ec22cce247a5c3e861d9b84ad02ed1a4b384545",
+      "tags": []
+    },
+    {
+      "path": "docs\\archive\\tasks\\pre-commit-hook-troubleshooting\\log.md",
+      "lines": 107,
+      "sha1": "0ca93a0fecc9a76ee2198c5e618f08041170116b",
+      "tags": []
+    },
+    {
+      "path": "docs\\archive\\tasks\\system-docs-revamp\\log.md",
+      "lines": 14,
+      "sha1": "2b76d84f35d2683a7bf51a0a12b8d45e2e5b7f6d",
+      "tags": [
+        "System",
+        "Initial Setup"
+      ]
+    },
+    {
+      "path": "docs\\archive\\tasks\\workspace-setup\\log.md",
       "lines": 11,
       "sha1": "9253cfeb871a95c7dc18374881de9ddd84937ac5",
       "tags": [

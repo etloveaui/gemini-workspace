@@ -1,0 +1,10 @@
+docs(codex): add token monitoring analysis report and session kickoff note
+
+- Report for Claude: communication/codex/20250825_01_token_monitoring_analysis_and_plan.md
+  * usage.db schema verified, script mismatch diagnosed, A/B/C re-evaluation
+  * Phase 1 plan (aggregate + report + health check), optional HUB update markers, approvals/questions included
+- Session note: communication/codex/sessions/20250825_01_kickoff_codex.md
+  * Core readiness checklist done (hub/watcher/venv), next actions listed
+- Utility: scratchpad/inspect_usage_db.py (tiny schema/health inspector)
+
+Note: respects PROJECTS independence; no changes under projects/

@@ -1,0 +1,79 @@
+{
+  "timestamp": "20250825_152614",
+  "version": "2.0",
+  "checks": [
+    [
+      "[PASS]",
+      "Python >= 3.10",
+      "현재: 3.13.6",
+      "CRITICAL"
+    ],
+    [
+      "[PASS]",
+      "Invoke 설치됨",
+      "pip install invoke",
+      "HIGH"
+    ],
+    [
+      "[PASS]",
+      "Git 설치됨 (git version 2.46.0.windows.1)",
+      "https://git-scm.com/",
+      "HIGH"
+    ],
+    [
+      "[PASS]",
+      "가상환경 활성화",
+      "현재 Python 경로: C:\\Users\\eunta\\multi-agent-workspace\\venv",
+      "HIGH"
+    ],
+    [
+      "[PASS]",
+      "토큰 사용량 추적",
+      "최근 7일간 4개 기록",
+      "MEDIUM"
+    ],
+    [
+      "[PASS]",
+      "안전 파일 목록",
+      "중요 파일 보호 목록",
+      "MEDIUM"
+    ],
+    [
+      "[PASS]",
+      "멀티 에이전트 설정",
+      "모든 에이전트 설정 파일 존재",
+      "HIGH"
+    ],
+    [
+      "[PASS]",
+      "필수 디렉토리: docs",
+      "docs 폴더가 필요합니다",
+      "HIGH"
+    ],
+    [
+      "[PASS]",
+      "필수 디렉토리: scripts",
+      "scripts 폴더가 필요합니다",
+      "HIGH"
+    ],
+    [
+      "[PASS]",
+      "필수 디렉토리: communication",
+      "communication 폴더가 필요합니다",
+      "HIGH"
+    ],
+    [
+      "[PASS]",
+      "필수 디렉토리: secrets",
+      "secrets 폴더가 필요합니다",
+      "HIGH"
+    ]
+  ],
+  "auto_fixes_applied": [],
+  "summary": {
+    "total_checks": 11,
+    "passed": 11,
+    "failed": 0,
+    "fixes_applied": 0
+  }
+}

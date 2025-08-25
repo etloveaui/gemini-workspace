@@ -26,10 +26,10 @@
 - [성공] git config --global i18n.logOutputEncoding utf-8
 - [성공] git config --global core.autocrlf true
 - [성공] git config --global core.safecrlf false
-- [성공] .gitattributes 생성: C:\Users\etlov\multi-agent-workspace\.gitattributes
+- [성공] .gitattributes 생성: C:\Users\eunta\multi-agent-workspace\.gitattributes
 - [오류] PowerShell 프로필 설정 실패: 'NoneType' object has no attribute 'strip'
 - [성공] UTF-8 변환 완료: 549개 파일
-- [성공] 인코딩 체크 스크립트 생성: C:\Users\etlov\multi-agent-workspace\scripts\encoding_check.py
+- [성공] 인코딩 체크 스크립트 생성: C:\Users\eunta\multi-agent-workspace\scripts\encoding_check.py
 
 ## [단계] 다음 단계
 

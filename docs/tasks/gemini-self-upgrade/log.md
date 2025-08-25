@@ -65,21 +65,21 @@
 ## 2025-07-26: 세션 관리 시스템 안정화 (P0)
 
 ### 목표
-- `tasks.py`의 `end` 태스크에서 발생한 `SyntaxError` 및 `docs/HUB.md` 인코딩 문제 해결을 통해 세션 관리 시스템의 안정성을 확보한다.
+- `tasks.py`의 `end` 태스크에서 발생한 `SyntaxError` 및 `docs/CORE/HUB_ENHANCED.md` 인코딩 문제 해결을 통해 세션 관리 시스템의 안정성을 확보한다.
 
 ### 과정 (Attempt 1)
 
-1.  **`emergency_log_` 파일 분석:** `tasks.py`의 `end` 태스크에서 `__lastSession__` 블록 생성 중 `SyntaxError` 발생 및 `docs/HUB.md` 인코딩 문제 확인.
+1.  **`emergency_log_` 파일 분석:** `tasks.py`의 `end` 태스크에서 `__lastSession__` 블록 생성 중 `SyntaxError` 발생 및 `docs/CORE/HUB_ENHANCED.md` 인코딩 문제 확인.
 2.  **`tasks.py` 복구:** `end` 태스크 내 `__lastSession__` 블록 생성 로직을 임시로 제거하여 `tasks.py`의 `SyntaxError`를 해결.
-3.  **`docs/HUB.md` 인코딩 문제 해결 시도:** `docs/HUB.md.bak` 파일을 읽어 내용을 `docs/HUB.md`에 UTF-8로 다시 작성.
-4.  **`hub_manager.py` 생성:** `__lastSession__` 블록 생성 및 `HUB.md` 업데이트 로직을 전담하는 `scripts/hub_manager.py` 파일 생성.
+3.  **`docs/CORE/HUB_ENHANCED.md` 인코딩 문제 해결 시도:** `docs/CORE/HUB_ENHANCED.md.bak` 파일을 읽어 내용을 `docs/CORE/HUB_ENHANCED.md`에 UTF-8로 다시 작성.
+4.  **`hub_manager.py` 생성:** `__lastSession__` 블록 생성 및 `HUB_ENHANCED.md` 업데이트 로직을 전담하는 `scripts/hub_manager.py` 파일 생성.
 5.  **`tasks.py` 업데이트:** `end` 태스크에서 `hub_manager.py`를 호출하도록 수정.
 6.  **`tasks.py` 이모지 제거:** `UnicodeEncodeError` 방지를 위해 `tasks.py` 내 모든 이모지 제거.
-7.  **`invoke end` 테스트:** `invoke end` 명령이 성공적으로 실행되어 `HUB.md`가 업데이트되고 WIP 커밋이 생성됨을 확인.
+7.  **`invoke end` 테스트:** `invoke end` 명령이 성공적으로 실행되어 `HUB_ENHANCED.md`가 업데이트되고 WIP 커밋이 생성됨을 확인.
 
 ### 현재 상태
-- `tasks.py`의 `end` 태스크에서 발생했던 `SyntaxError` 및 `docs/HUB.md` 인코딩 문제가 해결되어 세션 관리 시스템이 안정화됨.
-- `hub_manager.py`를 통해 `__lastSession__` 블록이 `HUB.md`에 올바르게 추가됨.
+- `tasks.py`의 `end` 태스크에서 발생했던 `SyntaxError` 및 `docs/CORE/HUB_ENHANCED.md` 인코딩 문제가 해결되어 세션 관리 시스템이 안정화됨.
+- `hub_manager.py`를 통해 `__lastSession__` 블록이 `HUB_ENHANCED.md`에 올바르게 추가됨.
 
 ### 다음 단계
 - `[P0] 핵심 기반 강화`의 다음 목표를 진행하거나, 다른 작업을 시작합니다.
@@ -97,18 +97,18 @@
 2.  **발전 계획 로드맵 수립:**
     *   **[P0] 최우선 과제: 핵심 기반 강화 (Foundational Enhancements)**
         *   코어 지능 및 신뢰도 강화 (코드 생성, 자연어 이해, 논리 추론 정확도 향상)
-        *   지능형 컨텍스트 관리 (HUB.md, 작업 로그, 파일 내용 간 연관성 파악, 단기 기억 손실 최소화)
+        *   지능형 컨텍스트 관리 (HUB_ENHANCED.md, 작업 로그, 파일 내용 간 연관성 파악, 단기 기억 손실 최소화)
     *   **[P1] 핵심 기능 확장 (Core Feature Expansion)**
         *   능동적 도구 및 웹 활용 (google_web_search 등 선제적 활용)
         *   멀티모달 기능 통합 준비 (이미지/데이터 이해 및 생성 기능 통합을 위한 시스템 구조 설계)
     *   **[P2] 시스템 최적화 및 사용자 경험 (System Optimization & UX)**
         *   성능 및 효율 최적화 (응답 속도 개선)
         *   고급 다국어 지원 (코드 내 주석 및 다른 언어 파일 내용 이해 강화)
-3.  **신규 작업 등록:** `docs/HUB.md`에 `gemini-self-upgrade` 작업을 등록하고 활성화.
+3.  **신규 작업 등록:** `docs/CORE/HUB_ENHANCED.md`에 `gemini-self-upgrade` 작업을 등록하고 활성화.
 
 ### 현재 상태
 - Gemini 자가 개선 프로젝트의 상세 로드맵이 `log.md`에 기록됨.
-- `gemini-self-upgrade` 작업이 `docs/HUB.md`에 등록 및 활성화됨.
+- `gemini-self-upgrade` 작업이 `docs/CORE/HUB_ENHANCED.md`에 등록 및 활성화됨.
 
 ### 다음 단계
 - `[P0] 핵심 기반 강화`의 다음 목표를 진행하거나, 다른 작업을 시작합니다.
@@ -116,7 +116,7 @@
 ## 2025-07-27: 지능형 컨텍스트 관리 프레임워크 구축 (P0-3)
 
 ### 전략적 목표
-- 세션이 시작될 때마다 `HUB.md`를 수동으로 파싱하는 불안정한 방식을 폐기한다. 대신, 워크스페이스의 모든 중요 정보를 사전에 '인덱싱(Indexing)' 하고, 명확한 '정책(Policy)' 에 따라 컨텍스트를 조합하여 제공하는 확장 가능한 프레임워크를 구축한다. 이 프레임워크는 향후 모든 지능형 기능의 기반이 될 것이다.
+- 세션이 시작될 때마다 `HUB_ENHANCED.md`를 수동으로 파싱하는 불안정한 방식을 폐기한다. 대신, 워크스페이스의 모든 중요 정보를 사전에 '인덱싱(Indexing)' 하고, 명확한 '정책(Policy)' 에 따라 컨텍스트를 조합하여 제공하는 확장 가능한 프레임워크를 구축한다. 이 프레임워크는 향후 모든 지능형 기능의 기반이 될 것이다.
 
 ### 지시 사항
 
@@ -194,7 +194,7 @@
     #
     # 세션 시작 시 기본적으로 주입될 컨텍스트 규칙
     session_start_briefing:
-      # sources: HUB.md 파일에서 'Active Tasks' 또는 'Paused Tasks' 태그를 포함하는 문서를 찾아라.
+      # sources: HUB_ENHANCED.md 파일에서 'Active Tasks' 또는 'Paused Tasks' 태그를 포함하는 문서를 찾아라.
       sources:
         - doc_tag: "Active Tasks"
         - doc_tag: "Paused Tasks"
@@ -212,7 +212,7 @@
 
 #### 단계 3: '지능형 세션 시작' 태스크 재구축
 
-이제 `tasks.py`의 `start` 태스크가 `HUB.md`를 직접 파싱하는 대신, 새로 만든 **인덱스**와 **정책**을 사용하도록 재구축한다.
+이제 `tasks.py`의 `start` 태스크가 `HUB_ENHANCED.md`를 직접 파싱하는 대신, 새로 만든 **인덱스**와 **정책**을 사용하도록 재구축한다.
 
   * **`tasks.py`** 의 `start` 태스크를 아래의 완성된 코드로 교체하라.
     ```python
@@ -236,7 +236,7 @@
             index_data = json.loads(index_path.read_text(encoding="utf-8"))
             
             # 정책 로딩은 추후 yaml 라이브러리 추가 후 구현 (지금은 하드코딩)
-            active_tasks = [doc["path"] for doc in index_data.get("docs", []) if "HUB.md" in doc["path"]] # 예시 로직
+            active_tasks = [doc["path"] for doc in index_data.get("docs", []) if "HUB_ENHANCED.md" in doc["path"]] # 예시 로직
 
             git_status_output = c.run("git status --porcelain", hide=True).stdout
             workspace_status = "Uncommitted changes detected." if git_status_output.strip() else "No uncommitted changes."
@@ -297,7 +297,7 @@
 - `scripts` 디렉터리 내의 모든 스크립트를 분석하여 시스템의 전체적인 작동 방식과 구성 요소를 파악한다.
 
 ### 과정
-1.  **`hub_manager.py` 분석:** `docs/HUB.md`를 관리하며 세션 종료 시 `__lastSession__` 블록을 업데이트하는 역할을 파악.
+1.  **`hub_manager.py` 분석:** `docs/CORE/HUB_ENHANCED.md`를 관리하며 세션 종료 시 `__lastSession__` 블록을 업데이트하는 역할을 파악.
 2.  **`runner.py` 분석:** 외부 명령어 실행 및 `usage.db`에 로깅하는 핵심적인 역할을 파악.
 3.  **`prompt_builder.py` 분석:** `context_policy.yaml`과 `context/index.json`을 기반으로 프롬프트 컨텍스트를 동적으로 구성하는 역할을 파악.
 4.  **`summarizer.py` 분석:** 텍스트를 요약하는 추출적 요약 기능을 파악.
@@ -333,9 +333,9 @@
 - 모든 대화 세션을 시작할 때, 이 `GEMINI.md` 파일을 가장 먼저 읽고 모든 규칙을 인지한 상태에서 작업을 시작해야 합니다.
 - **시스템 초기 점검 및 브리핑:**
     - **환경 상태 확인:** `scripts/doctor.py`를 자동으로 실행하여 시스템 환경(Python, Git, venv 등) 및 필수 파일(`usage.db`, `.no_delete_list`, `GEMINI.md`)의 상태를 점검하고, 그 결과를 간결하게 브리핑합니다.
-    - **활성/일시 중지된 작업 브리핑:** `docs/HUB.md`를 참조하여 현재 진행 중이거나 일시 중지된 작업 목록을 상세히 브리핑합니다. 각 작업에 대한 최근 로그 요약(예: `docs/tasks/[task_id]/log.md`의 마지막 3줄)을 포함하여 컨텍스트를 제공합니다.
+    - **활성/일시 중지된 작업 브리핑:** `docs/CORE/HUB_ENHANCED.md`를 참조하여 현재 진행 중이거나 일시 중지된 작업 목록을 상세히 브리핑합니다. 각 작업에 대한 최근 로그 요약(예: `docs/tasks/[task_id]/log.md`의 마지막 3줄)을 포함하여 컨텍스트를 제공합니다.
     - **워크스페이스 변경 사항 요약:** `git status --porcelain`을 실행하여 커밋되지 않은 변경 사항이 있는지 확인하고, 그 상태를 브리핑합니다.
-- **이전 세션 복구 제안:** `docs/HUB.md`에 `__lastSession__` 블록이 있는지 확인하고, 존재하면 사용자에게 해당 세션을 복구할지 여부를 질문한 후 해당 블록을 삭제합니다.
+- **이전 세션 복구 제안:** `docs/CORE/HUB_ENHANCED.md`에 `__lastSession__` 블록이 있는지 확인하고, 존재하면 사용자에게 해당 세션을 복구할지 여부를 질문한 후 해당 블록을 삭제합니다.
 - **다음 행동 제안:** 위의 브리핑을 마친 후, 사용자에게 "어떤 작업을 계속할까요?, 아니면 새로운 작업을 시작할까요? 시스템 상태를 점검하시겠습니까?"와 같이 다음 행동을 제안하여 대화의 흐름을 자연스럽게 유도합니다.
 ```
 
@@ -468,7 +468,7 @@
 ## 2025-07-31: `start` 함수에 작업 현황 브리핑 기능 추가
 
 ### 목표 (5/N)
-- `tasks.py`의 `start` 함수에 `docs/HUB.md` 파일을 읽고, 활성/일시 중지된 작업 목록을 브리핑하는 기능을 추가한다.
+- `tasks.py`의 `start` 함수에 `docs/CORE/HUB_ENHANCED.md` 파일을 읽고, 활성/일시 중지된 작업 목록을 브리핑하는 기능을 추가한다.
 
 ### 실행할 작업
 - `tasks.py`의 `start` 함수를 수정하여 `hub_manager.py`의 `parse_tasks` 함수를 호출하고, 그 결과를 출력하는 코드를 추가할 예정.

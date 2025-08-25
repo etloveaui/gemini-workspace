@@ -23,7 +23,7 @@ def temp_context_dir(tmp_path):
     index_data = {
         "updated_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "docs": [
-            {"path": "docs/HUB.md", "lines": 100, "sha1": "abc", "tags": ["Active Tasks", "Paused Tasks"]},
+            {"path": "docs/CORE/HUB_ENHANCED.md", "lines": 100, "sha1": "abc", "tags": ["Active Tasks", "Paused Tasks"]},
             {"path": "docs/tasks/gemini-self-upgrade/log.md", "lines": 200, "sha1": "def", "tags": ["System"]},
             {"path": "scripts/context_store.py", "lines": 50, "sha1": "ghi", "tags": ["Script"]},
             {"path": "long_document.md", "lines": 500, "sha1": "jkl", "tags": []}
@@ -51,7 +51,7 @@ code_refactor:
 
     # 테스트용 문서 내용 생성
     (tmp_path / "docs").mkdir()
-    (tmp_path / "docs" / "HUB.md").write_text("This is the HUB.md content with Active Tasks and Paused Tasks.")
+    (tmp_path / "docs" / "HUB_ENHANCED.md").write_text("This is the HUB_ENHANCED.md content with Active Tasks and Paused Tasks.")
     (tmp_path / "docs" / "tasks").mkdir()
     (tmp_path / "docs" / "tasks" / "gemini-self-upgrade").mkdir()
     (tmp_path / "docs" / "tasks" / "gemini-self-upgrade" / "log.md").write_text("This is a system log with some important information.")
@@ -74,8 +74,8 @@ def test_retrieval_accuracy(temp_context_dir, monkeypatch):
     store = ContextStore()
     results = store.retrieve({"doc_tag": "Active Tasks"})
     assert len(results) > 0
-    assert any("HUB.md" in doc['path'] for doc in results)
-    assert results[0]['path'] == "docs/HUB.md" # HUB.md가 최우선으로 와야 함
+    assert any("HUB_ENHANCED.md" in doc['path'] for doc in results)
+    assert results[0]['path'] == "docs/CORE/HUB_ENHANCED.md" # HUB_ENHANCED.md가 최우선으로 와야 함
 
 # test_summarization
 def test_summarization():
@@ -114,8 +114,8 @@ def test_prompt_assembly(temp_context_dir, monkeypatch):
 
     # build_prompt_context 함수가 직접 파일 내용을 읽도록 mock
     def mock_read_text(file_path, encoding='utf-8', errors='replace'):
-        if "HUB.md" in str(file_path):
-            return "This is the HUB.md content with Active Tasks and Paused Tasks."
+        if "HUB_ENHANCED.md" in str(file_path):
+            return "This is the HUB_ENHANCED.md content with Active Tasks and Paused Tasks."
         elif "log.md" in str(file_path):
             return "This is a system log with some important information."
         return ""
@@ -126,7 +126,7 @@ def test_prompt_assembly(temp_context_dir, monkeypatch):
     class MockContextStore:
             def retrieve(self, query):
                 if query.get("doc_tag") == "Active Tasks":
-                    return [{"path": "docs/HUB.md", "content": "This is the HUB.md content with Active Tasks and Paused Tasks."}]
+                    return [{"path": "docs/CORE/HUB_ENHANCED.md", "content": "This is the HUB_ENHANCED.md content with Active Tasks and Paused Tasks."}]
                 elif query.get("doc_tag") == "Paused Tasks":
                     return [{"path": "docs/tasks/100xfenok-generator-date-title-input-fix/log.md", "content": "This is a log for a paused task."}]
                 return []
@@ -135,10 +135,10 @@ def test_prompt_assembly(temp_context_dir, monkeypatch):
 
     prompt_context = prompt_builder.build_prompt_context("session_start_briefing")
     assert "# Context for: session_start_briefing (Assembled by Engine)" in prompt_context
-    assert "## Content from: docs/HUB.md" in prompt_context
+    assert "## Content from: docs/CORE/HUB_ENHANCED.md" in prompt_context
     assert "Active Tasks and Paused Tasks" in prompt_context
     assert "system log" not in prompt_context # 정책에 따라 포함되지 않아야 함
 
     # 추가적인 assert 문: final_context_parts에 내용이 제대로 추가되었는지 확인
-    assert "## Content from: docs/HUB.md\nThis is the HUB.md content with Active Tasks and Paused Tasks.\n" in prompt_context
+    assert "## Content from: docs/CORE/HUB_ENHANCED.md\nThis is the HUB_ENHANCED.md content with Active Tasks and Paused Tasks.\n" in prompt_context
     assert "## Content from: docs/tasks/100xfenok-generator-date-title-input-fix/log.md\nThis is a log for a paused task.\n" in prompt_context

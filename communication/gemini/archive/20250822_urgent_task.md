@@ -18,7 +18,7 @@ created: 2025-08-22 14:30
 ### 긴급 요청 내용
 
 1. **파일 수정 실패 문제 해결**:
-   - HUB.md에서 언급된 "Repeated Modification Failures" 해결
+   - HUB_ENHANCED.md에서 언급된 "Repeated Modification Failures" 해결
    - 에이전트 파일 수정 메커니즘 분석 및 개선
    - Windows 환경에서의 파일 권한 문제 해결
    - 수정 실패 로그 분석
@@ -46,7 +46,7 @@ created: 2025-08-22 14:30
   - 토큰 효율성 유지
 
 ### 관련 파일
-- `docs/HUB.md`: 작업 상태 관리
+- `docs/CORE/HUB_ENHANCED.md`: 작업 상태 관리
 - `communication/gemini/`: 정리 대상 폴더
 - `scripts/usage_tracker.py`: 이미 수정됨
 - `.agents/`: 에이전트 관리 시스템

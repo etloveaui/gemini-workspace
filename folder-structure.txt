@@ -23,7 +23,7 @@ C:.
 │              logs.json
 │              
 ├─docs
-│  │  HUB.md
+│  │  HUB_ENHANCED.md
 │  │  
 │  └─tasks
 │      ├─100xfenok-generator-data-cleanup

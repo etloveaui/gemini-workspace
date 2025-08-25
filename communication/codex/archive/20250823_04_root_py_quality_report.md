@@ -48,7 +48,7 @@
 - 개요: 실제 사용 데모. 파일시스템/Context7/에이전트/VSCode 통합 시연.
 - 문서화: 각 함수/메인 docstring 양호.
 - 이슈:
-  - 절대 경로 하드코딩: `C:/Users/etlov/multi-agent-workspace`.
+  - 절대 경로 하드코딩: `C:/Users/eunta/multi-agent-workspace`.
   - 광범위 bare `except`로 오류 삼킴.
   - `ma.py search` 출력이 JSON일 것이라 가정(계약 불명확) → 실패 시 처리 모호.
 - 우선순위: P2.
@@ -141,6 +141,6 @@
 ## 7) 다음 액션 제안
 - 승인 시, 단계 1: `run_background.py` P0 핫픽스부터 적용 → 커밋/스모크 결과 보고.
 - 병행: `setup_environment.py` 손상 구간 정확 위치 표기 후 복구 패치 제안(PR 초안).
-- 문서: `docs/HUB.md`에 품질 개선 이니시어티브 등록.
+- 문서: `docs/CORE/HUB_ENHANCED.md`에 품질 개선 이니시어티브 등록.
 
 > 비고: 본 리포트는 파일 원문 스캔과 실행 경로 점검을 기반으로 작성되었습니다. 수치 기반 커버리지(예: 함수/클래스 개수 대비 Docstring 비율) 산출은 선택 시 보완 가능합니다.

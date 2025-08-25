@@ -11,7 +11,7 @@ import threading
 def run_auto_update():
     """자동 상태 업데이트 실행"""
     try:
-        root = Path("C:/Users/etlov/multi-agent-workspace")
+        root = Path("C:/Users/eunta/multi-agent-workspace")
         subprocess.run([
             'python', 
             str(root / 'scripts' / 'auto_status_updater.py')
@@ -23,7 +23,7 @@ def run_auto_update():
 def run_performance_check():
     """성능 체크 실행"""
     try:
-        root = Path("C:/Users/etlov/multi-agent-workspace")  
+        root = Path("C:/Users/eunta/multi-agent-workspace")  
         subprocess.run([
             'python',
             str(root / 'scripts' / 'performance_optimizer.py')

@@ -5,7 +5,7 @@ from pathlib import Path
 import hub_manager
 
 ROOT = Path(__file__).resolve().parents[1]
-HUB_PATH = ROOT / "docs" / "HUB.md"
+HUB_PATH = get_workspace_path("docs", "CORE", "HUB_ENHANCED.md")
 QUEUE_DIR = ROOT / "agents_hub" / "queue"
 PROCESSING_DIR = ROOT / "agents_hub" / "processing"
 

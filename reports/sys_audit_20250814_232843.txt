@@ -1,5 +1,5 @@
 # System Audit Report (2025-08-14T14:28:43.7510109Z)
-Root: C:\Users\etlov\multi-agent-workspace
+Root: C:\Users\eunta\multi-agent-workspace
 PowerShell: 7.5.2
 
 == Git status ==
@@ -30,9 +30,9 @@ PowerShell: 7.5.2
 == Largest files ==
 
 == Heavy paths ==
-    21.52 KB  C:\Users\etlov\multi-agent-workspace\context\messages.jsonl
-    12.00 KB  C:\Users\etlov\multi-agent-workspace\usage.db
-     5.20 KB  C:\Users\etlov\multi-agent-workspace\terminal_logs
+    21.52 KB  C:\Users\eunta\multi-agent-workspace\context\messages.jsonl
+    12.00 KB  C:\Users\eunta\multi-agent-workspace\usage.db
+     5.20 KB  C:\Users\eunta\multi-agent-workspace\terminal_logs
 
 == Top file extensions ==
    492  .py

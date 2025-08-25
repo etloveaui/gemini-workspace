@@ -52,7 +52,7 @@ LLM 모델, 외부 도구, 내부 규칙의 변화를 주기적으로 스캔하�
 
 1.  **수집(Scan):** `pip list --outdated`, 테스트 로그의 `DeprecationWarning`, 외부 도구의 릴리즈 노트(웹 에이전트 활용), `GEMINI.md` 규칙 위반 패턴 등을 스캔한다.
 2.  **제안(Propose):** 변경이 필요한 항목을 발견하면, `docs/proposals/`에 변경 권고안 마크다운 파일을 자동 생성한다. (WHAT/WHY/HOW 형식)
-3.  **검토 및 승인(Review & Approve):** `HUB.md`에 새로운 제안이 있음을 알리고 사용자의 검토를 기다린다. `SELF_UPDATE_POLICY.md`에 정의된 '자동 승인 가능' 항목(예: 사소한 lint 수정)은 즉시 적용한다.
+3.  **검토 및 승인(Review & Approve):** `HUB_ENHANCED.md`에 새로운 제안이 있음을 알리고 사용자의 검토를 기다린다. `SELF_UPDATE_POLICY.md`에 정의된 '자동 승인 가능' 항목(예: 사소한 lint 수정)은 즉시 적용한다.
 4.  **적용(Apply):** 승인된 제안에 따라 `invoke auto.apply`가 코드 수정, 테스트, 커밋을 수행한다.
 
 #### 3. `GEMINI.md` 반영

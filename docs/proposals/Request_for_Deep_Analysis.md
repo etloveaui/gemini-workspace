@@ -57,7 +57,7 @@
 ## 4) 세션 라이프사이클
 **Start**
 1) `doctor` 실행 → 핵심 의존성/권한/인코딩 점검  
-2) `docs/HUB.md`의 Active/Paused 요약, `git status --porcelain` 요약  
+2) `docs/CORE/HUB_ENHANCED.md`의 Active/Paused 요약, `git status --porcelain` 요약  
 3) `context.build` 실행(인덱스 최신화)  
 4) 이전 세션의 `__lastSession__` 블록이 있으면 정리 후 시작
 
@@ -72,7 +72,7 @@
 - HUB 상태 갱신(Active↔Paused), `__lastSession__` 블록에 핵심 요약 기록
 
 ## 5) 로깅·인수인계
-- **중앙 허브**: `docs/HUB.md` — 상태(Active/Paused/Completed)와 각 작업 로그 링크 관리  
+- **중앙 허브**: `docs/CORE/HUB_ENHANCED.md` — 상태(Active/Paused/Completed)와 각 작업 로그 링크 관리  
 - **작업 로그**: `docs/tasks/<task_id>/log.md` — 시간순 **Append-only**(정정은 하단에 추가)  
 - **권장 주기**: Detailed | Standard(기본) | Minimal 중 선택
 

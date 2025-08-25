@@ -6,7 +6,7 @@
 
 ### 1. 기본 파일 읽기 (필수)
 - [ ] `GEMINI.md` - 핵심 규칙 및 절차
-- [ ] `docs/HUB.md` - 현재 진행 작업들
+- [ ] `docs/CORE/HUB_ENHANCED.md` - 현재 진행 작업들
 - [ ] `docs/GEMINI_CHECKLIST.md` (이 파일)
 
 ### 2. 시스템 연결성 체크 (신규 시스템 구축시)

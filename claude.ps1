@@ -82,7 +82,7 @@ function Show-Status {
     $KeyFiles = @(
         "CLAUDE.md",
         "scripts\claude_integration.py",
-        "docs\HUB.md",
+        "docs\CORE\HUB_ENHANCED.md",
         ".agents\config.json"
     )
     

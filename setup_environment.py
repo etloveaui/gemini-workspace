@@ -296,7 +296,7 @@ class BackupManager:
         
         important_files = [
             "CLAUDE.md", "GEMINI.md", "AGENTS.md",
-            ".agents/config.json", "docs/HUB.md",
+            ".agents/config.json", "docs/CORE/HUB_ENHANCED.md",
             ".agents/multi_agent_manager.py",
             ".agents/context7_mcp.py",
             "usage.db"

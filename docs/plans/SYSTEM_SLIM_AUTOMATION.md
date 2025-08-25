@@ -7,7 +7,7 @@
 - 슬림: 래퍼/워처 기본 OFF, 필요 시 수동 실행.
 
 ## Phase 1 — Automation Tasks (우선순위 1)
-- `invoke hub.sync`: docs/HUB.md ↔ agents_hub/queue,processing 동기화.
+- `invoke hub.sync`: docs/CORE/HUB_ENHANCED.md ↔ agents_hub/queue,processing 동기화.
 - `invoke task.autopromote`: 규칙 기반 Planned→Active 승격(화이트리스트·태그 기반).
 - 훅: `agent.start`(세션 진입 시 1회), `agent.end`(세션 종료 시 1회)에서 위 태스크 호출.
 - DoD:

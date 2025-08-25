@@ -29,7 +29,7 @@
 
   실행하여 완전히 분석하겠습니다!
 
-● Bash(cd "C:\Users\etlov\multi-agent-workspace\projects\100xFenok-generator" &&
+● Bash(cd "C:\Users\eunta\multi-agent-workspace\projects\100xFenok-generator" &&
       python free_explorer.py)
   ⎿  Running in the background (down arrow to manage)
 

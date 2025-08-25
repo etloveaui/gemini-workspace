@@ -170,7 +170,7 @@ def main():
             print("  python scripts/dashboard.py")
         else:
             print("\n⚠️ 일부 설정에 문제가 있을 수 있습니다.")
-            print("docs/HUB.md를 확인하여 수동 설정을 진행하세요.")
+            print("docs/CORE/HUB_ENHANCED.md를 확인하여 수동 설정을 진행하세요.")
             
     except KeyboardInterrupt:
         print("\n설정이 중단되었습니다.")

@@ -42,7 +42,7 @@ class GitPushOptimizer:
                 "tasks.py",
                 "main_generator.py",
                 "*.py",
-                "docs/HUB.md"
+                "docs/CORE/HUB_ENHANCED.md"
             ],
             "critical_changes": [
                 "add new feature",

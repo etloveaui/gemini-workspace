@@ -24,7 +24,7 @@ Communication 시스템 v2.1이 완성되면서 `scratchpad` 폴더가 더 이�
 
 1. **전체 스캔**
    ```
-   대상 폴더: C:\Users\etlov\multi-agent-workspace\scratchpad\
+   대상 폴더: C:\Users\eunta\multi-agent-workspace\scratchpad\
    ```
 
 2. **파일 분류 기준**

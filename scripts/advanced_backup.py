@@ -383,7 +383,7 @@ class AdvancedBackupSystem:
         except:
             return {"status": "error"}
 
-def create_backup_now(root_path: str = "C:/Users/etlov/multi-agent-workspace") -> Dict:
+def create_backup_now(root_path: str = "C:/Users/eunta/multi-agent-workspace") -> Dict:
     """즉시 백업 생성"""
     backup_system = AdvancedBackupSystem(root_path)
     return backup_system.create_smart_backup("manual")
@@ -394,6 +394,6 @@ if __name__ == "__main__":
     print(f"1) Result: {result}")
 
     print("=== Backup Status ===")
-    backup_system = AdvancedBackupSystem("C:/Users/etlov/multi-agent-workspace")
+    backup_system = AdvancedBackupSystem("C:/Users/eunta/multi-agent-workspace")
     status = backup_system.get_backup_status()
     print(f"1) Status: {status}")

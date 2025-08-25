@@ -56,7 +56,7 @@ class ClaudeIntegration:
     
     def check_hub_status(self) -> Dict[str, Any]:
         """Check the current HUB status and active tasks"""
-        hub_file = self.workspace_root / "docs" / "HUB.md"
+        hub_file = self.workspace_root / "docs" / "HUB_ENHANCED.md"
         
         status = {
             "hub_exists": hub_file.exists(),
@@ -87,7 +87,7 @@ class ClaudeIntegration:
                             status["claude_tasks"].append(task)
                             
             except Exception as e:
-                print(f"Warning: Could not parse HUB.md: {e}")
+                print(f"Warning: Could not parse HUB_ENHANCED.md: {e}")
         
         return status
     
@@ -153,7 +153,7 @@ class ClaudeIntegration:
             
             # Check key context files
             key_files = [
-                "docs/HUB.md",
+                "docs/CORE/HUB_ENHANCED.md",
                 "README.md", 
                 "GEMINI.md",
                 ".agents/config.json"

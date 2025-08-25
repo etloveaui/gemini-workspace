@@ -1,6 +1,6 @@
 """
 에이전트 상태 실시간 동기화 시스템
-HUB.md 자동 업데이트 및 에이전트 간 작업 충돌 방지
+HUB_ENHANCED.md 자동 업데이트 및 에이전트 간 작업 충돌 방지
 """
 import time
 import threading
@@ -12,7 +12,7 @@ sys.path.append(str(Path(__file__).parent))
 from cli_style import header, kv, status_line
 
 ROOT = Path(__file__).resolve().parent.parent
-HUB_FILE = ROOT / "docs" / "HUB.md"
+HUB_FILE = ROOT / "docs" / "HUB_ENHANCED.md"
 AGENTS_DIR = ROOT / "communication"
 
 class RealtimeAgentSync:
@@ -84,7 +84,7 @@ class RealtimeAgentSync:
             print(f"❌ {agent} 상태 업데이트 실패: {e}")
     
     def update_hub_realtime(self):
-        """HUB.md 실시간 업데이트"""
+        """HUB_ENHANCED.md 실시간 업데이트"""
         while self.running:
             if any(agent.get('updated', False) for agent in self.agent_status.values()):
                 self.sync_hub_file()
@@ -95,7 +95,7 @@ class RealtimeAgentSync:
             time.sleep(30)  # 30초마다 HUB 업데이트
     
     def sync_hub_file(self):
-        """HUB.md 파일 동기화"""
+        """HUB_ENHANCED.md 파일 동기화"""
         try:
             if not HUB_FILE.exists():
                 return
@@ -122,10 +122,10 @@ class RealtimeAgentSync:
             
             # 파일 저장
             HUB_FILE.write_text(content, encoding='utf-8')
-            print(f"📋 HUB.md 자동 업데이트 완료 ({datetime.now().strftime('%H:%M')})")
+            print(f"📋 HUB_ENHANCED.md 자동 업데이트 완료 ({datetime.now().strftime('%H:%M')})")
             
         except Exception as e:
-            print(f"❌ HUB.md 업데이트 실패: {e}")
+            print(f"❌ HUB_ENHANCED.md 업데이트 실패: {e}")
     
     def generate_auto_section(self):
         """자동 상태 업데이트 섹션 생성"""

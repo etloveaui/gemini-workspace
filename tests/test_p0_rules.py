@@ -19,7 +19,7 @@ import re
 
 # --- Constants and Test Setup ---
 ROOT = Path(__file__).resolve().parent.parent
-HUB_PATH = ROOT / "docs" / "HUB.md"
+HUB_PATH = get_workspace_path("docs", "CORE", "HUB_ENHANCED.md")
 
 # 전역 DB_PATH는 이제 사용하지 않음
 # DB_PATH = ROOT / "usage.db"

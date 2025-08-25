@@ -11,7 +11,7 @@ from datetime import datetime
 
 class SmartErrorHandler:
     def __init__(self):
-        self.root = Path("C:/Users/etlov/multi-agent-workspace")
+        self.root = Path("C:/Users/eunta/multi-agent-workspace")
         self.solutions_db = self.root / "docs" / "errors" / "solutions_db.json"
         self.error_log = self.root / "logs" / "errors.log"
         
@@ -168,7 +168,7 @@ class SmartErrorHandler:
         print("   4) 관련 로그 파일을 확인해보세요")
         print()
         print("🔍 추가 도움이 필요하면:")
-        print("   - docs/HUB.md에서 비슷한 문제를 찾아보세요")
+        print("   - docs/CORE/HUB_ENHANCED.md에서 비슷한 문제를 찾아보세요")
         print("   - communication 폴더에 도움 요청 파일을 작성하세요")
     
     def log_error(self, error_type, error_msg, context):

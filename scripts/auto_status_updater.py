@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 자동 상태 업데이트 시스템 v1.0
-사용자가 신경쓰지 않아도 HUB.md와 작업 로그들이 자동으로 업데이트됩니다.
+사용자가 신경쓰지 않아도 HUB_ENHANCED.md와 작업 로그들이 자동으로 업데이트됩니다.
 """
 import os
 import json
@@ -12,8 +12,8 @@ import glob
 
 class AutoStatusUpdater:
     def __init__(self):
-        self.root = Path("C:/Users/etlov/multi-agent-workspace")
-        self.hub_file = self.root / "docs" / "HUB.md"
+        self.root = Path("C:/Users/eunta/multi-agent-workspace")
+        self.hub_file = self.root / "docs" / "HUB_ENHANCED.md"
         self.comm_dir = self.root / "communication"
         self.reports_dir = self.root / "reports"
         
@@ -66,11 +66,11 @@ class AutoStatusUpdater:
             return 'unknown'
     
     def update_hub_automatically(self):
-        """HUB.md 자동 업데이트"""
+        """HUB_ENHANCED.md 자동 업데이트"""
         activities = self.check_agent_activities()
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M")
         
-        # 현재 HUB.md 읽기
+        # 현재 HUB_ENHANCED.md 읽기
         if not self.hub_file.exists():
             return False
             
@@ -194,7 +194,7 @@ class AutoStatusUpdater:
         try:
             # 1. HUB 업데이트
             if self.update_hub_automatically():
-                print("✅ HUB.md 자동 업데이트 완료")
+                print("✅ HUB_ENHANCED.md 자동 업데이트 완료")
             
             # 2. 시스템 메트릭 수집
             metrics = self.check_system_metrics()

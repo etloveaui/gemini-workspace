@@ -6,7 +6,7 @@ feat(cli): unify CLI outputs; add background runner
   quickstart.py, token_optimizer.py, dashboard.py, usage_limit_monitor.py
 - Add scripts/run_background.py (UTF-8, hidden window, background logs)
 - Add scripts/logs_cleanup.ps1 (archive *.log >3 days)
-- Update docs/HUB.md with completion summary
+- Update docs/CORE/HUB_ENHANCED.md with completion summary
 - Add docs/SESSION_LOG_20250822.md (session summary)
 
 Test: 23 passed, 8 skipped (pytest)

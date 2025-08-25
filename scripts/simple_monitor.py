@@ -12,7 +12,7 @@ class SimpleAgentMonitor:
     """간단한 에이전트 모니터링"""
     
     def __init__(self):
-        self.root = Path("C:/Users/etlov/multi-agent-workspace")
+        self.root = Path("C:/Users/eunta/multi-agent-workspace")
         self.comm_dir = self.root / "communication"
         self.agents = ["claude", "gemini", "codex"]
         self.last_check = {}

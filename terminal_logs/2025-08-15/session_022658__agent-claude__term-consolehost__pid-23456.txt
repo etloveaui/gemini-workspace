@@ -5,7 +5,7 @@ Windows PowerShell 기록 시작
 RunAs 사용자: ETK-DESKTOP\etlov
 구성 이름: 
 Machine: ETK-DESKTOP (Microsoft Windows NT 10.0.19045.0)
-호스트 응용 프로그램: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Users\etlov\multi-agent-workspace\tools\claude_ui.ps1
+호스트 응용 프로그램: powershell -NoProfile -ExecutionPolicy Bypass -File C:\Users\eunta\multi-agent-workspace\tools\claude_ui.ps1
 프로세스 ID: 23456
 PSVersion: 5.1.19041.6216
 PSEdition: Desktop
@@ -16,7 +16,7 @@ WSManStackVersion: 3.0
 PSRemotingProtocolVersion: 2.3
 SerializationVersion: 1.1.0.1
 **********************
-Recording started -> C:\Users\etlov\multi-agent-workspace\terminal_logs\2025-08-15\session_022658__agent-claude__term-consolehost__pid-23456.txt
+Recording started -> C:\Users\eunta\multi-agent-workspace\terminal_logs\2025-08-15\session_022658__agent-claude__term-consolehost__pid-23456.txt
 Total duration (wall): 2m 23.9s
 Total code changes:    0 lines added, 0 lines removed
 Usage:                 0 input, 0 output, 0 cache read, 0 cache write

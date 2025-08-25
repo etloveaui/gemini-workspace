@@ -97,13 +97,13 @@ Enterprise 메인페이지에서 다음 프롬프트들로 생성:
 
 ```bash
 # 1. 프로젝트 디렉터리로 이동
-cd "C:\Users\etlov\multi-agent-workspace\projects\100xFenok-generator"
+cd "C:\Users\eunta\multi-agent-workspace\projects\100xFenok-generator"
 
 # 2. 저장된 HTML 확인
-ls "C:\Users\etlov\multi-agent-workspace\communication\shared\100xfenok\002_terminalx\"
+ls "C:\Users\eunta\multi-agent-workspace\communication\shared\100xfenok\002_terminalx\"
 
 # 3. 부차적 데이터 프롬프트 확인
-ls "C:\Users\etlov\multi-agent-workspace\communication\shared\100xfenok\001_terminalx\"
+ls "C:\Users\eunta\multi-agent-workspace\communication\shared\100xfenok\001_terminalx\"
 
 # 4. 다음 작업: enterprise_additional_generator.py 생성 및 실행
 ```

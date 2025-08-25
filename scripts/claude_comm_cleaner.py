@@ -11,9 +11,12 @@ import shutil
 from datetime import datetime, timedelta
 from pathlib import Path
 
+# 환경 경로 관리 시스템 사용
+from environment_path_manager import get_workspace_path
+
 def clean_agent_communication(agent_name):
     """특정 에이전트 communication 폴더 정리"""
-    base_path = Path(f"C:/Users/etlov/multi-agent-workspace/communication/{agent_name}")
+    base_path = get_workspace_path("communication", agent_name)
     if not base_path.exists():
         return []
         

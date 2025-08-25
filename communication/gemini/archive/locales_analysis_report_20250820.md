@@ -41,7 +41,7 @@
 - **삭제 권장**: 불필요한 파일을 제거하여 워크스페이스를 깔끔하게 유지하고 혼란을 줄이는 것을 권장합니다.
 - **삭제 스크립트 (Windows cmd)**:
 ```batch
-rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\locales"
+rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\locales"
 ```
 
 ### 3.4. 향후 다국어 지원 계획

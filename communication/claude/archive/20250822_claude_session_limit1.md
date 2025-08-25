@@ -15,7 +15,7 @@
 ## 📝 중요 컨텍스트 (토큰 효율적)
 - **현재 브랜치/상태**: main 브랜치, 117개 파일 staged, Git 커밋 대기 중
 - **주의사항**: Gemini 토큰 오버플로우 (1.6M→1M 절감 작업 중), projects/ 폴더는 독립 Git이므로 건드리지 말 것
-- **관련 파일**: `communication/gemini/20250822_prompt1.md`, `communication/codex/20250822_prompt1.md`, `docs/HUB.md`
+- **관련 파일**: `communication/gemini/20250822_prompt1.md`, `communication/codex/20250822_prompt1.md`, `docs/CORE/HUB_ENHANCED.md`
 
 ---
 **생성일**: 2025-08-22 15:36

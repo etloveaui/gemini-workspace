@@ -40,7 +40,7 @@ def step_by_step_guide():
         {
             'title': '4단계: HUB 확인',
             'description': '현재 진행 중인 작업들을 파악합니다',
-            'command': 'type docs\\HUB.md | more  # Windows',
+            'command': 'type docs\\HUB_ENHANCED.md | more  # Windows',
             'expected': '🚀 활성 작업 목록과 완료된 작업들 확인'
         },
         {
@@ -103,11 +103,11 @@ def next_steps():
     print(section("Resources"))
     print(item(1, "docs/HELP.md - 상세 도움말"))
     print(item(2, "CLAUDE.md, GEMINI.md, AGENTS.md - 에이전트 설정"))
-    print(item(3, "docs/HUB.md - 프로젝트 현황"))
+    print(item(3, "docs/CORE/HUB_ENHANCED.md - 프로젝트 현황"))
     print(section("Try This"))
     print(item(1, "python scripts/doctor.py"))
     print(item(2, "python claude.py '현재 워크스페이스 상태'"))
-    print(item(3, "docs/HUB.md 검토"))
+    print(item(3, "docs/CORE/HUB_ENHANCED.md 검토"))
     print(section("Help"))
     print(item(1, "python scripts/quick_help.py troubleshoot"))
     print(item(2, "communication/ 각 에이전트 가이드 확인"))

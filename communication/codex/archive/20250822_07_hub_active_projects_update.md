@@ -1,7 +1,7 @@
 # 2025-08-22 HUB 갱신: Active Projects 추가
 
 - 시간: 2025-08-22T11:28:00
-- 변경 파일: `docs/HUB.md`
+- 변경 파일: `docs/CORE/HUB_ENHANCED.md`
 - 변경 내용: “Active Projects” 섹션 신설 및 다음 프로젝트 등록
   - 100xFenok: 관련 태스크 허브 4개, 커뮤니케이션 링크 1개 명시
   - 100xFenok-generator: 관련 태스크 허브 3개 명시

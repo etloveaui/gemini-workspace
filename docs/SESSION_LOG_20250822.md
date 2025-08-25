@@ -15,7 +15,7 @@
 - scripts/environment_checker.py, scripts/environment_detector.py
 - scripts/quick_help.py, scripts/onboarding.py, scripts/simple_monitor.py
 - scripts/runner.py, scripts/quickstart.py
-- docs/HUB.md (완료 항목 보강)
+- docs/CORE/HUB_ENHANCED.md (완료 항목 보강)
 
 ## New Files
 - scripts/cli_style.py — 공용 출력 유틸(header/section/item/kv)

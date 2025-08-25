@@ -1,7 +1,7 @@
 # 2025-08-22 HUB 보강: 에이전트/진행도 표기
 
 - 시간: 2025-08-22T11:35:00
-- 변경 파일: `docs/HUB.md`
+- 변경 파일: `docs/CORE/HUB_ENHANCED.md`
 - 보강 내용:
   - 각 Active Project에 다음 필드 추가
     - 담당 에이전트: `Claude(설계), Codex(구현), Gemini(대량 작업)`

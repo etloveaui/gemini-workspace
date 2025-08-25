@@ -50,11 +50,11 @@
 
 ### Windows (cmd)
 ```batch
-rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\docsarchitecture"
-rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\docsarchive"
-rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\docsintegration"
-rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\docssetup"
-rmdir /S /Q "C:\Users\etlov\multi-agent-workspace\docstools"
+rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\docsarchitecture"
+rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\docsarchive"
+rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\docsintegration"
+rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\docssetup"
+rmdir /S /Q "C:\Users\eunta\multi-agent-workspace\docstools"
 ```
 
 ---

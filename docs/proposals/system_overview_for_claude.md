@@ -21,16 +21,16 @@
 ## 3. 시스템 동작 방식: 단계별 가이드
 
 1.  **세션 시작**: `gemini.ps1`, `codex.ps1`, `claude.ps1` 중 자신의 런처를 실행하여 세션을 시작합니다. 이 과정에서 `ACTIVE_AGENT` 환경 변수가 설정되고 터미널 기록이 자동으로 시작됩니다.
-2.  **상태 파악**: `invoke start` 명령어를 통해 현재 진행 중인 작업(`docs/HUB.md`), Git 상태, 그리고 자신에게 온 메시지(`invoke agent.inbox`)를 확인합니다.
+2.  **상태 파악**: `invoke start` 명령어를 통해 현재 진행 중인 작업(`docs/CORE/HUB_ENHANCED.md`), Git 상태, 그리고 자신에게 온 메시지(`invoke agent.inbox`)를 확인합니다.
 3.  **작업 수행**: `invoke`로 제공되는 다양한 명령어(`search`, `refactor` 등)를 사용하여 작업을 수행합니다. 파일 수정과 같은 중요한 작업은 아래의 협업 프로토콜을 따릅니다.
 4.  **협업**: 다른 에이전트에게 정보를 공유할 때는 `invoke agent.msg`를, 공식적인 작업 할당이 필요할 때는 `invoke hub.send`를 사용합니다.
 5.  **커밋**: 작업이 완료되면 `invoke wip` 또는 `invoke commit_safe`를 사용하여 변경 사항을 커밋합니다. 이때 `pre-commit` 훅이 자동으로 실행되어 보안 및 안전 검사를 수행합니다.
-6.  **세션 종료**: `invoke end`를 통해 세션을 안전하게 종료합니다. 이 과정에서 `docs/HUB.md`에 세션 요약 정보가 자동으로 기록됩니다.
+6.  **세션 종료**: `invoke end`를 통해 세션을 안전하게 종료합니다. 이 과정에서 `docs/CORE/HUB_ENHANCED.md`에 세션 요약 정보가 자동으로 기록됩니다.
 
 ## 4. 주요 시스템 및 구성 요소 (상세 보고서 링크 포함)
 
 -   **코어 아키텍처**: 3개의 계층(PowerShell 런처, Invoke 태스크, Python 스크립트)으로 명확하게 분리되어 있습니다. ([상세 분석](docs/proposals/system_analysis_report_core_architecture.md))
--   **상태 관리**: `docs/HUB.md`, `agents_hub/`, `context/`, `usage.db` 등 파일 기반의 분산된 방식으로 상태를 관리합니다. ([상세 분석](docs/proposals/system_analysis_report_state_management.md))
+-   **상태 관리**: `docs/CORE/HUB_ENHANCED.md`, `agents_hub/`, `context/`, `usage.db` 등 파일 기반의 분산된 방식으로 상태를 관리합니다. ([상세 분석](docs/proposals/system_analysis_report_state_management.md))
 -   **에이전트 협업**: `ACTIVE_AGENT` 환경 변수로 에이전트를 식별하며, 메시지 로그와 태스크 큐를 통해 상호작용합니다. ([상세 분석](docs/proposals/system_analysis_report_agent_integration.md))
 -   **보안 및 품질**: 로컬 `pre-commit` 훅과 원격 CI/CD 파이프라인을 연동한 다층 방어 및 검증 체계를 갖추고 있습니다. ([상세 분석](docs/proposals/system_analysis_report_security_quality.md))
 

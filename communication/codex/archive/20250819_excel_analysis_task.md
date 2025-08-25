@@ -12,7 +12,7 @@ task_type: excel_analysis
 `ARS_BSW-ASW_Interface_V1.00.xlsx` 파일을 분석하여 V1.01 문서 작성을 위한 기반 정보를 추출하고, Claude가 분석한 코드 구조와 매핑하여 업데이트 방향성을 수립한다.
 
 ## 📂 파일 정보
-- **대상 파일**: `C:\Users\etlov\multi-agent-workspace\communication\shared\wia_ars\ARS_BSW-ASW_Interface_V1.00.xlsx`
+- **대상 파일**: `C:\Users\eunta\multi-agent-workspace\communication\shared\wia_ars\ARS_BSW-ASW_Interface_V1.00.xlsx`
 - **파일 성격**: BSW-ASW 인터페이스 문서 (Version 1.00)
 - **고객**: WIA (ARS 시스템용)
 

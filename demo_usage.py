@@ -13,7 +13,7 @@ def demo_filesystem_operations():
     
     # 1. 프로젝트 구조 확인
     print("1) 프로젝트 구조:")
-    root = Path("C:/Users/etlov/multi-agent-workspace")
+    root = Path("C:/Users/eunta/multi-agent-workspace")
     for item in sorted(root.iterdir()):
         if item.name not in ['.git', '__pycache__', 'venv', 'projects']:
             print(f"   {item.name}/")
@@ -108,7 +108,7 @@ def demo_vs_code_integration():
     """VS Code 통합 데모"""
     print("\n=== VS Code 통합 데모 ===")
     
-    tasks_file = Path("C:/Users/etlov/multi-agent-workspace/.vscode/tasks.json")
+    tasks_file = Path("C:/Users/eunta/multi-agent-workspace/.vscode/tasks.json")
     if tasks_file.exists():
         with open(tasks_file, 'r', encoding='utf-8') as f:
             data = json.load(f)

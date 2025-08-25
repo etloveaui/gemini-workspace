@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 
 def emergency_cleanup():
     """긴급 정리 실행"""
-    root = Path("C:/Users/etlov/multi-agent-workspace")
+    root = Path("C:/Users/eunta/multi-agent-workspace")
     removed_files = []
     saved_space = 0
     

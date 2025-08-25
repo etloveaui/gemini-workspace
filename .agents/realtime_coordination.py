@@ -240,7 +240,7 @@ class AgentCoordinator:
 # 전역 인스턴스
 coordinator = None
 
-def get_coordinator(root_path: str = "C:/Users/etlov/multi-agent-workspace") -> AgentCoordinator:
+def get_coordinator(root_path: str = "C:/Users/eunta/multi-agent-workspace") -> AgentCoordinator:
     """싱글톤 코디네이터 인스턴스 반환"""
     global coordinator
     if coordinator is None:
@@ -255,8 +255,8 @@ if __name__ == "__main__":
     coord.register_agent("claude", "working", "system_optimization", priority=0)
     
     # 리소스 잠금 테스트
-    if coord.request_resource_lock("claude", "docs/HUB.md", priority=0):
-        print("✅ HUB.md 잠금 성공")
+    if coord.request_resource_lock("claude", "docs/CORE/HUB_ENHANCED.md", priority=0):
+        print("✅ HUB_ENHANCED.md 잠금 성공")
     
     # 상태 확인
     status = coord.get_agent_status("claude")

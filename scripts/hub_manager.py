@@ -6,8 +6,14 @@ from datetime import datetime, timezone
 import os
 import time
 
-ROOT = Path(__file__).resolve().parents[1]
-HUB_PATH = ROOT / "docs" / "HUB.md"
+# HUB 경로 관리 시스템 사용
+try:
+    from scripts.hub_path_manager import get_hub_path
+    HUB_PATH = get_hub_path(use_legacy=True)
+except ImportError:
+    # fallback for backward compatibility
+    ROOT = Path(__file__).resolve().parents[1]
+    HUB_PATH = get_workspace_path("docs", "CORE", "HUB_ENHANCED.md")
 
 def _read() -> str:
     return HUB_PATH.read_text(encoding="utf-8", errors="replace")
@@ -106,7 +112,7 @@ def handle_last_session() -> None:
 
 def move_task_to_completed(task_name: str) -> None:
     """
-    Moves a task from 'Active Tasks' to 'Completed Tasks' in HUB.md.
+    Moves a task from 'Active Tasks' to 'Completed Tasks' in HUB_ENHANCED.md.
     Updates the 'Last Updated' timestamp.
     """
     content = _read()

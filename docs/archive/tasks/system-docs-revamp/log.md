@@ -5,7 +5,7 @@
 ### [Initial Setup] - 목표: Gemini의 능동적인 작업 기록 시스템 구축
 
 - **Action:** 사용자 요청에 따라 Gemini의 작업 기록 및 컨텍스트 관리 시스템을 개편하기로 결정.
-- **Result:** 기존 `docs` 폴더의 비효율성을 인지하고, `HUB.md`와 `tasks/[task_id]/log.md`를 중심으로 하는 새로운 시스템 제안 및 사용자 승인.
+- **Result:** 기존 `docs` 폴더의 비효율성을 인지하고, `HUB_ENHANCED.md`와 `tasks/[task_id]/log.md`를 중심으로 하는 새로운 시스템 제안 및 사용자 승인.
 - **Note:**
     - 사용자의 Windows 환경 특성을 고려하여 명령어 사용 시 주의사항(`rm` 대신 `del` 등)을 `GEMINI.md`에 명시.
     - Gemini가 기록 시점을 능동적으로 제안하고, 사용자가 이를 조절할 수 있는 "기록 주기 설정" 개념 도입.

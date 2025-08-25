@@ -9,7 +9,7 @@
     *   `scripts/git-wip.ps1` 또한 동일한 프로토콜을 따름을 검증.
 
 2.  **`__lastSession__` 처리 루틴 검증:**
-    *   `scripts/hub_manager.py`의 `strip_last_session_block` 함수가 `HUB.md` 내의 모든 `__lastSession__` 블록을 정확하고 안전하게 제거함을 검증.
+    *   `scripts/hub_manager.py`의 `strip_last_session_block` 함수가 `HUB_ENHANCED.md` 내의 모든 `__lastSession__` 블록을 정확하고 안전하게 제거함을 검증.
     *   `invoke end` 실행 시 `__lastSession__` 블록이 올바르게 생성되고, `invoke start` 실행 시 해당 블록이 정확히 제거됨을 검증.
 
 3.  **`runner.py` 인코딩 문제 해결:**

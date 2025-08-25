@@ -1,7 +1,7 @@
 ============================= test session starts =============================
-platform win32 -- Python 3.13.6, pytest-8.4.1, pluggy-1.6.0 -- C:\Users\etlov\multi-agent-workspace\venv\Scripts\python.exe
+platform win32 -- Python 3.13.6, pytest-8.4.1, pluggy-1.6.0 -- C:\Users\eunta\multi-agent-workspace\venv\Scripts\python.exe
 cachedir: .pytest_cache
-rootdir: C:\Users\etlov\multi-agent-workspace
+rootdir: C:\Users\eunta\multi-agent-workspace
 configfile: pytest.ini
 testpaths: tests
 collecting ... collected 31 items

@@ -5,7 +5,7 @@
     "CLAUDE.md": true,
     "GEMINI.md": true,
     "AGENTS.md": true,
-    "docs/HUB.md": true,
+    "docs/CORE/HUB_ENHANCED.md": true,
     "usage.db": true,
     "secrets/my_sensitive_data.md": true
   },

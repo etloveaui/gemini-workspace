@@ -17,7 +17,7 @@ completed: 2025-08-20 16:15
 ## 🎯 작업 상세
 
 ### 요청 내용 (원문)
-1. C:\Users\etlov\multi-agent-workspace\communication\shared\upgrade 폴더의 모든 내용 읽어보기
+1. C:\Users\eunta\multi-agent-workspace\communication\shared\upgrade 폴더의 모든 내용 읽어보기
 2. Codex, Gemini, Claude의 모든 평가를 종합 분석
 3. 시스템에 도움이 될지 냉정한 평가 필요
 4. Gemini_Analysis_and_Proposals_20250819.md의 제안 실현 가능성 특히 중요
@@ -64,7 +64,7 @@ completed: 2025-08-20 16:15
 
 2. **에이전트 간 작업 위임 (2단계)**
    - **가능성**: 80% - 규칙 기반 로직으로 시작 가능
-   - **근거**: HUB.md 수정과 파일 재할당은 기존 시스템 확장
+   - **근거**: HUB_ENHANCED.md 수정과 파일 재할당은 기존 시스템 확장
    - **예상 효과**: 작업 배정 정확도 70% 향상
 
 ### **⚠️ 조건부 실현 가능 (6-12개월)**

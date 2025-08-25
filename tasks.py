@@ -9,6 +9,8 @@ from scripts.organizer import organize_scratchpad
 from scripts import agent_manager
 from scripts.agents import messages as agent_messages
 import subprocess, os, re, json
+# HUB 경로 관리 시스템 추가
+from scripts.hub_path_manager import get_hub_path
 ROOT = Path(__file__).resolve().parent
 if os.name == 'nt':
     _venv_candidate = ROOT / 'venv' / 'Scripts' / 'python.exe'
@@ -144,7 +146,7 @@ def start(c, fast=False, skip_doctor=False, skip_index=False, bg_index=True):
 
         console.print("[bold blue]--- Task Status ---[/bold blue]")
         try:
-            with open('docs/HUB.md', 'r', encoding='utf-8') as f:
+            with open(get_hub_path(use_legacy=True), 'r', encoding='utf-8') as f:
                 hub_content = f.read()
 
             staging_tasks = hub_manager.parse_tasks(hub_content, 'Staging Tasks')
@@ -172,7 +174,7 @@ def start(c, fast=False, skip_doctor=False, skip_index=False, bg_index=True):
             console.print(table)
 
         except FileNotFoundError:
-            console.print("[red]docs/HUB.md not found.[/red]")
+            console.print(f"[red]HUB file not found: {get_hub_path(use_legacy=True)}[/red]")
 
         console.print("[bold blue]--- Git Status ---[/bold blue]")
         git_status_result = run_command('start.git_status', ['git', 'status', '--porcelain'], check=False)
@@ -273,7 +275,7 @@ def agent_end(c):
 
 @task
 def end(c, task_id='general'):
-    """WIP commit, write __lastSession__ block, ensure HUB.md is committed."""
+    """WIP commit, write __lastSession__ block, ensure HUB_ENHANCED.md is committed."""
     agent_end(c)
     # General WIP commit first
     run_command('end', ['invoke', 'wip'], check=False)
@@ -282,11 +284,11 @@ def end(c, task_id='general'):
         hub_manager.update_session_end_info(task_id)
     except Exception as e:
         console.print(f"[red]HUB update failed: {e}[/red]")
-    # Explicitly stage and commit HUB.md if changed
+    # Explicitly stage and commit HUB_ENHANCED.md if changed
     try:
-        subprocess.run(['git', 'add', 'docs/HUB.md'], check=False, text=True)
+        subprocess.run(['git', 'add', str(get_hub_path(use_legacy=True))], check=False, text=True)
         res = subprocess.run(['git', 'diff', '--cached', '--name-only'], capture_output=True, text=True, check=False)
-        if 'docs/HUB.md' in (res.stdout or ''):
+        if str(get_hub_path(use_legacy=True).name) in (res.stdout or ''):
             with tempfile.NamedTemporaryFile('w', delete=False, encoding='utf-8') as tf:
                 tf.write(f"chore(hub): update session info for {task_id}\n")
                 tf.flush()
@@ -434,7 +436,7 @@ def config(c, lang):
 
 ns.add_task(config)
 
-# New tasks for managing task status in HUB.md
+# New tasks for managing task status in HUB_ENHANCED.md
 @task(
     help={
         'tags': 'Comma-separated tags to match for promotion',
@@ -461,7 +463,7 @@ def autopromote(c, tags=None, whitelist=None):
     planned_match = re.search(r"(## Planned Tasks\n)(.*?)(\n## |\Z)", content, re.DOTALL)
     active_match = re.search(r"(## Active Tasks\n)(.*?)(\n## |\Z)", content, re.DOTALL)
     if not planned_match or not active_match:
-        print("HUB.md missing Planned or Active section")
+        print("HUB_ENHANCED.md missing Planned or Active section")
         return
 
     planned_body = planned_match.group(2)
@@ -510,9 +512,9 @@ def autopromote(c, tags=None, whitelist=None):
 
 @task
 def complete_task(c, task_name):
-    """Moves a task from Active to Completed in HUB.md."""
+    """Moves a task from Active to Completed in HUB_ENHANCED.md."""
     hub_manager.move_task_to_completed(task_name)
-    print(f"Task '{task_name}' moved to Completed in HUB.md.")
+    print(f"Task '{task_name}' moved to Completed in HUB_ENHANCED.md.")
 
 task_ns = Collection('task')
 task_ns.add_task(autopromote, name='autopromote')
@@ -610,7 +612,7 @@ def hub_complete(c, id, status='success', note='', agent=None):
 
 @task
 def hub_sync(c):
-    """docs/HUB.md와 agents_hub 큐를 양방향 동기화."""
+    """HUB 파일과 agents_hub 큐를 양방향 동기화."""
     run_command('hub.sync', [VENV_PYTHON, 'scripts/hub_sync.py'], check=False)
 
 

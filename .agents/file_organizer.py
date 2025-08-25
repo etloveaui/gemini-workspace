@@ -169,7 +169,7 @@ class FileOrganizer:
 if __name__ == "__main__":
     import sys
     
-    workspace = sys.argv[1] if len(sys.argv) > 1 else r"C:\Users\etlov\multi-agent-workspace"
+    workspace = sys.argv[1] if len(sys.argv) > 1 else r"C:\Users\eunta\multi-agent-workspace"
     organizer = FileOrganizer(workspace)
     
     if len(sys.argv) > 2 and sys.argv[2] == "--full":

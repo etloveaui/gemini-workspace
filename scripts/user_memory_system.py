@@ -36,7 +36,7 @@ class UserMemorySystem:
                 "work_style": "즉시 실행 중심, 계획보다 구현 우선",
                 "naming_convention": "yyyymmdd_01_xxx 방식",
                 "task_assignment": "Claude 작업 전에 다른 에이전트들 먼저 작업 배정",
-                "documentation": "중요 결정사항은 즉시 HUB.md, AGENTS.md, GEMINI.md 등록"
+                "documentation": "중요 결정사항은 즉시 HUB_ENHANCED.md, AGENTS.md, GEMINI.md 등록"
             },
             "repeated_instructions": {
                 "구현의 의미": "모든 것이 실행 가능한 상태까지 완성",

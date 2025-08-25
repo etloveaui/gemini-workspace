@@ -64,7 +64,7 @@
 
 2. **로컬 파일 접근 MCP 서버 설정**
    ```bash
-   mcp-server-filesystem --root C:\Users\etlov\multi-agent-workspace
+   mcp-server-filesystem --root C:\Users\eunta\multi-agent-workspace
    ```
 
 ### Phase 3: Claude Code와 통합  

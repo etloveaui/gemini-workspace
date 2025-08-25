@@ -11,7 +11,7 @@
 
 ### 최종 산출물
 - **입력**: TerminalX 데이터
-- **출력**: `C:\Users\etlov\multi-agent-workspace\projects\100xFenok\100x\daily-wrap\YYYY-MM-DD_100x-daily-wrap.html`
+- **출력**: `C:\Users\eunta\multi-agent-workspace\projects\100xFenok\100x\daily-wrap\YYYY-MM-DD_100x-daily-wrap.html`
 
 ---
 

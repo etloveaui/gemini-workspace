@@ -26,7 +26,7 @@
 git checkout -b encoding-bulk-recovery
 
 # 작업 디렉토리 확인  
-pwd  # C:\Users\etlov\multi-agent-workspace 인지 확인
+pwd  # C:\Users\eunta\multi-agent-workspace 인지 확인
 
 # 현재 브랜치 확인
 git branch
@@ -55,7 +55,7 @@ echo "69400fa - CLAUDE.md 정상 버전"
 
 # 샘플 파일로 테스트
 git show 26bb83d:GEMINI.md | head -5
-git show 26bb83d:docs/HUB.md | head -5
+git show 26bb83d:docs/CORE/HUB_ENHANCED.md | head -5
 ```
 
 ### STEP 4: 자동 복구 스크립트 생성
@@ -220,8 +220,8 @@ git diff --name-only
 echo "=== GEMINI.md 확인 ==="
 head -5 GEMINI.md
 
-echo "=== HUB.md 확인 ==="  
-head -5 docs/HUB.md
+echo "=== HUB_ENHANCED.md 확인 ==="  
+head -5 docs/CORE/HUB_ENHANCED.md
 
 echo "=== 깨진 패턴 잔존 확인 ==="
 grep -r "?쒖뒪?쒖뿉\|硫붿씤 泥댁젣" . --include="*.md" --include="*.py" | head -5
@@ -271,7 +271,7 @@ git push -u origin encoding-bulk-recovery
 
 ### 검증 완료 항목
 - [ ] GEMINI.md 정상 한글 표시 확인
-- [ ] HUB.md 정상 한글 표시 확인  
+- [ ] HUB_ENHANCED.md 정상 한글 표시 확인  
 - [ ] 깨진 패턴 (?쒖뒪?쒖뿉 등) 잔존 여부 확인
 - [ ] Git diff 결과 검토
 - [ ] 주요 Python/Markdown 파일 샘플링 검토

@@ -256,12 +256,12 @@ def complete(c, message_id, status="success", result=""):
 
 @task
 def sync_hub(c):
-    """Sync with the HUB.md file"""
+    """Sync with the HUB_ENHANCED.md file"""
     print("🔄 Syncing with HUB...")
     
-    hub_file = WORKSPACE_ROOT / "docs" / "HUB.md"
+    hub_file = WORKSPACE_ROOT / "docs" / "HUB_ENHANCED.md"
     if not hub_file.exists():
-        print("❌ HUB.md not found")
+        print("❌ HUB_ENHANCED.md not found")
         return
     
     try:

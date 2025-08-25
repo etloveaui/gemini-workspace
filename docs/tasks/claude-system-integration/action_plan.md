@@ -23,7 +23,7 @@ Multi-Agent Workspace를 Claude 메인 체제로 전환하며, 인코딩 문제 
   - 향후 방지 메커니즘 설치
 
 #### 2. HUB 시스템에 작업 등록 🏠
-- Claude 메인 역할 전환 작업을 HUB.md에 공식 등록
+- Claude 메인 역할 전환 작업을 HUB_ENHANCED.md에 공식 등록
 - 진행상황 지속 추적 가능하도록 구조화
 
 ### ⭐ P1 - 고우선순위 (48시간 내)
@@ -101,7 +101,7 @@ Multi-Agent Workspace를 Claude 메인 체제로 전환하며, 인코딩 문제 
 
 ## 🔄 지속적 개선
 
-- 매일 HUB.md 업데이트
+- 매일 HUB_ENHANCED.md 업데이트
 - 주요 변경사항 Git 커밋
 - 사용자 피드백 적극 반영
 - 다른 AI들과 협업 체계 구축

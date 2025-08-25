@@ -77,7 +77,7 @@ TROUBLESHOOTING = {
     '에이전트 통신 실패': {
         'symptoms': ['API 오류', '토큰 제한', '응답 없음'],
         'solutions': [
-            'docs/HUB.md에서 현재 진행 작업 확인',
+            'docs/CORE/HUB_ENHANCED.md에서 현재 진행 작업 확인',
             'usage.db 토큰 사용량 확인',
             'secrets/my_sensitive_data.md API 키 확인'
         ]
@@ -141,7 +141,7 @@ def show_status():
         'CLAUDE.md': 'Claude 설정',
         'GEMINI.md': 'Gemini 설정', 
         'AGENTS.md': 'Codex 설정',
-        'docs/HUB.md': '작업 허브',
+        'docs/CORE/HUB_ENHANCED.md': '작업 허브',
         'usage.db': '사용량 DB',
         'secrets/my_sensitive_data.md': '민감 정보'
     }

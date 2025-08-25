@@ -17,7 +17,7 @@ Claude Code has been successfully integrated into your Multi-Agent Workspace! Th
 - ✅ Agent configuration system (`.agents/config.json`)
 - ✅ Message queue system (`agents_hub/`)
 - ✅ Session logging (`terminal_logs/`)
-- ✅ Task coordination (`docs/HUB.md`)
+- ✅ Task coordination (`docs/CORE/HUB_ENHANCED.md`)
 
 ### 🤖 Multi-Agent Setup
 - ✅ Gemini (General conversation & planning)
@@ -72,7 +72,7 @@ Claude Code Integration Test
 
 4. Context Summary: ✅
    Multi-Agent Workspace Status
-   Workspace: C:\Users\etlov\multi-agent-workspace
+   Workspace: C:\Users\eunta\multi-agent-workspace
    Active Agent: claude
    Key Files: All present
 
@@ -89,7 +89,7 @@ Your Multi-Agent Workspace now supports:
 1. **Agent Switching**: `invoke claude.activate` / `invoke claude.deactivate`
 2. **Message Queue**: File-based communication between agents
 3. **Session Logging**: Automatic recording of Claude sessions
-4. **Task Coordination**: Integration with existing HUB.md system
+4. **Task Coordination**: Integration with existing HUB_ENHANCED.md system
 5. **Context Sharing**: Cross-agent information sharing
 
 ## 📚 Next Steps
@@ -97,7 +97,7 @@ Your Multi-Agent Workspace now supports:
 1. **Read the Integration Guide**: `CLAUDE_INTEGRATION.md`
 2. **Review Guidelines**: `CLAUDE.md`
 3. **Start Collaborating**: Use the message system for agent coordination
-4. **Monitor Progress**: Check `docs/HUB.md` for task status
+4. **Monitor Progress**: Check `docs/CORE/HUB_ENHANCED.md` for task status
 
 ## 🛠 System Architecture
 

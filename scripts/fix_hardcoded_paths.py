@@ -17,11 +17,10 @@ class PathFixer:
         # 수정할 패턴들 (간단한 문자열 교체 방식)
         self.replacements = [
             # Windows 패턴들
-            ('C:\\\\Users\\\\eunta\\\\multi-agent-workspace', str(self.workspace_root).replace('\\', '\\\\')),
-            ('C:\\Users\\etlov\\multi-agent-workspace', str(self.workspace_root)),
-            ('C:/Users/etlov/multi-agent-workspace', str(self.workspace_root).replace('\\', '/')),
-            # Linux 패턴  
-            ('C:\Users\etlov\multi-agent-workspace', str(self.workspace_root)),
+            (r'C:\Users\eunta\multi-agent-workspace', str(self.workspace_root)),
+            (r'C:\Users\eunta\multi-agent-workspace', str(self.workspace_root)),
+            ('C:/Users/eunta/multi-agent-workspace', str(self.workspace_root).replace('\\', '/')),
+            ('C:/Users/eunta/multi-agent-workspace', str(self.workspace_root).replace('\\', '/')),
         ]
         
         # 수정 결과 저장

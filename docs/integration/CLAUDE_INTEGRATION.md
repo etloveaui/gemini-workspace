@@ -20,7 +20,7 @@ Multi-Agent Workspace
 - **Archive**: `agents_hub/archive/YYYYMMDD/` - Completed messages
 
 ### Context Management
-- **HUB**: `docs/HUB.md` - Central task coordination
+- **HUB**: `docs/CORE/HUB_ENHANCED.md` - Central task coordination
 - **Messages**: `context/messages.jsonl` - Cross-agent communication  
 - **Logs**: `terminal_logs/` - Session recordings
 
@@ -84,7 +84,7 @@ invoke claude.complete MSG_ID --status=success --result="Done"
 invoke claude.message gemini "Task Complete" "Analysis finished"
 
 # Hub integration  
-invoke claude.sync-hub      # Sync with HUB.md
+invoke claude.sync-hub      # Sync with HUB_ENHANCED.md
 ```
 
 ## 📨 Inter-Agent Communication
@@ -123,7 +123,7 @@ invoke claude.activate
 invoke claude.deactivate
 ```
 
-### 2. Task Coordination via HUB.md
+### 2. Task Coordination via HUB_ENHANCED.md
 ```markdown
 ## Active Tasks
 
@@ -153,7 +153,7 @@ multi-agent-workspace/
 │   ├── processing/claude/      # Claude's active messages  
 │   └── archive/                # Completed messages
 ├── docs/
-│   └── HUB.md                  # Central coordination hub
+│   └── HUB_ENHANCED.md                  # Central coordination hub
 ├── terminal_logs/              # Session recordings
 └── context/
     └── messages.jsonl          # Cross-agent messages
@@ -172,7 +172,7 @@ multi-agent-workspace/
 claude_analysis:
   sources:
     - doc_tag: "active_tasks"
-    - file_pattern: "docs/HUB.md"
+    - file_pattern: "docs/CORE/HUB_ENHANCED.md"
   max_tokens: 4000
   summary_threshold: 2000
 ```
@@ -217,7 +217,7 @@ $env:AI_REC_AUTO = "1"                 # Auto-recording
 ## 📈 Best Practices
 
 ### 1. Agent Coordination
-- Always check `docs/HUB.md` before starting major tasks
+- Always check `docs/CORE/HUB_ENHANCED.md` before starting major tasks
 - Use message system for cross-agent communication
 - Update task status in HUB when work is complete
 
@@ -227,7 +227,7 @@ $env:AI_REC_AUTO = "1"                 # Auto-recording
 - Deactivate when switching to other agents
 
 ### 3. Documentation
-- Update `docs/HUB.md` with Claude-specific tasks
+- Update `docs/CORE/HUB_ENHANCED.md` with Claude-specific tasks
 - Log complex analyses in `docs/tasks/*/log.md`
 - Use meaningful message titles in agent communication
 

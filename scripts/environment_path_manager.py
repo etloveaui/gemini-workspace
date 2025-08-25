@@ -108,8 +108,8 @@ class EnvironmentPathManager:
         # Windows 경로 패턴들
         patterns = [
             r'C:\\Users\\etlov\\multi-agent-workspace',
-            r'C:\Users\etlov\multi-agent-workspace', 
-            r'C:\Users\etlov\multi-agent-workspace',
+            r'C:\Users\eunta\multi-agent-workspace', 
+            r'C:\Users\eunta\multi-agent-workspace',
             # 다른 사용자 이름도 대응
             r'C:\\Users\\[^\\]+\\multi-agent-workspace',
             r'C:\Users\[^\]+\multi-agent-workspace'

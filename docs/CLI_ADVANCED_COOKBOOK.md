@@ -19,7 +19,7 @@ Claude는 MCP를 완벽하게 지원하여, AI가 외부 데이터와 실시간�
 
 *   **에이전트 간 비동기 통신**: `invoke` 명령어를 사용하여 에이전트 간에 작업을 요청하거나 상태를 공유합니다. 메시지는 `agents_hub/` 큐 시스템을 통해 전달됩니다.
     *   **사용 예**: `invoke claude.message gemini "데이터 분석 요청" "usage.db에서 어제자 사용자 활동 요약 보고서 작성해줘"`
-*   **중앙 작업 관리 (`docs/HUB.md`)**: 모든 에이전트는 작업을 시작하기 전 `HUB.md`를 확인하여 다른 에이전트의 현재 작업 상태를 파악하고 충돌을 방지합니다.
+*   **중앙 작업 관리 (`docs/CORE/HUB_ENHANCED.md`)**: 모든 에이전트는 작업을 시작하기 전 `HUB_ENHANCED.md`를 확인하여 다른 에이전트의 현재 작업 상태를 파악하고 충돌을 방지합니다.
 *   **Windows 환경 Git 커밋 안정화**: `git commit -m "메시지"`의 문자열 처리 문제를 피하기 위해, 커밋 메시지를 임시 파일에 저장하고 `git commit -F <file>`을 사용합니다.
 *   **안정적인 파일 삭제**: `del` 대신 Python의 `os.remove()` 및 `shutil.rmtree()`를 사용하여 Windows 환경에서 파일/폴더를 안정적으로 삭제합니다.
 *   **`.gitignore` 우회 접근**: `respect_git_ignore=False` 옵션을 사용하여 `.gitignore`에 포함된 파일(예: 로컬 설정, 로그)에 접근합니다.
@@ -155,13 +155,13 @@ Gemini CLI의 가장 큰 특징은 단순한 CLI 도구를 넘어, `invoke` 태�
 
 ### 2. 파일 기반 비동기 통신 시스템
 
-에이전트들은 `communication/` 폴더와 `docs/HUB.md`를 통해 서로의 작업을 확인하고 요청을 주고받습니다. 이는 직접적인 API 호출이 아닌, 파일 시스템을 매개로 한 강력하고 유연한 비동기 협업 방식입니다.
+에이전트들은 `communication/` 폴더와 `docs/CORE/HUB_ENHANCED.md`를 통해 서로의 작업을 확인하고 요청을 주고받습니다. 이는 직접적인 API 호출이 아닌, 파일 시스템을 매개로 한 강력하고 유연한 비동기 협업 방식입니다.
 
 1.  **작업 할당**: Gemini가 `docs/proposals`에 분석 보고서를 작성합니다.
 2.  **지시 요청**: 사용자가 이 보고서를 기반으로 외부 LLM에게 구체적인 작업 지시서를 받습니다.
 3.  **실행 계획**: Gemini가 지시서를 바탕으로 `invoke` 태스크로 변환 가능한 실행 계획을 수립합니다.
 4.  **구현 위임**: Gemini가 `invoke agent.msg --to codex ...` 명령으로 Codex에게 코드 구현을 요청합니다.
-5.  **결과 보고**: Codex가 작업을 완료하고 `docs/HUB.md`의 상태를 'Completed'로 변경합니다.
+5.  **결과 보고**: Codex가 작업을 완료하고 `docs/CORE/HUB_ENHANCED.md`의 상태를 'Completed'로 변경합니다.
 
 ## Section 5: 엔터프라이즈 활용 전략
 

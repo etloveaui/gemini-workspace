@@ -206,7 +206,7 @@
 **참고 문서**:
 - `communication/shared/upgrade/Gemini_Analysis_and_Proposals_20250819.md`
 - 현재 에이전트 간 협업 사례들
-- HUB.md의 작업 전달 패턴들
+- HUB_ENHANCED.md의 작업 전달 패턴들
 
 ---
 

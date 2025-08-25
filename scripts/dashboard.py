@@ -170,11 +170,11 @@ class SystemDashboard:
     
     def _get_recent_tasks(self) -> List[Dict]:
         """최근 작업 목록"""
-        # HUB.md에서 작업 정보 추출 (간단 버전)
+        # HUB_ENHANCED.md에서 작업 정보 추출 (간단 버전)
         tasks = []
         
         try:
-            hub_file = self.root / "docs" / "HUB.md"
+            hub_file = self.root / "docs" / "HUB_ENHANCED.md"
             if hub_file.exists():
                 with open(hub_file, 'r', encoding='utf-8') as f:
                     content = f.read()
@@ -251,7 +251,7 @@ class SystemDashboard:
 def show_dashboard():
     """대시보드 빠른 표시"""
     print(section("Dashboard"))
-    dashboard = SystemDashboard("C:/Users/etlov/multi-agent-workspace")
+    dashboard = SystemDashboard("C:/Users/eunta/multi-agent-workspace")
     print(dashboard.generate_dashboard())
 
 if __name__ == "__main__":

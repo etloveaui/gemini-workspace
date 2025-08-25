@@ -153,7 +153,7 @@ class TokenMonitor:
         if level == "CRITICAL":
             warning_content += """
 - 🛑 **즉시 작업 일시 중단** 권장
-- 💾 현재 진행 상황을 HUB.md에 상세 기록
+- 💾 현재 진행 상황을 HUB_ENHANCED.md에 상세 기록
 - 🔄 내일 작업 재개 계획 수립
 - 📝 중요한 중간 결과물 저장
 

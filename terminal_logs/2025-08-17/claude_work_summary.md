@@ -70,7 +70,7 @@ invoke claude.activate    # Claude 활성화
 invoke claude.status      # 상태 확인
 invoke claude.inbox       # 메시지 확인
 invoke claude.message     # 메시지 전송
-invoke claude.sync-hub    # HUB.md 동기화
+invoke claude.sync-hub    # HUB_ENHANCED.md 동기화
 ```
 
 ## 🏗️ 시스템 아키텍처
@@ -91,7 +91,7 @@ Multi-Agent Workspace
 - ✅ 에이전트 활성화/전환
 - ✅ 메시지 큐 시스템
 - ✅ 세션 로깅
-- ✅ HUB.md 연동
+- ✅ HUB_ENHANCED.md 연동
 - ✅ PowerShell 인터페이스
 - ✅ UTF-8 인코딩 처리
 

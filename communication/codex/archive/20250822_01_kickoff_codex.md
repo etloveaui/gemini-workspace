@@ -6,7 +6,7 @@
 
 ## 체크리스트 상태
 - [ ] docs/CODEX_CHECKLIST.md 확인
-- [ ] docs/HUB.md 확인 및 오늘의 우선순위 동기화
+- [ ] docs/CORE/HUB_ENHANCED.md 확인 및 오늘의 우선순위 동기화
 - [ ] docs/AGENT_COMMUNICATION_SYSTEM.md 확인
 - [ ] communication/shared/COMMUNICATION_GUIDE.md 확인
 - [ ] scripts/watch_file.py 워처 설정 검토
