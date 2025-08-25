@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2025-08-25T06:43:52.498364+00:00",
+  "updated_at_utc": "2025-08-25T08:24:41.872250+00:00",
   "docs": [
     {
       "path": "docs\\AGENT_COMMUNICATION_SYSTEM.md",
@@ -16,7 +16,7 @@
     {
       "path": "docs\\AI_ROLES_DEFINITION.md",
       "lines": 179,
-      "sha1": "0413dc178495883d854cef0e1231e16941497dda",
+      "sha1": "87566304859bb8d20244b7e9cc2d8fe7f88eabe6",
       "tags": [
         " ",
         " ",
@@ -38,7 +38,7 @@
     {
       "path": "docs\\CLI_ADVANCED_COOKBOOK.md",
       "lines": 168,
-      "sha1": "45a1e6b50ad7f78f0e4ccff8655899c1cbe62de5",
+      "sha1": "fdeba398c6fe7b85e420723693e65468d1518014",
       "tags": []
     },
     {
@@ -89,25 +89,6 @@
       ]
     },
     {
-      "path": "docs\\HUB_ENHANCED.md",
-      "lines": 171,
-      "sha1": "d9a178bab68a29544915dc822dcddddc63ed2b27",
-      "tags": [
-        "CLAUDE",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "log",
-        "instructions",
-        "Test"
-      ]
-    },
-    {
       "path": "docs\\hub_modified.md",
       "lines": 39,
       "sha1": "47c8cccc6e3cad5f9637cb861eee44e08f5d544f",
@@ -134,9 +115,15 @@
       ]
     },
     {
+      "path": "docs\\MCP_SERVERS.md",
+      "lines": 10,
+      "sha1": "9c98012b64beac9b711889a493c8ebed4267f1fd",
+      "tags": []
+    },
+    {
       "path": "docs\\P0_DEFINITION_OF_DONE.md",
       "lines": 25,
-      "sha1": "17c45394aeb95afc2f863dba8aa011707f9220f9",
+      "sha1": "114bb8a92deaf67c9b5445fded2b1e1a924322e1",
       "tags": []
     },
     {
@@ -166,7 +153,7 @@
     {
       "path": "docs\\SESSION_LOG_20250822.md",
       "lines": 46,
-      "sha1": "c6bc43f27ca1b129833ce25749f112b4cad201a2",
+      "sha1": "7aee5a9eb2cd354a272e8e21f97f5de35e6e28df",
       "tags": []
     },
     {
@@ -184,7 +171,7 @@
     {
       "path": "docs\\architecture\\MULTI_AGENT_WORKSPACE_BLUEPRINT.md",
       "lines": 156,
-      "sha1": "dcc5dc6f25a63b99c0c0c919dd9423cc64b48661",
+      "sha1": "35a6834ac8538d26d88577c1b27b509a11cbbf01",
       "tags": [
         "agent",
         "priority",
@@ -258,8 +245,14 @@
     },
     {
       "path": "docs\\CORE\\HUB_ENHANCED.md",
-      "lines": 139,
-      "sha1": "6f795b5bf6a45848504c6f9512cbc8388f0aa86b",
+      "lines": 140,
+      "sha1": "3fe64afc6428ad7d5ef6b342d743ec1fbc23303c",
+      "tags": []
+    },
+    {
+      "path": "docs\\CORE\\IMPLEMENTATION_POLICY.md",
+      "lines": 103,
+      "sha1": "d16e4498520ded4ac3ddfd003eb66b48ac61e3e9",
       "tags": []
     },
     {
@@ -271,7 +264,7 @@
     {
       "path": "docs\\integration\\CLAUDE_INTEGRATION.md",
       "lines": 251,
-      "sha1": "c80b084933d83ffea2c787656b679aca30cf4221",
+      "sha1": "ad277c938fa7a8c87954b7bb6d08c33449497987",
       "tags": [
         "Claude",
         "Gemini",
@@ -287,7 +280,7 @@
     {
       "path": "docs\\plans\\SYSTEM_SLIM_AUTOMATION.md",
       "lines": 52,
-      "sha1": "0fd27c1dc156098a0a3060e33ac21930852a886c",
+      "sha1": "d35a294df89a5003225be20d1915ba5f15b468ac",
       "tags": []
     },
     {
@@ -451,7 +444,7 @@
     {
       "path": "docs\\proposals\\Request_for_Deep_Analysis.md",
       "lines": 351,
-      "sha1": "9f326dfeac17650490a4b4a42457a00757dd3be4",
+      "sha1": "b81ce629cb2c31a9a2d936779da64b4b29c40394",
       "tags": [
         "section",
         "Unwired Config",
@@ -471,7 +464,7 @@
     {
       "path": "docs\\proposals\\Request_for_P2-SU_Analysis.md",
       "lines": 83,
-      "sha1": "fa731c46693e6c5c6dc4aec548b1d4567c750b0f",
+      "sha1": "784400b7b3733bcc1b762adca550d544673ca4c4",
       "tags": []
     },
     {
@@ -542,7 +535,7 @@
     {
       "path": "docs\\proposals\\system_analysis_report_state_management.md",
       "lines": 51,
-      "sha1": "38fdf38deefd6b47a174c51ecf5ba05df3d69680",
+      "sha1": "26939d2efee82c383843b0df78bc45afa7f32115",
       "tags": []
     },
     {
@@ -554,7 +547,7 @@
     {
       "path": "docs\\proposals\\system_overview_for_claude.md",
       "lines": 51,
-      "sha1": "504c1a7ac5e6c9d02ff9797c630c0bed7d134f16",
+      "sha1": "2b181d5c872667956a19b8414f06dd6f7d544bc1",
       "tags": []
     },
     {
@@ -568,7 +561,7 @@
     {
       "path": "docs\\REFERENCE\\LEGACY_CLAUDE_CHECKLIST.md",
       "lines": 68,
-      "sha1": "e60d7051fdaea26eb7b412e9a8f643e443e8826a",
+      "sha1": "59bc04934ad7f786dc78de61093db8e96c6212b2",
       "tags": [
         " ",
         " ",
@@ -587,7 +580,7 @@
     {
       "path": "docs\\REFERENCE\\LEGACY_CODEX_CHECKLIST.md",
       "lines": 29,
-      "sha1": "1102ca5b12890f2cf770130b72b98d30b4e6ad44",
+      "sha1": "f8e98b21a9871d12072faae1b67d654a1da4238c",
       "tags": [
         " ",
         " ",
@@ -610,7 +603,7 @@
     {
       "path": "docs\\REFERENCE\\LEGACY_GEMINI_CHECKLIST.md",
       "lines": 84,
-      "sha1": "801762f7a3fd1b77f1a410e191c0ec88d775e4f0",
+      "sha1": "32c96fb469fc2f42ab727d9b956ee5af619426cd",
       "tags": [
         " ",
         " ",
@@ -628,14 +621,27 @@
     },
     {
       "path": "docs\\REFERENCE\\LEGACY_HUB.md",
-      "lines": 14,
-      "sha1": "74b4878de1371d0556997896f35db187c878c0ef",
-      "tags": []
+      "lines": 187,
+      "sha1": "69da0e875717bb8ebb14f706f39e1222e4533d98",
+      "tags": [
+        "CLAUDE",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "log",
+        "instructions",
+        "Test"
+      ]
     },
     {
       "path": "docs\\setup\\SETUP_COMPLETE.md",
       "lines": 129,
-      "sha1": "283456841d4216a9a95886757682a3d2559d51d2",
+      "sha1": "c9b6f924f2acfdf75e2caac4c3f83b9501e6dedf",
       "tags": []
     },
     {
@@ -659,7 +665,7 @@
     {
       "path": "docs\\tasks\\URGENT_CODEX_\uc778\ucf54\ub529_\ub300\ub7c9_\ubcf5\uad6c_\uc9c0\uc2dc\uc11c.md",
       "lines": 304,
-      "sha1": "ac3979996d0f7207202f6a49ffc3ec9ae3eaea4a",
+      "sha1": "e7bc60e92e18a0a0fad688a367dcdbfeb9f47c52",
       "tags": [
         " ",
         " ",
@@ -748,7 +754,7 @@
     {
       "path": "docs\\tasks\\claude-system-integration\\action_plan.md",
       "lines": 121,
-      "sha1": "74c2c0bf91943aa0cbf9996479df6a11f6a9792f",
+      "sha1": "17c94cd08c155defe727edaf65a65761eb49812a",
       "tags": [
         " ",
         " ",
@@ -764,7 +770,7 @@
     {
       "path": "docs\\tasks\\core-hub-auto-commit-reliability\\log.md",
       "lines": 49,
-      "sha1": "5c77f67e39835935be3b34b3ae20a2daa9369112",
+      "sha1": "f348e43982cae2756154b586a857152de3ebf6da",
       "tags": []
     },
     {
@@ -817,7 +823,7 @@
     {
       "path": "docs\\tasks\\gemini-self-upgrade\\log.md",
       "lines": 515,
-      "sha1": "b660f091d470f95624ca54c54574cd733f8b2642",
+      "sha1": "0d15a346d594155822bc5454d857ac2dfadcfcac",
       "tags": [
         "string",
         "Project",
@@ -848,7 +854,7 @@
     {
       "path": "docs\\tasks\\phase2-agent-collaboration\\log.md",
       "lines": 230,
-      "sha1": "3b6ef40d5b709f633f6a27044c601a3d723c6b02",
+      "sha1": "0aba0e29c75b39a5f3656f68f09ccc86efbe869c",
       "tags": [
         "x",
         "x",
@@ -859,7 +865,7 @@
     {
       "path": "docs\\tasks\\phase2-dispatcher-agent\\log.md",
       "lines": 231,
-      "sha1": "52cfa7257b1e50bb85b828e0b6b66b0cf097fc10",
+      "sha1": "70ae9f1c096dd57a3dfdc33325fb9faeaa6cc065",
       "tags": [
         "x",
         "x",
@@ -934,7 +940,7 @@
     {
       "path": "docs\\tasks\\ux-fix-invoke-start-corruption\\screenshot.md",
       "lines": 164,
-      "sha1": "f90c8fb8c5f7afe1c6651db74718d53ff2646625",
+      "sha1": "48f08bdaa02ea9449a89121831da34db74c5472d",
       "tags": [
         "bold yellow"
       ]
@@ -990,7 +996,7 @@
     {
       "path": "docs\\archive\\tasks\\100xfenok-generator-data-cleanup\\log.md",
       "lines": 51,
-      "sha1": "ad40106a0aa76b227941fd2547d6e63e04f822af",
+      "sha1": "03125fcd9c8d38ce9da7c877f7d470a3d6322828",
       "tags": [
         "Project"
       ]
@@ -1004,7 +1010,7 @@
     {
       "path": "docs\\archive\\tasks\\100xfenok-generator-dev\\log.md",
       "lines": 61,
-      "sha1": "89c0dadb90256e06f28023daa24c134f8c2ce677",
+      "sha1": "406d1a91e733c2e2a3ce4b62ee6a67aff511afaa",
       "tags": [
         "Project",
         "Initial Setup",
@@ -1046,7 +1052,7 @@
     {
       "path": "docs\\archive\\tasks\\phase1-preflight-doctor-v2\\log.md",
       "lines": 222,
-      "sha1": "a66def0b041539493b8436ab3916ddfc943240e8",
+      "sha1": "0a6cc16e15387b95a3a2df3ba5bb8e43c56de279",
       "tags": [
         "PASS",
         "WARN",
@@ -1059,7 +1065,7 @@
     {
       "path": "docs\\archive\\tasks\\phase1-standardization-package\\log.md",
       "lines": 160,
-      "sha1": "b75cdf478dfdff774f4f88b36008803d525acf34",
+      "sha1": "9089c5bbbae3ba51aa3c024af51f68249e19c225",
       "tags": [
         "x",
         "x",
@@ -1069,7 +1075,7 @@
     {
       "path": "docs\\archive\\tasks\\phase1-user-experience\\log.md",
       "lines": 229,
-      "sha1": "cf2e4a493507ac54658046e8b46dfac722994fd5",
+      "sha1": "12ec62b59e9b7bac7c0b51ab655872d44390bba8",
       "tags": [
         "x",
         "x",
@@ -1091,7 +1097,7 @@
     {
       "path": "docs\\archive\\tasks\\system-docs-revamp\\log.md",
       "lines": 14,
-      "sha1": "2b76d84f35d2683a7bf51a0a12b8d45e2e5b7f6d",
+      "sha1": "50293c3a9178b9db744844881415ab4b67295ff3",
       "tags": [
         "System",
         "Initial Setup"

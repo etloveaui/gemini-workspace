@@ -53,7 +53,8 @@ class HubPathManager:
     def get_hub_path(self, use_legacy: bool = False) -> Path:
         """HUB 파일 경로 가져오기"""
         if use_legacy:
-            hub_path = self.config.get("legacy_hub_path", "docs/HUB.md")
+            # legacy=True는 실제로는 현재 표준인 HUB_ENHANCED.md를 의미
+            hub_path = self.config.get("hub_path", "docs/CORE/HUB_ENHANCED.md")
         else:
             hub_path = self.config.get("hub_path", "docs/CORE/HUB_ENHANCED.md")
         

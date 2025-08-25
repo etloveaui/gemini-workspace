@@ -13,7 +13,7 @@ try:
 except ImportError:
     # fallback for backward compatibility
     ROOT = Path(__file__).resolve().parents[1]
-    HUB_PATH = get_workspace_path("docs", "CORE", "HUB_ENHANCED.md")
+    HUB_PATH = ROOT / "docs" / "CORE" / "HUB_ENHANCED.md"
 
 def _read() -> str:
     return HUB_PATH.read_text(encoding="utf-8", errors="replace")
@@ -120,7 +120,7 @@ def move_task_to_completed(task_name: str) -> None:
 
     # 1. Update Last Updated timestamp
     now = datetime.now().strftime("%Y-%m-%d")
-    updated_content = re.sub(r"\*Last Updated: \d{4}-\d{2}-\d{2}\*", f"\*Last Updated: {now}", updated_content)
+    updated_content = re.sub(r"\\*Last Updated: \\d{4}-\\d{2}-\\d{2}\\*", f"*Last Updated: {now}*", updated_content)
 
     # 2. Remove from Active Tasks
     active_tasks_pattern = r"(## Active Tasks\n)(.*?)(## Paused Tasks)"

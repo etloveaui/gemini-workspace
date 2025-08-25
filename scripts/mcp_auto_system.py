@@ -60,6 +60,11 @@ class MCPAutoSystem:
             self.ws_db_stats = get_database_stats
             
             self.mcp_available = True
+            
+            # Filesystem_Server MCP 로드
+            from filesystem_server import   # 주요 함수들만
+            self.filesystem_server_functions = []
+            
             print("✅ MCP 모듈 로드 완료")
             
         except ImportError as e:

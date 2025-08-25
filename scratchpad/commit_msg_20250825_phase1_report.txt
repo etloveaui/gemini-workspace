@@ -1,0 +1,7 @@
+feat(report): add daily token usage aggregator and generated reports
+
+- Add scripts/token_usage_report.py (usage ∪ usage_log daily aggregation, health check, reports + optional session note)
+- Generate reports/token_usage_20250825.csv and reports/token_usage_summary.json
+- Add session note communication/codex/sessions/20250825_02_token_usage_report.md
+
+Note: projects/ independence respected; no changes under projects/

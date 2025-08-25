@@ -1,33 +1,129 @@
 {
-  "last_scan": "2025-08-25T16:44:39.734178",
+  "last_scan": "2025-08-25T17:35:30.591908",
   "scan_results": {
     "changes": {
       "new_files": [
-        "C:\\Users\\eunta\\multi-agent-workspace\\src\\ai_integration\\mcp_servers\\filesystem_server.py",
-        "C:\\Users\\eunta\\multi-agent-workspace\\src\\ai_integration\\mcp_servers\\__pycache__\\filesystem_server.cpython-313.pyc",
-        "C:\\Users\\eunta\\multi-agent-workspace\\src\\ai_integration\\mcp_servers\\__pycache__\\workspace_server.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\hub_manager.py",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\hub_path_manager.py",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\implementation_validator.py",
         "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\mcp_auto_system.py",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\self_test_token_usage_report.py",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\session_startup_enhanced.py",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\token_usage_report.py",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\usage_logging.py",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\agent_collaborator.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\agent_manager.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\agent_monitor.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\agent_task_dispatcher.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\ai.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\analyze_ars_excel.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\archive_manager.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\auto_environment_sync.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\auto_monitoring_system.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\auto_scheduler.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\auto_status_updater.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\benchmark.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\build_context_index.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\check_no_delete.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\claude_comm_cleaner.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\claude_integration.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\claude_mcp_final.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\claude_mcp_integration.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\clear_cli_state.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\cli_style.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\commit_helper.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\config_manager.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\context_store.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\daily_report_generator.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\dashboard.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\demo_task.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\doctor.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\doctor_v3.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\hub_manager.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\hub_path_manager.cpython-313.pyc",
         "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\mcp_auto_system.cpython-313.pyc",
-        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\smart_update_system.cpython-313.pyc"
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\session_startup_enhanced.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\usage_logging.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\communication\\codex\\20250825_01_token_monitoring_analysis_and_plan.md",
+        "C:\\Users\\eunta\\multi-agent-workspace\\communication\\gemini\\20250825_workspace_cleanup_analysis.md",
+        "C:\\Users\\eunta\\multi-agent-workspace\\communication\\codex\\sessions\\20250825_02_token_usage_report.md",
+        "C:\\Users\\eunta\\multi-agent-workspace\\communication\\codex\\sessions\\20250825_03_token_usage_report.md",
+        "C:\\Users\\eunta\\multi-agent-workspace\\docs\\CORE\\HUB_ENHANCED.md",
+        "C:\\Users\\eunta\\multi-agent-workspace\\docs\\CORE\\IMPLEMENTATION_POLICY.md"
       ],
-      "modified_files": [],
+      "modified_files": [
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\claude_integration.py"
+      ],
       "deleted_files": [],
       "new_dependencies": [],
       "integration_suggestions": [
         {
-          "type": "mcp_integration",
-          "file": "C:\\Users\\eunta\\multi-agent-workspace\\src\\ai_integration\\mcp_servers\\filesystem_server.py",
-          "suggestion": "새 MCP 서버 감지: filesystem_server.py",
+          "type": "script_integration",
+          "file": "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\hub_manager.py",
+          "suggestion": "새 스크립트 감지: hub_manager.py",
           "auto_actions": [
-            "mcp_auto_system.py에 filesystem_server 모듈 추가",
-            "MCP 서버 목록 업데이트",
-            "자동 로드 함수에 추가"
+            "session_startup.py에 자동 실행 추가 검토",
+            "다른 에이전트에서 사용 가능하도록 경로 추가"
+          ]
+        },
+        {
+          "type": "script_integration",
+          "file": "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\hub_path_manager.py",
+          "suggestion": "새 스크립트 감지: hub_path_manager.py",
+          "auto_actions": [
+            "session_startup.py에 자동 실행 추가 검토",
+            "다른 에이전트에서 사용 가능하도록 경로 추가"
+          ]
+        },
+        {
+          "type": "script_integration",
+          "file": "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\implementation_validator.py",
+          "suggestion": "새 스크립트 감지: implementation_validator.py",
+          "auto_actions": [
+            "session_startup.py에 자동 실행 추가 검토",
+            "다른 에이전트에서 사용 가능하도록 경로 추가"
           ]
         },
         {
           "type": "script_integration",
           "file": "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\mcp_auto_system.py",
           "suggestion": "새 스크립트 감지: mcp_auto_system.py",
+          "auto_actions": [
+            "session_startup.py에 자동 실행 추가 검토",
+            "다른 에이전트에서 사용 가능하도록 경로 추가"
+          ]
+        },
+        {
+          "type": "script_integration",
+          "file": "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\self_test_token_usage_report.py",
+          "suggestion": "새 스크립트 감지: self_test_token_usage_report.py",
+          "auto_actions": [
+            "session_startup.py에 자동 실행 추가 검토",
+            "다른 에이전트에서 사용 가능하도록 경로 추가"
+          ]
+        },
+        {
+          "type": "script_integration",
+          "file": "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\session_startup_enhanced.py",
+          "suggestion": "새 스크립트 감지: session_startup_enhanced.py",
+          "auto_actions": [
+            "session_startup.py에 자동 실행 추가 검토",
+            "다른 에이전트에서 사용 가능하도록 경로 추가"
+          ]
+        },
+        {
+          "type": "script_integration",
+          "file": "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\token_usage_report.py",
+          "suggestion": "새 스크립트 감지: token_usage_report.py",
+          "auto_actions": [
+            "session_startup.py에 자동 실행 추가 검토",
+            "다른 에이전트에서 사용 가능하도록 경로 추가"
+          ]
+        },
+        {
+          "type": "script_integration",
+          "file": "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\usage_logging.py",
+          "suggestion": "새 스크립트 감지: usage_logging.py",
           "auto_actions": [
             "session_startup.py에 자동 실행 추가 검토",
             "다른 에이전트에서 사용 가능하도록 경로 추가"
@@ -40,13 +136,13 @@
       "components": {
         "docs/CORE/HUB_ENHANCED.md": {
           "exists": true,
-          "size": 4723,
-          "last_modified": "2025-08-25T16:01:25.150145"
+          "size": 4586,
+          "last_modified": "2025-08-25T17:25:25.477961"
         },
         "scripts/mcp_auto_system.py": {
           "exists": true,
           "size": 10334,
-          "last_modified": "2025-08-25T16:44:13.371494"
+          "last_modified": "2025-08-25T16:47:56.959176"
         },
         "scripts/agent_task_dispatcher.py": {
           "exists": true,
@@ -60,12 +156,12 @@
         },
         "CLAUDE.md": {
           "exists": true,
-          "size": 10282,
-          "last_modified": "2025-08-25T15:34:17.289696"
+          "size": 10456,
+          "last_modified": "2025-08-25T16:48:35.140762"
         },
         "mcp_system": {
-          "available": true,
-          "status": "unknown"
+          "available": false,
+          "status": "fallback_mode"
         },
         "claude_activity": {
           "active": true,
@@ -74,13 +170,13 @@
         },
         "codex_activity": {
           "active": true,
-          "recent_files": 3,
-          "last_activity": 1756093163.4594495
+          "recent_files": 4,
+          "last_activity": 1756108461.2971468
         },
         "gemini_activity": {
           "active": true,
-          "recent_files": 7,
-          "last_activity": 1756105406.603351
+          "recent_files": 8,
+          "last_activity": 1756108771.0603766
         }
       },
       "issues": [],
@@ -88,21 +184,27 @@
         "Communication 파일 정리 권장"
       ],
       "performance_metrics": {
-        "total_files": 29501,
-        "python_files": 4997,
-        "communication_files": 117,
-        "cache_size": 34667
+        "total_files": 29762,
+        "python_files": 5001,
+        "communication_files": 121,
+        "cache_size": 3888
       }
     },
     "improvements": [
       {
+        "category": "organization",
+        "priority": "medium",
+        "suggestion": "많은 새 파일이 감지됨 - 자동 정리 시스템 활성화 권장",
+        "implementation": "auto_cleanup_scheduler 실행"
+      },
+      {
         "category": "performance",
         "priority": "high",
         "suggestion": "토큰 사용량 최적화 필요",
-        "implementation": "큰 파일 1578개 요약 처리 권장"
+        "implementation": "큰 파일 1580개 요약 처리 권장"
       }
     ],
-    "timestamp": "2025-08-25T16:44:39.734168"
+    "timestamp": "2025-08-25T17:35:30.591892"
   },
-  "last_update": "2025-08-25T16:44:39.734180"
+  "last_update": "2025-08-25T17:35:30.591909"
 }

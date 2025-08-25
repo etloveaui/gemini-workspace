@@ -1,0 +1,11 @@
+chore(commit): selective commit of known changes with notes
+
+- Sessions: add/generated token usage notes 03/04/05/07 and logging expansion status 06
+- HUB: update P1-TOKEN marker block via aggregator (auto summary)
+- Scripts: usage_logging hook + injections (dispatcher/monitor/claude/session_startup/realtime_sync/onboarding)
+- Aggregator: thresholds/alerts + self-test present
+- Reports: regenerate daily CSV/JSON for 20250825
+
+Notes:
+- Skipped environment-specific files (.agents/config.json, cache/, terminal_logs/, queue/) and unrelated renames under docs/archive/*
+- Usage DB left uncommitted to avoid churn; aggregation reads it at runtime
