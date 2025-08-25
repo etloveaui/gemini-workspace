@@ -1,0 +1,108 @@
+{
+  "last_scan": "2025-08-25T16:44:39.734178",
+  "scan_results": {
+    "changes": {
+      "new_files": [
+        "C:\\Users\\eunta\\multi-agent-workspace\\src\\ai_integration\\mcp_servers\\filesystem_server.py",
+        "C:\\Users\\eunta\\multi-agent-workspace\\src\\ai_integration\\mcp_servers\\__pycache__\\filesystem_server.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\src\\ai_integration\\mcp_servers\\__pycache__\\workspace_server.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\mcp_auto_system.py",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\mcp_auto_system.cpython-313.pyc",
+        "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\__pycache__\\smart_update_system.cpython-313.pyc"
+      ],
+      "modified_files": [],
+      "deleted_files": [],
+      "new_dependencies": [],
+      "integration_suggestions": [
+        {
+          "type": "mcp_integration",
+          "file": "C:\\Users\\eunta\\multi-agent-workspace\\src\\ai_integration\\mcp_servers\\filesystem_server.py",
+          "suggestion": "새 MCP 서버 감지: filesystem_server.py",
+          "auto_actions": [
+            "mcp_auto_system.py에 filesystem_server 모듈 추가",
+            "MCP 서버 목록 업데이트",
+            "자동 로드 함수에 추가"
+          ]
+        },
+        {
+          "type": "script_integration",
+          "file": "C:\\Users\\eunta\\multi-agent-workspace\\scripts\\mcp_auto_system.py",
+          "suggestion": "새 스크립트 감지: mcp_auto_system.py",
+          "auto_actions": [
+            "session_startup.py에 자동 실행 추가 검토",
+            "다른 에이전트에서 사용 가능하도록 경로 추가"
+          ]
+        }
+      ]
+    },
+    "health": {
+      "overall_status": "healthy",
+      "components": {
+        "docs/CORE/HUB_ENHANCED.md": {
+          "exists": true,
+          "size": 4723,
+          "last_modified": "2025-08-25T16:01:25.150145"
+        },
+        "scripts/mcp_auto_system.py": {
+          "exists": true,
+          "size": 10334,
+          "last_modified": "2025-08-25T16:44:13.371494"
+        },
+        "scripts/agent_task_dispatcher.py": {
+          "exists": true,
+          "size": 11644,
+          "last_modified": "2025-08-25T16:03:46.879433"
+        },
+        "scripts/session_startup.py": {
+          "exists": true,
+          "size": 1981,
+          "last_modified": "2025-08-25T15:33:51.429942"
+        },
+        "CLAUDE.md": {
+          "exists": true,
+          "size": 10282,
+          "last_modified": "2025-08-25T15:34:17.289696"
+        },
+        "mcp_system": {
+          "available": true,
+          "status": "unknown"
+        },
+        "claude_activity": {
+          "active": true,
+          "recent_files": 2,
+          "last_activity": 1755738380.4700217
+        },
+        "codex_activity": {
+          "active": true,
+          "recent_files": 3,
+          "last_activity": 1756093163.4594495
+        },
+        "gemini_activity": {
+          "active": true,
+          "recent_files": 7,
+          "last_activity": 1756105406.603351
+        }
+      },
+      "issues": [],
+      "recommendations": [
+        "Communication 파일 정리 권장"
+      ],
+      "performance_metrics": {
+        "total_files": 29501,
+        "python_files": 4997,
+        "communication_files": 117,
+        "cache_size": 34667
+      }
+    },
+    "improvements": [
+      {
+        "category": "performance",
+        "priority": "high",
+        "suggestion": "토큰 사용량 최적화 필요",
+        "implementation": "큰 파일 1578개 요약 처리 권장"
+      }
+    ],
+    "timestamp": "2025-08-25T16:44:39.734168"
+  },
+  "last_update": "2025-08-25T16:44:39.734180"
+}
