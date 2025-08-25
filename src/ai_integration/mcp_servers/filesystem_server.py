@@ -127,6 +127,36 @@ def find_files(pattern: str, dir_path: str = ".") -> str:
     except Exception as e:
         return f"[ERROR] 파일 검색 실패: {e}"
 
+@mcp.tool()
+def write_file(file_path: str, content: str) -> str:
+    """
+    프로젝트 내의 파일을 안전하게 생성/수정합니다.
+    
+    Args:
+        file_path: 쓸 파일의 상대 경로
+        content: 파일에 쓸 내용
+        
+    Returns:
+        작업 결과 메시지
+    """
+    try:
+        # 보안: 프로젝트 루트 내부로 제한
+        full_path = (ROOT_PATH / file_path).resolve()
+        if not str(full_path).startswith(str(ROOT_PATH.resolve())):
+            return "[ERROR] 프로젝트 외부 파일 쓰기 금지"
+        
+        # 디렉터리 생성 (필요시)
+        full_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # UTF-8으로 파일 쓰기
+        with open(full_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+            
+        return f"[SUCCESS] 파일 저장 완료: {file_path} ({len(content)} 문자)"
+        
+    except Exception as e:
+        return f"[ERROR] 파일 쓰기 실패: {e}"
+
 @mcp.resource("file://{path}")
 def get_file_resource(path: str) -> str:
     """
