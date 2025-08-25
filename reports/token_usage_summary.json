@@ -14,15 +14,15 @@
       "estimated_tokens": 46
     },
     "unknown": {
-      "events": 9,
-      "estimated_tokens": 83
+      "events": 10,
+      "estimated_tokens": 88
     }
   },
   "overall": {
-    "events": 11,
-    "estimated_tokens": 129
+    "events": 12,
+    "estimated_tokens": 134
   },
-  "row_count": 11,
+  "row_count": 12,
   "health": {
     "status": "ok",
     "tables": {
@@ -33,8 +33,8 @@
       },
       "usage_log": {
         "exists": true,
-        "count": 10,
-        "latest": "2025-08-25T08:25:22.706619+00:00"
+        "count": 11,
+        "latest": "2025-08-25T12:15:34.769267+00:00"
       }
     }
   },

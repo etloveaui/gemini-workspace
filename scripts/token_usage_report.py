@@ -298,13 +298,19 @@ def update_hub(summary: Dict) -> Tuple[bool, Path]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Aggregate usage and usage_log for a given date")
+    parser = argparse.ArgumentParser(description="Aggregate usage and usage_log for a given date (Codex+Claude 통합)")
     parser.add_argument("--date", help="YYYY-MM-DD (default: today)")
     parser.add_argument("--write-note", action="store_true", help="Write a session note under communication/codex/sessions")
     parser.add_argument("--warn", type=int, default=DEFAULT_WARNING, help="Daily warning threshold (estimated tokens)")
     parser.add_argument("--crit", type=int, default=DEFAULT_CRITICAL, help="Daily critical threshold (estimated tokens)")
     parser.add_argument("--update-hub", action="store_true", help="Update HUB P1-TOKEN block if markers exist")
+    parser.add_argument("--auto", action="store_true", help="Auto mode: enable hub update and note writing")
     args = parser.parse_args()
+    
+    # Auto mode: 자동으로 모든 기능 활성화
+    if args.auto:
+        args.update_hub = True
+        args.write_note = True
 
     day_iso = args.date or _iso_date()
 
