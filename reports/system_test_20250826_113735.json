@@ -1,0 +1,59 @@
+{
+  "timestamp": "2025-08-26T11:37:35.726643",
+  "summary": {
+    "total_tests": 7,
+    "successful": 5,
+    "failed": 2,
+    "success_rate": 71.42857142857143,
+    "overall_status": "실패"
+  },
+  "detailed_results": {
+    "세션 시작 시스템": {
+      "status": "success",
+      "result": {
+        "exit_code": 0,
+        "output_lines": 68
+      }
+    },
+    "하드코딩 방지 시스템": {
+      "status": "failed",
+      "error": "하드코딩 1개 발견"
+    },
+    "프롬프트 템플릿 시스템": {
+      "status": "success",
+      "result": {
+        "template_check": true,
+        "agents_covered": [
+          "claude",
+          "codex",
+          "gemini"
+        ]
+      }
+    },
+    "동기화 패키지 시스템": {
+      "status": "success",
+      "result": {
+        "sync_status": true,
+        "package_manager": "working"
+      }
+    },
+    "MCP 통합 시스템": {
+      "status": "success",
+      "result": {
+        "mcp_available": true,
+        "functions_tested": 7
+      }
+    },
+    "Communication 정리": {
+      "status": "failed",
+      "error": "파일 정리가 제대로 동작하지 않음"
+    },
+    "Git Hook 설치": {
+      "status": "success",
+      "result": {
+        "hook_installed": true,
+        "executable": true
+      }
+    }
+  }
+}

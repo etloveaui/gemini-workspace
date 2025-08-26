@@ -128,6 +128,13 @@
 - **예시**: `daily_work.md` 시스템 → `communication/claude/`, `communication/gemini/`, `communication/codex/` 모두 적용
 - **이 원칙을 위반하지 않도록 작업 전 반드시 확인하고, 모든 에이전트를 고려한 설계를 해야 합니다**
 
+### 🚫 **하드코딩 절대 금지**
+- **절대 원칙**: 모든 경로는 `environment_path_manager.py`를 통해 동적 생성
+- **Git Hook 설치됨**: 커밋 전 자동 하드코딩 검사
+- **실시간 모니터링**: `python scripts/hardcoding_monitor.py`로 실시간 감시 가능
+- **수정 도구**: `python scripts/fix_hardcoded_paths.py`로 자동 수정
+- **검사 도구**: `python scripts/hardcoding_prevention_system.py --scan`
+
 ---
 
 ## IV. 주요 문제 해결 (Troubleshooting)

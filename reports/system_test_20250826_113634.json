@@ -1,0 +1,53 @@
+{
+  "timestamp": "2025-08-26T11:36:34.711017",
+  "summary": {
+    "total_tests": 7,
+    "successful": 3,
+    "failed": 4,
+    "success_rate": 42.857142857142854,
+    "overall_status": "실패"
+  },
+  "detailed_results": {
+    "세션 시작 시스템": {
+      "status": "failed",
+      "error": "'NoneType' object has no attribute 'split'"
+    },
+    "하드코딩 방지 시스템": {
+      "status": "failed",
+      "error": "argument of type 'NoneType' is not iterable"
+    },
+    "프롬프트 템플릿 시스템": {
+      "status": "success",
+      "result": {
+        "template_check": true,
+        "agents_covered": [
+          "claude",
+          "codex",
+          "gemini"
+        ]
+      }
+    },
+    "동기화 패키지 시스템": {
+      "status": "success",
+      "result": {
+        "sync_status": true,
+        "package_manager": "working"
+      }
+    },
+    "MCP 통합 시스템": {
+      "status": "failed",
+      "error": "argument of type 'NoneType' is not iterable"
+    },
+    "Communication 정리": {
+      "status": "failed",
+      "error": "파일 정리가 제대로 동작하지 않음"
+    },
+    "Git Hook 설치": {
+      "status": "success",
+      "result": {
+        "hook_installed": true,
+        "executable": true
+      }
+    }
+  }
+}

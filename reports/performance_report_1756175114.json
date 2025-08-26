@@ -1,0 +1,18 @@
+{
+  "timestamp": 1756175114.8077683,
+  "metrics": {
+    "cpu_percent": 20.3,
+    "memory_percent": 77.0,
+    "memory_available_gb": 3.6,
+    "disk_free_gb": 179.7,
+    "timestamp": 1756175103.951856
+  },
+  "optimizations_applied": [
+    "Python 파일 48개 바이트코드 최적화",
+    "가비지 컬렉션: 76개 객체 정리",
+    "임시 파일 3개 정리",
+    "빈 폴더 3개 정리",
+    "usage.db 데이터베이스 최적화"
+  ],
+  "recommendations": []
+}
