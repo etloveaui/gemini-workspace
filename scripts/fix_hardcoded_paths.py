@@ -64,7 +64,22 @@ class PathFixer:
         original_content = content
         modified = False
         
-        # 패턴별로 교체 (문자열 교체 방식)
+        # 패턴별로 교체 (정규식 + 문자열 교체 방식)
+        import re
+        
+        # 정규식 패턴들 추가 (raw string으로 이스케이프 문제 해결)
+        regex_patterns = [
+            (r'C:[/\\]+Users[/\\]+eunta[/\\]+multi-agent-workspace', str(self.workspace_root).replace('\\', '\\\\')),
+            (r'"C:[/\\]+Users[/\\]+eunta[/\\]+multi-agent-workspace[^"]*"', f'"{str(self.workspace_root).replace(chr(92), chr(92)+chr(92))}"'),
+        ]
+        
+        # 정규식 패턴 적용
+        for pattern, replacement in regex_patterns:
+            if re.search(pattern, content):
+                content = re.sub(pattern, replacement, content)
+                modified = True
+        
+        # 기존 문자열 교체 방식
         for old_text, new_text in self.replacements:
             if old_text in content:
                 content = content.replace(old_text, new_text)
