@@ -21,7 +21,8 @@ class MCPAutoSystem:
     """MCP 자동 활용 시스템"""
     
     def __init__(self):
-        self.workspace_root = Path("C:/Users/eunta/multi-agent-workspace")
+        from environment_path_manager import get_workspace_path
+        self.workspace_root = get_workspace_path()
         self.mcp_available = self._check_mcp_availability()
         self._load_mcp_modules()
         
@@ -61,9 +62,17 @@ class MCPAutoSystem:
             
             self.mcp_available = True
             
-            # Filesystem_Server MCP 로드
-            from filesystem_server import   # 주요 함수들만
-            self.filesystem_server_functions = []
+            # MCP 함수들 등록
+            self.mcp_functions = {
+                'read_file': self.fs_read,
+                'list_directory': self.fs_list,
+                'find_files': self.fs_find,
+                'write_file': self.fs_write,
+                'workspace_status': self.ws_status,
+                'agent_activity': self.ws_activity,
+                'search_content': self.ws_search,
+                'db_stats': self.ws_db_stats
+            }
             
             print("✅ MCP 모듈 로드 완료")
             
