@@ -1,0 +1,35 @@
+﻿2025-08-26T07:11:55.3451710Z ##[group]Run pip install requests python-dateutil
+2025-08-26T07:11:55.3453407Z [36;1mpip install requests python-dateutil[0m
+2025-08-26T07:11:55.3699242Z shell: /usr/bin/bash -e {0}
+2025-08-26T07:11:55.3700276Z env:
+2025-08-26T07:11:55.3701317Z   pythonLocation: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:11:55.3703293Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.23/x64/lib/pkgconfig
+2025-08-26T07:11:55.3705025Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:11:55.3706836Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:11:55.3708410Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:11:55.3709960Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.23/x64/lib
+2025-08-26T07:11:55.3711575Z ##[endgroup]
+2025-08-26T07:12:00.1934496Z Collecting requests
+2025-08-26T07:12:00.3034558Z   Downloading requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+2025-08-26T07:12:00.3347530Z Collecting python-dateutil
+2025-08-26T07:12:00.3674862Z   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+2025-08-26T07:12:00.5136275Z Collecting charset_normalizer<4,>=2 (from requests)
+2025-08-26T07:12:00.5463713Z   Downloading charset_normalizer-3.4.3-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (36 kB)
+2025-08-26T07:12:00.5898660Z Collecting idna<4,>=2.5 (from requests)
+2025-08-26T07:12:00.6223530Z   Downloading idna-3.10-py3-none-any.whl.metadata (10 kB)
+2025-08-26T07:12:00.6707397Z Collecting urllib3<3,>=1.21.1 (from requests)
+2025-08-26T07:12:00.7039702Z   Downloading urllib3-2.5.0-py3-none-any.whl.metadata (6.5 kB)
+2025-08-26T07:12:00.7413731Z Collecting certifi>=2017.4.17 (from requests)
+2025-08-26T07:12:00.7741003Z   Downloading certifi-2025.8.3-py3-none-any.whl.metadata (2.4 kB)
+2025-08-26T07:12:00.8040785Z Collecting six>=1.5 (from python-dateutil)
+2025-08-26T07:12:00.8371130Z   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2025-08-26T07:12:00.8734128Z Downloading requests-2.32.5-py3-none-any.whl (64 kB)
+2025-08-26T07:12:00.9194476Z Downloading charset_normalizer-3.4.3-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (152 kB)
+2025-08-26T07:12:00.9836732Z Downloading idna-3.10-py3-none-any.whl (70 kB)
+2025-08-26T07:12:01.0205810Z Downloading urllib3-2.5.0-py3-none-any.whl (129 kB)
+2025-08-26T07:12:01.0602266Z Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+2025-08-26T07:12:01.1055154Z Downloading certifi-2025.8.3-py3-none-any.whl (161 kB)
+2025-08-26T07:12:01.1487458Z Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+2025-08-26T07:12:01.1966246Z Installing collected packages: urllib3, six, idna, charset_normalizer, certifi, requests, python-dateutil
+2025-08-26T07:12:01.4838053Z 
+2025-08-26T07:12:01.4863305Z Successfully installed certifi-2025.8.3 charset_normalizer-3.4.3 idna-3.10 python-dateutil-2.9.0.post0 requests-2.32.5 six-1.17.0 urllib3-2.5.0

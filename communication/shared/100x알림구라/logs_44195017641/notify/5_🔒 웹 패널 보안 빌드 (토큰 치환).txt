@@ -1,0 +1,26 @@
+﻿2025-08-26T07:12:01.6340322Z ##[group]Run echo "=== 웹 패널 보안 빌드 ==="
+2025-08-26T07:12:01.6340753Z [36;1mecho "=== 웹 패널 보안 빌드 ==="[0m
+2025-08-26T07:12:01.6341045Z [36;1mecho "토큰을 안전하게 치환하여 배포용 웹 패널을 생성합니다..."[0m
+2025-08-26T07:12:01.6341313Z [36;1m# 백업 생성[0m
+2025-08-26T07:12:01.6341720Z [36;1mcp notification-control-panel-web.html notification-control-panel-web-template.html[0m
+2025-08-26T07:12:01.6342176Z [36;1m# 토큰 치환[0m
+2025-08-26T07:12:01.6342539Z [36;1msed -i "s/\${TELEGRAM_BOT_TOKEN}/$TELEGRAM_BOT_TOKEN/g" notification-control-panel-web.html[0m
+2025-08-26T07:12:01.6343000Z [36;1m# 치환 확인[0m
+2025-08-26T07:12:01.6343405Z [36;1mecho "토큰 치환 완료 확인:"[0m
+2025-08-26T07:12:01.6343765Z [36;1mgrep -c "7524488237" notification-control-panel-web.html || echo "토큰 치환 실패"[0m
+2025-08-26T07:12:01.6344135Z [36;1mecho "✅ 웹 패널 빌드 완료"[0m
+2025-08-26T07:12:01.6388191Z shell: /usr/bin/bash -e {0}
+2025-08-26T07:12:01.6388436Z env:
+2025-08-26T07:12:01.6388686Z   pythonLocation: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:12:01.6389160Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.23/x64/lib/pkgconfig
+2025-08-26T07:12:01.6389572Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:12:01.6389917Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:12:01.6390263Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:12:01.6390613Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.23/x64/lib
+2025-08-26T07:12:01.6391140Z   TELEGRAM_BOT_TOKEN: ***
+2025-08-26T07:12:01.6391602Z ##[endgroup]
+2025-08-26T07:12:01.6456309Z === 웹 패널 보안 빌드 ===
+2025-08-26T07:12:01.6456797Z 토큰을 안전하게 치환하여 배포용 웹 패널을 생성합니다...
+2025-08-26T07:12:01.6488995Z 토큰 치환 완료 확인:
+2025-08-26T07:12:01.6500716Z 2
+2025-08-26T07:12:01.6502616Z ✅ 웹 패널 빌드 완료

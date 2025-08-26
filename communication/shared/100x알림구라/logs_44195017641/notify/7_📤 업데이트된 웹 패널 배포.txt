@@ -1,0 +1,27 @@
+﻿2025-08-26T07:13:05.4868323Z ##[group]Run echo "=== 웹 패널 자동 배포 ==="
+2025-08-26T07:13:05.4868652Z [36;1mecho "=== 웹 패널 자동 배포 ==="[0m
+2025-08-26T07:13:05.4868953Z [36;1mgit config --local user.email "action@github.com"[0m
+2025-08-26T07:13:05.4869293Z [36;1mgit config --local user.name "GitHub Action"[0m
+2025-08-26T07:13:05.4869650Z [36;1mgit add notification-control-panel-web.html[0m
+2025-08-26T07:13:05.4869956Z [36;1mif git diff --staged --quiet; then[0m
+2025-08-26T07:13:05.4870255Z [36;1m  echo "변경사항 없음 - 배포 건너뜀"[0m
+2025-08-26T07:13:05.4870473Z [36;1melse[0m
+2025-08-26T07:13:05.4870889Z [36;1m  git commit -m "🤖 Auto-update web panel with secure token - Updated by GitHub Actions $(date '+%Y-%m-%d %H:%M:%S')"[0m
+2025-08-26T07:13:05.4871344Z [36;1m  git push[0m
+2025-08-26T07:13:05.4871533Z [36;1m  echo "✅ 웹 패널 배포 완료"[0m
+2025-08-26T07:13:05.4871738Z [36;1mfi[0m
+2025-08-26T07:13:05.4912891Z shell: /usr/bin/bash -e {0}
+2025-08-26T07:13:05.4913329Z env:
+2025-08-26T07:13:05.4913577Z   pythonLocation: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:13:05.4914016Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.23/x64/lib/pkgconfig
+2025-08-26T07:13:05.4914389Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:13:05.4914725Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:13:05.4915061Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.23/x64
+2025-08-26T07:13:05.4915398Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.23/x64/lib
+2025-08-26T07:13:05.4915719Z ##[endgroup]
+2025-08-26T07:13:05.4973763Z === 웹 패널 자동 배포 ===
+2025-08-26T07:13:05.6094197Z [main f43430f] 🤖 Auto-update web panel with secure token - Updated by GitHub Actions 2025-08-26 07:13:05
+2025-08-26T07:13:05.6094843Z  1 file changed, 2 insertions(+), 2 deletions(-)
+2025-08-26T07:13:06.4380712Z To https://github.com/etloveaui/100xFenok
+2025-08-26T07:13:06.4381199Z    cae65bc..f43430f  main -> main
+2025-08-26T07:13:06.4425054Z ✅ 웹 패널 배포 완료
