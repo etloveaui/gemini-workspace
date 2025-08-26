@@ -30,9 +30,22 @@ def session_startup_complete():
     print(f"⏰ 시작 시간: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
     
-    # 1. 환경 정보 출력
+    # 1. 환경 정보 및 현재 위치 출력
+    from environment_path_manager import path_manager
     workspace_root = get_workspace_path()
-    print(f"📁 워크스페이스: {workspace_root}")
+    env_info = path_manager.get_environment_info()
+    
+    print(f"📁 현재 위치: {workspace_root}")
+    print(f"👤 사용자: {env_info['user']}")
+    print(f"💻 호스트: {env_info['hostname']}")
+    print(f"🔧 플랫폼: {env_info['platform']}")
+    print(f"🆔 환경 ID: {env_info['environment_id']}")
+    
+    # 새로운 환경 감지 및 프로필 생성
+    if not env_info['profile_loaded']:
+        print(f"🔄 새로운 환경 감지! 프로필 생성 중...")
+        path_manager.create_environment_profile()
+        print(f"✅ 환경 프로필 생성 완료")
     
     # 2. Communication 폴더 자동 정리
     print("\n📋 Communication 폴더 자동 정리...")
